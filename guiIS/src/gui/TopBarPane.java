@@ -13,7 +13,7 @@ import guiConfig.TopBarProperties;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class TopBar extends KGradientPanel {
+public class TopBarPane extends KGradientPanel {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -32,7 +32,7 @@ public class TopBar extends KGradientPanel {
 	
 	//Constructor
 	//create the topbar that contains buttons for shutdown and minimize window
-	public TopBar(JFrame frame) {
+	public TopBarPane(JFrame frame) {
 		
 		TopBarProperties toPBarProperties = new TopBarProperties();
 		setBounds(toPBarProperties.getX(),toPBarProperties.getY(),toPBarProperties.getWidth(), toPBarProperties.getHeight());

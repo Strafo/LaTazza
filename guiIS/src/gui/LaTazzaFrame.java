@@ -2,60 +2,59 @@ package gui;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.HashMap;
+import java.util.Map;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 
 import guiConfig.LaTazzaFrameProperties;
 
 public class LaTazzaFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	
-	private ContentPane contentPane;
-	private MenuPane menuPane;
-	private TopBar topBar;
+
+	private LaTazzaFrameProperties laTazzaFrameProperties=new LaTazzaFrameProperties();
+    private ContentPane contentPane=new ContentPane(this);
+    private MenuPane menuPane=new MenuPane(this);
+    private TopBarPane topBarPanePane =new TopBarPane(this);
+
+    public enum JPanelsNames{
+        STATOPANE,
+        REGVENDITEPANE,
+        REGPAGAMENTOPANE,
+        REGRIFORNIMENTOPANE,
+        GESTIONEPERSONALEPANE
+    }
 
 
 
-	private Stato statoPane;
-	private RegistraVendite regVenditePane;
-	private RegistraPagamento regPagamento;
-	private RegistraRifornimento regRifornimento;
-	private GestionePersonale gestionePersonale;
+	private Map<JPanelsNames,JPanel> jPanelMap =new HashMap<>();
 
 	/**
 	 * Create the frame.
 	 */
 	public LaTazzaFrame() {
 		
-		LaTazzaFrameProperties laTazzaFrameProperties = new LaTazzaFrameProperties();
-		setBounds(laTazzaFrameProperties.getX(), laTazzaFrameProperties.getY(), laTazzaFrameProperties.getWidth(), laTazzaFrameProperties.getHeight());
-		setDefaultCloseOperation(laTazzaFrameProperties.getCloseOp());//todo checksetBounds(100, 100, 800, 500);
-		setUndecorated(true);
-		contentPane = new ContentPane(this);
-		setContentPane(contentPane);
-		
-		topBar = new TopBar(this);
-		add(topBar);
-		
-		menuPane = new MenuPane(this);
-		add(menuPane);
-		
-		statoPane = new Stato();
-		add(statoPane);
-		
-		regVenditePane = new RegistraVendite();
-		add(regVenditePane);
-		
-		regPagamento = new RegistraPagamento();
-		add(regPagamento);
-		
-		regRifornimento = new RegistraRifornimento();
-		add(regRifornimento);
-		
-		gestionePersonale = new GestionePersonale();
-		add(gestionePersonale);
-		
+		this.setBounds(laTazzaFrameProperties.getX(), laTazzaFrameProperties.getY(), laTazzaFrameProperties.getWidth(), laTazzaFrameProperties.getHeight());
+		this.setDefaultCloseOperation(laTazzaFrameProperties.getCloseOp());//todo checksetBounds(100, 100, 800, 500);
+		this.setUndecorated(true);
+
+
+
+		//todo check return value
+		jPanelMap.put(JPanelsNames.STATOPANE,new Stato());
+		jPanelMap.put(JPanelsNames.REGVENDITEPANE,new RegistraVendite());
+		jPanelMap.put(JPanelsNames.REGPAGAMENTOPANE,new RegistraPagamento());
+		jPanelMap.put(JPanelsNames.REGRIFORNIMENTOPANE,new RegistraRifornimento());
+		jPanelMap.put(JPanelsNames.GESTIONEPERSONALEPANE,new GestionePersonale());
+
+
+        this.setContentPane(contentPane);
+        this.add(contentPane);
+        this.add(menuPane);
+        this.add(topBarPanePane);
+        jPanelMap.forEach((k,v)->this.add(v));//aggiunge tutti i pannelli al frame
+
 
 	}
 	
@@ -67,24 +66,15 @@ public class LaTazzaFrame extends JFrame {
         setLocation(iCoordX, iCoordY); 
 		
 	}
+
+    /**
+     * Questo metodo peremette di settare la visibilità del pannello con nome panelName.
+     * @param panelName il nome del pannello da settare come visibile
+     * @param panelVisibilityState lo stato (true/false) della visibilità del pannello
+     */
+	public void setJPanelVisibleState(JPanelsNames panelName,boolean panelVisibilityState){
+	    jPanelMap.get(panelName).setVisible(panelVisibilityState);
+    }
 	
-	public void setVisibleStato(boolean bool) {
-		statoPane.setVisible(bool);
-	}
-	
-	public void setVisibleRegVendite(boolean bool) {
-		regVenditePane.setVisible(bool);
-	}
-	
-	public void setVisiblePagamento(boolean bool) {
-		regPagamento.setVisible(bool);
-	}
-	
-	public void setVisibleRifornimento(boolean bool) {
-		regRifornimento.setVisible(bool);
-	}
-	
-	public void setVisibleGestione(boolean bool) {
-		gestionePersonale.setVisible(bool);
-	}
+
 }
