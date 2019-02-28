@@ -14,6 +14,9 @@ public class LaTazzaFrame extends JFrame {
 	private ContentPane contentPane;
 	private MenuPane menuPane;
 	private TopBar topBar;
+
+
+
 	private Stato statoPane;
 	private RegistraVendite regVenditePane;
 	private RegistraPagamento regPagamento;

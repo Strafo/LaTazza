@@ -12,10 +12,22 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MenuPane extends KGradientPanel {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
+
+    private enum LinkName{
+        LINKSTATO,
+        LINKREGVENDITE,
+        LINKREGPAGAMENTO,
+        LINKREGRIFORNIMENTO,
+        LINKGESTIONEPERSONALE
+    }
+
+
 	
 	private static final Color CAPPUCCINO = new Color(155, 109, 80);
 	private static final Color CAFFE = new Color(106, 59, 35);
@@ -24,11 +36,9 @@ public class MenuPane extends KGradientPanel {
 	private JLabel labelTitolo;
 	private JLabel labelIconaTazza;
 	
-	private RowPanelLink linkStato;
-	private RowPanelLink linkRegVendite;
-	private RowPanelLink linkRegPagamento;
-	private RowPanelLink linkRegRifornimento;
-	private RowPanelLink linkGestionePersonale;
+
+
+	private Map linkSet;
 	
 	static private final int DEFAULTX_BUTTON = 50;
 	static private final int DEFAULTX_ICON = 22;
@@ -74,36 +84,31 @@ public class MenuPane extends KGradientPanel {
 		labelIconaTazza.setBounds(DEFAULTX_ICONATITOLO, DEFAULTY_ICONATITOLO, DEFAULT_WIDTH_ICONATITOLO, DEFAULT_HEIGHT_ICONATITOLO);
 		labelIconaTazza.setIcon(MyClassLoader.getIconTazza());
 		add(labelIconaTazza);
-		
-		linkStato = new RowPanelLink("Stato", DEFAULTX_BUTTON, DEFAULTX_ICON,
-											DEFAULTY,MyClassLoader.getIconStatoW25(), MyClassLoader.getIconStatoB25());
-		add(linkStato.getButton());
-		add(linkStato.getIcon());
-		setLinesWhite(linkStato);
-		
-		linkRegVendite = new RowPanelLink("Registra vendita cialde", DEFAULTX_BUTTON, DEFAULTX_ICON
-											,DEFAULTY+DEFAULT_GAP,MyClassLoader.getIconVenditeW25(), MyClassLoader.getIconVenditeB25());
-		add(linkRegVendite.getButton());
-		add(linkRegVendite.getIcon());
-		setLinesBlack(linkRegVendite);
-		
-		linkRegPagamento = new RowPanelLink("Registra pagamento", DEFAULTX_BUTTON, DEFAULTX_ICON
-											,DEFAULTY+(DEFAULT_GAP*2),MyClassLoader.getIconPagamentoW25(), MyClassLoader.getIconPagamentoB25());
-		add(linkRegPagamento.getButton());
-		add(linkRegPagamento.getIcon());
-		setLinesBlack(linkRegPagamento);
-		
-		linkRegRifornimento = new RowPanelLink("Registra rifornimento", DEFAULTX_BUTTON, DEFAULTX_ICON
-											,DEFAULTY+(DEFAULT_GAP*3) ,MyClassLoader.getIconRifornimentoW25(), MyClassLoader.getIconRifornimentoB25());
-		add(linkRegRifornimento.getButton());
-		add(linkRegRifornimento.getIcon());
-		setLinesBlack(linkRegRifornimento);
-		
-		linkGestionePersonale = new RowPanelLink("Gestione personale", DEFAULTX_BUTTON, DEFAULTX_ICON
-											,DEFAULTY+(DEFAULT_GAP*4) ,MyClassLoader.getIconGestionePW25(), MyClassLoader.getIconGestionePB25());
-		add(linkGestionePersonale.getButton());
-		add(linkGestionePersonale.getIcon());
-		setLinesBlack(linkGestionePersonale);
+
+
+
+		this.linkSet=new HashMap<LinkName,RowPanelLink>();
+        for(LinkName i:LinkName.values()){
+            linkSet.put(i,//todo check return value
+                    new RowPanelLink("label", DEFAULTX_BUTTON, DEFAULTX_ICON,DEFAULTY,MyClassLoader.getIconStatoW25(), MyClassLoader.getIconStatoB25())
+
+            );//todo trovare un modo per passare labels "Stato","Registra Vendita Cialde","Registra pagamento","Registra rifornimento","Getsione perosnale"
+
+        }
+        RowPanelLink link;
+        for(LinkName i:LinkName.values()){
+            link= (RowPanelLink) linkSet.get(i);
+            add(link.getButton());
+            add(link.getIcon());
+            if(i.equals(LinkName.LINKSTATO)){
+                link.setLinesB();
+            }else{
+                link.setLinesB();
+            }
+        }
+
+
+
 		
 		//set the event on state link
 		linkStato.getButton().addMouseListener(new MouseAdapter() {
@@ -141,77 +146,29 @@ public class MenuPane extends KGradientPanel {
 			}
 		});
 	}
-	//set to white lines of row panel link
-	public void setLinesWhite(RowPanelLink rpl) {
-		rpl.setLinesW();
+
+
+	private void setLink(LaTazzaFrame frame,LinkName lName){
+
+
+	    for(LinkName i:LinkName.values()){
+
+            if(i.equals(lName)){
+                ((RowPanelLink)linkSet.get(i)).setLinesW();
+                frame.setFrame(true);
+            }else{
+                ((RowPanelLink)linkSet.get(i)).setLinesB();
+                frame.setFrame(false);
+            }
+        }
+
 	}
-	//set to black lines of row panel link
-	public void setLinesBlack(RowPanelLink rpl) {
-		rpl.setLinesB();
-	}
-	//set the state page and it changes color of links
-	public void setLinkStato(LaTazzaFrame frame) {
-		linkStato.setLinesW();
-		linkRegVendite.setLinesB();
-		linkRegPagamento.setLinesB();
-		linkRegRifornimento.setLinesB();
-		linkGestionePersonale.setLinesB();
-		frame.setVisibleStato(true);
-		frame.setVisibleRegVendite(false);
-		frame.setVisiblePagamento(false);
-		frame.setVisibleRifornimento(false);
-		frame.setVisibleGestione(false);
-	}
-	//set the sale register page and it changes color of links
-	private void setLinkRegVendite(LaTazzaFrame frame) {
-		linkStato.setLinesB();
-		linkRegVendite.setLinesW();
-		linkRegPagamento.setLinesB();
-		linkRegRifornimento.setLinesB();
-		linkGestionePersonale.setLinesB();
-		frame.setVisibleStato(false);
-		frame.setVisibleRegVendite(true);
-		frame.setVisiblePagamento(false);
-		frame.setVisibleRifornimento(false);
-		frame.setVisibleGestione(false);
-	}
-	//set the payment register page and it changes color of links
-	private void setLinkRegPagamento(LaTazzaFrame frame) {
-		linkStato.setLinesB();
-		linkRegVendite.setLinesB();
-		linkRegPagamento.setLinesW();
-		linkRegRifornimento.setLinesB();
-		linkGestionePersonale.setLinesB();
-		frame.setVisibleStato(false);
-		frame.setVisibleRegVendite(false);
-		frame.setVisiblePagamento(true);
-		frame.setVisibleRifornimento(false);
-		frame.setVisibleGestione(false);
-	}
-	//set the provision register page and it changes color of links
-	private void setLinkRegRifornimento(LaTazzaFrame frame) {
-		linkStato.setLinesB();
-		linkRegVendite.setLinesB();
-		linkRegPagamento.setLinesB();
-		linkRegRifornimento.setLinesW();
-		linkGestionePersonale.setLinesB();
-		frame.setVisibleStato(false);
-		frame.setVisibleRegVendite(false);
-		frame.setVisiblePagamento(false);
-		frame.setVisibleRifornimento(true);
-		frame.setVisibleGestione(false);
-	}
-	//set the personal management page and it changes color of links
-	private void setLinkGestionePersonale(LaTazzaFrame frame) {
-		linkStato.setLinesB();
-		linkRegVendite.setLinesB();
-		linkRegPagamento.setLinesB();
-		linkRegRifornimento.setLinesB();
-		linkGestionePersonale.setLinesW();
-		frame.setVisibleStato(false);
-		frame.setVisibleRegVendite(false);
-		frame.setVisiblePagamento(false);
-		frame.setVisibleRifornimento(false);
-		frame.setVisibleGestione(true);
-	}
+
+
+
+
+
+
+
+
 }
