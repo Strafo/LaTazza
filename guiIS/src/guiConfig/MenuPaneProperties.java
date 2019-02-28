@@ -2,52 +2,33 @@ package guiConfig;
 
 public class MenuPaneProperties {
 	
-	 private int x;
-	 private int y;
-	 private int width;
-	 private int height;
-	 private int gradient;
+
+	 public static final int DEFAULTX = 0;
+	 public static final int DEFAULTY = 0;
+	 public static final int DEFAULT_WIDTH = 190;
+	 public static final int DEFAULT_HEIGHT = 500;
+	 public static final int DEFAULT_GRADIENT = 1000;
+
+
+	//labelTitolo
+	public static final int DEFAULTX_TITOLO = 69;
+	public static final int DEFAULTY_TITOLO = 69;
+	public static final int DEFAULT_WIDTH_TITOLO = 115;
+	public static final int DEFAULT_HEIGHT_TITOLO = 26;
+
+	//labelIconTazza
+	public static final int DEFAULTX_ICONATITOLO = 14;
+	public static final int DEFAULTY_ICONATITOLO = 45;
+	public static final int DEFAULT_WIDTH_ICONATITOLO = 50;
+	public static  final int DEFAULT_HEIGHT_ICONATITOLO = 50;
+
+	//panelSeparator
+	public static  final int DEFAULTX_SEPARATOR = 20;
+	public static  final int DEFAULTY_SEPARATOR = 31;
+	public static  final int DEFAULT_WIDTH_SEPARATOR = 178;
+	public static  final int DEFAULT_HEIGHT_SEPARATOR = 2;
+
+	private MenuPaneProperties(){}
 	 
-	 private static final int DEFAULTX = 0;
-	 private static final int DEFAULTY = 0;
-	 private static final int DEFAULT_WIDTH = 190;
-	 private static final int DEFAULT_HEIGHT = 500;
-	 private static final int DEFAULT_GRADIENT = 1000;
-	 
 
-	 public MenuPaneProperties(int x,int y,int width,int height,int gradient) throws IllegalArgumentException
-	 {
-		 if(x<0||y<0||width<=0||height<=0||gradient<=0) throw new IllegalArgumentException("Dimensioni per il menu inferiori a 0.");
-		 this.x=x;
-		 this.height=height;
-		 this.y=y;
-		 this.width=width;
-		 this.gradient=gradient;
-	 }
-
-	 /**DEFAULT CONSTRUCTOR***/
-	 public MenuPaneProperties(){
-		 this(DEFAULTX,DEFAULTY,DEFAULT_WIDTH,DEFAULT_HEIGHT,DEFAULT_GRADIENT);
-	 }
-
-	 /**PROPERTIES GETTER**/
-	 public int getX() {
-		 return x;
-	 }
-
-	 public int getY() {
-		 return y;
-	 }
-
-	 public int getWidth() {
-		 return width;
-	 }
-
-	 public int getHeight() {
-		 return height;
-	 }
-	 
-	 public int getGradient() {
-		 return gradient;
-	 }
 }

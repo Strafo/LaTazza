@@ -2,19 +2,17 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Font;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 import guiConfig.MyClassLoader;
 import guiConfig.PanelsProperties;
 
 public class GestionePersonale extends JPanel {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
+	public static final LaTazzaFrame.JPanelsNames panelName=LaTazzaFrame.JPanelsNames.GESTIONEPERSONALEPANE;
+
 	private JLabel labelGestionePersonale;
 
 	public GestionePersonale() {

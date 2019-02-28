@@ -11,12 +11,17 @@ import javax.swing.JLabel;
 import java.awt.Font;
 
 
-public class Stato extends JPanel {
+public class StatoPane extends JPanel {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
+	private static final LaTazzaFrame.JPanelsNames panelName=LaTazzaFrame.JPanelsNames.STATOPANE;
+
+
+
 	
 	private JLabel labelStato;
 	
@@ -25,7 +30,8 @@ public class Stato extends JPanel {
 	private static final int DEFAULT_WIDTH_LABELTITOLO = 500;
 	private static final int DEFAULT_HEIGHT_LABELTITOLO = 50;
 
-	public Stato() {
+	public StatoPane() {
+
 		
 		PanelsProperties pp = new PanelsProperties();
 		setLayout(null);
@@ -39,8 +45,10 @@ public class Stato extends JPanel {
 		labelStato.setIcon(MyClassLoader.getIconStatoB32());
 		add(labelStato);
 	}
+
+
+
+
+
 	
-	public void setVisibleStato(boolean bool) {
-		setVisible(bool);
-	}
 }

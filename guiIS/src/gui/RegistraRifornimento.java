@@ -11,7 +11,9 @@ import guiConfig.PanelsProperties;
 
 public class RegistraRifornimento extends JPanel {
 
-private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
+	private static final LaTazzaFrame.JPanelsNames panelName=LaTazzaFrame.JPanelsNames.REGRIFORNIMENTOPANE;
+
 	
 	private JLabel labelRegRifornimento;
 	

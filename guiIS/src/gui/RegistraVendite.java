@@ -16,7 +16,10 @@ import javax.swing.JButton;
 
 public class RegistraVendite extends JPanel {
 
-private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
+
+	private static final LaTazzaFrame.JPanelsNames panelName=LaTazzaFrame.JPanelsNames.REGVENDITEPANE;
+
 	
 	private JComboBox<String> tipoCialdeMenu;
 	private JComboBox<String> nomePersonaleMenu;

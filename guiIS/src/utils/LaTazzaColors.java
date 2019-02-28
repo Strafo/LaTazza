@@ -8,8 +8,5 @@ public final class LaTazzaColors {
     public static final Color CAFFE = new Color(106, 59, 35);
 
 
-
-
     private LaTazzaColors(){}
-
 }
