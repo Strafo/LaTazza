@@ -2,7 +2,7 @@ package gui;
 
 public class LaTazzaApplication implements Runnable {
 
-	private LaTazzaFrame laTazzaFrame;//app window
+	private LaTazzaFrame laTazzaFrame;//Finestra dell'applicazione
 
 
     public static void main(String[] args) {
@@ -14,9 +14,9 @@ public class LaTazzaApplication implements Runnable {
     public void run(){
         this.initFrame();
 
-        
-
     }
+
+
     /**Inizialize app window and make it visible**/
 	private void initFrame(){
         laTazzaFrame=new LaTazzaFrame();
