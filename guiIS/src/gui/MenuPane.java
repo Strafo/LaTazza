@@ -13,6 +13,7 @@ import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Map;
 import static guiConfig.MenuPaneProperties.*;
+import static guiConfig.RowPanelProperties.*;
 
 
 public class MenuPane extends KGradientPanel {
@@ -67,7 +68,7 @@ public class MenuPane extends KGradientPanel {
             linkMap.put(i,//todo check return value
                     new RowPanelLink(
                             "label",
-                            DEFAULTX_BUTTON, DEFAULTX_ICON,DEFAULTY,MyClassLoader.getIconStatoW25(), MyClassLoader.getIconStatoB25())
+                            ROWPANEL_DEFAULTX_BUTTON, ROWPANEL_DEFAULTX_ICON,DEFAULTY,MyClassLoader.getIconStatoW25(), MyClassLoader.getIconStatoB25())
 
             );//todo trovare un modo per passare labels "Stato","Registra Vendita Cialde","Registra pagamento","Registra rifornimento","Getsione perosnale"
 
@@ -125,21 +126,6 @@ public class MenuPane extends KGradientPanel {
         }
 
 	}
-
-
-
-    //rowpanel properties
-    static private final int DEFAULTX_BUTTON = 50;
-    static private final int DEFAULTX_ICON = 22;
-    static private final int DEFAULTY= 133;
-    static private final int DEFAULT_GAP = 60;
-
-
-
-
-
-
-
 
 
 }
