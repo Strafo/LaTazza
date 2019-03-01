@@ -10,8 +10,6 @@ import guiConfig.PanelsProperties;
 public class GestionePersonale extends JPanel {
 
 
-	private static final long serialVersionUID = 1L;
-	public static final LaTazzaFrame.JPanelsNames panelName=LaTazzaFrame.JPanelsNames.GESTIONEPERSONALEPANE;
 
 	private JLabel labelGestionePersonale;
 

@@ -9,15 +9,14 @@ import javax.swing.JPanel;
 import guiConfig.MyClassLoader;
 import guiConfig.PanelsProperties;
 
-public class RegistraRifornimento extends JPanel {
+public class RegistraRifornimento extends AbstractPanel {
 
-	private static final long serialVersionUID = 1L;
-	private static final LaTazzaFrame.JPanelsNames panelName=LaTazzaFrame.JPanelsNames.REGRIFORNIMENTOPANE;
 
-	
 	private JLabel labelRegRifornimento;
 	
 	public RegistraRifornimento() {
+
+		super();
 		
 		PanelsProperties pp = new PanelsProperties();
 		setLayout(null);

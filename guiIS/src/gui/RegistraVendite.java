@@ -14,11 +14,9 @@ import guiConfig.PanelsProperties;
 import javax.swing.JRadioButton;
 import javax.swing.JButton;
 
-public class RegistraVendite extends JPanel {
+public class RegistraVendite extends AbstractPanel {
 
-	private static final long serialVersionUID = 1L;
 
-	private static final LaTazzaFrame.JPanelsNames panelName=LaTazzaFrame.JPanelsNames.REGVENDITEPANE;
 
 	
 	private JComboBox<String> tipoCialdeMenu;
@@ -45,6 +43,8 @@ public class RegistraVendite extends JPanel {
 	private JButton buttonAnnulla;
 
 	public RegistraVendite() {
+
+		super();
 		
 		PanelsProperties pp = new PanelsProperties();
 		setLayout(null);

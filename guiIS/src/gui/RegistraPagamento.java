@@ -3,19 +3,20 @@ package gui;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import guiConfig.MyClassLoader;
 import guiConfig.PanelsProperties;
+import static guiConfig.PanelsPropertiesPkg.StatoPaneProperties.*;
 
-public class RegistraPagamento extends JPanel {
 
-	private static final long serialVersionUID = 1L;
-	public static final LaTazzaFrame.JPanelsNames panelName=LaTazzaFrame.JPanelsNames.REGPAGAMENTOPANE;
+public class RegistraPagamento extends AbstractPanel {
+
 
 	
 	private JLabel labelRegPagamento;	
 
 	public RegistraPagamento() {
+
+		super(1L,DEFAULT_LINKDESCRIPTION,DEFAULT_PANELNAME);
 		
 		PanelsProperties pp = new PanelsProperties();
 		setLayout(null);
@@ -29,8 +30,5 @@ public class RegistraPagamento extends JPanel {
 		labelRegPagamento.setIcon(MyClassLoader.getIconPagamentoB32());
 		add(labelRegPagamento);
 	}
-	
-	public void setVisiblePagamento(boolean bool) {
-		setVisible(bool);
-	}
+
 }
