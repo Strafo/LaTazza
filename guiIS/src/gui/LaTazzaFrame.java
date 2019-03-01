@@ -46,6 +46,7 @@ public class LaTazzaFrame extends JFrame {
 
 
 		//todo check return value
+        //inizializza i pannelli e li aggiune alla jPanelsMap
 		jPanelsMap.put(JPanelsNames.STATOPANE,new StatoPane());
 		jPanelsMap.put(JPanelsNames.REGVENDITEPANE,new RegistraVendite());
 		jPanelsMap.put(JPanelsNames.REGPAGAMENTOPANE,new RegistraPagamento());

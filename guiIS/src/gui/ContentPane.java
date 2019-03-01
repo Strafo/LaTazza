@@ -10,7 +10,7 @@ import java.awt.event.MouseMotionAdapter;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import guiConfig.ContentPaneProperties;
+import static guiConfig.ContentPaneProperties.*;
 
 public class ContentPane extends JPanel {
 
@@ -21,14 +21,11 @@ public class ContentPane extends JPanel {
 
 	public ContentPane(LaTazzaFrame frame) {
 		
-		ContentPaneProperties contentPaneProperties = new ContentPaneProperties();
-		setBounds(contentPaneProperties.getX(), contentPaneProperties.getY(), contentPaneProperties.getWidth(),
-					contentPaneProperties.getHeight());  
-		setBorder(new EmptyBorder(contentPaneProperties.getBorder(), contentPaneProperties.getBorder(), 
-					contentPaneProperties.getBorder(), contentPaneProperties.getBorder()));
-		setLayout(new BorderLayout(contentPaneProperties.getBorder(), contentPaneProperties.getBorder()));
+		setBounds(DEFAULTX,DEFAULTY,DEFAULT_WIDTH,DEFAULT_HEIGHT);
+		setBorder(new EmptyBorder(DEFAULT_BORDER,DEFAULT_BORDER,DEFAULT_BORDER, DEFAULT_BORDER));
+		setLayout(new BorderLayout(DEFAULT_BORDER, DEFAULT_BORDER));
 		setLayout(null);
-		setBackground(Color.white);
+		setBackground(Color.WHITE);
 		
 		
 		
