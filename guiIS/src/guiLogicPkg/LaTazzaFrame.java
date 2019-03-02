@@ -7,8 +7,10 @@ import java.util.Map;
 
 import javax.swing.*;
 
-import guiConfig.LaTazzaFrameProperties;
+import guiConfig.structurePanelsPropertiesPkg.LaTazzaFrameProperties;
 import guiLogicPkg.contentsPanelsPkg.*;
+import guiLogicPkg.structurePanelsPkg.MenuPane;
+import guiLogicPkg.structurePanelsPkg.TopBarPane;
 
 public class LaTazzaFrame extends JFrame {
 
@@ -41,7 +43,7 @@ public class LaTazzaFrame extends JFrame {
 		this.setDefaultCloseOperation(laTazzaFrameProperties.getCloseOp());//todo checksetBounds(100, 100, 800, 500);
 		this.setUndecorated(true);
         this.setContentPane(contentPane);
-        this.add(contentPane);
+        this.setContentPane(contentPane);
         this.add(menuPane);
         this.add(topBarPanePane);
 

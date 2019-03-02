@@ -10,7 +10,7 @@ import java.awt.event.MouseMotionAdapter;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import static guiConfig.ContentPaneProperties.*;
+import static guiConfig.structurePanelsPropertiesPkg.ContentPaneProperties.*;
 
 public class ContentPane extends JPanel {
 

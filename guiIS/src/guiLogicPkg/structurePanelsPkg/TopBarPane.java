@@ -1,24 +1,19 @@
-package guiLogicPkg;
+package guiLogicPkg.structurePanelsPkg;
 
-import java.awt.Color;
 import java.awt.Frame;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-
 import guiConfig.KGradientPanel;
-import guiConfig.MyClassLoader;
-import guiConfig.TopBarProperties;
-
+import guiConfig.ResourcesClassLoader;
+import guiConfig.structurePanelsPropertiesPkg.TopBarProperties;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import static utils.LaTazzaColors.*;
 
 public class TopBarPane extends KGradientPanel {
 
 	private static final long serialVersionUID = 1L;
-	
-	private static final Color CAPPUCCINO = new Color(155, 109, 80);
-	private static final Color CAFFE = new Color(106, 59, 35);
+
 	
 	private JLabel labelClose;
 	private JLabel labelMin;
@@ -41,7 +36,7 @@ public class TopBarPane extends KGradientPanel {
         setkStartColor(CAPPUCCINO);
         
         labelClose = new JLabel();
-        labelClose.setIcon(MyClassLoader.getIconCloseB());
+        labelClose.setIcon(ResourcesClassLoader.getIconCloseB());
         labelClose.setBounds(DEFAULTX_LABELCLOSE, DEFAULTY_LABEL, DEFAULT_WIDTH_LABEL, DEFAULT_HEIGHT_LABEL);
         add(labelClose);
         
@@ -52,16 +47,16 @@ public class TopBarPane extends KGradientPanel {
         	}
         	@Override
         	public void mouseEntered(MouseEvent e) {
-        		labelClose.setIcon(MyClassLoader.getIconCloseR());
+        		labelClose.setIcon(ResourcesClassLoader.getIconCloseR());
         	}
         	@Override
         	public void mouseExited(MouseEvent e) {
-        		labelClose.setIcon(MyClassLoader.getIconCloseB());
+        		labelClose.setIcon(ResourcesClassLoader.getIconCloseB());
         	}
         });
         
         labelMin = new JLabel();
-        labelMin.setIcon(MyClassLoader.getIconMinB());
+        labelMin.setIcon(ResourcesClassLoader.getIconMinB());
         labelMin.setBounds(DEFAULTX_LABELMIN, DEFAULTY_LABEL, DEFAULT_WIDTH_LABEL, DEFAULT_HEIGHT_LABEL);
         add(labelMin);
         
@@ -72,11 +67,11 @@ public class TopBarPane extends KGradientPanel {
         	}
         	@Override
         	public void mouseEntered(MouseEvent e) {
-        		labelMin.setIcon(MyClassLoader.getIconMinW());
+        		labelMin.setIcon(ResourcesClassLoader.getIconMinW());
         	}
         	@Override
         	public void mouseExited(MouseEvent e) {
-        		labelMin.setIcon(MyClassLoader.getIconMinB());
+        		labelMin.setIcon(ResourcesClassLoader.getIconMinB());
         	}
         });
 		

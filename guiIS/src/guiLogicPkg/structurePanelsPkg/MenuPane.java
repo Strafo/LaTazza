@@ -1,10 +1,11 @@
-package guiLogicPkg;
+package guiLogicPkg.structurePanelsPkg;
 
 import java.awt.Color;
 import javax.swing.JPanel;
 import guiConfig.KGradientPanel;
-import guiConfig.MenuPaneProperties;
-import guiConfig.MyClassLoader;
+import guiConfig.ResourcesClassLoader;
+import guiConfig.structurePanelsPropertiesPkg.MenuPaneProperties;
+import guiLogicPkg.LaTazzaFrame;
 import utils.LaTazzaColors;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -12,15 +13,15 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Map;
-import static guiConfig.MenuPaneProperties.*;
-import static guiConfig.RowPanelProperties.*;
+import static guiConfig.structurePanelsPropertiesPkg.MenuPaneProperties.*;
+import static guiConfig.structurePanelsPropertiesPkg.RowPanelProperties.*;
 
 
 public class MenuPane extends KGradientPanel {
 
     private static final long serialVersionUID = 1L;
     private final LaTazzaFrame laTazzaFrame;
-    private Map<LaTazzaFrame.JPanelsNames,RowPanelLink> linkMap=new HashMap<>();
+    private Map<LaTazzaFrame.JPanelsNames, RowPanelLink> linkMap=new HashMap<>();
 
 
     private JPanel panelSeparator=new JPanel();
@@ -55,7 +56,12 @@ public class MenuPane extends KGradientPanel {
 		labelTitolo.setBounds(DEFAULTX_TITOLO, DEFAULTY_TITOLO, DEFAULT_WIDTH_TITOLO, DEFAULT_HEIGHT_TITOLO);
 
 		labelIconaTazza.setBounds(DEFAULTX_ICONATITOLO, DEFAULTY_ICONATITOLO, DEFAULT_WIDTH_ICONATITOLO, DEFAULT_HEIGHT_ICONATITOLO);
-		labelIconaTazza.setIcon(MyClassLoader.getIconTazza());
+
+        System.out.println("Working Directory = " +
+                System.getProperty("user.dir"));//+" Class path:"+System.getProperty("java.class.path"));
+
+
+		labelIconaTazza.setIcon(ResourcesClassLoader.getIconTazza());
 
 
         this.add(panelSeparator);
@@ -68,7 +74,7 @@ public class MenuPane extends KGradientPanel {
             linkMap.put(i,//todo check return value
                     new RowPanelLink(
                             "label",
-                            ROWPANEL_DEFAULTX_BUTTON, ROWPANEL_DEFAULTX_ICON,DEFAULTY,MyClassLoader.getIconStatoW25(), MyClassLoader.getIconStatoB25())
+                            ROWPANEL_DEFAULTX_BUTTON, ROWPANEL_DEFAULTX_ICON,DEFAULTY,ResourcesClassLoader.getIconStatoW25(), ResourcesClassLoader.getIconStatoB25())
 
             );//todo trovare un modo per passare labels "Stato","Registra Vendita Cialde","Registra pagamento","Registra rifornimento","Getsione perosnale"
 

@@ -1,4 +1,4 @@
-package guiLogicPkg;
+package guiLogicPkg.structurePanelsPkg;
 
 
 import java.awt.Color;
@@ -7,7 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.MatteBorder;
 
-import static guiConfig.RowPanelProperties.*;
+import static guiConfig.structurePanelsPropertiesPkg.RowPanelProperties.*;
 
 public class RowPanelLink{
 

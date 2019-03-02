@@ -6,13 +6,14 @@ import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
-import guiConfig.MyClassLoader;
+import guiConfig.ResourcesClassLoader;
 import guiConfig.contentsPanelsPropertiesPkg.RegVenditeProperties;
-import guiLogicPkg.contentsPanelsPkg.AbstractPanel;
-
 import javax.swing.JRadioButton;
 import javax.swing.JButton;
 import static guiConfig.contentsPanelsPropertiesPkg.RegVenditeProperties.*;
+
+
+
 
 public class RegistraVendite extends AbstractPanel {
 
@@ -50,7 +51,7 @@ public class RegistraVendite extends AbstractPanel {
 		labelRegVendite = new JLabel("Registra vendita cialde");
 		labelRegVendite.setFont(new Font("Tahoma", Font.BOLD, 20));
 		labelRegVendite.setBounds(27, 27, 500, 50);
-		labelRegVendite.setIcon(MyClassLoader.getIconVenditaB32());
+		labelRegVendite.setIcon(ResourcesClassLoader.getIconVenditaB32());
 		add(labelRegVendite);
 		
 		tipoCialdeMenu = new JComboBox<String>();

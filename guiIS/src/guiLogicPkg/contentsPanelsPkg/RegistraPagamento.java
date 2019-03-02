@@ -2,7 +2,7 @@ package guiLogicPkg.contentsPanelsPkg;
 
 import java.awt.Font;
 import javax.swing.JLabel;
-import guiConfig.MyClassLoader;
+import guiConfig.ResourcesClassLoader;
 import guiConfig.contentsPanelsPropertiesPkg.RegPagamentoProperties;
 
 import static guiConfig.contentsPanelsPropertiesPkg.RegPagamentoProperties.*;
@@ -22,7 +22,7 @@ public class RegistraPagamento extends AbstractPanel {
 		labelRegPagamento = new JLabel("Registra pagamento");
 		labelRegPagamento.setFont(new Font("Tahoma", Font.BOLD, 20));
 		labelRegPagamento.setBounds(27, 27, 500, 50);
-		labelRegPagamento.setIcon(MyClassLoader.getIconPagamentoB32());
+		labelRegPagamento.setIcon(ResourcesClassLoader.getIconPagamentoB32());
 		add(labelRegPagamento);
 	}
 

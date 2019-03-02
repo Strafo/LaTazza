@@ -1,4 +1,4 @@
-package guiConfig;
+package guiConfig.structurePanelsPropertiesPkg;
 
 import java.awt.*;
 

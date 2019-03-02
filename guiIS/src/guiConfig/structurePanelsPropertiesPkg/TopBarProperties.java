@@ -1,4 +1,4 @@
-package guiConfig;
+package guiConfig.structurePanelsPropertiesPkg;
 
 public class TopBarProperties {
 	 private int x;
