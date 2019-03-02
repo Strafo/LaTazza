@@ -1,4 +1,4 @@
-package gui;
+package guiLogicPkg;
 
 public class LaTazzaApplication implements Runnable {
 

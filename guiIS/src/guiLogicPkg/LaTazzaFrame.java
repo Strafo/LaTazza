@@ -1,4 +1,4 @@
-package gui;
+package guiLogicPkg;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.swing.*;
 
 import guiConfig.LaTazzaFrameProperties;
+import guiLogicPkg.contentsPanelsPkg.*;
 
 public class LaTazzaFrame extends JFrame {
 

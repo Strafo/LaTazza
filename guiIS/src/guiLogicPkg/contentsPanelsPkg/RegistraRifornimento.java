@@ -1,13 +1,13 @@
-package gui;
+package guiLogicPkg.contentsPanelsPkg;
 
-import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 import guiConfig.MyClassLoader;
-import guiConfig.PanelsProperties;
+import guiConfig.contentsPanelsPropertiesPkg.RegRifornimentoProperties;
+
+import static guiConfig.contentsPanelsPropertiesPkg.RegRifornimentoProperties.*;
 
 public class RegistraRifornimento extends AbstractPanel {
 
@@ -16,13 +16,8 @@ public class RegistraRifornimento extends AbstractPanel {
 	
 	public RegistraRifornimento() {
 
-		super();
-		
-		PanelsProperties pp = new PanelsProperties();
-		setLayout(null);
-		setBounds(pp.getX(),pp.getY(),pp.getWidth(),pp.getHeight());
-		setBackground(Color.white);
-		setVisible(false);
+		super(1L,DEFAULT_LINKDESCRIPTION,DEFAULT_PANELNAME);
+		RegRifornimentoProperties.initRegistraRifornimentoPanel(this);
 		
 		labelRegRifornimento = new JLabel("Registra rifornimento scatole");
 		labelRegRifornimento.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -31,7 +26,4 @@ public class RegistraRifornimento extends AbstractPanel {
 		add(labelRegRifornimento);
 	}
 	
-	public void setVisibleRifornimento(boolean bool) {
-		setVisible(bool);
-	}
 }

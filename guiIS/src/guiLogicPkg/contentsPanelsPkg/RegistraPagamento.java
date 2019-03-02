@@ -1,11 +1,11 @@
-package gui;
+package guiLogicPkg.contentsPanelsPkg;
 
-import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JLabel;
 import guiConfig.MyClassLoader;
-import guiConfig.PanelsProperties;
-import static guiConfig.PanelsPropertiesPkg.StatoPaneProperties.*;
+import guiConfig.contentsPanelsPropertiesPkg.RegPagamentoProperties;
+
+import static guiConfig.contentsPanelsPropertiesPkg.RegPagamentoProperties.*;
 
 
 public class RegistraPagamento extends AbstractPanel {
@@ -17,12 +17,7 @@ public class RegistraPagamento extends AbstractPanel {
 	public RegistraPagamento() {
 
 		super(1L,DEFAULT_LINKDESCRIPTION,DEFAULT_PANELNAME);
-		
-		PanelsProperties pp = new PanelsProperties();
-		setLayout(null);
-		setBounds(pp.getX(),pp.getY(),pp.getWidth(),pp.getHeight());
-		setBackground(Color.white);
-		setVisible(false);
+		RegPagamentoProperties.initRegistraPagamentoPanel(this);
 		
 		labelRegPagamento = new JLabel("Registra pagamento");
 		labelRegPagamento.setFont(new Font("Tahoma", Font.BOLD, 20));

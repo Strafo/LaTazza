@@ -1,4 +1,4 @@
-package gui;
+package guiLogicPkg;
 
 import java.awt.Color;
 import javax.swing.JPanel;

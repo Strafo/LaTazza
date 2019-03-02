@@ -1,13 +1,13 @@
-package gui;
+package guiLogicPkg.contentsPanelsPkg;
 
-import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import guiConfig.MyClassLoader;
-import guiConfig.PanelsProperties;
+import guiConfig.contentsPanelsPropertiesPkg.GestPersonaleProperties;
 
-public class GestionePersonale extends JPanel {
+import static guiConfig.contentsPanelsPropertiesPkg.GestPersonaleProperties.*;
+
+public class GestionePersonale extends AbstractPanel {
 
 
 
@@ -15,12 +15,10 @@ public class GestionePersonale extends JPanel {
 
 	public GestionePersonale() {
 		
-		PanelsProperties pp = new PanelsProperties();
-		setLayout(null);
-		setBounds(pp.getX(),pp.getY(),pp.getWidth(),pp.getHeight());
-		setBackground(Color.white);
-		setVisible(false);
-		
+		//PanelsProperties pp = new PanelsProperties();
+		super(1L,DEFAULT_LINKDESCRIPTION,DEFAULT_PANELNAME);
+		GestPersonaleProperties.initGestionePersonalePanel(this);
+
 		labelGestionePersonale = new JLabel("Gestione personale");
 		labelGestionePersonale.setFont(new Font("Tahoma", Font.BOLD, 20));
 		labelGestionePersonale.setBounds(27, 27, 500, 50);
@@ -28,7 +26,4 @@ public class GestionePersonale extends JPanel {
 		add(labelGestionePersonale);
 	}
 	
-	public void setVisibleGestione(boolean bool) {
-		setVisible(bool);
-	}
 }

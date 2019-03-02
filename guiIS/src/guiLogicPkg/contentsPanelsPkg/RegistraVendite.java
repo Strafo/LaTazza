@@ -1,18 +1,18 @@
-package gui;
+package guiLogicPkg.contentsPanelsPkg;
 
-import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
 import guiConfig.MyClassLoader;
-import guiConfig.PanelsProperties;
+import guiConfig.contentsPanelsPropertiesPkg.RegVenditeProperties;
+import guiLogicPkg.contentsPanelsPkg.AbstractPanel;
 
 import javax.swing.JRadioButton;
 import javax.swing.JButton;
+import static guiConfig.contentsPanelsPropertiesPkg.RegVenditeProperties.*;
 
 public class RegistraVendite extends AbstractPanel {
 
@@ -44,13 +44,8 @@ public class RegistraVendite extends AbstractPanel {
 
 	public RegistraVendite() {
 
-		super();
-		
-		PanelsProperties pp = new PanelsProperties();
-		setLayout(null);
-		setBounds(pp.getX(),pp.getY(),pp.getWidth(),pp.getHeight());
-		setBackground(Color.white);
-		setVisible(false);
+		super(1L,DEFAULT_LINKDESCRIPTION,DEFAULT_PANELNAME);
+		RegVenditeProperties.initRegistraVenditePanel(this);
 		
 		labelRegVendite = new JLabel("Registra vendita cialde");
 		labelRegVendite.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -125,10 +120,7 @@ public class RegistraVendite extends AbstractPanel {
 		add(buttonAnnulla);
 	}
 	
-	public void setVisibleRegVendite(boolean bool) {
-		setVisible(bool);
-	}
-	
+
 	public void addItems(String[] stringa, JComboBox<String> cb) {
 		for(String s: stringa) {
 			cb.addItem(s);

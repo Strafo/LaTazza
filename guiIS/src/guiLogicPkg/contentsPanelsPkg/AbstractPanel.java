@@ -1,7 +1,10 @@
-package gui;
+package guiLogicPkg.contentsPanelsPkg;
 
 
+import guiLogicPkg.LaTazzaFrame;
 import javax.swing.*;
+
+
 
 public abstract class AbstractPanel extends JPanel {
 
