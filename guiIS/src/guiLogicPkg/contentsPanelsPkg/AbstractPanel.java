@@ -18,4 +18,17 @@ public abstract class AbstractPanel extends JPanel {
         LINKDESCRIPTION = linkdescription;
         PANELNAME = panelname;
     }
+
+
+    public long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getLINKDESCRIPTION() {
+        return LINKDESCRIPTION;
+    }
+
+    public LaTazzaFrame.JPanelsNames getPANELNAME() {
+        return PANELNAME;
+    }
 }

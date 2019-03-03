@@ -18,8 +18,8 @@ public class LaTazzaFrame extends JFrame {
     private LaTazzaFrameProperties laTazzaFrameProperties=new LaTazzaFrameProperties();
 
     private ContentPane contentPane=new ContentPane(this);
-    private MenuPane menuPane=new MenuPane(this);
-    private TopBarPane topBarPanePane =new TopBarPane(this);
+    private MenuPane menuPane;
+    private TopBarPane topBarPanePane=new TopBarPane(this);
 
     public  enum JPanelsNames{
         STATOPANE,
@@ -32,7 +32,7 @@ public class LaTazzaFrame extends JFrame {
 
 
 
-	private Map<JPanelsNames,JPanel> jPanelsMap =new HashMap<>();
+	private Map<JPanelsNames,AbstractPanel> jPanelsMap =new HashMap<>();
 
 	/**
 	 * Create the frame.
@@ -44,7 +44,7 @@ public class LaTazzaFrame extends JFrame {
 		this.setUndecorated(true);
         this.setContentPane(contentPane);
         this.setContentPane(contentPane);
-        this.add(menuPane);
+
         this.add(topBarPanePane);
 
 
@@ -61,6 +61,9 @@ public class LaTazzaFrame extends JFrame {
         jPanelsMap.forEach((k,v)->this.add(v));//aggiunge tutti i pannelli al frame
 
 
+
+        menuPane=new MenuPane(this);//va lasciato per ultimo perchè devono essere init prima i contentpanes
+        this.add(menuPane);
 	}
 
 
@@ -73,7 +76,7 @@ public class LaTazzaFrame extends JFrame {
 	    jPanelsMap.get(panelName).setVisible(panelVisibilityState);
     }
 
-    public JPanel getJPanelByName(JPanelsNames name){
+    public AbstractPanel getPanelByName(JPanelsNames name){
 	    return jPanelsMap.get(name);
     }
 
