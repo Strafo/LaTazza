@@ -1,6 +1,5 @@
 package guiConfig;
 
-import java.util.MissingResourceException;
 import java.util.Objects;
 import javax.swing.ImageIcon;
 
