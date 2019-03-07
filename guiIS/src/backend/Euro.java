@@ -1,4 +1,4 @@
 package backend;
 
-public enum Euro {
+public class Euro {
 }
