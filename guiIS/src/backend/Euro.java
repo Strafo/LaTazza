@@ -120,6 +120,14 @@ public class Euro {
     }
 
 
+    public long getEuro() {
+        return euro;
+    }
+
+    public int getCentesimi() {
+        return centesimi;
+    }
+
     /******************************************
      * CUSTOM EXCEPTIONS
      *****************************************/
