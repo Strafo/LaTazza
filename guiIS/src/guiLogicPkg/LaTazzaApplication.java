@@ -16,6 +16,7 @@ public class LaTazzaApplication implements Runnable {
 
     }
 
+
     
 	private void initFrame(){
         laTazzaFrame=new LaTazzaFrame();
