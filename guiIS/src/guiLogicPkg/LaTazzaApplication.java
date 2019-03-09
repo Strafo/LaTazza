@@ -16,9 +16,7 @@ public class LaTazzaApplication implements Runnable {
 
     }
 
-
-    /**Inizialize app window and make it visible
-     * @wbp.parser.entryPoint**/
+    
 	private void initFrame(){
         laTazzaFrame=new LaTazzaFrame();
         laTazzaFrame.setVisible(true);
