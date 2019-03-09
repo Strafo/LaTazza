@@ -65,7 +65,7 @@ public class EuroTest {
         try {
             Euro e=new Euro(Long.MAX_VALUE,101);
         } catch (Euro.OverflowEuroException e1) {
-            
+
         }
 
 
