@@ -17,7 +17,8 @@ public class LaTazzaApplication implements Runnable {
     }
 
 
-    private void initFrame(){
+
+	private void initFrame(){
         laTazzaFrame=new LaTazzaFrame();
         laTazzaFrame.setVisible(true);
         laTazzaFrame.setLocationCenter();
