@@ -1,5 +1,3 @@
-package testBackend;
-
 import backend.Euro;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
