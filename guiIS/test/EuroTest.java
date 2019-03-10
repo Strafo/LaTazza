@@ -19,18 +19,37 @@ public class EuroTest {
 
     @BeforeEach
     void setUp(){
-        sum=new Euro(_e1,_c1);
+        try {
+            s1 = new Euro(_e1, _c1);
+            s2 = new Euro(_e2, _c2);
+            s3 = new Euro(_e3, _c3);
+        }catch (Exception exc){
+            fail(exc.getMessage());
+        }
     }
 
     @Test
     void testEquals() {
+        try {
+            assertTrue(s1.equals(new Euro(_e1,_c1)));
+            assertTrue(s2.equals(new Euro(_e2,_c2)));
+            assertTrue(s3.equals(new Euro(_e3,_c3)));
+            assertFalse(s1.equals(s2));
+            assertFalse(s1.equals(s3));
+            assertFalse(s2.equals(s1));
+            assertFalse(s2.equals(s3));
+            assertFalse(s3.equals(s2));
+            assertFalse(s3.equals(s1));
+        } catch (Euro.OverflowEuroException e) {
+            fail(e.getMessage());
+        }
     }
 
-    @Test
+   /* @Test
     void testAggiungiImporto(Euro euroDaSott){
 
 
-    }
+    }*/
     @Test
     void testSottraiImporto(){
 
@@ -63,17 +82,19 @@ public class EuroTest {
     @Test
     void testCheckOverFlow(){
         try {
-            Euro e=new Euro(Long.MAX_VALUE,101);
-        } catch (Euro.OverflowEuroException e1) {
-
+            Euro e1=new Euro(Long.MAX_VALUE,101);
+            fail("Exception not thrown e1");
+        } catch (Exception exc) {
+            assertTrue(exc instanceof Euro.OverflowEuroException);
+        }
+        try {
+            Euro e2=new Euro(Long.MAX_VALUE-21474835,Integer.MAX_VALUE);
+            fail("Exception not thrown e2");
+        } catch (Exception exc) {
+            assertTrue(exc instanceof Euro.OverflowEuroException);
         }
 
-
     }
 
-    @Test
-    void testInsufficentFund(){
-
-    }
 
 }

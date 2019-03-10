@@ -56,6 +56,26 @@ public class Euro {
         return (this.euro==e.euro&&this.centesimi==e.centesimi);
     }
 
+    /**
+     * Compara due quantità di Euro e determina se somma1 è maggiore;minore;uguale a somma2
+     * @param somma1 il primo importo dda confrontare
+     * @param somma2 il secondo importo da confrontare
+     * @return 1 se l'importo somma 1 è maggiore di somma2; 0 se gli importi sono uguali; -1 se somma 1 è minore di somma 2
+     * @throws NullPointerException se somma1 o somma2 sono due null ref.
+     */
+    public static int compare(Euro somma1,Euro somma2)throws NullPointerException{
+        if(somma1.euro>somma2.euro)
+            return 1;
+        else
+        if(somma1.euro==somma2.euro){
+            if(somma1.centesimi>somma2.centesimi){
+                return 1;
+            }else{
+                return somma1.centesimi==somma2.centesimi ? 0:-1;
+            }
+        }
+        return -1;
+    }
 
     /**
      * Aggiunge l'importo passato.
@@ -98,26 +118,6 @@ public class Euro {
 
     }
 
-    /**
-     * Compara due quantità di Euro e determina se somma1 è maggiore;minore;uguale a somma2
-     * @param somma1 il primo importo dda confrontare
-     * @param somma2 il secondo importo da confrontare
-     * @return 1 se l'importo somma 1 è maggiore di somma2; 0 se gli importi sono uguali; -1 se somma 1 è minore di somma 2
-     * @throws NullPointerException se somma1 o somma2 sono due null ref.
-     */
-    public static int compare(Euro somma1,Euro somma2)throws NullPointerException{
-        if(somma1.euro>somma2.euro)
-            return 1;
-        else
-            if(somma1.euro==somma2.euro){
-                if(somma1.centesimi>somma2.centesimi){
-                    return 1;
-                }else{
-                   return somma1.centesimi==somma2.centesimi ? 0:-1;
-                }
-            }
-            return -1;
-    }
 
 
     public long getEuro() {
@@ -128,10 +128,11 @@ public class Euro {
         return centesimi;
     }
 
+
+
     /******************************************
      * CUSTOM EXCEPTIONS
      *****************************************/
-
 
     public class InsufficientFundsException extends Exception{
 

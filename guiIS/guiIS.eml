@@ -6,5 +6,4 @@
 		<testFolder url="file://$MODULE_DIR$/test"/>
 		<excludeFolder url="file://$MODULE_DIR$/bin"/>
 	</contentEntry>
-	<lib name="JUnit5.0" scope="TEST"/>
 </component>
