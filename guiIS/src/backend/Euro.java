@@ -79,11 +79,12 @@ public class Euro {
 
     /**
      * Aggiunge l'importo passato.
-     * @param euroDaAggiungere
+     * @param
+     * @return il risultato della somma
      * @throws OverflowEuroException se la somma della quantità passata provoca un overflow sul tdd primitivo long.
      * @throws NullPointerException se euroDaAggiungere è un null ref.
      */
-    public void aggiungiImporto(Euro euroDaAggiungere) throws OverflowEuroException,NullPointerException {
+    public Euro aggiungiImporto(Euro euroDaAggiungere) throws OverflowEuroException,NullPointerException {
         try{
             int newCent=this.centesimi+euroDaAggiungere.centesimi;
             long riportoCent=Math.floorDiv(newCent,MODULONUM);
@@ -91,7 +92,7 @@ public class Euro {
 
             this.euro= Math.addExact(Math.addExact(this.euro,euroDaAggiungere.euro),riportoCent);
             this.centesimi=newCent;
-
+            return this;
         }catch(ArithmeticException exc){
             throw new OverflowEuroException("Impossibile aggiungere euro:"+euro+" centesimi:"+centesimi+" (overflow)",exc.getCause());
         }
@@ -102,10 +103,11 @@ public class Euro {
     /**
      * Sottrae l'importo passato dal istanza che chiama il metodo se e solo se quest'ultima è >= di euroDaSottarre.
      * @param euroDaSottrarre
+     * @return il resto della sottrazione
      * @throws InsufficientFundsException se euroDaSottare < this.
-     * @throws NullPointerException se euroDaAggiungere è un null ref.
+     * @throws NullPointerException se euroDaSottrarre è un null ref.
      */
-    public void sottraiImporto(Euro euroDaSottrarre) throws NullPointerException, InsufficientFundsException {
+    public Euro sottraiImporto(Euro euroDaSottrarre) throws NullPointerException, InsufficientFundsException {
         if(compare(this,euroDaSottrarre)<0)
             throw new InsufficientFundsException("Impossibile sottrarre euroDaSottrare;fondi insufficenti");
         this.euro-=euroDaSottrarre.euro;
@@ -115,7 +117,7 @@ public class Euro {
             this.euro--;
             this.centesimi=this.centesimi+MODULONUM-euroDaSottrarre.centesimi;
         }
-
+        return this;
     }
 
 
@@ -129,12 +131,11 @@ public class Euro {
     }
 
 
-
     /******************************************
      * CUSTOM EXCEPTIONS
      *****************************************/
 
-    public class InsufficientFundsException extends Exception{
+    public class InsufficientFundsException extends RuntimeException{
 
         public InsufficientFundsException(String message, Throwable cause) {
             super(message, cause);
@@ -151,7 +152,7 @@ public class Euro {
 
 
 
-    public class OverflowEuroException extends Exception{
+    public class OverflowEuroException extends RuntimeException{
 
         public OverflowEuroException(Throwable cause){
             super(cause);
