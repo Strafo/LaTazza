@@ -50,13 +50,49 @@ public class EuroTest {
         }
     }
 
-   /* @Test
-    void testAggiungiImporto(Euro euroDaSott){
+    @Test
+    void testAggiungiImporto(){
+        try {
+            Euro s4=new Euro(0,90);
+            s1.aggiungiImporto(s2);
+            assertEquals((_c1+_c2)%100,s1.getCentesimi());
+            assertEquals(_e1+_e2+Math.floorDiv((_c1+_c2),100),s1.getEuro());
+            s2.aggiungiImporto(new Euro(_e1,_c1));
+            assertTrue(s1.equals(s2));
+            s4.aggiungiImporto(s4);
+            assertTrue(s4.getEuro()==1&&s4.getCentesimi()==80);
+        } catch (Exception exc) {
+            fail(exc.getMessage());
+        }
 
+        try {
+            s1.aggiungiImporto(new Euro(Long.MAX_VALUE,0));
+            fail("Exception not thrown s1");
+        }  catch (Exception exc) {
+            assertTrue(exc instanceof Euro.OverflowEuroException);
+        }
 
-    }*/
+    }
+
     @Test
     void testSottraiImporto(){
+        try {
+            s1.sottraiImporto(s2);
+            assertEquals(_e1-_e2-1,s1.getEuro());
+            assertEquals(_c1 + 100 - _c2, s1.getCentesimi());
+            s2.sottraiImporto(new Euro(90,99));
+            assertTrue(s2.getEuro()==0&&s2.getCentesimi()==0);
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+
+        try {
+            s2.sottraiImporto(s3);
+            fail("Exception not thrown s2");
+        }  catch (Exception exc) {
+            assertTrue(exc instanceof Euro.InsufficientFundsException);
+        }
+
 
     }
 
