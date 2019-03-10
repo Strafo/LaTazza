@@ -3,7 +3,7 @@ package backend;
 public class Euro {
 
     private long euro;
-    private int centesimi;//todo si potrebbe usare byte
+    private int centesimi;// si potrebbe usare byte
 
     private static final int MODULONUM=100;//cento centesimi valgono 1 euro.
 
