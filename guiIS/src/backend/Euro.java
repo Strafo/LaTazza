@@ -92,7 +92,7 @@ public class Euro {
 
             this.euro= Math.addExact(Math.addExact(this.euro,euroDaAggiungere.euro),riportoCent);
             this.centesimi=newCent;
-            return this;
+            return clone(this);
         }catch(ArithmeticException exc){
             throw new OverflowEuroException("Impossibile aggiungere euro:"+euro+" centesimi:"+centesimi+" (overflow)",exc.getCause());
         }
@@ -117,7 +117,7 @@ public class Euro {
             this.euro--;
             this.centesimi=this.centesimi+MODULONUM-euroDaSottrarre.centesimi;
         }
-        return this;
+        return clone(this);
     }
 
 
@@ -130,7 +130,9 @@ public class Euro {
         return centesimi;
     }
 
-
+    public  Euro clone(Euro toBeCloned){
+        return new Euro(toBeCloned.euro,toBeCloned.centesimi);
+    }
     /******************************************
      * CUSTOM EXCEPTIONS
      *****************************************/
