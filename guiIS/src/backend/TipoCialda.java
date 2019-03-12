@@ -1,10 +1,10 @@
 package backend;
 
 public enum TipoCialda {
-    caffè,
-    caffèArabica,
-    thè,
-    thèLimone,
-    cioccolata,
-    camomilla
+    CAFFÈ,
+    CAFFÈARABICA,
+    THÈ,
+    THÈLIMONE,
+    CIOCCOLATA,
+    CAMOMILLA
 }
