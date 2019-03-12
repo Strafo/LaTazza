@@ -10,13 +10,17 @@ public class Debito {
         this.quantita=Objects.requireNonNull(quantita);
     }
 
-    void sommaDebito(Euro importo) throws Euro.OverflowEuroException {
+    public void sommaDebito(Euro importo) throws Euro.OverflowEuroException {
         this.quantita.aggiungiImporto(importo);
     }
 
 
-
-    Euro sottraiDebito(Euro importo){
+    /**
+     *
+     * @param importo
+     * @return il resto importo-debito
+     */
+    private Euro sottraiDebito(Euro importo){
         Euro res;
         if (Euro.compare(importo, quantita) >= 0) {
             res=importo.sottraiImporto(quantita);//torna il resto
@@ -29,14 +33,18 @@ public class Debito {
 
     }
 
-    Euro pagamentoDebito(Personale pers,Euro importo,Date data) throws Euro.InsufficientFundsException {
-        Euro resto=importo.sottraiImporto(quantita);
+    public Euro pagamentoDebito(Personale pers,Euro importo,Date data)  {
+
+
+        Euro resto=this.sottraiDebito(importo);//todo queste operazioni devono essere eseguite o tutte o  nessuna (gestire quindi le possibili eccezioni ecc...)
         MovimentoDebito movimentoDebito=new MovimentoDebito(data,pers,importo);
-        movimentoDebito.aggiornaDebito();
+        movimentoDebito.aggiornaDebito();//todo fino a qui
+
+
         return resto;
     }
 
-    Euro pagamentoDebito(Personale pers,Euro importo){
+    public Euro pagamentoDebito(Personale pers,Euro importo){
         return pagamentoDebito(pers,importo,new Date());
     }
 }
