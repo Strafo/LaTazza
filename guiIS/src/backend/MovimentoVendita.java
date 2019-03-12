@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public final class MovimentoVendita extends Movimento {
     public int quantita;
-    public TipoCialda tipo=TipoCialda.caffè;
+    public TipoCialda tipo;
 
 
     public MovimentoVendita(Date data, Cliente cliente,int quantita,TipoCialda tipo) throws IllegalArgumentException {
