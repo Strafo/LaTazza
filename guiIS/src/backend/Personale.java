@@ -1,6 +1,6 @@
 package backend;
 
-public class Personale extends Cliente {
+public final class Personale extends Cliente {
 
 
     private Debito debito;
