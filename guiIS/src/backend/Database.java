@@ -4,9 +4,9 @@ import java.sql.*;
 public class Database {
 
     private static final String DB_DRIVER = "org.h2.Driver";
-    private static final String DB_CONNECTION = "jdbc:h2:mem:database;SCHEMA=PUBLIC;DB_CLOSE_DELAY=-1;";
-    private static final String DB_USER = "DATABASECLASS";
-    private static final String DB_PASSWORD = "alabama hot pocket";
+    private static final String DB_CONNECTION = "jdbc:h2:file:/home/strafo/Scrivania/Unige/terzo_anno/ing_software/LaTazza/guiIS/src/database/persistence;DB_CLOSE_DELAY=-1;";
+    private static final String DB_USER = "";
+    private static final String DB_PASSWORD = "";
 
     private Connection con;
 
@@ -54,12 +54,18 @@ public class Database {
 
             rs=st.executeQuery("SELECT * FROM PUBLIC.CIALDE");
             this.printData(rs);
+
         } catch (SQLException e) {
             e.printStackTrace();
             System.exit(1);
 
         }
 
+        try {
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -67,6 +73,7 @@ public class Database {
     public static void main(String[] args) {
         Database database=new Database();
         database.checkTipoCialdaTable();
+
     }
 
     public void printData(ResultSet resultSet){
