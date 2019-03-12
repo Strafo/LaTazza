@@ -1,21 +1,20 @@
 --file che contiene la struttura del DB
 
-create schema dbLaTazza;
 
-create table dbLatazza.cialde
+create table PUBLIC.cialde
 (
   tipo varchar(64) not null primary key,
   prezzo double precision not null check (prezzo >= (0)::double precision)
 );
 
 
-create table dbLatazza.visitatore(
+create table PUBLIC.visitatore(
   nome varchar(64) not null,
   cognome varchar(64) not null,
   primary key(nome, cognome)
 );
 
-create table dbLatazza.rifornimento(
+create table PUBLIC.rifornimento(
 
   dataR date default CURRENT_TIMESTAMP not null,
   tipoCialda varchar(64) not null references cialde(tipo),
@@ -23,14 +22,14 @@ create table dbLatazza.rifornimento(
   primary key (dataR,tipoCialda)
 );
 
-create table dbLatazza.personale(
+create table PUBLIC.personale(
   nome varchar(64) not null,
   cognome varchar(64) not null,
   attivo boolean not null,
   primary key (nome, cognome)
 );
 
-create table dbLatazza.pagamento_debito(
+create table PUBLIC.pagamento_debito(
 
   nome varchar(64) not null,
   cognome varchar(64) not null,
@@ -41,7 +40,7 @@ create table dbLatazza.pagamento_debito(
   on update cascade on delete restrict
 );
 
-create table dbLatazza.compra_visitatore(
+create table PUBLIC.compra_visitatore(
 
   nome varchar(64) not null,
   cognome varchar(64) not null,
@@ -53,7 +52,7 @@ create table dbLatazza.compra_visitatore(
   on update cascade on delete restrict
 );
 
-create table dbLatazza.compra_dipendente(
+create table PUBLIC.compra_dipendente(
 
   nome varchar(64) not null,
   cognome varchar(64) not null,
