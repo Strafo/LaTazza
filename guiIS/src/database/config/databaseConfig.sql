@@ -68,3 +68,6 @@ create table LATAZZASCHEMA.compra_dipendente(
 
 
 
+
+
+
