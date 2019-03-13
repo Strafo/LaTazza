@@ -11,7 +11,6 @@ public class Database {
     private Connection con;
 
     public Database(){
-
         try {
             Class.forName(DB_DRIVER);
         } catch (ClassNotFoundException e) {
@@ -52,7 +51,7 @@ public class Database {
             //System.exit(1);
             //st.execute("GRANT ALL ON SCHEMA DBLATAZZA TO PUBLIC ");
 
-            rs=st.executeQuery("SELECT * FROM PUBLIC.CIALDE");
+            rs=st.executeQuery("SELECT * FROM LATAZZASCHEMA.CIALDE");
             this.printData(rs);
 
         } catch (SQLException e) {
