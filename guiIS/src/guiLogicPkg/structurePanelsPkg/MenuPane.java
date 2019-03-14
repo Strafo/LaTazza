@@ -69,15 +69,15 @@ public class MenuPane extends KGradientPanel {
         this.add(labelIconaTazza);
 
 
-
+        int j=0;
         for(LaTazzaFrame.JPanelsNames i:LaTazzaFrame.JPanelsNames.values()){
             linkMap.put(i,//todo check return value
                     new RowPanelLink(
                             laTazzaFrame.getPanelByName(i).getLINKDESCRIPTION(),
-                            ROWPANEL_DEFAULTX_BUTTON, ROWPANEL_DEFAULTX_ICON,DEFAULTY,ResourcesClassLoader.getIconStatoW25(), ResourcesClassLoader.getIconStatoB25())
-
+                            ROWPANEL_DEFAULTX_BUTTON, ROWPANEL_DEFAULTX_ICON,ROWPANEL_DEFAULTY+ROWPANEL_DEFAULT_GAP*j++,ResourcesClassLoader.getIconStatoW25(), ResourcesClassLoader.getIconStatoB25())
+                    
             );//todo trovare un modo per passare labels "Stato","Registra Vendita Cialde","Registra pagamento","Registra rifornimento","Getsione perosnale"
-
+            
         }
 
 
