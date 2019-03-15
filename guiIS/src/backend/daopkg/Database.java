@@ -8,7 +8,7 @@ import java.util.Optional;
 public class Database {
 
     private static final String DB_DRIVER = "org.h2.Driver";
-    private static final String DB_CONNECTION = "jdbc:h2:file:/home/strafo/Scrivania/Unige/terzo_anno/ing_software/LaTazza/guiIS/src/database/persistence;DB_CLOSE_DELAY=-1;";
+    private static final String DB_CONNECTION = "jdbc:h2:file:~/databaseLaTazza;DB_CLOSE_DELAY=-1;";
     private static final String DB_USER = "";
     private static final String DB_PASSWORD = "";
 
