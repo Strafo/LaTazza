@@ -33,4 +33,16 @@ public final class Personale extends Cliente {
         this.attivo=true;
     }
 
+    @Override
+    public String toString(){
+        String string ="nome:" +this.getNome()+" cognome:"+this.getCognome()+
+                " attivo:"+String.valueOf(isAttivo());
+        if (debito==null){
+            string+=" debito:null";
+        }else{
+            string+=" debito:"+debito.toString();
+        }
+        return string;
+    }
+
 }
