@@ -26,7 +26,7 @@ $$
 declare
 num1 integer ;
 num2 integer;
-mag integer;
+num_magaz integer;
 BEGIN
 
 num1:=(select sum(numero_cialde) from LATAZZASCHEMA.COMPRA_VISITATORE
@@ -34,7 +34,10 @@ num1:=(select sum(numero_cialde) from LATAZZASCHEMA.COMPRA_VISITATORE
 num2:=(select sum(numero_cialde) from LATAZZASCHEMA.COMPRA_DIPENDENTE
         where tipo_cialda = new.tipo_cialda);
 num_magaz:=(select sum(qta*50) from LATAZZASCHEMA.MAGAZZINO
-	  	where tipoCialda=new.TipoCialda)
+	  	where tipoCialda=new.TipoCialda);
+if(num1+num2 > num_magaz) then  RAISE EXCEPTION 'Cialde di tipo % nel magazzino insufficienti', new.TipoCialda;
+end if;
+
 END;
 $$ LANGUAGE plpgsql;
 
@@ -45,6 +48,6 @@ FOR EACH ROW
 EXECUTE PROCEDURE checkNumCialde();
 
 CREATE TRIGGER check_numero_aquisto_scatole
-AFTER UPDATE OR INSERT ON LATAZZASCHEMA.COMPRA_DIPENDENTI
+AFTER UPDATE OR INSERT ON LATAZZASCHEMA.COMPRA_DIPENDENTE
 FOR EACH ROW
 EXECUTE PROCEDURE checkNumCialde();
