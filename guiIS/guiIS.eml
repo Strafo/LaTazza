@@ -5,8 +5,9 @@
 	<contentEntry url="file://$MODULE_DIR$">
 		<testFolder url="file://$MODULE_DIR$/test"/>
 	</contentEntry>
-	<lib name="JUnit5.0" scope="TEST"/>
 	<levels>
 		<level name="h2-1.4.198" value="project"/>
+		<level name="h2-1.4.199" value="project"/>
+		<level name="org.junit.jupiter:junit-jupiter-engine:5.0.0" value="project"/>
 	</levels>
 </component>
