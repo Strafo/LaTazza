@@ -12,7 +12,7 @@ public class Vendita {
 
     }
 
-    public boolean aggiungiVenditaPersonale(Date data, Personale personale, TipoCialda tipoCialda, int qta, boolean modalit‡P){
+    public boolean aggiungiVenditaPersonale(Date data, Personale personale, TipoCialda tipoCialda, int qta, boolean modalita){
 
         MovimentoVendita mp= new MovimentoVendita(data,personale,qta,tipoCialda);
         return mp.aggiungiVendita();
