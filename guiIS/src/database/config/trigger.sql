@@ -20,14 +20,31 @@ create  view  Magazzino(tipoCialda, qta) as
 
 
 
---non si possono comprare più cialde di quelle del magazzino
-CREATE TRIGGER check_numero_aquisto_scatole
-AFTER UPDATE ON LATAZZASCHEMA.COMPRA_VISITATORE
-FOR EACH ROW
-EXECUTE PROCEDURE checkNumCialde();
 
 CREATE OR REPLACE FUNCTION checkNumCialde() RETURNS trigger AS
 $$
+declare
+num1 integer ;
+num2 integer;
+mag integer;
+BEGIN
+
+num1:=(select sum(numero_cialde) from LATAZZASCHEMA.COMPRA_VISITATORE
+        where tipo_cialda = new.tipo_cialda);
+num2:=(select sum(numero_cialde) from LATAZZASCHEMA.COMPRA_DIPENDENTE
+        where tipo_cialda = new.tipo_cialda);
+num_magaz:=(select sum(qta*50) from LATAZZASCHEMA.MAGAZZINO
+	  	where tipoCialda=new.TipoCialda)
+END;
+$$ LANGUAGE plpgsql;
 
 
-$$
+CREATE TRIGGER check_numero_aquisto_scatole
+AFTER UPDATE OR INSERT ON LATAZZASCHEMA.COMPRA_VISITATORE
+FOR EACH ROW
+EXECUTE PROCEDURE checkNumCialde();
+
+CREATE TRIGGER check_numero_aquisto_scatole
+AFTER UPDATE OR INSERT ON LATAZZASCHEMA.COMPRA_DIPENDENTI
+FOR EACH ROW
+EXECUTE PROCEDURE checkNumCialde();
