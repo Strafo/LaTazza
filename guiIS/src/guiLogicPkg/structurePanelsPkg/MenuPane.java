@@ -34,7 +34,7 @@ public class MenuPane extends KGradientPanel {
 
     //create the Menu Panel that contains five links
 	public MenuPane(LaTazzaFrame laTazzaFrame) {
-
+        int j=0;
 		this.laTazzaFrame = laTazzaFrame;
 
 		setBounds(MenuPaneProperties.DEFAULTX,MenuPaneProperties.DEFAULTY,MenuPaneProperties.DEFAULT_WIDTH,MenuPaneProperties.DEFAULT_HEIGHT);
@@ -74,9 +74,9 @@ public class MenuPane extends KGradientPanel {
             linkMap.put(i,//todo check return value
                     new RowPanelLink(
                             laTazzaFrame.getPanelByName(i).getLINKDESCRIPTION(),
-                            ROWPANEL_DEFAULTX_BUTTON, ROWPANEL_DEFAULTX_ICON,DEFAULTY,ResourcesClassLoader.getIconStatoW25(), ResourcesClassLoader.getIconStatoB25())
+                            ROWPANEL_DEFAULTX_BUTTON, ROWPANEL_DEFAULTX_ICON,ROWPANEL_DEFAULTY+ROWPANEL_DEFAULT_GAP*j++,ResourcesClassLoader.getIconStatoW25(), ResourcesClassLoader.getIconStatoB25())
 
-            );//todo trovare un modo per passare labels "Stato","Registra Vendita Cialde","Registra pagamento","Registra rifornimento","Getsione perosnale"
+            );
 
         }
 
@@ -124,10 +124,10 @@ public class MenuPane extends KGradientPanel {
 
             if(i.equals(lName)){
                 (linkMap.get(i)).setLinesW();
-                laTazzaFrame.setJPanelVisibleState(lName,true);
+                laTazzaFrame.setJPanelVisibleState(i,true);
             }else{
                 (linkMap.get(i)).setLinesB();
-                laTazzaFrame.setJPanelVisibleState(lName,false);
+                laTazzaFrame.setJPanelVisibleState(i,false);
             }
         }
 
