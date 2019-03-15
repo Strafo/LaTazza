@@ -2,9 +2,6 @@ package backend.daopkg;
 
 
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
 
 //https://www.baeldung.com/java-dao-pattern
 public interface Dao<T> {
