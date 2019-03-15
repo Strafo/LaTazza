@@ -2,7 +2,7 @@
 
 create schema LATAZZASCHEMA;
 
-create table LATAZZASCHEMA.cialda
+create table LATAZZASCHEMA.cialde
 (
   tipo varchar(64) not null primary key,
   prezzo double precision not null check (prezzo >= (0)::double precision)
@@ -20,7 +20,7 @@ create table LATAZZASCHEMA.rifornimento(
   dataR date default CURRENT_TIMESTAMP not null,
   tipo_cialda varchar(64) not null references cialde(tipo),
   qta integer not null, -- NUMERO DI SCATOLE COMPRATE
-  primary key (dataR,tipoCialda)
+  primary key (dataR,tipo_Cialda)
 );
 
 create table LATAZZASCHEMA.personale(
