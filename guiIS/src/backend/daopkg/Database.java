@@ -1,4 +1,4 @@
-package backend.databaseCommunicationPkg;
+package backend.daopkg;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
