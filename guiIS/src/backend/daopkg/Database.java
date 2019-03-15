@@ -8,17 +8,17 @@ import java.util.Optional;
 public class Database {
 
     private static final String DB_DRIVER = "org.h2.Driver";
-    private static final String DB_CONNECTION = "jdbc:h2:file:~/databaseLaTazza;DB_CLOSE_DELAY=-1;";
+    private static final String DB_CONNECTION_DEFAULT = "jdbc:h2:file:~/databaseLaTazza;DB_CLOSE_DELAY=-1;";
     private static final String DB_USER = "";
     private static final String DB_PASSWORD = "";
 
 
     private Connection connection;
+    private String databasePath;
 
 
 
-
-    public void createDatabaseConnection() throws DataBaseCreationException {
+    public void createDatabaseConnection(String databasePath) throws DataBaseCreationException {
 
         try {
             if (connection == null || connection.isClosed()) {
@@ -28,7 +28,7 @@ public class Database {
                     throw new DataBaseCreationException("Errore durante la creazione del database.(Data base driver non trovato.");
                 }
                 try {
-                    connection = DriverManager.getConnection(DB_CONNECTION, DB_USER, DB_PASSWORD);
+                    connection = DriverManager.getConnection(databasePath, DB_USER, DB_PASSWORD);
                 } catch (SQLException e) {
                     throw new DataBaseCreationException("Errore durante la creazione del database.(Utente o password o Path non validi.");
                 }
@@ -37,6 +37,13 @@ public class Database {
             throw new DataBaseCreationException("Errore durante la creazione del database.Impossibile stabilire connessione");
         }
     }
+
+
+    public void createDatabaseConnection() throws DataBaseCreationException {
+        this.createDatabaseConnection(DB_CONNECTION_DEFAULT);
+    }
+
+
 
     public Optional<Connection> getConnection(){
         return Optional.ofNullable(connection);
