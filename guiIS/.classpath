@@ -3,8 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/lib/junit-jupiter-api-5.0.0.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/h2-1.4.198"/>
 	<classpathentry kind="var" path="MAVEN_REPOSITORY/org/junit/jupiter/junit-jupiter-api/5.0.0/junit-jupiter-api-5.0.0.jar"/>
-	<classpathentry kind="output" path="/out/production/guiIS"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/h2-1.4.198"/>
+	<classpathentry kind="output" path="bin"/>
 </classpath>
