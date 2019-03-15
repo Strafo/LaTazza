@@ -15,39 +15,6 @@ public class PersonaleDao implements Dao<Personale> {
         this.database=Objects.requireNonNull(database);
     }
 
-/*
-    @Override
-    public Optional<Personale> get(Map keys) {
-        if(Objects.isNull(keys))return Op;
-        PreparedStatement pst;
-        String query="SELECT * FROM " + tableName;
-
-        for (Map.Entry<Integer, Integer> pair : map.entrySet()) {
-            i += pair.getKey() + pair.getValue();
-        }
-
-
-
-
-        try {
-
-            pst = (database.createAndGetConnection()).prepareStatement(
-                    "SELECT * FROM " + tableName + " WHERE nome = ? AND cognom");
-
-
-
-            pst.setString(1, persona.getNome());
-            pst.setString(2, persona.getCognome());
-            pst.setBoolean(3,persona.isAttivo());
-            pst.executeUpdate();
-
-        }catch(Database.DataBaseCreationException | SQLException e) {
-            //todo
-
-        }
-    }
-*/
-
 
     @Override
     public List<Personale> getAll() {
@@ -134,7 +101,38 @@ public class PersonaleDao implements Dao<Personale> {
     }
 
 
+/*
+    @Override
+    public Optional<Personale> get(Map keys) {
+        if(Objects.isNull(keys))return Op;
+        PreparedStatement pst;
+        String query="SELECT * FROM " + tableName;
 
+        for (Map.Entry<Integer, Integer> pair : map.entrySet()) {
+            i += pair.getKey() + pair.getValue();
+        }
+
+
+
+
+        try {
+
+            pst = (database.createAndGetConnection()).prepareStatement(
+                    "SELECT * FROM " + tableName + " WHERE nome = ? AND cognom");
+
+
+
+            pst.setString(1, persona.getNome());
+            pst.setString(2, persona.getCognome());
+            pst.setBoolean(3,persona.isAttivo());
+            pst.executeUpdate();
+
+        }catch(Database.DataBaseCreationException | SQLException e) {
+            //todo
+
+        }
+    }
+*/
 
 
 
