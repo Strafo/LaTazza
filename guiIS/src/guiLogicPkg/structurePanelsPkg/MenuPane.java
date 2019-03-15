@@ -76,7 +76,7 @@ public class MenuPane extends KGradientPanel {
                             laTazzaFrame.getPanelByName(i).getLINKDESCRIPTION(),
                             ROWPANEL_DEFAULTX_BUTTON, ROWPANEL_DEFAULTX_ICON,ROWPANEL_DEFAULTY+ROWPANEL_DEFAULT_GAP*j++,ResourcesClassLoader.getIconStatoW25(), ResourcesClassLoader.getIconStatoB25())
 
-            );//todo trovare un modo per passare labels "Stato","Registra Vendita Cialde","Registra pagamento","Registra rifornimento","Getsione perosnale"
+            );
 
         }
 
@@ -124,10 +124,10 @@ public class MenuPane extends KGradientPanel {
 
             if(i.equals(lName)){
                 (linkMap.get(i)).setLinesW();
-                laTazzaFrame.setJPanelVisibleState(lName,true);
+                laTazzaFrame.setJPanelVisibleState(i,true);
             }else{
                 (linkMap.get(i)).setLinesB();
-                laTazzaFrame.setJPanelVisibleState(lName,false);
+                laTazzaFrame.setJPanelVisibleState(i,false);
             }
         }
 
