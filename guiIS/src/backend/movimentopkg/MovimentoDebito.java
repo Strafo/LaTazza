@@ -1,5 +1,6 @@
-package backend;
+package backend.movimentopkg;
 
+import backend.Euro;
 import backend.clientpkg.Cliente;
 
 import java.util.Date;

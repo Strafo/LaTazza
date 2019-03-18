@@ -2,6 +2,7 @@ package backend;
 
 import backend.clientpkg.Personale;
 import backend.clientpkg.Visitatore;
+import backend.movimentopkg.MovimentoVendita;
 
 import java.util.Date;
 

@@ -1,9 +1,9 @@
 package testBackend.daoTest;
 
 import backend.clientpkg.Personale;
-import backend.daopkg.Dao;
-import backend.daopkg.Database;
-import backend.daopkg.PersonaleDao;
+import backend.daopkg.gateways.Dao;
+import database.Database;
+import backend.daopkg.tmp.PersonaleDaoTemp;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -43,7 +43,7 @@ public class DaoTest{
         } catch (Database.DataBaseCreationException e) {
             fail(e.getMessage());
         }
-        dao=new PersonaleDao(database);
+        dao=new PersonaleDaoTemp(database);
         updateTable("guiIS/src/database/config/databaseConfig.sql");//DATABASE CONFIG SQL FILE
 
     }

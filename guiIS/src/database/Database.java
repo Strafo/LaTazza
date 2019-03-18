@@ -1,4 +1,4 @@
-package backend.daopkg;
+/*package database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -64,7 +64,7 @@ public class Database {
     /******************************************
      * CUSTOM EXCEPTIONS
      *****************************************/
-
+/*
     public class DataBaseCreationException extends Exception{
         public DataBaseCreationException() {
             super();
@@ -89,3 +89,4 @@ public class Database {
 
 
 }
+*/
