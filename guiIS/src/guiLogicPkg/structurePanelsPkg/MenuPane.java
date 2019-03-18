@@ -29,9 +29,6 @@ public class MenuPane extends KGradientPanel {
     private JLabel labelIconaTazza=new JLabel();
 
 
-
-
-
     //create the Menu Panel that contains five links
 	public MenuPane(LaTazzaFrame laTazzaFrame) {
         int j=0;
@@ -43,12 +40,6 @@ public class MenuPane extends KGradientPanel {
 		setkStartColor(LaTazzaColors.CAPPUCCINO);
 		//setkGradientFocus(menuPaneProperties.getGradient());
 		
-
-
-
-
-
-
         panelSeparator.setBounds(DEFAULTX_SEPARATOR, DEFAULTY_SEPARATOR, DEFAULT_WIDTH_SEPARATOR, DEFAULT_HEIGHT_SEPARATOR);
 		panelSeparator.setBackground(Color.WHITE);
 
@@ -60,26 +51,23 @@ public class MenuPane extends KGradientPanel {
         System.out.println("Working Directory = " +
                 System.getProperty("user.dir"));//+" Class path:"+System.getProperty("java.class.path"));
 
-
 		labelIconaTazza.setIcon(ResourcesClassLoader.getIconTazza());
-
 
         this.add(panelSeparator);
         this.add(labelTitolo);
         this.add(labelIconaTazza);
 
 
-
+        int j=0;
         for(LaTazzaFrame.JPanelsNames i:LaTazzaFrame.JPanelsNames.values()){
             linkMap.put(i,//todo check return value
                     new RowPanelLink(
                             laTazzaFrame.getPanelByName(i).getLINKDESCRIPTION(),
                             ROWPANEL_DEFAULTX_BUTTON, ROWPANEL_DEFAULTX_ICON,ROWPANEL_DEFAULTY+ROWPANEL_DEFAULT_GAP*j++,ResourcesClassLoader.getIconStatoW25(), ResourcesClassLoader.getIconStatoB25())
 
+
             );
-
         }
-
 
         RowPanelLink linkTemp;
 
@@ -106,8 +94,6 @@ public class MenuPane extends KGradientPanel {
             }
         }
 
-
-
 	}
 
 
@@ -118,7 +104,6 @@ public class MenuPane extends KGradientPanel {
      * @param lName il link da evidenziare
      */
 	private void setLink(LaTazzaFrame.JPanelsNames lName){
-
 
 	    for(LaTazzaFrame.JPanelsNames i:LaTazzaFrame.JPanelsNames.values()){
 

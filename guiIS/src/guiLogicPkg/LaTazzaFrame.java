@@ -30,8 +30,6 @@ public class LaTazzaFrame extends JFrame {
 
     }
 
-
-
 	private Map<JPanelsNames,AbstractPanel> jPanelsMap =new HashMap<>();
 
 	/**
@@ -56,11 +54,7 @@ public class LaTazzaFrame extends JFrame {
 		jPanelsMap.put(JPanelsNames.REGRIFORNIMENTOPANE,new RegistraRifornimento());
 		jPanelsMap.put(JPanelsNames.GESTIONEPERSONALEPANE,new GestionePersonale());
 
-
-
         jPanelsMap.forEach((k,v)->this.add(v));//aggiunge tutti i pannelli al frame
-
-
 
         menuPane=new MenuPane(this);//va lasciato per ultimo perchè devono essere init prima i contentpanes
         this.add(menuPane);
@@ -74,6 +68,7 @@ public class LaTazzaFrame extends JFrame {
      */
 	public void setJPanelVisibleState(JPanelsNames panelName,boolean panelVisibilityState){
 	    jPanelsMap.get(panelName).setVisible(panelVisibilityState);
+	    
     }
 
     public AbstractPanel getPanelByName(JPanelsNames name){
