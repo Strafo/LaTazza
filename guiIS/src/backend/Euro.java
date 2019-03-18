@@ -133,6 +133,8 @@ public class Euro {
     public  Euro clone(Euro toBeCloned){
         return new Euro(toBeCloned.euro,toBeCloned.centesimi);
     }
+
+
     /******************************************
      * CUSTOM EXCEPTIONS
      *****************************************/
