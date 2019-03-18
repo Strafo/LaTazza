@@ -1,11 +1,9 @@
-package guiConfig;
+/*package guiConfig;
 
 import java.util.MissingResourceException;
 import java.util.Objects;
-
 import javax.swing.ImageIcon;
 
-//class to load imageIcon
 public class MyClassLoader{
 	
 		private static ClassLoader classLoader = ClassLoader.getSystemClassLoader();
@@ -73,7 +71,9 @@ public class MyClassLoader{
 		}
 		
 		public static ImageIcon retriveIcon(String iconAddress) {
-			return new ImageIcon(Objects.requireNonNull(classLoader.getResource(iconAddress)));
+		    String path=System.getProperty("java.class.path")+"/guiIs/src/iconeGui/"+iconAddress;
+		    System.out.println("Path:"+path);
+			return new ImageIcon(Objects.requireNonNull(classLoader.getResource(path)));
 		}
 		
 		//GETTER METHODS
@@ -189,3 +189,4 @@ public class MyClassLoader{
 			return iconaDebiti;
 		}		
 }
+*/

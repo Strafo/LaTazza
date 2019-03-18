@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<component inheritJdk="true">
+<component inherit-compiler-output="true" inheritJdk="true">
+	<output-test url="file://$MODULE_DIR$/../out/test/guiIS"/>
 	<exclude-output/>
-	<contentEntry url="file://$MODULE_DIR$"/>
+	<contentEntry url="file://$MODULE_DIR$">
+		<testFolder url="file://$MODULE_DIR$/test"/>
+	</contentEntry>
+	<levels>
+		<level name="h2-1.4.198" value="project"/>
+		<level name="h2-1.4.199" value="project"/>
+		<level name="org.junit.jupiter:junit-jupiter-engine:5.0.0" value="project"/>
+	</levels>
 </component>
