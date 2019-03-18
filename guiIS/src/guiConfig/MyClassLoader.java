@@ -188,5 +188,4 @@ public class MyClassLoader{
 		public static ImageIcon getIconDebito() {
 			return iconaDebiti;
 		}		
-}
-*/
+}*/

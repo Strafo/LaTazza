@@ -11,19 +11,15 @@ import static guiConfig.structurePanelsPropertiesPkg.RowPanelProperties.*;
 
 public class RowPanelLink{
 
-	private JLabel icon=new JLabel("");
+	private JLabel icon=new JLabel();
 	private JPanel button=new JPanel();
 	private JLabel buttonLabel;
 	
 	private ImageIcon iconWhite;
 	private ImageIcon iconBlack;
 
-
-
-
-
 	//Constructor
-	//create a panel that has got a label, that describes the link, and create another laber to contain the imageIcon of link
+	//create a panel that has got a label, that describes the link, and create another label to contain the imageIcon of link
 
 
 	public RowPanelLink(String buttonLabel,int button_x, int icon_x, int y, ImageIcon iconWhite, ImageIcon iconBlack) {
@@ -43,8 +39,7 @@ public class RowPanelLink{
 		icon.setBounds(icon_x, y, DEFAULTWIDTH_ICON, DEFAULTHEIGHT_ICON);
 		
 	}
-
-
+	
     /**
      *
      */
@@ -63,7 +58,6 @@ public class RowPanelLink{
 		button.setBorder(new MatteBorder(0, 0, 1, 0,  Color.black));
 		icon.setIcon(iconBlack);
 	}
-
 
 
 	public JPanel getButton() {

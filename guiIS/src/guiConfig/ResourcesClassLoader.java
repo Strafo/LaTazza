@@ -8,11 +8,6 @@ public class ResourcesClassLoader{
 
     private static ClassLoader classLoader = ClassLoader.getSystemClassLoader();
 
-
-
-
-
-
     private static ImageIcon iconaTazza=new ImageIcon(System.getProperty("user.dir")+"/guiIs/src/iconeGui/iconaTazza2.png");
     private static ImageIcon iconaStatoB25=new ImageIcon(System.getProperty("user.dir")+"/guiIs/src/iconeGui/statoB25.png");
     private static ImageIcon iconaStatoW25=new ImageIcon(System.getProperty("user.dir")+"/guiIs/src/iconeGui/statoW25.png");

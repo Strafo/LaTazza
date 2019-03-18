@@ -11,9 +11,6 @@ import static guiConfig.contentsPanelsPropertiesPkg.StatoPaneProperties.*;
 
 public class StatoPane extends AbstractPanel {
 
-
-
-
 	private JLabel labelStato;
 	public StatoPane() {
 
