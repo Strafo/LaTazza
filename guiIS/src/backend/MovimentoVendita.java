@@ -1,5 +1,7 @@
 package backend;
 
+import backend.clientpkg.Cliente;
+
 import java.util.Date;
 import java.util.Objects;
 
@@ -8,7 +10,7 @@ public final class MovimentoVendita extends Movimento {
     public TipoCialda tipo;
 
 
-    public MovimentoVendita(Date data, Cliente cliente,int quantita,TipoCialda tipo) throws IllegalArgumentException {
+    public MovimentoVendita(Date data, Cliente cliente, int quantita, TipoCialda tipo) throws IllegalArgumentException {
         super(data, cliente);
         this.tipo=Objects.requireNonNull(tipo);
         if(quantita<=0){

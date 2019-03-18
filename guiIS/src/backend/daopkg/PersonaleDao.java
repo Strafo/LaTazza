@@ -1,5 +1,5 @@
 package backend.daopkg;
-import backend.Personale;
+import backend.clientpkg.Personale;
 
 
 import java.sql.*;

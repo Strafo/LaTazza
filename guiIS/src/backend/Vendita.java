@@ -1,5 +1,8 @@
 package backend;
 
+import backend.clientpkg.Personale;
+import backend.clientpkg.Visitatore;
+
 import java.util.Date;
 
 public class Vendita {

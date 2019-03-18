@@ -1,4 +1,6 @@
 package backend;
+import backend.clientpkg.Cliente;
+
 import java.util.Date;
 import java.util.Objects;
 

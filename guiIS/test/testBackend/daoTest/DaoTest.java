@@ -1,6 +1,6 @@
 package testBackend.daoTest;
 
-import backend.Personale;
+import backend.clientpkg.Personale;
 import backend.daopkg.Dao;
 import backend.daopkg.Database;
 import backend.daopkg.PersonaleDao;

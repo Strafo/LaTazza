@@ -1,4 +1,6 @@
-package backend;
+package backend.clientpkg;
+
+import backend.Debito;
 
 public final class Personale extends Cliente {
 
@@ -10,7 +12,7 @@ public final class Personale extends Cliente {
         return attivo;
     }
 
-    public void setAttivo(boolean attivo) {//todo denvo essere consiste con il database però
+    public void setAttivo(boolean attivo) {//todo denvo essere consiste con il database perï¿½
         this.attivo = attivo;
     }
 
