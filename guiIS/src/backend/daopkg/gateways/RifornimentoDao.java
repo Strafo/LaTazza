@@ -1,5 +1,6 @@
 package backend.daopkg.gateways;
-import backend.daopkg.gateways.AbstractDao;
+import utils.ThrowingBiPredicate;
+import utils.ThrowingFunction;
 
 import java.sql.Connection;
 import java.util.List;
@@ -14,22 +15,22 @@ public class RifornimentoDao extends AbstractDao {
 
 
     @Override
-    public List getAll() {
+    public ThrowingFunction<Connection, List> getLambdaGetAll() {
         return null;
     }
 
     @Override
-    public boolean save(Object o) {
-
+    public ThrowingBiPredicate getLambdaUpdate() {
+        return null;
     }
 
     @Override
-    public boolean update(Object o) {
-
+    public ThrowingBiPredicate getLambdaSave() {
+        return null;
     }
 
     @Override
-    public boolean delete(Object o) {
-
+    public ThrowingBiPredicate getLambdaDelete() {
+        return null;
     }
 }

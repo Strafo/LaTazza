@@ -1,35 +1,36 @@
 package backend.daopkg.gateways;
-import backend.daopkg.gateways.AbstractDao;
+import utils.ThrowingBiPredicate;
+import utils.ThrowingFunction;
 
 import java.sql.Connection;
 import java.util.List;
 
 public class CompraVisitatoreDao extends AbstractDao {
-    public static final String TABLE_NAME="LATAZZASCHEMA.compra_visitatore";
+    public static final String TABLE_NAME = "LATAZZASCHEMA.compra_visitatore";
 
-    public CompraVisitatoreDao(Connection dataBaseConnection){
+    public CompraVisitatoreDao(Connection dataBaseConnection) {
         super(TABLE_NAME);
         this.setDataBaseConnection(dataBaseConnection);
     }
 
 
     @Override
-    public List getAll() {
+    public ThrowingFunction<Connection, List> getLambdaGetAll() {
         return null;
     }
 
     @Override
-    public boolean save(Object o) {
-
+    public ThrowingBiPredicate getLambdaUpdate() {
+        return null;
     }
 
     @Override
-    public boolean update(Object o) {
-
+    public ThrowingBiPredicate getLambdaSave() {
+        return null;
     }
 
     @Override
-    public boolean delete(Object o) {
-
+    public ThrowingBiPredicate getLambdaDelete() {
+        return null;
     }
 }
