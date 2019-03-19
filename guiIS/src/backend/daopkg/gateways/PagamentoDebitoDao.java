@@ -1,6 +1,6 @@
 package backend.daopkg.gateways;
 import backend.Euro;
-import backend.daopkg.PagamentoDebitoEntry;
+import backend.daopkg.rowdatapkg.PagamentoDebitoEntry;
 import utils.ThrowingBiPredicate;
 import utils.ThrowingFunction;
 import java.sql.*;

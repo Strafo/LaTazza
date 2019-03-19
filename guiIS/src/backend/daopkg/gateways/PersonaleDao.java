@@ -2,7 +2,6 @@ package backend.daopkg.gateways;
 import backend.clientpkg.Personale;
 import utils.ThrowingBiPredicate;
 import utils.ThrowingFunction;
-
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;

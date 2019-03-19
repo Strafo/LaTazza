@@ -1,6 +1,6 @@
 package backend.daopkg.gateways;
 import backend.Euro;
-import backend.daopkg.CialdeEntry;
+import backend.daopkg.rowdatapkg.CialdeEntry;
 import utils.ThrowingBiPredicate;
 import utils.ThrowingFunction;
 import java.sql.Connection;

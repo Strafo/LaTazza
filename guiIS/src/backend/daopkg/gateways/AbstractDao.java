@@ -1,11 +1,12 @@
 package backend.daopkg.gateways;
+import org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException;
 import utils.LaTazzaLogger;
 import utils.ThrowingBiPredicate;
 import utils.ThrowingFunction;
 import java.sql.Connection;
 import java.util.List;
 import java.util.logging.Level;
-
+import java.util.logging.LogRecord;
 public abstract class AbstractDao<T> implements Dao<T> {
 
     private final String table_name;
@@ -36,7 +37,7 @@ public abstract class AbstractDao<T> implements Dao<T> {
         try{
             return getLambdaGetAll().apply(dataBaseConnection);
         }catch(Exception exc){
-            LaTazzaLogger.getLOGGER().log(Level.SEVERE, "Errore esecuzione getAll query.", exc);
+            handleException("GETALL",exc);
             return null;
         }
     }
@@ -45,7 +46,7 @@ public abstract class AbstractDao<T> implements Dao<T> {
         try{
             return getLambdaSave().test(dataBaseConnection,t);
         }catch(Exception exc){
-            LaTazzaLogger.getLOGGER().log(Level.SEVERE, "Errore esecuzione save query.", exc);
+            handleException("SAVE",exc);
             return false;
         }
 
@@ -55,7 +56,7 @@ public abstract class AbstractDao<T> implements Dao<T> {
         try{
             return getLambdaUpdate().test(dataBaseConnection,t);
         }catch(Exception exc){
-            LaTazzaLogger.getLOGGER().log(Level.SEVERE, "Errore esecuzione update query.", exc);
+            handleException("UPDATE",exc);
             return false;
         }
     }
@@ -64,9 +65,21 @@ public abstract class AbstractDao<T> implements Dao<T> {
         try{
             return getLambdaDelete().test(dataBaseConnection,t);
         }catch(Exception exc){
-            LaTazzaLogger.getLOGGER().log(Level.SEVERE, "Errore esecuzione delete query.", exc);
+            handleException("DELETE",exc);
             return false;
         }
+    }
+
+    private void handleException(String queryType,Exception exc){
+        if(exc.getCause() instanceof JdbcSQLIntegrityConstraintViolationException){
+            LaTazzaLogger.getLOGGER().log(
+                    new LogRecord(
+                            Level.INFO,
+                            "ConstraintViolation esecuzione "+ queryType +" query.\n"+ exc.toString()+" "+((JdbcSQLIntegrityConstraintViolationException) exc.getCause()).getSQL()+"\n\n"));
+        }else{
+            LaTazzaLogger.getLOGGER().log(Level.SEVERE,"Errore esecuzione "+queryType+" query.\n",exc);
+        }
+
     }
 
 

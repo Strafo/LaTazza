@@ -11,12 +11,16 @@ public final class LaTazzaLogger  {
     private LaTazzaLogger(){}
 
 
-    public static void initLogger(){
+    public static void initLogger(boolean stderrActive){
         try {
             Handler fileHandler = new FileHandler(LOG_FILE_NAME);
+            Handler consoleHandler=new ConsoleHandler();
             LOGGER.addHandler(fileHandler);
             fileHandler.setLevel(Level.ALL);
             fileHandler.setFormatter(new SimpleFormatter());
+            if(!stderrActive) {
+                LOGGER.removeHandler(consoleHandler);
+            }
         }catch (IOException exc){
             LOGGER.log(Level.SEVERE,"Impossibile creare logger.",exc);
         }
