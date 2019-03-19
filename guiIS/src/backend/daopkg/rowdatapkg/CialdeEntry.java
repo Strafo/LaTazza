@@ -1,8 +1,9 @@
 package backend.daopkg.rowdatapkg;
-
 import backend.Euro;
+import backend.daopkg.gateways.CialdeDao;
 
-public class CialdeEntry {
+
+public class CialdeEntry extends AbstractEntryDB  implements EntryDB {
     private String tipo;
     private Euro prezzo;
 
@@ -10,6 +11,8 @@ public class CialdeEntry {
         this.tipo = tipo;
         this.prezzo = prezzo;
     }
+
+    public CialdeEntry(){}
 
     public String getTipo() {
         return tipo;
@@ -29,6 +32,12 @@ public class CialdeEntry {
 
     @Override
     public String toString() {
-        return "CialdeEntry: prezzo:"+prezzo+" tipo:"+tipo;
+        return "CialdeEntry: prezzo:" + prezzo + " tipo:" + tipo;
+    }
+
+
+    @Override
+    public Class<CialdeDao> getCorrespondigDao() {
+        return CialdeDao.class;
     }
 }

@@ -86,4 +86,6 @@ public class PersonaleDao extends AbstractDao<Personale> {
         return deleteLambda;
     }
 
+
+
 }

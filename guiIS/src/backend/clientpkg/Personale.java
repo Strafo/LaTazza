@@ -1,8 +1,10 @@
 package backend.clientpkg;
 import backend.Debito;
+import backend.daopkg.gateways.PersonaleDao;
+import backend.daopkg.rowdatapkg.EntryDB;
 
 
-public final class Personale extends Cliente {
+public final class Personale extends Cliente implements EntryDB {
 
 
     private Debito debito;
@@ -35,6 +37,8 @@ public final class Personale extends Cliente {
         this.attivo=true;
     }
 
+    public Personale(){}
+
     @Override
     public String toString(){
         String string ="nome:" +this.getNome()+" cognome:"+this.getCognome()+
@@ -46,5 +50,11 @@ public final class Personale extends Cliente {
         }
         return string;
     }
+
+    @Override
+    public Class<PersonaleDao> getCorrespondigDao() {
+        return PersonaleDao.class;
+    }
+
 
 }

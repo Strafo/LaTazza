@@ -1,4 +1,5 @@
 package testBackend;
+import backend.Euro;
 import backend.clientpkg.Personale;
 import backend.clientpkg.Visitatore;
 import backend.daopkg.gateways.Dao;
@@ -6,15 +7,20 @@ import backend.daopkg.gateways.PersonaleDao;
 import backend.daopkg.rowdatapkg.*;
 import database.DataBase;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import utils.LaTazzaLogger;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -28,9 +34,9 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DaoTest{
 
 
-    private Dao<Personale> dao;
+    private Dao dao;
     private DataBase database;
-    private Integer[] nEntry={14,3,3,4,5,3,2};//numero di inserimetni per le tabelle(in ordine):personale,cialde,visitatore,rifornimento,pagamento_debito,compra visitatore,compra dipendente
+    private Integer[] nEntry={14,4,4,4,5,3,2};//numero di inserimetni del file DefaultSetEntry.sql per le tabelle(in ordine):personale,cialde,visitatore,rifornimento,pagamento_debito,compra visitatore,compra dipendente
 
     /**
      * Inizializza il logger per il database.
@@ -67,26 +73,41 @@ public class DaoTest{
         }
     }
 
-    @Test//todo renderlo paramentrico per il path di updateTable da seguire
-    void getAllTest() {
-        List list=dao.getAll();
-        printList(list);
-        checkNEntry(Object.class,0,list.size());
+    @ParameterizedTest
+    @ValueSource(classes={Personale.class,CialdeEntry.class,Visitatore.class,RifornimentoEntry.class,PagamentoDebitoEntry.class,CompraVisitatoreEntry.class,CompraDipendenteEntry.class})
+    void getAllTest(Class<?> cls) {
+        try {
+            EntryDB obj=(EntryDB)cls.newInstance();
+            dao=obj.getCorrespondigDao().getConstructor(Connection.class).newInstance(database.getConnection());
+            List list=dao.getAll();
+            checkNEntry(Object.class,0,list.size());
+            printList(list);
+        }catch(Exception exc){
+            exc.printStackTrace();
+            fail("Impossibile trovare costruttore");
+        }
     }
 
-    @Test
-    void saveTest()  {
-        assertTrue(dao.save(new Personale("zio","pino",true)));
-        assertTrue(dao.save(new Personale("ciccio","pasticcio",false)));
+    @ParameterizedTest
+    @ValueSource(classes={Personale.class,CialdeEntry.class,Visitatore.class,RifornimentoEntry.class,PagamentoDebitoEntry.class,CompraVisitatoreEntry.class,CompraDipendenteEntry.class})
+    void saveTest(Class<?>  cls)  {
+        try {
+            EntryDB obj=(EntryDB)cls.newInstance();
+            dao=obj.getCorrespondigDao().getConstructor(Connection.class).newInstance(database.getConnection());
+            assertTrue(dao.save(createInstance(cls,true)));
 
-        List list=dao.getAll();
-        checkNEntry(Object.class,2,list.size());
-
+            List list=dao.getAll();
+            checkNEntry(Object.class,2,list.size());
+        }catch(Exception exc){
+            exc.printStackTrace();
+            fail("Impossibile trovare costruttore");
+        }
 
     }
 
 
-    @Test
+    @ParameterizedTest
+    @ValueSource(classes={Personale.class,CialdeEntry.class,Visitatore.class,RifornimentoEntry.class,PagamentoDebitoEntry.class,CompraVisitatoreEntry.class,CompraDipendenteEntry.class})
     void updateTest() {
         /*Personale pers=new Personale("andrea","straforini",true);
         //dao.update(pers,new Personale("andrea","straforini",false));TODO
@@ -103,21 +124,22 @@ public class DaoTest{
 */
     }
 
-    @Test
-    void deleteTest(){
-        //viola vincolo pagamento debito-->assertfalse Questa delete lancia uneccezione ma è giusto così! violerebbe il constraint di LATAZZASCHEMA.PAGAMENTO_DEBITO
-        assertFalse(dao.delete(new Personale("andrea","straforini",true)));
+    @ParameterizedTest
+    @ValueSource(classes={Personale.class,CialdeEntry.class,Visitatore.class,RifornimentoEntry.class,PagamentoDebitoEntry.class,CompraVisitatoreEntry.class,CompraDipendenteEntry.class})
+    void deleteTest(Class<?>cls){
 
-        assertTrue(dao.delete(new Personale("simone","mirto",true)));
 
-        List list=dao.getAll();
+        try {
+            EntryDB obj=(EntryDB)cls.newInstance();
+            dao=obj.getCorrespondigDao().getConstructor(Connection.class).newInstance(database.getConnection());
+            assertTrue(dao.delete(createInstance(cls,false)));
 
-        for(Object i:list){
-            if(((Personale)i).getCognome().equals("mirto")&&((Personale)i).getNome().equals("simone")) {
-                fail("Tupla non eliminata.");
-            }
+            List list=dao.getAll();
+            checkNEntry(Object.class,-1,list.size());
+        }catch(Exception exc){
+            exc.printStackTrace();
+            fail("Impossibile trovare costruttore");
         }
-        checkNEntry(Object.class,-1,list.size());
 
 
     }
@@ -194,6 +216,86 @@ public class DaoTest{
 
 
 
+
+
+    Object createInstance(Class<?>cls,boolean random) {
+        try{
+        DateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+        if (random) {
+            String randomchar = Long.toString((new Date()).getTime());
+            if (cls == Personale.class) {
+                return new Personale("zio", "pino" + randomchar, true);//get time serve per "randomizzare"
+            }
+            if (cls == CialdeEntry.class) {
+                return new CialdeEntry("caffè" + randomchar, new Euro(0, 5));
+            }
+            if (cls == Visitatore.class) {
+                return new Visitatore("ciccio", "pasticcio" + randomchar);
+            }
+            if (cls == RifornimentoEntry.class) {
+                return new RifornimentoEntry(getRandomDate(), 100, "caffè");
+            }
+            if (cls == PagamentoDebitoEntry.class) {
+                return new PagamentoDebitoEntry("andrea", "straforini", getRandomDate(), new Euro(3, 5));
+            }
+            if (cls == CompraVisitatoreEntry.class) {
+                return new CompraVisitatoreEntry(getRandomDate(), 6, "cioccolata", "salmo", "lebon");
+            }
+            if (cls == CompraDipendenteEntry.class) {
+                return new CompraDipendenteEntry(getRandomDate(), 2, "caffè", "andrea", "straforini", true);
+            }
+            fail("istanza non riconosciuta");
+            return null;
+        } else {
+            if (cls == Personale.class) {
+                return new Personale("andrea", "squillante", true);
+            }
+            if (cls == CialdeEntry.class) {
+                return new CialdeEntry("tortaalgustoditorta", new Euro(0, 5));
+            }
+            if (cls == Visitatore.class) {
+                return new Visitatore("fabri", "fibra");
+            }
+            if (cls == RifornimentoEntry.class) {
+                return new RifornimentoEntry(format.parse("2000-12-31"), 2, "caffè");
+            }
+            if (cls == PagamentoDebitoEntry.class) {
+                return new PagamentoDebitoEntry("andrea", "straforini", format.parse("2019-01-01"), new Euro(3, 666));
+            }
+            if (cls == CompraVisitatoreEntry.class) {
+                return new CompraVisitatoreEntry( format.parse("2019-01-01"), 6, "cioccolata", "salmo", "lebon");
+            }
+            if (cls == CompraDipendenteEntry.class) {
+                return new CompraDipendenteEntry(format.parse("2019-01-01"), 2, "caffè", "andrea", "oneto", true);
+            }
+            fail("istanza non riconosciuta");
+
+        }
+    }catch(Exception e){
+        fail(e.toString());
+    }
+        return null;
+    }
+
+
+
+    Date getRandomDate(){//https://stackoverflow.com/questions/3985392/generate-random-date-of-birth
+        Random  rnd;
+        long    ms;
+
+        // Get a new random instance, seeded from the clock
+        rnd = new Random();
+
+        // Get an Epoch value roughly between 1940 and 2010
+        // -946771200000L = January 1, 1940
+        // Add up to 70 years to it (using modulus on the next long)
+        ms = -946771200000L + (Math.abs(rnd.nextLong()) % (70L * 365 * 24 * 60 * 60 * 1000));
+
+        // Construct a date
+        return new Date(ms);
+
+    }
+
     void printList(List l){
         for(Object i:l){
             System.out.println(i.toString());
@@ -201,4 +303,6 @@ public class DaoTest{
     }
 
 }
+
+
 

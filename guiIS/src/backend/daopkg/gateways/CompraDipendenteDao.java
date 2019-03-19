@@ -52,8 +52,8 @@ public class CompraDipendenteDao extends AbstractDao {
     private static ThrowingBiPredicate<Connection,CompraDipendenteEntry>  saveLambda=(Connection conn,CompraDipendenteEntry entry)->{
         PreparedStatement pst;
         pst=conn.prepareStatement(INSERT_STATEMENT_STRING);
-        pst.setString(1,entry.getCognome());
-        pst.setString(2,entry.getNome());
+        pst.setString(1,entry.getNome());
+        pst.setString(2,entry.getCognome());
         pst.setString(3,entry.getTipoCialda());
         pst.setInt(4,entry.getNumeroCialde());
         pst.setDate(5,new java.sql.Date(entry.getData().getTime()));
@@ -65,8 +65,8 @@ public class CompraDipendenteDao extends AbstractDao {
     private static ThrowingBiPredicate<Connection,CompraDipendenteEntry>  deleteLambda=(Connection conn,CompraDipendenteEntry entry)->{
         PreparedStatement pst;
         pst=conn.prepareStatement(DELETE_STATEMENT_STRING);
-        pst.setString(1,entry.getCognome());
-        pst.setString(2,entry.getNome());
+        pst.setString(1,entry.getNome());
+        pst.setString(2,entry.getCognome());
         pst.setDate(3,new java.sql.Date(entry.getData().getTime()));
         pst.executeUpdate();
         return true;

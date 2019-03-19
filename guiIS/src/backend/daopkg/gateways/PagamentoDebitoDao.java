@@ -33,7 +33,7 @@ public class PagamentoDebitoDao extends AbstractDao<PagamentoDebitoEntry> {
                             rs.getString("cognome"),
                             rs.getDate("data"),
                             //rs.getDouble("importo")//todo non va bene i double per importo
-                            new Euro(0,0)
+                            new Euro(1,0)
                     )
             );
         }
@@ -53,7 +53,7 @@ public class PagamentoDebitoDao extends AbstractDao<PagamentoDebitoEntry> {
         pst.setString(1, pde.getNomePersonale());
         pst.setString(2, pde.getCognomePersonale());
         pst.setDate(3,new java.sql.Date(pde.getData().getTime()));
-        pst.setDouble(4,0.0);//todo set importo
+        pst.setDouble(4,1.0);//todo set importo
         pst.executeUpdate();
         return true;
     };

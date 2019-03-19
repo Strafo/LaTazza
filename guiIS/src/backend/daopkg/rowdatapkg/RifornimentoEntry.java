@@ -1,8 +1,9 @@
 package backend.daopkg.rowdatapkg;
+import backend.daopkg.gateways.RifornimentoDao;
 
 import java.util.Date;
 
-public class RifornimentoEntry {
+public class RifornimentoEntry extends AbstractEntryDB implements EntryDB {
     private Date data;
     private String tipoCialda;
     private int qta;
@@ -12,6 +13,8 @@ public class RifornimentoEntry {
         this.qta = qta;
         this.tipoCialda = tipoCialda;
     }
+
+    public RifornimentoEntry(){}
 
     public Date getData() {
         return data;
@@ -43,4 +46,8 @@ public class RifornimentoEntry {
     }
 
 
+    @Override
+    public Class<RifornimentoDao> getCorrespondigDao() {
+        return RifornimentoDao.class;
+    }
 }

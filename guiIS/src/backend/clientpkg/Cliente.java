@@ -1,8 +1,10 @@
 package backend.clientpkg;
-
+import backend.daopkg.gateways.AbstractDao;
+import backend.daopkg.rowdatapkg.AbstractEntryDB;
+import backend.daopkg.rowdatapkg.EntryDB;
 import java.util.Objects;
 
-public abstract class Cliente {
+public abstract class Cliente extends AbstractEntryDB implements EntryDB {
 
     private String nome;
     private String cognome;
@@ -11,6 +13,8 @@ public abstract class Cliente {
         setNome(nome);
         setCognome(cognome);
     }
+
+    public Cliente(){}
 
     public String getNome() {
         return nome;
@@ -27,4 +31,7 @@ public abstract class Cliente {
     public void setCognome(String cognome) {
         this.cognome =Objects.requireNonNull(cognome);
     }
+
+    public abstract Class<? extends AbstractDao>getCorrespondigDao();
+
 }

@@ -1,8 +1,9 @@
 package backend.daopkg.rowdatapkg;
-
+import backend.daopkg.gateways.AbstractDao;
+import backend.daopkg.gateways.CompraVisitatoreDao;
 import java.util.Date;
 
-public class CompraVisitatoreEntry {
+public class CompraVisitatoreEntry extends AbstractEntryDB implements EntryDB {
     private Date data;
     private int numeroCialde;
     private String tipoCialda;
@@ -17,6 +18,7 @@ public class CompraVisitatoreEntry {
         this.cognome = cognome;
     }
 
+    public CompraVisitatoreEntry(){}
 
     public Date getData() {
         return data;
@@ -59,6 +61,8 @@ public class CompraVisitatoreEntry {
     }
 
 
-
-
+    @Override
+    public Class<? extends AbstractDao> getCorrespondigDao() {
+        return CompraVisitatoreDao.class;
+    }
 }
