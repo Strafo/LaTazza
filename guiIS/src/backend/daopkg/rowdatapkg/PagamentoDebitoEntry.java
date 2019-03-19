@@ -48,5 +48,9 @@ public class PagamentoDebitoEntry {
         this.importo = importo;
     }
 
+    @Override
+    public String toString() {
+        return "PagamentoDebitoEntry: data:"+data.toString()+" importo:"+importo.toString()+" nome:"+nomePersonale+" cognome:"+cognomePersonale;
+    }
 
 }

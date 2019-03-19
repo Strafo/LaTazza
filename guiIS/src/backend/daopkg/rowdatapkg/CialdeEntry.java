@@ -27,7 +27,8 @@ public class CialdeEntry {
         this.prezzo = prezzo;
     }
 
-
-
-
+    @Override
+    public String toString() {
+        return "CialdeEntry: prezzo:"+prezzo+" tipo:"+tipo;
+    }
 }

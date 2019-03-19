@@ -37,9 +37,10 @@ public class RifornimentoEntry {
         this.tipoCialda = tipoCialda;
     }
 
-
-
-
+    @Override
+    public String toString() {
+        return "RifornimentoEntry: data:"+data.toString()+" tipoCialda:"+tipoCialda+" qta:"+qta;
+    }
 
 
 }

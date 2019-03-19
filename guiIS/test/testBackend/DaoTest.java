@@ -32,16 +32,20 @@ public class DaoTest{
     private DataBase database;
     private Integer[] nEntry={14,3,3,4,5,3,2};//numero di inserimetni per le tabelle(in ordine):personale,cialde,visitatore,rifornimento,pagamento_debito,compra visitatore,compra dipendente
 
+    /**
+     * Inizializza il logger per il database.
+     * Tutti i log si trovano nel file ./LaTazza.log
+     */
     @BeforeAll
     static void setUpLogger(){
         LaTazzaLogger.initLogger(false);
     }
 
-    @BeforeEach
     /**
      * Carica il database con le tabelle necessarie.
      * Le def. di quest tab sono nello script guiIS/src/database/config/databaseConfig.sql
      */
+    @BeforeEach
     void setUp() {
         database=new DataBase("jdbc:h2:mem:databaseTest");//database per il testing :mem (in memory)
         try {
@@ -101,7 +105,8 @@ public class DaoTest{
 
     @Test
     void deleteTest(){
-        assertFalse(dao.delete(new Personale("andrea","straforini",true)));//viola vincolo pagamento debito-->assertfalse
+        //viola vincolo pagamento debito-->assertfalse Questa delete lancia uneccezione ma è giusto così! violerebbe il constraint di LATAZZASCHEMA.PAGAMENTO_DEBITO
+        assertFalse(dao.delete(new Personale("andrea","straforini",true)));
 
         assertTrue(dao.delete(new Personale("simone","mirto",true)));
 
