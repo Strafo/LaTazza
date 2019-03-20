@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import com.apple.eawt.Application;
 import guiConfig.ResourcesClassLoader;
 import guiConfig.structurePanelsPropertiesPkg.LaTazzaFrameProperties;
 import guiLogicPkg.contentsPanelsPkg.*;
@@ -41,6 +42,8 @@ public class LaTazzaFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public LaTazzaFrame() {
+
+        Application.getApplication().setDockIconImage((ResourcesClassLoader.getIconTazzaBrown()).getImage());
 		
 		this.setBounds(laTazzaFrameProperties.getX(), laTazzaFrameProperties.getY(), laTazzaFrameProperties.getWidth(), laTazzaFrameProperties.getHeight());
 		this.setDefaultCloseOperation(laTazzaFrameProperties.getCloseOp());//todo checksetBounds(100, 100, 800, 500);
@@ -48,11 +51,12 @@ public class LaTazzaFrame extends JFrame {
         this.setContentPane(contentPane);
         this.setContentPane(contentPane);
         this.add(topBarPanePane);
+        this.setTitle("LaTazza");
 
+        imgs.add(ResourcesClassLoader.getIconTazza16().getImage());
         imgs.add(ResourcesClassLoader.getIconTazza25().getImage());
         imgs.add(ResourcesClassLoader.getIconTazza32().getImage());
-        imgs.add(ResourcesClassLoader.getIconTazza50().getImage());
-        imgs.add(ResourcesClassLoader.getIconTazza75().getImage());
+        imgs.add(ResourcesClassLoader.getIconTazza64().getImage());
 
         this.setIconImages(imgs);
 

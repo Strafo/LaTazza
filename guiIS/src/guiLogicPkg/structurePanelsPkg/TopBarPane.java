@@ -17,10 +17,10 @@ public class TopBarPane extends KGradientPanel {
 	
 	private JLabel labelClose;
 	private JLabel labelMin;
-	
-	private static final int DEFAULTX_LABELCLOSE = 770;
-	private static final int DEFAULTX_LABELMIN = 745;
-	
+
+	private static final int DEFAULTX_LABELCLOSE = 820;
+	private static final int DEFAULTX_LABELMIN = 795;
+
 	private static final int DEFAULTY_LABEL = 3;
 	private static final int DEFAULT_WIDTH_LABEL = 25;
 	private static final int DEFAULT_HEIGHT_LABEL = 25;
