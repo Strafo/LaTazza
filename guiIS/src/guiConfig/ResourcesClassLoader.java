@@ -10,12 +10,12 @@ public class ResourcesClassLoader{
 
 
     private static ImageIcon iconaTazza=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/iconaTazza2.png");
-    private static ImageIcon iconaTazzaBrown=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/iconaTazzaBrown.png");
+    private static ImageIcon iconaTazzaBrown=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/iconaTazzaB2.png");
     private static ImageIcon iconaTazzaWhite=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/iconaTazzaW.png");
     private static ImageIcon iconaTazza16=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/iconaTazza16.png");
-    private static ImageIcon iconaTazza25=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/iconaTazza25.png");
-    private static ImageIcon iconaTazza32=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/iconaTazza32.png");
-    private static ImageIcon iconaTazza50=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/iconaTazza50.png");
+    private static ImageIcon iconaTazza25=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/iconaTazzaB25.png");
+    private static ImageIcon iconaTazza32=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/iconaTazzaB32.png");
+    private static ImageIcon iconaTazza50=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/iconaTazzaB50.png");
     private static ImageIcon iconaTazza64=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/iconaTazza64.png");
     private static ImageIcon iconaStatoB25=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/statoB25.png");
     private static ImageIcon iconaStatoW25=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/statoW25.png");
