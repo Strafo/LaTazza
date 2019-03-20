@@ -4,6 +4,7 @@
 	<exclude-output/>
 	<contentEntry url="file://$MODULE_DIR$">
 		<testFolder url="file://$MODULE_DIR$/test"/>
+		<excludeFolder url="file://$MODULE_DIR$/bin"/>
 	</contentEntry>
 	<levels>
 		<level name="h2-1.4.198" value="project"/>
