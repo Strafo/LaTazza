@@ -1,12 +1,15 @@
 package guiLogicPkg;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import guiConfig.ResourcesClassLoader;
 import guiConfig.structurePanelsPropertiesPkg.LaTazzaFrameProperties;
 import guiLogicPkg.contentsPanelsPkg.*;
 import guiLogicPkg.structurePanelsPkg.MenuPane;
@@ -20,6 +23,8 @@ public class LaTazzaFrame extends JFrame {
     private ContentPane contentPane=new ContentPane(this);
     private MenuPane menuPane;
     private TopBarPane topBarPanePane=new TopBarPane(this);
+
+    private List<Image> imgs= new ArrayList<>();
 
     public  enum JPanelsNames{
         STATOPANE,
@@ -42,9 +47,14 @@ public class LaTazzaFrame extends JFrame {
 		this.setUndecorated(true);
         this.setContentPane(contentPane);
         this.setContentPane(contentPane);
-
         this.add(topBarPanePane);
 
+        imgs.add(ResourcesClassLoader.getIconTazza25().getImage());
+        imgs.add(ResourcesClassLoader.getIconTazza32().getImage());
+        imgs.add(ResourcesClassLoader.getIconTazza50().getImage());
+        imgs.add(ResourcesClassLoader.getIconTazza75().getImage());
+
+        this.setIconImages(imgs);
 
 		//todo check return value
         //inizializza i pannelli e li aggiune alla jPanelsMap
