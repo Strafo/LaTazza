@@ -74,7 +74,7 @@ public class ResourcesClassLoader{
     }
 
     public static ImageIcon getIconTazza50() {
-        return iconaTazza64;
+        return iconaTazza50;
     }
 
     public static ImageIcon getIconTazza64() {
