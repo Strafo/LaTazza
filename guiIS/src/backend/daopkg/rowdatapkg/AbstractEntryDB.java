@@ -5,7 +5,7 @@ import backend.daopkg.gateways.AbstractDao;
 public abstract class AbstractEntryDB implements EntryDB {
 
     @Override
-    public abstract  Class<? extends AbstractDao> getCorrespondigDao();
+    public  abstract  Class<? extends AbstractDao> getCorrespondigDaoClass();
 
     public AbstractEntryDB(){}
 }

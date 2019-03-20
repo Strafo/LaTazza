@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class CompraDipendenteDao extends AbstractDao {
+
     public static final String TABLE_NAME="LATAZZASCHEMA.compra_dipendente";
     private static final String INSERT_STATEMENT_STRING = "INSERT INTO " + TABLE_NAME + " (nome,cognome,tipo_cialda,numero_cialde,data,contanti) VALUES (?,?,?,?,?,?)";
     private static final String UPDATE_STATEMENT_STRING = "UPDATE  " + TABLE_NAME + " SET nome = ? , cognome = ? , tipo_cialda = ? , numero_cialde = ? , data = ? , contanti = ? WHERE nome = ? AND cognome = ? AND tipo_cialda = ? AND numero_cialde = ? AND data = ? AND contanti  = ?";
@@ -18,8 +19,7 @@ public class CompraDipendenteDao extends AbstractDao {
 
 
     public CompraDipendenteDao(Connection dataBaseConnection) {
-        super(TABLE_NAME);
-        this.setDataBaseConnection(dataBaseConnection);
+        super(dataBaseConnection);
     }
 
 
@@ -72,24 +72,23 @@ public class CompraDipendenteDao extends AbstractDao {
         return true;
     };
 
-
     @Override
-    public ThrowingFunction<Connection, List<CompraDipendenteEntry>> getLambdaGetAll() {
+    public ThrowingFunction<Connection, List<CompraDipendenteEntry>> getLambdaGetAll()  {
         return getAllLambda;
     }
 
     @Override
-    public ThrowingBiPredicate<Connection,CompraDipendenteEntry> getLambdaUpdate() {
+    public ThrowingBiPredicate<Connection, CompraDipendenteEntry> getLambdaUpdate()  {
         return updateLambda;
     }
 
     @Override
-    public ThrowingBiPredicate<Connection,CompraDipendenteEntry> getLambdaSave() {
+    public ThrowingBiPredicate<Connection, CompraDipendenteEntry> getLambdaSave()  {
         return saveLambda;
     }
 
     @Override
-    public ThrowingBiPredicate<Connection,CompraDipendenteEntry> getLambdaDelete() {
+    public ThrowingBiPredicate<Connection, CompraDipendenteEntry> getLambdaDelete()  {
         return deleteLambda;
     }
 }

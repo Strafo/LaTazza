@@ -3,6 +3,8 @@ import backend.Euro;
 import backend.clientpkg.Personale;
 import backend.clientpkg.Visitatore;
 import backend.daopkg.gateways.Dao;
+import backend.daopkg.gateways.DaoInterface;
+import backend.daopkg.gateways.DaoManager;
 import backend.daopkg.gateways.PersonaleDao;
 import backend.daopkg.rowdatapkg.*;
 import database.DataBase;
@@ -34,7 +36,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DaoTest{
 
 
-    private Dao dao;
+    private DaoInterface dao;
     private DataBase database;
     private Integer[] nEntry={14,4,4,4,5,3,2};//numero di inserimetni del file DefaultSetEntry.sql per le tabelle(in ordine):personale,cialde,visitatore,rifornimento,pagamento_debito,compra visitatore,compra dipendente
 
@@ -61,7 +63,6 @@ public class DaoTest{
         }
         updateTable("guiIS/src/database/config/databaseConfig.sql");//DATABASE CONFIG SQL FILE
         updateTable("guiIS/src/database/config/DafualtEntrySet.sql");//inserisco un po di personale per il testing
-        this.dao=new PersonaleDao(database.getConnection());
     }
 
     @AfterEach
@@ -75,11 +76,10 @@ public class DaoTest{
 
     @ParameterizedTest
     @ValueSource(classes={Personale.class,CialdeEntry.class,Visitatore.class,RifornimentoEntry.class,PagamentoDebitoEntry.class,CompraVisitatoreEntry.class,CompraDipendenteEntry.class})
-    void getAllTest(Class<?> cls) {
+    void getAllTest(Class<? extends AbstractEntryDB> cls) {
         try {
-            EntryDB obj=(EntryDB)cls.newInstance();
-            dao=obj.getCorrespondigDao().getConstructor(Connection.class).newInstance(database.getConnection());
-            List list=dao.getAll();
+            dao=new DaoManager(database.getConnection());
+            List list=dao.getAll(cls);
             checkNEntry(Object.class,0,list.size());
             printList(list);
         }catch(Exception exc){
@@ -90,13 +90,12 @@ public class DaoTest{
 
     @ParameterizedTest
     @ValueSource(classes={Personale.class,CialdeEntry.class,Visitatore.class,RifornimentoEntry.class,PagamentoDebitoEntry.class,CompraVisitatoreEntry.class,CompraDipendenteEntry.class})
-    void saveTest(Class<?>  cls)  {
+    void saveTest(Class<? extends AbstractEntryDB>  cls)  {
         try {
-            EntryDB obj=(EntryDB)cls.newInstance();
-            dao=obj.getCorrespondigDao().getConstructor(Connection.class).newInstance(database.getConnection());
+            dao=new DaoManager(database.getConnection());
             assertTrue(dao.save(createInstance(cls,true)));
 
-            List list=dao.getAll();
+            List list=dao.getAll(cls);
             checkNEntry(Object.class,2,list.size());
         }catch(Exception exc){
             exc.printStackTrace();
@@ -130,11 +129,10 @@ public class DaoTest{
 
 
         try {
-            EntryDB obj=(EntryDB)cls.newInstance();
-            dao=obj.getCorrespondigDao().getConstructor(Connection.class).newInstance(database.getConnection());
+            dao=new DaoManager(database.getConnection());
             assertTrue(dao.delete(createInstance(cls,false)));
 
-            List list=dao.getAll();
+            List list=dao.getAll(cls);
             checkNEntry(Object.class,-1,list.size());
         }catch(Exception exc){
             exc.printStackTrace();
@@ -145,7 +143,7 @@ public class DaoTest{
     }
 
 
-    void updateTable(String sqlFilePath) {
+    private  void updateTable(String sqlFilePath) {
 
         String currentDirPath = System.getProperty("user.dir");
         String[] pathPart=currentDirPath.split("LaTazza/guiIS");//tapullata incredibile :D
@@ -188,7 +186,7 @@ public class DaoTest{
     }
 
 
-    void checkNEntry(Class<?>cls,int expectedSizeOffset,int actualSize){
+    private void checkNEntry(Class<?>cls,int expectedSizeOffset,int actualSize){
 
         if(cls==Personale.class){
             assertEquals(nEntry[0]+expectedSizeOffset,actualSize);
@@ -218,7 +216,7 @@ public class DaoTest{
 
 
 
-    Object createInstance(Class<?>cls,boolean random) {
+    private AbstractEntryDB createInstance(Class<?> cls, boolean random) {
         try{
         DateFormat format = new SimpleDateFormat("yyyy-mm-dd");
         if (random) {
@@ -279,7 +277,7 @@ public class DaoTest{
 
 
 
-    Date getRandomDate(){//https://stackoverflow.com/questions/3985392/generate-random-date-of-birth
+    private Date getRandomDate(){//https://stackoverflow.com/questions/3985392/generate-random-date-of-birth
         Random  rnd;
         long    ms;
 
@@ -296,7 +294,7 @@ public class DaoTest{
 
     }
 
-    void printList(List l){
+    private void printList(List l){
         for(Object i:l){
             System.out.println(i.toString());
         }

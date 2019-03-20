@@ -52,7 +52,7 @@ public final class Personale extends Cliente implements EntryDB {
     }
 
     @Override
-    public Class<PersonaleDao> getCorrespondigDao() {
+    public Class<PersonaleDao> getCorrespondigDaoClass() {
         return PersonaleDao.class;
     }
 

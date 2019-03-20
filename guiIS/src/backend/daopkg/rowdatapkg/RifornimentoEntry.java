@@ -47,7 +47,7 @@ public class RifornimentoEntry extends AbstractEntryDB implements EntryDB {
 
 
     @Override
-    public Class<RifornimentoDao> getCorrespondigDao() {
+    public Class<RifornimentoDao> getCorrespondigDaoClass() {
         return RifornimentoDao.class;
     }
 }

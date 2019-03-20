@@ -8,15 +8,15 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class PagamentoDebitoDao extends AbstractDao<PagamentoDebitoEntry> {
-    private static final String TABLE_NAME="LATAZZASCHEMA.pagamento_debito";
+
+    public static final String TABLE_NAME="LATAZZASCHEMA.pagamento_debito";
     private static final String GET_ALL_STRING="SELECT * FROM "+TABLE_NAME;
     private static final String INSERT_STATEMENT_STRING = "INSERT INTO " + TABLE_NAME + " (nome,cognome,data,importo) VALUES (?,?,?,?)";
     private static final String UPDATE_STATEMENT_STRING = "UPDATE  " + TABLE_NAME + " SET nome = ? , cognome = ? ,data = ? ,importo = ? WHERE nome = ? AND cognome = ? AND data = ? ";
     private static final String DELETE_STATEMENT_STRING = "DELETE FROM " + TABLE_NAME + " WHERE nome = ? AND cognome = ? AND data = ?";
 
     public PagamentoDebitoDao(Connection dataBaseConnection){
-        super(TABLE_NAME);
-        this.setDataBaseConnection(dataBaseConnection);
+        super(dataBaseConnection);
     }
 
 
@@ -76,20 +76,18 @@ public class PagamentoDebitoDao extends AbstractDao<PagamentoDebitoEntry> {
     }
 
     @Override
-    public ThrowingBiPredicate<Connection,PagamentoDebitoEntry> getLambdaUpdate() {
+    public ThrowingBiPredicate<Connection, PagamentoDebitoEntry> getLambdaUpdate()  {
         return updateLambda;
     }
 
     @Override
-    public ThrowingBiPredicate<Connection,PagamentoDebitoEntry>  getLambdaSave()  {
+    public ThrowingBiPredicate<Connection, PagamentoDebitoEntry> getLambdaSave()  {
         return saveLambda;
     }
 
     @Override
-    public ThrowingBiPredicate<Connection,PagamentoDebitoEntry>  getLambdaDelete()  {
+    public ThrowingBiPredicate<Connection, PagamentoDebitoEntry> getLambdaDelete()  {
         return deleteLambda;
     }
-
-
 
 }

@@ -10,15 +10,15 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class VisitatoreDao extends AbstractDao<Visitatore> {
-    private static final String TABLE_NAME="LATAZZASCHEMA.visitatore";
+
+    public static final String TABLE_NAME="LATAZZASCHEMA.visitatore";
     private static final String GET_ALL_STRING="SELECT * FROM "+TABLE_NAME;
     private static final String INSERT_STATEMENT_STRING = "INSERT INTO " + TABLE_NAME + " (nome,cognome) VALUES (?,?)";
     private static final String UPDATE_STATEMENT_STRING = "UPDATE  " + TABLE_NAME + " SET nome = ? , cognome = ? WHERE nome = ? AND cognome = ? ";
     private static final String DELETE_STATEMENT_STRING = "DELETE FROM " + TABLE_NAME + " WHERE nome = ? AND cognome = ?";
 
     public VisitatoreDao(Connection dataBaseConnection){
-        super(TABLE_NAME);
-        this.setDataBaseConnection(dataBaseConnection);
+        super(dataBaseConnection);
     }
 
 
@@ -64,7 +64,6 @@ public class VisitatoreDao extends AbstractDao<Visitatore> {
         return true;
     };
 
-
     @Override
     public ThrowingFunction<Connection, List<Visitatore>> getLambdaGetAll()  {
         return getAllLambda;
@@ -84,4 +83,5 @@ public class VisitatoreDao extends AbstractDao<Visitatore> {
     public ThrowingBiPredicate<Connection, Visitatore> getLambdaDelete()  {
         return deleteLambda;
     }
+
 }

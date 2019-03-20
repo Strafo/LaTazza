@@ -10,7 +10,7 @@ public final class Visitatore extends Cliente {
     public Visitatore(){};
 
     @Override
-    public Class<VisitatoreDao> getCorrespondigDao() {
+    public Class<VisitatoreDao> getCorrespondigDaoClass() {
         return VisitatoreDao.class;
     }
 

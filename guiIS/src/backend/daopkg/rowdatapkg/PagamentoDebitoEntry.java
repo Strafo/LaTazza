@@ -1,7 +1,6 @@
 package backend.daopkg.rowdatapkg;
 import backend.Euro;
 import backend.daopkg.gateways.PagamentoDebitoDao;
-
 import java.util.Date;
 
 public class PagamentoDebitoEntry extends AbstractEntryDB implements EntryDB {
@@ -58,7 +57,7 @@ public class PagamentoDebitoEntry extends AbstractEntryDB implements EntryDB {
     }
 
     @Override
-    public Class<PagamentoDebitoDao> getCorrespondigDao() {
+    public Class<PagamentoDebitoDao> getCorrespondigDaoClass() {
         return PagamentoDebitoDao.class;
     }
 }

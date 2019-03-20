@@ -62,7 +62,7 @@ public class CompraVisitatoreEntry extends AbstractEntryDB implements EntryDB {
 
 
     @Override
-    public Class<? extends AbstractDao> getCorrespondigDao() {
+    public Class<? extends AbstractDao> getCorrespondigDaoClass() {
         return CompraVisitatoreDao.class;
     }
 }

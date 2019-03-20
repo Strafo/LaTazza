@@ -37,7 +37,7 @@ public class CialdeEntry extends AbstractEntryDB  implements EntryDB {
 
 
     @Override
-    public Class<CialdeDao> getCorrespondigDao() {
+    public Class<CialdeDao> getCorrespondigDaoClass() {
         return CialdeDao.class;
     }
 }

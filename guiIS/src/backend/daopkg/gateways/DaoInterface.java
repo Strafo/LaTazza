@@ -1,9 +1,8 @@
 package backend.daopkg.gateways;
 import backend.daopkg.rowdatapkg.AbstractEntryDB;
-
 import java.util.List;
 
-public interface Dao<T extends AbstractEntryDB> {
+public interface DaoInterface<T extends AbstractEntryDB> {
 
     //Optional<T> get(Map keys); TODO TOBEIMPLEMENTED
 
@@ -14,4 +13,5 @@ public interface Dao<T extends AbstractEntryDB> {
     boolean update(T t);//todo
 
     boolean delete(T t);
+
 }

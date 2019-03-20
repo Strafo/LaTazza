@@ -32,6 +32,6 @@ public abstract class Cliente extends AbstractEntryDB implements EntryDB {
         this.cognome =Objects.requireNonNull(cognome);
     }
 
-    public abstract Class<? extends AbstractDao>getCorrespondigDao();
+    public abstract Class<? extends AbstractDao>getCorrespondigDaoClass();
 
 }
