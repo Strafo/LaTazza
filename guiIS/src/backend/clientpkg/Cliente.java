@@ -1,10 +1,9 @@
 package backend.clientpkg;
 import backend.daopkg.gateways.AbstractDao;
 import backend.daopkg.rowdatapkg.AbstractEntryDB;
-import backend.daopkg.rowdatapkg.EntryDB;
 import java.util.Objects;
 
-public abstract class Cliente extends AbstractEntryDB implements EntryDB {
+public abstract class Cliente extends AbstractEntryDB  {
 
     private String nome;
     private String cognome;

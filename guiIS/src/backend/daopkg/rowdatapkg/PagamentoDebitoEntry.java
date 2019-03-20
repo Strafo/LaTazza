@@ -3,7 +3,7 @@ import backend.Euro;
 import backend.daopkg.gateways.PagamentoDebitoDao;
 import java.util.Date;
 
-public class PagamentoDebitoEntry extends AbstractEntryDB implements EntryDB {
+public class PagamentoDebitoEntry extends AbstractEntryDB {
 
     private String nomePersonale;
     private String cognomePersonale;

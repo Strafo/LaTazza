@@ -2,7 +2,7 @@ package backend.daopkg.rowdatapkg;
 import backend.daopkg.gateways.CompraDipendenteDao;
 import java.util.Date;
 
-public class CompraDipendenteEntry extends CompraVisitatoreEntry  implements EntryDB {
+public class CompraDipendenteEntry extends CompraVisitatoreEntry  {
     private boolean contanti;
 
     public CompraDipendenteEntry(Date data, int numeroCialde, String tipoCialda, String nome, String cognome,boolean contanti) {
