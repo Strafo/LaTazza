@@ -27,4 +27,12 @@ public abstract class Cliente {
     public void setCognome(String cognome) {
         this.cognome =Objects.requireNonNull(cognome);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof Cliente)) return false;
+        if(this == obj) return true;
+        Cliente c= (Cliente) obj;
+        return nome.equals(c.getNome()) && cognome.equals(c.getCognome());
+    }
 }

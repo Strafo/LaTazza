@@ -14,6 +14,9 @@ public class Debito {
         this.quantita.aggiungiImporto(importo);
     }
 
+    public Euro getImporto(){
+        return new Euro(quantita);
+    }
 
     /**
      *

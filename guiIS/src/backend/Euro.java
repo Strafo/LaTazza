@@ -40,6 +40,10 @@ public class Euro {
         this.euro=euro;
         this.centesimi=0;
     }
+    public Euro(Euro e){
+        euro= e.getEuro();
+        euro= e.getCentesimi();
+    }
 
     public Euro(int centesimi)throws IllegalArgumentException{
         if(centesimi<0)throw  new IllegalArgumentException("impossibile istanziare quantità negativa");
@@ -52,10 +56,14 @@ public class Euro {
      * @return true se la somma corrisponde sia per i centesimi che per gli euro,false altrimenti.
      * @throws NullPointerException se param:e è un null ref.
      */
-    public boolean equals(Euro e)throws NullPointerException{
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof Cliente)) return false;
+        if(this == obj) return true;
+        Euro e= (Euro) obj;
         return (this.euro==e.euro&&this.centesimi==e.centesimi);
     }
-
     /**
      * Compara due quantità di Euro e determina se somma1 è maggiore;minore;uguale a somma2
      * @param somma1 il primo importo dda confrontare
