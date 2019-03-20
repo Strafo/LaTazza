@@ -8,7 +8,7 @@ public class RowPanelProperties {
     //rowpanel properties
     static public final int ROWPANEL_DEFAULTX_BUTTON = 50;
     static public final int ROWPANEL_DEFAULTX_ICON = 22;
-    static public final int ROWPANEL_DEFAULTY= 133;
+    static public final int ROWPANEL_DEFAULTY= 160;
     static public final int ROWPANEL_DEFAULT_GAP = 60;
 
     //todo public final static

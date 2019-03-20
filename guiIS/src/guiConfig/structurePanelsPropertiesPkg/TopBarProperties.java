@@ -8,7 +8,7 @@ public class TopBarProperties {
 	 
 	 private static final int DEFAULTX = 0;
 	 private static final int DEFAULTY = 0;
-	 private static final int DEFAULT_WIDTH = 800;
+	 private static final int DEFAULT_WIDTH = 850;
 	 private static final int DEFAULT_HEIGHT = 31;
 	 
 
