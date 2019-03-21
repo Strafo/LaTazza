@@ -28,7 +28,7 @@ public class DataBase {
 
         if(connection==null||connection.isClosed()){
             Class.forName(DB_DRIVER);
-            connection = DriverManager.getConnection(path, DB_USER, DB_PASSWORD);
+            connection = DriverManager.getConnection(path+DEFAULT_OPT, DB_USER, DB_PASSWORD);
         }
 
     }

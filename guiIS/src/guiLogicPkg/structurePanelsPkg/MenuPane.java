@@ -57,8 +57,6 @@ public class MenuPane extends KGradientPanel {
         this.add(labelTitolo);
         this.add(labelIconaTazza);
 
-
-        int j=0;
         for(LaTazzaFrame.JPanelsNames i:LaTazzaFrame.JPanelsNames.values()){
             linkMap.put(i,//todo check return value
                     new RowPanelLink(

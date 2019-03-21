@@ -1,41 +1,42 @@
 package backend.daopkg.gateways;
-
+import backend.daopkg.rowdatapkg.AbstractEntryDB;
+import utils.ThrowingBiPredicate;
+import utils.ThrowingFunction;
 import java.sql.Connection;
 import java.util.List;
 
-public abstract class AbstractDao<T> implements Dao<T> {
+public abstract class AbstractDao<T extends AbstractEntryDB> {
 
-    private final String table_name;
     private Connection dataBaseConnection;
 
-
-    protected AbstractDao(String table_name) {
-        this.table_name=table_name;
+    protected AbstractDao(Connection dataBaseConnection) {
+        this.dataBaseConnection=dataBaseConnection;
     }
 
-
-    public String getTableName() {
-        return table_name;
+    public  List<T> getAll(){
+        return getLambdaGetAll().apply(dataBaseConnection);
     }
 
-    public Connection getDataBaseConnection() {
-        return dataBaseConnection;
+    public  boolean save(T t ){
+        return getLambdaSave().test(dataBaseConnection,t);
     }
 
-
-    public void setDataBaseConnection(Connection dataBaseConnection) {
-        this.dataBaseConnection = dataBaseConnection;
+    public  boolean update(T t){
+        return getLambdaUpdate().test(dataBaseConnection,t);
     }
 
+    public  boolean delete(T t){
+        return getLambdaDelete().test(dataBaseConnection,t);
+    }
 
+    protected abstract ThrowingFunction<Connection,List<T>> getLambdaGetAll();
 
-    public abstract List<T> getAll();
+    protected abstract ThrowingBiPredicate<Connection,T> getLambdaUpdate();
 
-    public abstract boolean save(T t );
+    protected abstract ThrowingBiPredicate<Connection,T> getLambdaSave();
 
-    public abstract boolean update(T t);
-
-    public abstract boolean delete(T t);
-
+    protected abstract ThrowingBiPredicate<Connection,T> getLambdaDelete();
 
 }
+
+

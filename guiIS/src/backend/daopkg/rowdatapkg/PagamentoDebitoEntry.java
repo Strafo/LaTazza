@@ -1,8 +1,9 @@
-package backend.daopkg;
+package backend.daopkg.rowdatapkg;
 import backend.Euro;
+import backend.daopkg.gateways.PagamentoDebitoDao;
 import java.util.Date;
 
-public class PagamentoDebitoEntry {
+public class PagamentoDebitoEntry extends AbstractEntryDB {
 
     private String nomePersonale;
     private String cognomePersonale;
@@ -15,6 +16,8 @@ public class PagamentoDebitoEntry {
         this.data = data;
         this.importo = importo;
     }
+
+    public PagamentoDebitoEntry(){}
 
     public String getNomePersonale() {
         return nomePersonale;
@@ -48,5 +51,13 @@ public class PagamentoDebitoEntry {
         this.importo = importo;
     }
 
+    @Override
+    public String toString() {
+        return "PagamentoDebitoEntry: data:"+data.toString()+" importo:"+importo.toString()+" nome:"+nomePersonale+" cognome:"+cognomePersonale;
+    }
 
+    @Override
+    public Class<PagamentoDebitoDao> getCorrespondigDaoClass() {
+        return PagamentoDebitoDao.class;
+    }
 }
