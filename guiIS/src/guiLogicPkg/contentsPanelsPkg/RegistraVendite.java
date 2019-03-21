@@ -16,9 +16,6 @@ import static guiConfig.contentsPanelsPropertiesPkg.RegVenditeProperties.*;
 
 
 public class RegistraVendite extends AbstractPanel {
-
-
-
 	
 	private JComboBox<String> tipoCialdeMenu;
 	private JComboBox<String> nomePersonaleMenu;
