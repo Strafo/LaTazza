@@ -11,7 +11,7 @@ public class ControllerPersonale {
     }
 
 
-    public List<Personale> getList(){
+    public List<Personale> getCopyList(){
         ArrayList<Personale> l= new ArrayList<>(list);
         return l;
     }
