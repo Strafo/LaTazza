@@ -1,6 +1,7 @@
 package backend;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ControllerPersonale {
     private ArrayList<Personale> list;
@@ -10,7 +11,7 @@ public class ControllerPersonale {
     }
 
 
-    public ArrayList<Personale> getList(){
+    public List<Personale> getList(){
         ArrayList<Personale> l= new ArrayList<>(list);
         return l;
     }

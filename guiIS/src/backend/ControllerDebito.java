@@ -5,9 +5,9 @@ import java.util.Date;
 import java.util.HashMap;
 
 public class ControllerDebito {
-    ControllerPersonale cp;
+    ControllerPersonale controller;
     public void ControllerDebito(ControllerPersonale cp){
-        this.cp=cp;
+        this.controller=cp;
     }
 
     private void aggiornaMovimento(Personale p, Euro importo){
@@ -16,7 +16,7 @@ public class ControllerDebito {
     }
 
     public void registrarePagamentoDebito(Euro importo , Personale p){
-        ArrayList<Personale> list=cp.getList();
+        ArrayList<Personale> list= (ArrayList<Personale>) controller.getList();
         int index= list.indexOf(p);
         if(index == -1) return;
         Personale cliente=list.get(index);
@@ -29,7 +29,7 @@ public class ControllerDebito {
 
     public HashMap<Personale, Euro> esaminareDebitiPersonale(){
         HashMap<Personale,Euro> debiti= new HashMap<Personale,Euro>();
-        ArrayList<Personale> list=cp.getList();
+        ArrayList<Personale> list= (ArrayList<Personale>)controller.getList();
         for (Personale p:list) {
             debiti.put(p,p.getImportoDebito());
         }
