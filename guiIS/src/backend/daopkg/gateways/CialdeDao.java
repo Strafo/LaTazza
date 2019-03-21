@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class CialdeDao extends AbstractDao<CialdeEntry> {
+
     public static final String TABLE_NAME="LATAZZASCHEMA.cialde";
     private static final String GET_ALL_STRING="SELECT * FROM "+TABLE_NAME;
     private static final String INSERT_STATEMENT_STRING = "INSERT INTO " + TABLE_NAME + " (tipo,prezzo) VALUES (?,?)";
@@ -18,8 +19,7 @@ public class CialdeDao extends AbstractDao<CialdeEntry> {
     private static final String DELETE_STATEMENT_STRING = "DELETE FROM " + TABLE_NAME + " WHERE tipo = ? ";
 
     public CialdeDao(Connection dataBaseConnection){
-        super(TABLE_NAME);
-        this.setDataBaseConnection(dataBaseConnection);
+        super(dataBaseConnection);
     }
 
 
@@ -67,22 +67,23 @@ public class CialdeDao extends AbstractDao<CialdeEntry> {
     };
 
     @Override
-    public ThrowingFunction<Connection, List<CialdeEntry>> getLambdaGetAll() {
+    public ThrowingFunction<Connection, List<CialdeEntry>> getLambdaGetAll()  {
         return getAllLambda;
     }
 
     @Override
-    public ThrowingBiPredicate<Connection,CialdeEntry> getLambdaUpdate() {
+    public ThrowingBiPredicate<Connection, CialdeEntry> getLambdaUpdate()  {
         return updateLambda;
     }
 
     @Override
-    public ThrowingBiPredicate<Connection,CialdeEntry> getLambdaSave() {
+    public ThrowingBiPredicate<Connection, CialdeEntry> getLambdaSave()  {
         return saveLambda;
     }
 
     @Override
-    public ThrowingBiPredicate<Connection,CialdeEntry> getLambdaDelete() {
+    public ThrowingBiPredicate<Connection, CialdeEntry> getLambdaDelete()  {
         return deleteLambda;
     }
+
 }

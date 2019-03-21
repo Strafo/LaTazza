@@ -3,7 +3,7 @@ import backend.Euro;
 import backend.daopkg.gateways.CialdeDao;
 
 
-public class CialdeEntry extends AbstractEntryDB  implements EntryDB {
+public class CialdeEntry extends AbstractEntryDB   {
     private String tipo;
     private Euro prezzo;
 
@@ -37,7 +37,7 @@ public class CialdeEntry extends AbstractEntryDB  implements EntryDB {
 
 
     @Override
-    public Class<CialdeDao> getCorrespondigDao() {
+    public Class<CialdeDao> getCorrespondigDaoClass() {
         return CialdeDao.class;
     }
 }

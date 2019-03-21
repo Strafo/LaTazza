@@ -1,10 +1,9 @@
 package backend.clientpkg;
 import backend.Debito;
 import backend.daopkg.gateways.PersonaleDao;
-import backend.daopkg.rowdatapkg.EntryDB;
 
 
-public final class Personale extends Cliente implements EntryDB {
+public final class Personale extends Cliente  {
 
 
     private Debito debito;
@@ -52,7 +51,7 @@ public final class Personale extends Cliente implements EntryDB {
     }
 
     @Override
-    public Class<PersonaleDao> getCorrespondigDao() {
+    public Class<PersonaleDao> getCorrespondigDaoClass() {
         return PersonaleDao.class;
     }
 

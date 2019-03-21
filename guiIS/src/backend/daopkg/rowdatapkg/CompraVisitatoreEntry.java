@@ -3,7 +3,7 @@ import backend.daopkg.gateways.AbstractDao;
 import backend.daopkg.gateways.CompraVisitatoreDao;
 import java.util.Date;
 
-public class CompraVisitatoreEntry extends AbstractEntryDB implements EntryDB {
+public class CompraVisitatoreEntry extends AbstractEntryDB  {
     private Date data;
     private int numeroCialde;
     private String tipoCialda;
@@ -62,7 +62,7 @@ public class CompraVisitatoreEntry extends AbstractEntryDB implements EntryDB {
 
 
     @Override
-    public Class<? extends AbstractDao> getCorrespondigDao() {
+    public Class<? extends AbstractDao> getCorrespondigDaoClass() {
         return CompraVisitatoreDao.class;
     }
 }

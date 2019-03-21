@@ -3,7 +3,7 @@ import backend.daopkg.gateways.RifornimentoDao;
 
 import java.util.Date;
 
-public class RifornimentoEntry extends AbstractEntryDB implements EntryDB {
+public class RifornimentoEntry extends AbstractEntryDB  {
     private Date data;
     private String tipoCialda;
     private int qta;
@@ -47,7 +47,7 @@ public class RifornimentoEntry extends AbstractEntryDB implements EntryDB {
 
 
     @Override
-    public Class<RifornimentoDao> getCorrespondigDao() {
+    public Class<RifornimentoDao> getCorrespondigDaoClass() {
         return RifornimentoDao.class;
     }
 }

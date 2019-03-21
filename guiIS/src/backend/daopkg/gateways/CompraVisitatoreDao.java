@@ -2,7 +2,6 @@ package backend.daopkg.gateways;
 import backend.daopkg.rowdatapkg.CompraVisitatoreEntry;
 import utils.ThrowingBiPredicate;
 import utils.ThrowingFunction;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,6 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class CompraVisitatoreDao extends AbstractDao<CompraVisitatoreEntry> {
+
     public static final String TABLE_NAME = "LATAZZASCHEMA.compra_visitatore";
     private static final String INSERT_STATEMENT_STRING = "INSERT INTO " + TABLE_NAME + " (nome,cognome,tipo_cialda,numero_cialde,data) VALUES (?,?,?,?,?)";
     private static final String UPDATE_STATEMENT_STRING = "UPDATE  " + TABLE_NAME + " SET nome = ? , cognome = ? , tipo_cialda = ? , numero_cialde = ? , data = ? WHERE nome = ? AND cognome = ? AND tipo_cialda = ? AND numero_cialde = ? AND data = ?";
@@ -19,8 +19,7 @@ public class CompraVisitatoreDao extends AbstractDao<CompraVisitatoreEntry> {
 
 
     public CompraVisitatoreDao(Connection dataBaseConnection) {
-        super(TABLE_NAME);
-        this.setDataBaseConnection(dataBaseConnection);
+        super(dataBaseConnection);
     }
 
 
@@ -71,24 +70,24 @@ public class CompraVisitatoreDao extends AbstractDao<CompraVisitatoreEntry> {
         return true;
     };
 
-
     @Override
-    public ThrowingFunction<Connection, List<CompraVisitatoreEntry>> getLambdaGetAll() {
+    public ThrowingFunction<Connection, List<CompraVisitatoreEntry>> getLambdaGetAll()  {
         return getAllLambda;
     }
 
     @Override
-    public ThrowingBiPredicate<Connection,CompraVisitatoreEntry> getLambdaUpdate() {
+    public ThrowingBiPredicate<Connection, CompraVisitatoreEntry> getLambdaUpdate()  {
         return updateLambda;
     }
 
     @Override
-    public ThrowingBiPredicate<Connection,CompraVisitatoreEntry> getLambdaSave() {
+    public ThrowingBiPredicate<Connection, CompraVisitatoreEntry> getLambdaSave()  {
         return saveLambda;
     }
 
     @Override
-    public ThrowingBiPredicate<Connection,CompraVisitatoreEntry> getLambdaDelete() {
+    public ThrowingBiPredicate<Connection, CompraVisitatoreEntry> getLambdaDelete()  {
         return deleteLambda;
     }
+
 }

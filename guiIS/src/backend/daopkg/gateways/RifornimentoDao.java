@@ -18,8 +18,7 @@ public class RifornimentoDao extends AbstractDao<RifornimentoEntry> {
 
 
     public RifornimentoDao(Connection dataBaseConnection){
-        super(TABLE_NAME);
-        this.setDataBaseConnection(dataBaseConnection);
+        super(dataBaseConnection);
     }
 
 
@@ -70,17 +69,24 @@ public class RifornimentoDao extends AbstractDao<RifornimentoEntry> {
         return true;
     };
 
-
+    @Override
+    public ThrowingFunction<Connection, List<RifornimentoEntry>> getLambdaGetAll()  {
+        return getAllLambda;
+    }
 
     @Override
-    public ThrowingFunction<Connection, List<RifornimentoEntry>> getLambdaGetAll() { return getAllLambda; }
+    public ThrowingBiPredicate<Connection, RifornimentoEntry> getLambdaUpdate()  {
+        return updateLambda;
+    }
 
     @Override
-    public ThrowingBiPredicate<Connection,RifornimentoEntry> getLambdaUpdate() { return updateLambda; }
+    public ThrowingBiPredicate<Connection, RifornimentoEntry> getLambdaSave()  {
+        return saveLambda;
+    }
 
     @Override
-    public ThrowingBiPredicate<Connection,RifornimentoEntry> getLambdaSave() { return saveLambda; }
+    public ThrowingBiPredicate<Connection, RifornimentoEntry> getLambdaDelete()  {
+        return deleteLambda;
+    }
 
-    @Override
-    public ThrowingBiPredicate<Connection,RifornimentoEntry> getLambdaDelete() { return deleteLambda;}
 }
