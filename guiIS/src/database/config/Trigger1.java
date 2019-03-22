@@ -15,13 +15,14 @@ public class Trigger1 implements Trigger {
     @Override
     public void init(Connection connection, String s, String t1, String t2, boolean b, int i) throws SQLException {
         conn=connection; schema=s; triggerName =t1; table =t2; before=b; type=i;
+        cV=stat.executeQuery("select sum(numero_cialde) "+
+                " from LATAZZASCHEMA.COMPRA_VISITATORE T "+
+                " where tipo_cialda = (select tipo_cialda from LATAZZASCHEMA.COMPRA_VISITATORE where T.TIPO_CIALDA=COMPRA_VISITATORE.TIPO_CIALDA); ");
 
-        cV=stat.executeQuery("select sum(numero_cialde)\n"+
-                                " from LATAZZASCHEMA.COMPRA_VISITATORE\n T"+
-                                " where tipo_cialda = (select tipo_cialda from LATAZZASCHEMA.COMPRA_VISITATORE where T.TIPO_CIALDA=COMPRA_VISITATORE.TIPO_CIALDA); ");
         cP=stat.executeQuery("select sum(numero_cialde)\n"+
                 " from LATAZZASCHEMA.COMPRA_DIPENDENTE\n"+
                 " where tipo_cialda = (select tipo_cialda from LATAZZASCHEMA.COMPRA_DIPENDENTE T where T.TIPO_CIALDA=COMPRA_DIPENDENTE.TIPO_CIALDA);");
+
         magazzino=stat.executeQuery("select sum(QTA*50)\n"+
                 " from LATAZZASCHEMA.MAGAZZINO\n"+
                 " where tipoCialda=(select TIPOCIALDA from LATAZZASCHEMA.MAGAZZINO T where T.TIPOCIALDA=MAGAZZINO.TIPOCIALDA);");
@@ -30,8 +31,9 @@ public class Trigger1 implements Trigger {
 
     public Trigger1(String URL) throws SQLException {
         Connection connection= DriverManager.getConnection(URL);
-        init(connection,"LATAZZASCHEMA","CHECKNUMCIALDE","LATAZZASCHEMA.COMPRA_VISITATORE",true,1);
         stat=connection.createStatement();
+        init(connection,"LATAZZASCHEMA","CHECKNUMCIALDE","LATAZZASCHEMA.COMPRA_VISITATORE",true,1);
+
     }
 
     @Override
