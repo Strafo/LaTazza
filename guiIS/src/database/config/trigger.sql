@@ -1,4 +1,6 @@
 
+set schema LATAZZASCHEMA;
+
 create  view  Magazzino(tipoCialda, qta) as
   select tipoCialda, sum(qta*50)
   from  LATAZZASCHEMA.RIFORNIMENTO
