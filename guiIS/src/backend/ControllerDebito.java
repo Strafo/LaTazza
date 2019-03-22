@@ -16,7 +16,7 @@ public class ControllerDebito {
     }
 
     public void registrarePagamentoDebito(Euro importo , Personale p){
-        ArrayList<Personale> list= (ArrayList<Personale>) controller.getList();
+        ArrayList<Personale> list= (ArrayList<Personale>) controller.getCopyList();
         int index= list.indexOf(p);
         if(index == -1) return;
         Personale cliente=list.get(index);
@@ -29,7 +29,7 @@ public class ControllerDebito {
 
     public HashMap<Personale, Euro> esaminareDebitiPersonale(){
         HashMap<Personale,Euro> debiti= new HashMap<Personale,Euro>();
-        ArrayList<Personale> list= (ArrayList<Personale>)controller.getList();
+        ArrayList<Personale> list= (ArrayList<Personale>)controller.getCopyList();
         for (Personale p:list) {
             debiti.put(p,p.getImportoDebito());
         }

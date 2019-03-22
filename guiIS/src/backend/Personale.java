@@ -44,11 +44,8 @@ public final class Personale extends Cliente {
     public String toString(){
         String string ="nome:" +this.getNome()+" cognome:"+this.getCognome()+
                 " attivo:"+String.valueOf(isAttivo());
-        if (debito==null){
-            string+=" debito:null";
-        }else{
-            string+=" debito:"+debito.toString();
-        }
+         string +=(debito==null)? " debito:null" : " debito:"+debito.toString();
+
         return string;
     }
 
