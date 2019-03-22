@@ -1,18 +1,18 @@
 package guiLogicPkg.structurePanelsPkg;
 
-import java.awt.Color;
-import javax.swing.JPanel;
 import guiConfig.KGradientPanel;
 import guiConfig.ResourcesClassLoader;
 import guiConfig.structurePanelsPropertiesPkg.MenuPaneProperties;
 import guiLogicPkg.LaTazzaFrame;
 import utils.LaTazzaColors;
-import javax.swing.JLabel;
-import java.awt.Font;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Map;
+
 import static guiConfig.structurePanelsPropertiesPkg.MenuPaneProperties.*;
 import static guiConfig.structurePanelsPropertiesPkg.RowPanelProperties.*;
 
@@ -58,7 +58,7 @@ public class MenuPane extends KGradientPanel {
         this.add(labelIconaTazza);
 
 
-        int j=0;
+        //int j=0;
         for(LaTazzaFrame.JPanelsNames i:LaTazzaFrame.JPanelsNames.values()){
             linkMap.put(i,//todo check return value
                     new RowPanelLink(
