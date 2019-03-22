@@ -2,9 +2,13 @@ package testBackend;
 import backend.Euro;
 import backend.clientpkg.Personale;
 import backend.clientpkg.Visitatore;
+import backend.daopkg.gateways.CompraDao;
 import backend.daopkg.gateways.DaoInterface;
 import backend.daopkg.gateways.DaoManager;
 import backend.daopkg.rowdatapkg.*;
+import backend.movimentopkg.Movimento;
+import backend.movimentopkg.MovimentoDebito;
+import backend.movimentopkg.MovimentoVendita;
 import database.DataBase;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -36,7 +40,7 @@ public class DaoTest{
 
     private DaoInterface dao;
     private DataBase database;
-    private Integer[] nEntry={14,4,4,4,5,3,2};//numero di inserimetni del file DefaultSetEntry.sql per le tabelle(in ordine):personale,cialde,visitatore,rifornimento,pagamento_debito,compra visitatore,compra dipendente
+    private Integer[] nEntry={14,4,4,4,5,5};//numero di inserimetni del file DefaultSetEntry.sql per le tabelle(in ordine):personale,cialde,visitatore,rifornimento,MovimentoDEbito,MovimentoVendita
 
     /**
      * Inizializza il logger per il database.
@@ -73,7 +77,7 @@ public class DaoTest{
     }
 
     @ParameterizedTest
-    @ValueSource(classes={Personale.class,CialdeEntry.class,Visitatore.class,RifornimentoEntry.class,PagamentoDebitoEntry.class,CompraVisitatoreEntry.class,CompraDipendenteEntry.class})
+    @ValueSource(classes={Personale.class,CialdeEntry.class,Visitatore.class,RifornimentoEntry.class,MovimentoDebito.class,CompraDao.class})
     void getAllTest(Class<? extends AbstractEntryDB> cls) {
         try {
             dao=new DaoManager(database.getConnection());
@@ -87,7 +91,7 @@ public class DaoTest{
     }
 
     @ParameterizedTest
-    @ValueSource(classes={Personale.class,CialdeEntry.class,Visitatore.class,RifornimentoEntry.class,PagamentoDebitoEntry.class,CompraVisitatoreEntry.class,CompraDipendenteEntry.class})
+    @ValueSource(classes={Personale.class,CialdeEntry.class,Visitatore.class,RifornimentoEntry.class,MovimentoDebito.class,CompraDao.class})
     void saveTest(Class<? extends AbstractEntryDB>  cls)  {
         try {
             dao=new DaoManager(database.getConnection());
@@ -104,7 +108,7 @@ public class DaoTest{
 
 
     @ParameterizedTest
-    @ValueSource(classes={Personale.class,CialdeEntry.class,Visitatore.class,RifornimentoEntry.class,PagamentoDebitoEntry.class,CompraVisitatoreEntry.class,CompraDipendenteEntry.class})
+    @ValueSource(classes={Personale.class,CialdeEntry.class,Visitatore.class,RifornimentoEntry.class,MovimentoDebito.class,CompraDao.class})
     void updateTest() {
         /*Personale pers=new Personale("andrea","straforini",true);
         //dao.update(pers,new Personale("andrea","straforini",false));TODO
@@ -122,7 +126,7 @@ public class DaoTest{
     }
 
     @ParameterizedTest
-    @ValueSource(classes={Personale.class,CialdeEntry.class,Visitatore.class,RifornimentoEntry.class,PagamentoDebitoEntry.class,CompraVisitatoreEntry.class,CompraDipendenteEntry.class})
+    @ValueSource(classes={Personale.class,CialdeEntry.class,Visitatore.class,RifornimentoEntry.class,MovimentoDebito.class,CompraDao.class})
     void deleteTest(Class<?>cls){
 
 
@@ -198,14 +202,11 @@ public class DaoTest{
         if(cls==RifornimentoEntry.class){
             assertEquals(nEntry[3]+expectedSizeOffset,actualSize);
         }
-        if(cls==PagamentoDebitoEntry.class){
+        if(cls==MovimentoDebito.class){
             assertEquals(nEntry[4]+expectedSizeOffset,actualSize);
         }
-        if(cls==CompraVisitatoreEntry.class){
+        if(cls==MovimentoVendita.class){
             assertEquals(nEntry[5]+expectedSizeOffset,actualSize);
-        }
-        if(cls==CompraDipendenteEntry.class){
-            assertEquals(nEntry[6]+expectedSizeOffset,actualSize);
         }
 
     }
@@ -231,14 +232,13 @@ public class DaoTest{
             if (cls == RifornimentoEntry.class) {
                 return new RifornimentoEntry(getRandomDate(), 100, "caffè");
             }
-            if (cls == PagamentoDebitoEntry.class) {
-                return new PagamentoDebitoEntry("andrea", "straforini", getRandomDate(), new Euro(3, 5));
+            if (cls == MovimentoDebito.class) {
+                return new MovimentoDebito(getRandomDate(),new Personale("andrea","straforini"), new Euro(3, 5));
+
             }
-            if (cls == CompraVisitatoreEntry.class) {
-                return new CompraVisitatoreEntry(getRandomDate(), 6, "cioccolata", "salmo", "lebon");
-            }
-            if (cls == CompraDipendenteEntry.class) {
-                return new CompraDipendenteEntry(getRandomDate(), 2, "caffè", "andrea", "straforini", true);
+            if (cls == MovimentoVendita.class) {
+                return new MovimentoVendita(getRandomDate(), new Personale("andrea","straforini"), 6,new CialdeEntry("cioccolata"),false);
+
             }
             fail("istanza non riconosciuta");
             return null;
@@ -255,15 +255,24 @@ public class DaoTest{
             if (cls == RifornimentoEntry.class) {
                 return new RifornimentoEntry(format.parse("2000-12-31"), 2, "caffè");
             }
-            if (cls == PagamentoDebitoEntry.class) {
-                return new PagamentoDebitoEntry("andrea", "straforini", format.parse("2019-01-01"), new Euro(3, 666));
+            if (cls == MovimentoDebito.class) {
+                return new MovimentoDebito(getRandomDate(),new Personale("andrea","straforini"), new Euro(3, 5));
+
             }
-            if (cls == CompraVisitatoreEntry.class) {
-                return new CompraVisitatoreEntry( format.parse("2019-01-01"), 6, "cioccolata", "salmo", "lebon");
+            if (cls == MovimentoVendita.class) {
+                return new MovimentoVendita(getRandomDate(), new Personale("andrea","straforini"), 6,new CialdeEntry("cioccolata"),false);
+
             }
-            if (cls == CompraDipendenteEntry.class) {
-                return new CompraDipendenteEntry(format.parse("2019-01-01"), 2, "caffè", "andrea", "oneto", true);
+
+            if (cls == MovimentoDebito.class) {
+                return new MovimentoDebito(format.parse("2019-01-01"),new Personale("andrea","straforini"), new Euro(3, 5));
+
             }
+            if (cls == MovimentoVendita.class) {
+                return new MovimentoVendita(format.parse("2019-01-01"), new Personale("salmo","lebon"), 6,new CialdeEntry("cioccolata"),false);
+
+            }
+
             fail("istanza non riconosciuta");
 
         }
@@ -297,6 +306,8 @@ public class DaoTest{
             System.out.println(i.toString());
         }
     }
+
+
 
 }
 

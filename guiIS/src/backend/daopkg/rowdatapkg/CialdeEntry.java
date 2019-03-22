@@ -12,6 +12,10 @@ public class CialdeEntry extends AbstractEntryDB   {
         this.prezzo = prezzo;
     }
 
+    public CialdeEntry(String tipo){
+        this.tipo=tipo;
+    }
+
     public CialdeEntry(){}
 
     public String getTipo() {

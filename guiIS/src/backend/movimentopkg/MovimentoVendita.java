@@ -1,34 +1,57 @@
 package backend.movimentopkg;
-
-import backend.TipoCialda;
 import backend.clientpkg.Cliente;
+import backend.daopkg.gateways.AbstractDao;
+import backend.daopkg.gateways.CompraDao;
+import backend.daopkg.rowdatapkg.CialdeEntry;
 import java.util.Date;
 import java.util.Objects;
 
 public final class MovimentoVendita extends Movimento {
-    public int quantita;
-    public TipoCialda tipo;
+    private  int quantita;
+    private CialdeEntry tipo;
+    private boolean contanti;
 
-
-    public MovimentoVendita(Date data, Cliente cliente, int quantita, TipoCialda tipo) throws IllegalArgumentException {
+    public MovimentoVendita(Date data, Cliente cliente, int quantita, CialdeEntry tipo,boolean contanti) throws IllegalArgumentException {
         super(data, cliente);
         this.tipo=Objects.requireNonNull(tipo);
         if(quantita<=0){
             throw new IllegalArgumentException("quantità negativa o uguale a zero");
         }
+        this.contanti=contanti;
     }
+
+    public MovimentoVendita(){}
 
     public int getQuantita() {
         return quantita;
     }
 
-    public TipoCialda getTipo() {
+    public void setQuantita(int quantita){this.quantita=quantita;}
+
+    public void setTipo(CialdeEntry tipo) { this.tipo = tipo; }
+
+    public void setContanti(boolean contanti) { this.contanti = contanti; }
+
+    public CialdeEntry getTipo() {
         return tipo;
     }
+
+    public boolean isContanti() { return contanti;}
 
     public boolean aggiungiVendita(){
         //todo
         return false;
+    }
+
+    @Override
+    public Class<?extends AbstractDao> getCorrespondigDaoClass() {
+            return CompraDao.class;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString()+
+                "  quantità:"+quantita+" tipo:"+tipo+" contanti:"+contanti+" (MovimentoVendita)";
     }
 
 
