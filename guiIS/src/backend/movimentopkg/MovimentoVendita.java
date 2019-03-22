@@ -56,7 +56,7 @@ public final class MovimentoVendita extends Movimento {
     @Override
     public String toString() {
         return super.toString()+
-                "  quantità:"+quantita+" tipo:"+tipo+" contanti:"+contanti+" (MovimentoVendita)";
+                "  quantità:"+quantita+" tipo:"+tipo.getTipo()+" contanti:"+contanti+" (MovimentoVendita)";
     }
 
 
