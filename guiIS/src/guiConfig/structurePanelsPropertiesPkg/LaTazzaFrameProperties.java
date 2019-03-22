@@ -13,7 +13,7 @@ public class LaTazzaFrameProperties {
     static private final int DEFAULTCLOSEOP= JFrame.EXIT_ON_CLOSE;
     static private final int DEFAULTX=100;
     static private final int DEFAULTY=100;
-    static private final int DEFAULTWIDITH=850;
+    static private final int DEFAULTWIDITH=810;
     static private final int DEFAULTHEIGHT=500;
 
     public LaTazzaFrameProperties(int x,int y,int width,int height,int closeOperation) throws IllegalArgumentException

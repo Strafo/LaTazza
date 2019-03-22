@@ -38,7 +38,7 @@ public class MenuPane extends KGradientPanel {
 
 		setBounds(MenuPaneProperties.DEFAULTX,MenuPaneProperties.DEFAULTY,MenuPaneProperties.DEFAULT_WIDTH,MenuPaneProperties.DEFAULT_HEIGHT);
 		setLayout(null);
-		setkEndColor(LaTazzaColors.CAFFE);
+		setkEndColor(Color.BLACK);
 		setkStartColor(LaTazzaColors.CAPPUCCINO);
 		//setkGradientFocus(menuPaneProperties.getGradient());
 		

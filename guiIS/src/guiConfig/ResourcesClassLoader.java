@@ -39,6 +39,9 @@ public class ResourcesClassLoader{
     private static ImageIcon iconaCassa=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/cassa.png");
     private static ImageIcon iconaMagazzino=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/magazzino.png");
     private static ImageIcon iconaDebiti=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/debiti.png");
+    private static ImageIcon iconaAggPersonale=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/iconAggiuntaUtente.png");
+    private static ImageIcon iconaRimPersonale=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/iconRimozioneUtente.png");
+    private static ImageIcon iconaMacchinetta=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/CoffeeMaker.png");
 
 
     public static ImageIcon retriveIcon(String iconAddress) {
@@ -175,5 +178,17 @@ public class ResourcesClassLoader{
 
     public static ImageIcon getIconDebito() {
         return iconaDebiti;
+    }
+
+    public static ImageIcon getIconaAggPersonale() {
+        return iconaAggPersonale;
+    }
+
+    public static ImageIcon getIconaRimPersonale() {
+        return iconaRimPersonale;
+    }
+
+    public static ImageIcon getIconaMacchinetta() {
+        return iconaMacchinetta;
     }
 }

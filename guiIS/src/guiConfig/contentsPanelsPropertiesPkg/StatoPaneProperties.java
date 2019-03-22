@@ -7,26 +7,30 @@ import java.awt.*;
 
 import static guiLogicPkg.LaTazzaFrame.JPanelsNames.STATOPANE;
 
-public class StatoPaneProperties {
-
-    public static final int DEFAULTX_LABELTITOLO = 27;
-    public static final int DEFAULTY_LABELTITOLO = 27;
-    public static final int DEFAULT_WIDTH_LABELTITOLO = 500;
-    public static final int DEFAULT_HEIGHT_LABELTITOLO = 50;
-
-
+public class StatoPaneProperties extends AbstractPanelProperties {
 
     public static final String DEFAULT_LINKDESCRIPTION="Stato";
     public static final LaTazzaFrame.JPanelsNames DEFAULT_PANELNAME=STATOPANE;
-
-    public static final int DEFAULTX = 190;
-    public static final int DEFAULTY = 31;
-    public static final int DEFAULT_WIDTH = 660;
-    public static final int DEFAULT_HEIGHT = 500;
+    public static final String[] DEFAULT_LABELDESCRIPTION={"Stato magazzino, cassa e debiti personale","Magazzino","Cassa","Debiti personale"};
 
     public static final Color DEFAULT_BACKGROUNDCOLOR=Color.WHITE;
     public static final LayoutManager DEFAULT_LAYOUTMANAGER=null;
     public static final boolean DEFAULT_VISIBILITY=true;
+
+    public static final int DEFAULTX_COLONNA1 = 60;
+    public static final int DEFAULTX_COLONNA2 = 260;
+    public static final int DEFAULTX_COLONNA3 = 420;
+
+    public static final int DEFAULTY_RIGA1 = 130;
+    public static final int DEFAULTY_RIGA2 = 170;
+
+    public static final int DEFAULT_RIGA_SEPARATOR = 153;
+    public static final int DEFAULT_WIDTH_SEPARATOR = 104;
+    public static final int DEFAULT_HEIGHT_SEPARATOR = 1;
+
+    public static final int DEFAULT_GAP_SP2 = 32;
+    public static final int DEFAULT_GAP_SP3 = 20;
+
 
     public static void initStatoPanel(StatoPane sP)throws NullPointerException{
         if(sP==null){

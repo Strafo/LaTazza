@@ -1,6 +1,6 @@
 package guiLogicPkg.structurePanelsPkg;
 
-import java.awt.Frame;
+import java.awt.*;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import guiConfig.KGradientPanel;
@@ -14,12 +14,11 @@ public class TopBarPane extends KGradientPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	
 	private JLabel labelClose;
 	private JLabel labelMin;
 
-	private static final int DEFAULTX_LABELCLOSE = 820;
-	private static final int DEFAULTX_LABELMIN = 795;
+	private static final int DEFAULTX_LABELCLOSE = 780;
+	private static final int DEFAULTX_LABELMIN = 755;
 
 	private static final int DEFAULTY_LABEL = 3;
 	private static final int DEFAULT_WIDTH_LABEL = 25;
