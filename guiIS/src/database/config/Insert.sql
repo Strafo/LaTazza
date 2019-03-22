@@ -17,4 +17,4 @@ insert into LATAZZASCHEMA.PERSONALE values ( 'Gabriele', 'Armanino', true );
 insert into LATAZZASCHEMA.RIFORNIMENTO values ('2019-01-12 12:00:00','caffè',30);
 insert into LATAZZASCHEMA.RIFORNIMENTO values ('2018-05-11 12:00:00','thè',30);
 
-insert into LATAZZASCHEMA.COMPRA_DIPENDENTE('Simone','Campisi',true,13,'2018-06-11 13:00:00', 'caffè');
+insert into LATAZZASCHEMA.COMPRA_DIPENDENTE values ('Simone','Campisi',true,13,'2018-06-11 13:00:00', 'caffè');
