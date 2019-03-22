@@ -1,5 +1,7 @@
 package backend;
 
+import backend.clientpkg.Personale;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +14,7 @@ public class ControllerPersonale {
 
 
     public List<Personale> getCopyList(){
-        ArrayList<Personale> l= new ArrayList<>(list);
+        List<Personale> l= new ArrayList<>(list);
         return l;
     }
     public void aggiungiPersonale(String nome, String cognome){

@@ -1,5 +1,7 @@
 package backend;
 
+import backend.clientpkg.Cliente;
+
 public class Euro {
 
     private long euro;
@@ -52,7 +54,7 @@ public class Euro {
     }
 
     /**Confronta le somme contenute nelle due classi Euro.
-     * @param e la somma da confrontare.
+     * @param obj la somma da confrontare.
      * @return true se la somma corrisponde sia per i centesimi che per gli euro,false altrimenti.
      * @throws NullPointerException se param:e è un null ref.
      */

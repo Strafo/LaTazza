@@ -1,5 +1,6 @@
 package backend.clientpkg;
 import backend.Debito;
+import backend.Euro;
 import backend.daopkg.gateways.PersonaleDao;
 
 
