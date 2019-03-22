@@ -1,10 +1,7 @@
 package database.config;
 import org.h2.api.Trigger;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class Trigger1 implements Trigger {
 
@@ -32,24 +29,17 @@ public class Trigger1 implements Trigger {
 
     }
 
-    public Trigger1(String URL){
-
+    public Trigger1(String URL) throws SQLException {
+        Connection connection= DriverManager.getConnection(URL);
+        init(connection,"LATAZZASCHEMA","CHECKNUMCIALDE","LATAZZASCHEMA.COMPRA_VISITATORE",true,1);
+        stat=connection.createStatement();
     }
 
     @Override
     public void fire(Connection connection, Object[] oldRow, Object[] newRow) throws SQLException {
 
-        if(newRow != null)
-            if()
-        cV=stat.executeQuery("select sum(numero_cialde)\n"+
-                " from LATAZZASCHEMA.COMPRA_VISITATORE\n"+
-                " where tipo_cialda = new.tipo_cialda;");
-        cP=stat.executeQuery("select sum(numero_cialde)\n"+
-                " from LATAZZASCHEMA.COMPRA_DIPENDENTE\n"+
-                " where tipo_cialda = new.tipo_cialda;");
-        magazzino=stat.executeQuery("select sum(QTA*50)\n"+
-                " from LATAZZASCHEMA.MAGAZZINO\n"+
-                " where tipoCialda=new.TipoCialda;");
+        cV.next(); cP.next(); magazzino.next();
+
 
     }
 
