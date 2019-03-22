@@ -1,7 +1,8 @@
 package backend.movimentopkg;
 import backend.clientpkg.Cliente;
+import backend.clientpkg.Visitatore;
 import backend.daopkg.gateways.AbstractDao;
-import backend.daopkg.gateways.CompraDao;
+import backend.daopkg.gateways.MovimentoVenditaDao;
 import backend.daopkg.rowdatapkg.CialdeEntry;
 import java.util.Date;
 import java.util.Objects;
@@ -13,10 +14,14 @@ public final class MovimentoVendita extends Movimento {
 
     public MovimentoVendita(Date data, Cliente cliente, int quantita, CialdeEntry tipo,boolean contanti) throws IllegalArgumentException {
         super(data, cliente);
+        if(cliente instanceof Visitatore&& !contanti){
+            throw new IllegalArgumentException("il pagamento in contatnti per i visitatori è obbligatorio");
+        }
         this.tipo=Objects.requireNonNull(tipo);
         if(quantita<=0){
             throw new IllegalArgumentException("quantità negativa o uguale a zero");
         }
+        this.quantita=quantita;
         this.contanti=contanti;
     }
 
@@ -45,7 +50,7 @@ public final class MovimentoVendita extends Movimento {
 
     @Override
     public Class<?extends AbstractDao> getCorrespondigDaoClass() {
-            return CompraDao.class;
+            return MovimentoVenditaDao.class;
     }
 
     @Override

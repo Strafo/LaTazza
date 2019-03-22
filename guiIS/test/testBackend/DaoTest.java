@@ -2,17 +2,16 @@ package testBackend;
 import backend.Euro;
 import backend.clientpkg.Personale;
 import backend.clientpkg.Visitatore;
-import backend.daopkg.gateways.CompraDao;
 import backend.daopkg.gateways.DaoInterface;
 import backend.daopkg.gateways.DaoManager;
 import backend.daopkg.rowdatapkg.*;
-import backend.movimentopkg.Movimento;
 import backend.movimentopkg.MovimentoDebito;
 import backend.movimentopkg.MovimentoVendita;
 import database.DataBase;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.omg.CORBA.PRIVATE_MEMBER;
 import utils.LaTazzaLogger;
 import java.io.File;
 import java.io.FileInputStream;
@@ -37,7 +36,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class DaoTest{
 
-
+    private boolean PRINT_LIST=true;
     private DaoInterface dao;
     private DataBase database;
     private Integer[] nEntry={14,4,4,4,5,5};//numero di inserimetni del file DefaultSetEntry.sql per le tabelle(in ordine):personale,cialde,visitatore,rifornimento,MovimentoDEbito,MovimentoVendita
@@ -77,7 +76,7 @@ public class DaoTest{
     }
 
     @ParameterizedTest
-    @ValueSource(classes={Personale.class,CialdeEntry.class,Visitatore.class,RifornimentoEntry.class,MovimentoDebito.class,CompraDao.class})
+    @ValueSource(classes={Personale.class,CialdeEntry.class,Visitatore.class,RifornimentoEntry.class,MovimentoDebito.class,MovimentoVendita.class,MovimentoVendita.class})
     void getAllTest(Class<? extends AbstractEntryDB> cls) {
         try {
             dao=new DaoManager(database.getConnection());
@@ -91,14 +90,15 @@ public class DaoTest{
     }
 
     @ParameterizedTest
-    @ValueSource(classes={Personale.class,CialdeEntry.class,Visitatore.class,RifornimentoEntry.class,MovimentoDebito.class,CompraDao.class})
+    @ValueSource(classes={Personale.class,CialdeEntry.class,Visitatore.class,RifornimentoEntry.class,MovimentoDebito.class,MovimentoVendita.class,MovimentoVendita.class})
     void saveTest(Class<? extends AbstractEntryDB>  cls)  {
         try {
             dao=new DaoManager(database.getConnection());
             assertTrue(dao.save(createInstance(cls,true)));
-
+            assertTrue(dao.save(createInstance(cls,true)));
             List list=dao.getAll(cls);
             checkNEntry(Object.class,2,list.size());
+            printList(list);
         }catch(Exception exc){
             exc.printStackTrace();
             fail("Impossibile trovare costruttore");
@@ -108,7 +108,7 @@ public class DaoTest{
 
 
     @ParameterizedTest
-    @ValueSource(classes={Personale.class,CialdeEntry.class,Visitatore.class,RifornimentoEntry.class,MovimentoDebito.class,CompraDao.class})
+    @ValueSource(classes={Personale.class,CialdeEntry.class,Visitatore.class,RifornimentoEntry.class,MovimentoDebito.class,MovimentoVendita.class})
     void updateTest() {
         /*Personale pers=new Personale("andrea","straforini",true);
         //dao.update(pers,new Personale("andrea","straforini",false));TODO
@@ -126,7 +126,7 @@ public class DaoTest{
     }
 
     @ParameterizedTest
-    @ValueSource(classes={Personale.class,CialdeEntry.class,Visitatore.class,RifornimentoEntry.class,MovimentoDebito.class,CompraDao.class})
+    @ValueSource(classes={Personale.class,CialdeEntry.class,Visitatore.class,RifornimentoEntry.class,MovimentoDebito.class,MovimentoVendita.class})
     void deleteTest(Class<?>cls){
 
 
@@ -136,6 +136,7 @@ public class DaoTest{
 
             List list=dao.getAll(cls);
             checkNEntry(Object.class,-1,list.size());
+            printList(list);
         }catch(Exception exc){
             exc.printStackTrace();
             fail("Impossibile trovare costruttore");
@@ -213,7 +214,7 @@ public class DaoTest{
 
 
 
-
+    private int j=0;//serve per createinstance : (j=pari) crea movimentovendita con un visitatore; j=dispari crea movimentovendita con un personale; Serve perche nei test parametrici viene passato MovimetnoVednita 2 volte--> quindi una volta uso visitatore la seconda Personale
 
     private AbstractEntryDB createInstance(Class<?> cls, boolean random) {
         try{
@@ -237,8 +238,11 @@ public class DaoTest{
 
             }
             if (cls == MovimentoVendita.class) {
-                return new MovimentoVendita(getRandomDate(), new Personale("andrea","straforini"), 6,new CialdeEntry("cioccolata"),false);
-
+                if((j++&1)==0){//j pari
+                    return new MovimentoVendita(getRandomDate(), new Visitatore("fabri","fibra"), 100,new CialdeEntry("thè"),true);
+                }else{//j dispari
+                    return new MovimentoVendita(getRandomDate(), new Personale("andrea","straforini"), 6,new CialdeEntry("cioccolata"),false);
+                }
             }
             fail("istanza non riconosciuta");
             return null;
@@ -256,20 +260,16 @@ public class DaoTest{
                 return new RifornimentoEntry(format.parse("2000-12-31"), 2, "caffè");
             }
             if (cls == MovimentoDebito.class) {
-                return new MovimentoDebito(getRandomDate(),new Personale("andrea","straforini"), new Euro(3, 5));
-
-            }
-            if (cls == MovimentoVendita.class) {
-                return new MovimentoVendita(getRandomDate(), new Personale("andrea","straforini"), 6,new CialdeEntry("cioccolata"),false);
-
-            }
-
-            if (cls == MovimentoDebito.class) {
                 return new MovimentoDebito(format.parse("2019-01-01"),new Personale("andrea","straforini"), new Euro(3, 5));
 
             }
             if (cls == MovimentoVendita.class) {
-                return new MovimentoVendita(format.parse("2019-01-01"), new Personale("salmo","lebon"), 6,new CialdeEntry("cioccolata"),false);
+
+                if((j++&1)==0){//j pari
+                    return new MovimentoVendita(format.parse("2019-01-01"), new Visitatore("salmo","lebon"), 6,new CialdeEntry("cioccolata"),true);
+                }else{//j dispari
+                    return new MovimentoVendita(format.parse("2019-01-01"), new Personale("andrea","straforini"), 10,new CialdeEntry("caffè"),true);
+                }
 
             }
 
@@ -301,9 +301,11 @@ public class DaoTest{
 
     }
 
-    private void printList(List l){
-        for(Object i:l){
-            System.out.println(i.toString());
+    private void printList(List l) {
+        if (PRINT_LIST) {
+            for (Object i : l) {
+                System.out.println(i.toString());
+            }
         }
     }
 

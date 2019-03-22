@@ -1,7 +1,7 @@
 package backend.movimentopkg;
 import backend.Euro;
 import backend.clientpkg.Cliente;
-import backend.daopkg.gateways.PagamentoDebitoDao;
+import backend.daopkg.gateways.MovimentoDebitoDao;
 import java.util.Date;
 import java.util.Objects;
 
@@ -28,8 +28,8 @@ public final class MovimentoDebito extends Movimento {
     }
 
     @Override
-    public Class<PagamentoDebitoDao> getCorrespondigDaoClass() {
-        return PagamentoDebitoDao.class;
+    public Class<MovimentoDebitoDao> getCorrespondigDaoClass() {
+        return MovimentoDebitoDao.class;
     }
 
     @Override

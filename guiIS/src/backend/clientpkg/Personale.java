@@ -39,15 +39,12 @@ public final class Personale extends Cliente  {
     public Personale(){}
 
     @Override
-    public String toString(){
-        String string ="nome:" +this.getNome()+" cognome:"+this.getCognome()+
-                " attivo:"+String.valueOf(isAttivo());
-        if (debito==null){
-            string+=" debito:null";
+    public String toString() {
+        if (debito != null) {
+            return super.toString() + " debito:" + debito.toString() + " attivo:" + attivo + "(Personale)";
         }else{
-            string+=" debito:"+debito.toString();
+            return super.toString() + " debito:null attivo:" + attivo + "(Personale)";
         }
-        return string;
     }
 
     @Override

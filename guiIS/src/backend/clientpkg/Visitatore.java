@@ -14,4 +14,9 @@ public final class Visitatore extends Cliente {
         return VisitatoreDao.class;
     }
 
+    @Override
+    public String toString(){
+        return super.toString()+"(Visitatore)";
+    }
+
 }

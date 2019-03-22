@@ -12,10 +12,10 @@ import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
-public class CompraDao extends AbstractDao {
+public class MovimentoVenditaDao extends AbstractDao {
 
     public static final String TABLE_NAME_PERSONALE="LATAZZASCHEMA.compra_dipendente";
-    public static final String TABLE_NAME_VISITATORE="LATAZZASCHEMA.compra_dipendente";
+    public static final String TABLE_NAME_VISITATORE="LATAZZASCHEMA.compra_visitatore";
 
     private static final String INSERT_STATEMENT_STRING_PERSONALE = "INSERT INTO " + TABLE_NAME_PERSONALE + " (nome,cognome,tipo_cialda,numero_cialde,data,contanti) VALUES (?,?,?,?,?,?)";
     private static final String UPDATE_STATEMENT_STRING_PERSONALE = "UPDATE  " + TABLE_NAME_PERSONALE + " SET nome = ? , cognome = ? , tipo_cialda = ? , numero_cialde = ? , data = ? , contanti = ? WHERE nome = ? AND cognome = ? AND tipo_cialda = ? AND numero_cialde = ? AND data = ? AND contanti  = ?";
@@ -29,7 +29,7 @@ public class CompraDao extends AbstractDao {
     private static final String GET_ALL_STRING_VISITATORE="SELECT * FROM "+TABLE_NAME_VISITATORE;
 
 
-    public CompraDao(Connection dataBaseConnection) {
+    public MovimentoVenditaDao(Connection dataBaseConnection) {
         super(dataBaseConnection);
     }
 

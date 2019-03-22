@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
-public class PagamentoDebitoDao extends AbstractDao<MovimentoDebito> {
+public class MovimentoDebitoDao extends AbstractDao<MovimentoDebito> {
 
     public static final String TABLE_NAME="LATAZZASCHEMA.pagamento_debito";
     private static final String GET_ALL_STRING="SELECT * FROM "+TABLE_NAME;
@@ -16,7 +16,7 @@ public class PagamentoDebitoDao extends AbstractDao<MovimentoDebito> {
     private static final String UPDATE_STATEMENT_STRING = "UPDATE  " + TABLE_NAME + " SET nome = ? , cognome = ? ,data = ? ,importo = ? WHERE nome = ? AND cognome = ? AND data = ? ";
     private static final String DELETE_STATEMENT_STRING = "DELETE FROM " + TABLE_NAME + " WHERE nome = ? AND cognome = ? AND data = ?";
 
-    public PagamentoDebitoDao(Connection dataBaseConnection){
+    public MovimentoDebitoDao(Connection dataBaseConnection){
         super(dataBaseConnection);
     }
 
