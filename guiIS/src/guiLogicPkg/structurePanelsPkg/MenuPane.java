@@ -1,13 +1,14 @@
 package guiLogicPkg.structurePanelsPkg;
 
 import java.awt.Color;
-import javax.swing.JPanel;
+import javax.swing.*;
+
 import guiConfig.KGradientPanel;
 import guiConfig.ResourcesClassLoader;
 import guiConfig.structurePanelsPropertiesPkg.MenuPaneProperties;
 import guiLogicPkg.LaTazzaFrame;
 import utils.LaTazzaColors;
-import javax.swing.JLabel;
+
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -28,10 +29,11 @@ public class MenuPane extends KGradientPanel {
     private JLabel labelTitolo=new JLabel("LaTazza");
     private JLabel labelIconaTazza=new JLabel();
 
+    public String[] nomeIconaLink={"stato","vendita","pagamento","rifornimento","gestione"};
 
     //create the Menu Panel that contains five links
 	public MenuPane(LaTazzaFrame laTazzaFrame) {
-        int j=0;
+        int j=0,img=0;
 		this.laTazzaFrame = laTazzaFrame;
 
 		setBounds(MenuPaneProperties.DEFAULTX,MenuPaneProperties.DEFAULTY,MenuPaneProperties.DEFAULT_WIDTH,MenuPaneProperties.DEFAULT_HEIGHT);
@@ -51,7 +53,7 @@ public class MenuPane extends KGradientPanel {
         System.out.println("Working Directory = " +
                 System.getProperty("user.dir"));//+" Class path:"+System.getProperty("java.class.path"));
 
-		labelIconaTazza.setIcon(ResourcesClassLoader.getIconTazza());
+		labelIconaTazza.setIcon(ResourcesClassLoader.getIconTazza50());
 
         this.add(panelSeparator);
         this.add(labelTitolo);
@@ -61,11 +63,10 @@ public class MenuPane extends KGradientPanel {
             linkMap.put(i,//todo check return value
                     new RowPanelLink(
                             laTazzaFrame.getPanelByName(i).getLINKDESCRIPTION(),
-                            ROWPANEL_DEFAULTX_BUTTON, ROWPANEL_DEFAULTX_ICON,ROWPANEL_DEFAULTY+ROWPANEL_DEFAULT_GAP*j++,ResourcesClassLoader.getIconStatoW25(), ResourcesClassLoader.getIconStatoB25())
-
-
+                            ROWPANEL_DEFAULTX_BUTTON, ROWPANEL_DEFAULTX_ICON, ROWPANEL_DEFAULTY + ROWPANEL_DEFAULT_GAP * j++, ResourcesClassLoader.getIconW(nomeIconaLink[img]), ResourcesClassLoader.getIconB(nomeIconaLink[img++]))
             );
         }
+
 
         RowPanelLink linkTemp;
 

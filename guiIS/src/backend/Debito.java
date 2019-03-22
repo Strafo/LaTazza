@@ -15,6 +15,9 @@ public class Debito {
         this.quantita.aggiungiImporto(importo);
     }
 
+    public Euro getImporto(){
+        return new Euro(quantita);
+    }
 
     /**
      *
@@ -46,6 +49,6 @@ public class Debito {
     }
 
     public Euro pagamentoDebito(Personale pers,Euro importo){
-        return pagamentoDebito(pers,importo,new Date());
+        return sottraiDebito(importo);
     }
 }

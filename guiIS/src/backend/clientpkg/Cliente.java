@@ -37,4 +37,12 @@ public abstract class Cliente extends AbstractEntryDB  {
     public String toString() {
         return "cliente: nome:"+nome+" cognome:"+cognome;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof Cliente)) return false;
+        if(this == obj) return true;
+        Cliente c= (Cliente) obj;
+        return nome.equals(c.getNome()) && cognome.equals(c.getCognome());
+    }
 }

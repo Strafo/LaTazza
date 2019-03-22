@@ -25,15 +25,22 @@ public final class Personale extends Cliente  {
         this.debito = debito;
     }
 
+    public void pagamentoDebito(Euro importo){
+        debito.pagamentoDebito(this,importo);
+    }
+
+    public Euro getImportoDebito(){
+        return debito.getImporto();
+    }
 
     public Personale(String nome, String cognome,boolean attivo) {
         super(nome, cognome);
         this.attivo=attivo;
+        debito= new Debito( new Euro(0));
     }
 
     public Personale(String nome, String cognome) {
-        super(nome, cognome);
-        this.attivo=true;
+        this(nome, cognome, true);
     }
 
     public Personale(){}

@@ -13,7 +13,7 @@ public  class RegPagamentoProperties {
 
     public static final int DEFAULTX = 190;
     public static final int DEFAULTY = 31;
-    public static final int DEFAULT_WIDTH = 610;
+    public static final int DEFAULT_WIDTH = 660;
     public static final int DEFAULT_HEIGHT = 500;
 
     public static final Color DEFAULT_BACKGROUNDCOLOR=Color.WHITE;

@@ -1,5 +1,7 @@
 package backend;
 
+import static java.util.Objects.requireNonNull;
+
 public class Cassa {
 
     private final static long saldoIniziale= 500;
@@ -10,7 +12,7 @@ public class Cassa {
     }
 
     public Cassa(Euro s){
-        saldo=s;
+        saldo=requireNonNull(s);
     }
 
     public Euro getSaldo(){
