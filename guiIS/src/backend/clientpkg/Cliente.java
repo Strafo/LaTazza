@@ -33,4 +33,8 @@ public abstract class Cliente extends AbstractEntryDB  {
 
     public abstract Class<? extends AbstractDao>getCorrespondigDaoClass();
 
+    @Override
+    public String toString() {
+        return "cliente: nome:"+nome+" cognome:"+cognome;
+    }
 }

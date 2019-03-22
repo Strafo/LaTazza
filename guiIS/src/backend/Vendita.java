@@ -2,6 +2,7 @@ package backend;
 
 import backend.clientpkg.Personale;
 import backend.clientpkg.Visitatore;
+import backend.daopkg.rowdatapkg.CialdeEntry;
 import backend.movimentopkg.MovimentoVendita;
 
 import java.util.Date;
@@ -9,16 +10,19 @@ import java.util.Date;
 public class Vendita {
 
 
-    public boolean aggiungiVenditaVisitatore(Date data, Visitatore visitatore, TipoCialda tipoCialda, int qta){
+    public boolean aggiungiVenditaVisitatore(Date data, Visitatore visitatore, CialdeEntry tipoCialda, int qta){
 
-    MovimentoVendita mv= new MovimentoVendita(data,visitatore,qta,tipoCialda);
+    MovimentoVendita mv= new MovimentoVendita(data,visitatore,qta,tipoCialda,true);//la vendita è per forza con contanti
     return mv.aggiungiVendita();
 
     }
 
-    public boolean aggiungiVenditaPersonale(Date data, Personale personale, TipoCialda tipoCialda, int qta, boolean modalita){
+    /**
+     * @param modalita true se con contanti, false se vendita con debito
+     */
+    public boolean aggiungiVenditaPersonale(Date data, Personale personale, CialdeEntry tipoCialda, int qta, boolean modalita){
 
-        MovimentoVendita mp= new MovimentoVendita(data,personale,qta,tipoCialda);
+        MovimentoVendita mp= new MovimentoVendita(data,personale,qta,tipoCialda,modalita);
         return mp.aggiungiVendita();
 
     }
