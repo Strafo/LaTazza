@@ -8,5 +8,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/h2-1.4.198"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/h2-1.4.199"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/org.junit.jupiter:junit-jupiter-engine:5.0.0"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/org.junit.jupiter:junit-jupiter-params:5.4.1"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

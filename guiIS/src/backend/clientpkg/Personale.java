@@ -1,6 +1,10 @@
-package backend;
+package backend.clientpkg;
+import backend.Debito;
+import backend.Euro;
+import backend.daopkg.gateways.PersonaleDao;
 
-public final class Personale extends Cliente {
+
+public final class Personale extends Cliente  {
 
 
     private Debito debito;
@@ -40,13 +44,21 @@ public final class Personale extends Cliente {
         this(nome, cognome, true);
     }
 
-    @Override
-    public String toString(){
-        String string ="nome:" +this.getNome()+" cognome:"+this.getCognome()+
-                " attivo:"+String.valueOf(isAttivo());
-         string +=(debito==null)? " debito:null" : " debito:"+debito.toString();
+    public Personale(){}
 
-        return string;
+    @Override
+    public String toString() {
+        if (debito != null) {
+            return super.toString() + " debito:" + debito.toString() + " attivo:" + attivo + "(Personale)";
+        }else{
+            return super.toString() + " debito:null attivo:" + attivo + "(Personale)";
+        }
     }
+
+    @Override
+    public Class<PersonaleDao> getCorrespondigDaoClass() {
+        return PersonaleDao.class;
+    }
+
 
 }

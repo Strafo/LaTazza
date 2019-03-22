@@ -9,7 +9,7 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import com.apple.eawt.Application;
+import com.apple.eawt.Application;//todo qui non so se va bene è una lib di apple
 import guiConfig.ResourcesClassLoader;
 import guiConfig.structurePanelsPropertiesPkg.LaTazzaFrameProperties;
 import guiLogicPkg.contentsPanelsPkg.*;
