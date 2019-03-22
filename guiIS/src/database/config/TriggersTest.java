@@ -9,5 +9,6 @@ public class TriggersTest {
 
         Trigger1 trigger1= new Trigger1(URL);
 
+
     }
 }
