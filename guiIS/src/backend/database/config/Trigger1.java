@@ -45,6 +45,7 @@ public class Trigger1 implements Trigger {
         cV.next(); cP.next(); magazzino.next();
         if((cV.getInt((Integer) newRow[0])+ cP.getInt((Integer) newRow[0])) > magazzino.getInt((Integer) newRow[0]))
             throw new SQLException();
+
     }
 
     @Override
