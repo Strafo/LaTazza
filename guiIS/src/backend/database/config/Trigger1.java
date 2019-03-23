@@ -14,11 +14,11 @@ public class Trigger1 implements Trigger {
 
     @Override
     public void init(Connection connection, String s, String t1, String t2, boolean b, int i) throws SQLException {
+
         conn=connection; schema=s; triggerName =t1; table =t2; before=b; type=i;
         cV=stat.executeQuery("select sum(numero_cialde) "+
                 " from LATAZZASCHEMA.COMPRA_VISITATORE T "+
                 " where tipo_cialda = (select tipo_cialda from LATAZZASCHEMA.COMPRA_VISITATORE where T.TIPO_CIALDA=COMPRA_VISITATORE.TIPO_CIALDA); ");
-
         cP=stat.executeQuery("select sum(numero_cialde)\n"+
                 " from LATAZZASCHEMA.COMPRA_DIPENDENTE\n"+
                 " where tipo_cialda = (select tipo_cialda from LATAZZASCHEMA.COMPRA_DIPENDENTE T where T.TIPO_CIALDA=COMPRA_DIPENDENTE.TIPO_CIALDA);");
@@ -29,20 +29,29 @@ public class Trigger1 implements Trigger {
 
     }
 
-    public Trigger1(String URL) throws SQLException {
-        Connection connection= DriverManager.getConnection(URL);
-        stat=connection.createStatement();
-        init(connection,"LATAZZASCHEMA","CHECKNUMCIALDE","LATAZZASCHEMA.COMPRA_VISITATORE",true,1);
+    public Trigger1(Connection conn) throws SQLException {
+        try {
+            Class.forName("org.h2.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        stat=conn.createStatement();
+        init(conn,"LATAZZASCHEMA","CHECKNUMCIALDE","LATAZZASCHEMA.COMPRA_VISITATORE",true,1);
 
     }
 
     @Override
     public void fire(Connection connection, Object[] oldRow, Object[] newRow) throws SQLException {
-
+        cV.next(); cP.next(); magazzino.next();
+        if((cV.getInt((Integer) newRow[0])+ cP.getInt((Integer) newRow[0])) > magazzino.getInt((Integer) newRow[0]))
+            throw new SQLException();
     }
 
     @Override
     public void close() throws SQLException {
+        cV.close();
+        cP.close();
+        magazzino.close();
 
     }
 
@@ -70,4 +79,5 @@ public class Trigger1 implements Trigger {
     public int getType() {
         return type;
     }
+    public  Statement getStat(){return stat;}
 }
