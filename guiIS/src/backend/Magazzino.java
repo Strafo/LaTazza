@@ -11,6 +11,9 @@ public class Magazzino {
     //Il numero di cialde contenute in una scatola
     private static final int qtaCialdeScatole=50;
 
+    public int getQtaCialdeScatole(){
+        return qtaCialdeScatole;
+    }
     //Inizializzazione del magazzino: quando il magazzino viene creato non sono presenti
     public Magazzino(){
         stato= new EnumMap(TipoCialda.class);
@@ -19,7 +22,7 @@ public class Magazzino {
         }
     }
     //Copia lo stato del magazzino e lo ritorna
-    public EnumMap<TipoCialda,Integer> getStato(){
+    public EnumMap<TipoCialda,Integer> getCopyStato(){
         EnumMap<TipoCialda,Integer> copy= new EnumMap(stato);
         return copy;
     }
@@ -31,8 +34,7 @@ public class Magazzino {
     //Se non sono presenti abbastanza cialde il metodo ritorna false
     public boolean rimuoviCialde(TipoCialda t, int qta){
         int nuovaQta=stato.get(t) - qta;
-        if(nuovaQta < 0)
-            return false;
+        if(nuovaQta < 0) return false;
         stato.put(t, nuovaQta);
         return true;
     }

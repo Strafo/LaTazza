@@ -15,8 +15,8 @@ public class Cassa {
         saldo=requireNonNull(s);
     }
 
-    public Euro getSaldo(){
-        return saldo;
+    public Euro getCopySaldo(){
+        return new Euro(saldo);
     }
 
     public void incrementaSaldo(Euro euro){
