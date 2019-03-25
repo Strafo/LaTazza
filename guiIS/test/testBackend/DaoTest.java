@@ -127,13 +127,12 @@ public class DaoTest{
 
     @ParameterizedTest
     @ValueSource(classes={Personale.class,CialdeEntry.class,Visitatore.class,RifornimentoEntry.class,MovimentoDebito.class,MovimentoVendita.class,MovimentoVendita.class})
-    void deleteTest(Class<?>cls){
+    void deleteTest(Class<? extends AbstractEntryDB>cls){
 
 
         try {
             dao=new DaoManager(database.getConnection());
             assertTrue(dao.delete(createInstance(cls,false)));
-
             List list=dao.getAll(cls);
             checkNEntry(Object.class,-1,list.size());
             printList(list);
