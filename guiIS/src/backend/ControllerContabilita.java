@@ -6,6 +6,7 @@ import backend.clientpkg.Visitatore;
 import backend.daopkg.rowdatapkg.CialdeEntry;
 import backend.movimentopkg.MovimentoDebito;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.EnumMap;
 import java.util.HashMap;
@@ -22,16 +23,17 @@ public class ControllerContabilita {
     }
 
     private static boolean venditaVisitatore(Visitatore v, TipoCialda tipo, int cialde){
-
+        Date date=new Date();
         Vendita vendita = new Vendita();
         CialdeEntry tipoCialde= new CialdeEntry(tipo.toString());
-        return  vendita.aggiungiVenditaVisitatore(new Date(), v, tipoCialde, cialde);
+        return  vendita.aggiungiVenditaVisitatore(new Timestamp(date.getTime()), v, tipoCialde, cialde);
     }
 
     private static boolean venditaPersonale(Personale p, TipoCialda tipo, int cialde,boolean contanti){
         Vendita vendita = new Vendita();
+        Date date=new Date();
         CialdeEntry tipoCialde= new CialdeEntry(tipo.toString());
-        return  vendita.aggiungiVenditaPersonale(new Date(), p, tipoCialde, cialde,contanti);
+        return  vendita.aggiungiVenditaPersonale(new Timestamp(date.getTime()), p, tipoCialde, cialde,contanti);
     }
 
 

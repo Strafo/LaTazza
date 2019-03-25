@@ -1,5 +1,5 @@
 package testBackend;
-
+/*
 import backend.Magazzino;
 import backend.TipoCialda;
 import org.junit.jupiter.api.BeforeEach;
@@ -41,4 +41,4 @@ class MagazzinoTest {
         EnumMap aux=m.getStato();
         assertEquals(aux.get(TipoCialda.CAFFÈ), new Integer(50-3));
     }
-}
+}*/

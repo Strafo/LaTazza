@@ -43,7 +43,7 @@ public class MovimentoVenditaDao extends AbstractDao {
         while(rs.next()){
             lista.add(
                     new MovimentoVendita(
-                            rs.getDate("data"),
+                            rs.getTimestamp("data"),
                             new Personale(rs.getString("nome"), rs.getString("cognome")),
                             rs.getInt("numero_cialde"),
                             new CialdeEntry(rs.getString("tipo_cialda")),
@@ -55,7 +55,7 @@ public class MovimentoVenditaDao extends AbstractDao {
         while(rs.next()){
             lista.add(
                     new MovimentoVendita(
-                            rs.getDate("data"),
+                            rs.getTimestamp("data"),
                             new Visitatore(rs.getString("nome"), rs.getString("cognome")),
                             rs.getInt("numero_cialde"),
                             new CialdeEntry(rs.getString("tipo_cialda")),
@@ -88,7 +88,7 @@ public class MovimentoVenditaDao extends AbstractDao {
         pst.setString(2,entry.getCliente().getCognome());
         pst.setString(3,entry.getTipo().getTipo());
         pst.setInt(4,entry.getQuantita());
-        pst.setDate(5,new java.sql.Date(entry.getData().getTime()));
+        pst.setTimestamp(5,entry.getData());
         pst.executeUpdate();
         return true;
     };
@@ -106,7 +106,7 @@ public class MovimentoVenditaDao extends AbstractDao {
         }
         pst.setString(1,entry.getCliente().getNome());
         pst.setString(2,entry.getCliente().getCognome());
-        pst.setDate(3,new java.sql.Date(entry.getData().getTime()));
+        pst.setTimestamp(3,entry.getData());
         pst.executeUpdate();
         return true;
     };

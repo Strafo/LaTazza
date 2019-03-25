@@ -30,7 +30,7 @@ public class MovimentoDebitoDao extends AbstractDao<MovimentoDebito> {
         while (rs.next()) {
             lista.add(
                     new MovimentoDebito(
-                            rs.getDate("data"),
+                            rs.getTimestamp("data"),
                             new Personale(rs.getString("nome"), rs.getString("cognome")),
                             //rs.getDouble("importo")//todo non va bene i double per importo
                             new Euro(1,0)
@@ -52,7 +52,7 @@ public class MovimentoDebitoDao extends AbstractDao<MovimentoDebito> {
         pst=conn.prepareStatement(INSERT_STATEMENT_STRING);
         pst.setString(1, pde.getCliente().getNome());
         pst.setString(2, pde.getCliente().getCognome());
-        pst.setDate(3,new java.sql.Date(pde.getData().getTime()));
+        pst.setTimestamp(3,pde.getData());
         pst.setDouble(4,1.0);//todo set importo
         pst.executeUpdate();
         return true;
@@ -65,7 +65,7 @@ public class MovimentoDebitoDao extends AbstractDao<MovimentoDebito> {
         pst=conn.prepareStatement(DELETE_STATEMENT_STRING);
         pst.setString(1, pde.getCliente().getNome());
         pst.setString(2,pde.getCliente().getCognome());
-        pst.setDate(3,new java.sql.Date(pde.getData().getTime()));
+        pst.setTimestamp(3,pde.getData());
         pst.executeUpdate();
         return true;
     };

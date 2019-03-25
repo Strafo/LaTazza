@@ -1,5 +1,5 @@
 package testBackend;
-
+/*
 import backend.Cassa;
 import backend.Euro;
 import org.junit.jupiter.api.AfterAll;
@@ -45,3 +45,4 @@ class CassaTest {
 
 }
 
+*/

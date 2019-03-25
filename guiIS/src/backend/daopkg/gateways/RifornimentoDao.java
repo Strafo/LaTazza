@@ -33,7 +33,7 @@ public class RifornimentoDao extends AbstractDao<RifornimentoEntry> {
         while(rs.next()){
             lista.add(
                     new RifornimentoEntry(
-                            rs.getDate("dataR"),
+                            rs.getTimestamp("dataR"),
                             rs.getInt("qta"),
                             rs.getString("tipo_cialda")
                     )
@@ -52,7 +52,7 @@ public class RifornimentoDao extends AbstractDao<RifornimentoEntry> {
         PreparedStatement pst;
         pst=conn.prepareStatement(INSERT_STATEMENT_STRING);
         pst.setString(1, entry.getTipoCialda());
-        pst.setDate(2, new java.sql.Date(entry.getData().getTime()));
+        pst.setTimestamp(2,entry.getData());
         pst.setInt(3,entry.getQta());
         pst.executeUpdate();
         return true;
@@ -63,7 +63,7 @@ public class RifornimentoDao extends AbstractDao<RifornimentoEntry> {
     private static ThrowingBiPredicate<Connection,RifornimentoEntry>  deleteLambda=(Connection conn,RifornimentoEntry entry)->{
         PreparedStatement pst;
         pst=conn.prepareStatement(DELETE_STATEMENT_STRING);
-        pst.setDate(1, new java.sql.Date(entry.getData().getTime()));
+        pst.setTimestamp(1,entry.getData());
         pst.setString(2, entry.getTipoCialda());
         pst.executeUpdate();
         return true;
