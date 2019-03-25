@@ -1,6 +1,8 @@
 package backend;
 import backend.clientpkg.Personale;
 import backend.movimentopkg.MovimentoDebito;
+
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -13,7 +15,8 @@ public class ControllerDebito {
     }
 
     private void aggiornaMovimento(Personale p, Euro importo){
-        MovimentoDebito movimentoDebito=new MovimentoDebito(new Date(),p,importo);
+        Date date=new Date();
+        MovimentoDebito movimentoDebito=new MovimentoDebito(new Timestamp(date.getTime()),p,importo);
         movimentoDebito.aggiornaDebito();
     }
 

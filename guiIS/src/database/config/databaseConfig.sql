@@ -17,7 +17,7 @@ create table LATAZZASCHEMA.visitatore(
 
 create table LATAZZASCHEMA.rifornimento(
 
-  dataR date default CURRENT_TIMESTAMP not null,
+  dataR TIMESTAMP default CURRENT_TIMESTAMP not null,
   tipo_cialda varchar(64) not null references LATAZZASCHEMA.cialde(tipo),
   qta integer not null, -- NUMERO DI SCATOLE COMPRATE
   primary key (dataR,tipo_Cialda)
@@ -34,7 +34,7 @@ create table LATAZZASCHEMA.pagamento_debito(
 
   nome varchar(64) not null,
   cognome varchar(64) not null,
-  data date default CURRENT_TIMESTAMP not null,
+  data TIMESTAMP default CURRENT_TIMESTAMP not null,
   importo double precision not null check( importo > 0),
   primary key (nome, cognome, data),
   foreign key(nome, cognome) references LATAZZASCHEMA.personale(nome,cognome)
@@ -47,7 +47,7 @@ create table LATAZZASCHEMA.compra_visitatore(
   cognome varchar(64) not null,
   tipo_cialda varchar(64) not null references LATAZZASCHEMA.cialde(tipo),
   numero_cialde integer not null check (numero_cialde > 0),
-  data date default CURRENT_TIMESTAMP not null,
+  data TIMESTAMP default CURRENT_TIMESTAMP not null,
   primary key(nome,cognome, data),
   foreign key(nome, cognome) references LATAZZASCHEMA.visitatore(nome, cognome)
   on update cascade on delete restrict
@@ -59,7 +59,7 @@ create table LATAZZASCHEMA.compra_dipendente(
   cognome varchar(64) not null,
   contanti boolean not null, -- se � false paga con credito, altrimenti in contanti
   numero_cialde integer not null check (numero_cialde > 0),
-  data date default CURRENT_TIMESTAMP not null,
+  data TIMESTAMP default CURRENT_TIMESTAMP not null,
   tipo_cialda varchar(64) not null references LATAZZASCHEMA.cialde(tipo),
   primary key (data, nome, cognome),
   foreign key (nome, cognome) references LATAZZASCHEMA.personale(nome, cognome)

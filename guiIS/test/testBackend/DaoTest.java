@@ -11,7 +11,6 @@ import database.DataBase;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.omg.CORBA.PRIVATE_MEMBER;
 import utils.LaTazzaLogger;
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,6 +18,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -231,17 +231,17 @@ public class DaoTest{
                 return new Visitatore("ciccio", "pasticcio" + randomchar);
             }
             if (cls == RifornimentoEntry.class) {
-                return new RifornimentoEntry(getRandomDate(), 100, "caffè");
+                return new RifornimentoEntry(getRandomTimeStamp(), 100, "caffè");
             }
             if (cls == MovimentoDebito.class) {
-                return new MovimentoDebito(getRandomDate(),new Personale("andrea","straforini"), new Euro(3, 5));
+                return new MovimentoDebito(getRandomTimeStamp(),new Personale("andrea","straforini"), new Euro(3, 5));
 
             }
             if (cls == MovimentoVendita.class) {
                 if((j++&1)==0){//j pari
-                    return new MovimentoVendita(getRandomDate(), new Visitatore("fabri","fibra"), 100,new CialdeEntry("thè"),true);
+                    return new MovimentoVendita(getRandomTimeStamp(), new Visitatore("fabri","fibra"), 100,new CialdeEntry("thè"),true);
                 }else{//j dispari
-                    return new MovimentoVendita(getRandomDate(), new Personale("andrea","straforini"), 6,new CialdeEntry("cioccolata"),false);
+                    return new MovimentoVendita(getRandomTimeStamp(), new Personale("andrea","straforini"), 6,new CialdeEntry("cioccolata"),false);
                 }
             }
             fail("istanza non riconosciuta");
@@ -255,20 +255,20 @@ public class DaoTest{
             }
             if (cls == Visitatore.class) {
                 return new Visitatore("fabri", "fibra");
-            }
+            }//yyyy-mm-dd hh:mm:ss[.fffffffff]
             if (cls == RifornimentoEntry.class) {
-                return new RifornimentoEntry(format.parse("2000-12-31"), 2, "caffè");
+                return new RifornimentoEntry(Timestamp.valueOf("2000-12-31 00:00:00"), 2, "caffè");
             }
             if (cls == MovimentoDebito.class) {
-                return new MovimentoDebito(format.parse("2019-01-01"),new Personale("andrea","straforini"), new Euro(3, 5));
+                return new MovimentoDebito(Timestamp.valueOf("2019-01-01 00:00:00"),new Personale("andrea","straforini"), new Euro(3, 5));
 
             }
             if (cls == MovimentoVendita.class) {
 
                 if((j++&1)==0){//j pari
-                    return new MovimentoVendita(format.parse("2019-01-01"), new Visitatore("salmo","lebon"), 6,new CialdeEntry("cioccolata"),true);
+                    return new MovimentoVendita(Timestamp.valueOf("2019-01-01 00:00:00"), new Visitatore("salmo","lebon"), 6,new CialdeEntry("cioccolata"),true);
                 }else{//j dispari
-                    return new MovimentoVendita(format.parse("2019-01-01"), new Personale("andrea","straforini"), 10,new CialdeEntry("caffè"),true);
+                    return new MovimentoVendita(Timestamp.valueOf("2019-01-01 00:00:00"), new Personale("andrea","straforini"), 10,new CialdeEntry("caffè"),true);
                 }
 
             }
@@ -298,6 +298,15 @@ public class DaoTest{
 
         // Construct a date
         return new Date(ms);
+
+    }
+
+    private Timestamp getRandomTimeStamp(){
+        long offset = Timestamp.valueOf("1990-01-01 00:00:00").getTime();
+        //long end = Timestamp.valueOf("2013-01-01 00:00:00").getTime();
+        long end=System.currentTimeMillis();
+        long diff = end - offset + 1;
+        return new Timestamp(offset + (long)(Math.random() * diff));
 
     }
 

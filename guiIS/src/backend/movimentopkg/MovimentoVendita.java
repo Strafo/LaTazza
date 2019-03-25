@@ -4,6 +4,8 @@ import backend.clientpkg.Visitatore;
 import backend.daopkg.gateways.AbstractDao;
 import backend.daopkg.gateways.MovimentoVenditaDao;
 import backend.daopkg.rowdatapkg.CialdeEntry;
+
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Objects;
 
@@ -12,7 +14,7 @@ public final class MovimentoVendita extends Movimento {
     private CialdeEntry tipo;
     private boolean contanti;
 
-    public MovimentoVendita(Date data, Cliente cliente, int quantita, CialdeEntry tipo,boolean contanti) throws IllegalArgumentException {
+    public MovimentoVendita(Timestamp data, Cliente cliente, int quantita, CialdeEntry tipo, boolean contanti) throws IllegalArgumentException {
         super(data, cliente);
 
         this.tipo=Objects.requireNonNull(tipo);

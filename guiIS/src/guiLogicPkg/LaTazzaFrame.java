@@ -9,7 +9,7 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import com.apple.eawt.Application;//todo qui non so se va bene è una lib di apple
+//import com.apple.eawt.Application;//todo qui non so se va bene è una lib di apple
 import guiConfig.ResourcesClassLoader;
 import guiConfig.structurePanelsPropertiesPkg.LaTazzaFrameProperties;
 import guiLogicPkg.contentsPanelsPkg.*;
@@ -43,7 +43,7 @@ public class LaTazzaFrame extends JFrame {
 	 */
 	public LaTazzaFrame() {
 
-        Application.getApplication().setDockIconImage((ResourcesClassLoader.getIconTazzaBrown()).getImage());
+        //Application.getApplication().setDockIconImage((ResourcesClassLoader.getIconTazzaBrown()).getImage());
 		
 		this.setBounds(laTazzaFrameProperties.getX(), laTazzaFrameProperties.getY(), laTazzaFrameProperties.getWidth(), laTazzaFrameProperties.getHeight());
 		this.setDefaultCloseOperation(laTazzaFrameProperties.getCloseOp());//todo checksetBounds(100, 100, 800, 500);

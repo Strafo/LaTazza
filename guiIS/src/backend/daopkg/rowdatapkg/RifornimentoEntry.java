@@ -1,14 +1,13 @@
 package backend.daopkg.rowdatapkg;
 import backend.daopkg.gateways.RifornimentoDao;
-
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class RifornimentoEntry extends AbstractEntryDB  {
-    private Date data;
+    private Timestamp data;
     private String tipoCialda;
     private int qta;
 
-    public RifornimentoEntry(Date data, int qta, String tipoCialda) {
+    public RifornimentoEntry(Timestamp data, int qta, String tipoCialda) {
         this.data = data;
         this.qta = qta;
         this.tipoCialda = tipoCialda;
@@ -16,11 +15,11 @@ public class RifornimentoEntry extends AbstractEntryDB  {
 
     public RifornimentoEntry(){}
 
-    public Date getData() {
+    public Timestamp getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(Timestamp data) {
         this.data = data;
     }
 
