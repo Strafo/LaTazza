@@ -23,8 +23,8 @@ class CassaTest {
 
     @Test
     void getSaldo() {
-        assertEquals(c.getSaldo().getEuro(), 500);
-        assertEquals(Euro.compare(c1.getSaldo(), e), 0);
+        assertEquals(c.getCopySaldo().getEuro(), 500);
+        assertEquals(Euro.compare(c1.getCopySaldo(), e), 0);
     }
 
     @Test
@@ -32,7 +32,7 @@ class CassaTest {
         Cassa c2 = new Cassa();
         c2.incrementaSaldo(e);
         Euro e1 = new Euro(700, 20);
-        assertEquals(Euro.compare(c2.getSaldo(), e1), 0);
+        assertEquals(Euro.compare(c2.getCopySaldo(), e1), 0);
     }
 
     @Test
@@ -40,7 +40,7 @@ class CassaTest {
         Cassa c2 = new Cassa();
         c2.decrementaSaldo(e);
         Euro e1 = new Euro(299, 80);
-        assertEquals(Euro.compare(c2.getSaldo(), e1), 0);
+        assertEquals(Euro.compare(c2.getCopySaldo(), e1), 0);
     }
 
 }

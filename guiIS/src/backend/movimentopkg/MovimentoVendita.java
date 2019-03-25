@@ -14,9 +14,7 @@ public final class MovimentoVendita extends Movimento {
 
     public MovimentoVendita(Date data, Cliente cliente, int quantita, CialdeEntry tipo,boolean contanti) throws IllegalArgumentException {
         super(data, cliente);
-        if(cliente instanceof Visitatore&& !contanti){
-            throw new IllegalArgumentException("il pagamento in contanti per i visitatori è obbligatorio");
-        }
+
         this.tipo=Objects.requireNonNull(tipo);
         if(quantita<=0){
             throw new IllegalArgumentException("quantità negativa o uguale a zero");
