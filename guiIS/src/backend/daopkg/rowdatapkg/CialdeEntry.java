@@ -18,11 +18,16 @@ public class CialdeEntry extends AbstractEntryDB   {
 
     public CialdeEntry(){}
 
+
     public String getTipo() {
         return tipo;
     }
 
     public void setTipo(String tipo) {
+        if(!mementoStateIsSet()){
+            mementoState=new MementoCialde();
+            ((MementoCialde)mementoState).setMementoState(this);
+        }
         this.tipo = tipo;
     }
 
@@ -44,4 +49,30 @@ public class CialdeEntry extends AbstractEntryDB   {
     public Class<CialdeDao> getCorrespondigDaoClass() {
         return CialdeDao.class;
     }
+
+    @Override
+    public Memento createMemento() {
+        return new MementoCialde();
+    }
+
+
+    private class MementoCialde implements Memento<CialdeEntry> {
+
+        private String tipo;
+        private Euro prezzo;
+
+        @Override
+        public void setMementoState(CialdeEntry originator) {
+            this.tipo=originator.tipo;
+            this.prezzo=originator.prezzo;
+        }
+
+        @Override
+        public CialdeEntry getMementoState() {
+            return null;
+        }
+
+    }
+
+
 }
