@@ -1,6 +1,10 @@
 package database.config;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 
 public class TriggersTest {
 
@@ -16,11 +20,10 @@ public class TriggersTest {
 
 
         Statement stat= conn.createStatement();
-        ResultSet rs=stat.executeQuery();
-        /*
+        //ResultSet rs=stat.executeQuery();
+
         stat.execute("CREATE TRIGGER check_num_Cialde " +
                 "AFTER INSERT ON LATAZZASCHEMA.COMPRA_VISITATORE FOR EACH ROW " +
-                "CALL \"database.congig.TriggersTest$Trigger1\" ");
-    */
+                "CALL \"TriggersTest$Trigger1\" ");
     }
 }
