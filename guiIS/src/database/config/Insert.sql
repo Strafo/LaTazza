@@ -17,12 +17,8 @@ insert into LATAZZASCHEMA.PERSONALE values ( 'Gabriele', 'Armanino', true );
 insert into LATAZZASCHEMA.RIFORNIMENTO values ('2019-01-12 12:00:00','caffè',30);
 insert into LATAZZASCHEMA.RIFORNIMENTO values ('2018-05-11 12:00:00','thè',30);
 
-<<<<<<< HEAD
 insert into LATAZZASCHEMA.COMPRA_DIPENDENTE values ('Simone','Campisi',true,13,'2018-06-11 13:00:00', 'caffè');
 insert into LATAZZASCHEMA.COMPRA_DIPENDENTE values ('Jacopo','Dapueto',false,13,'2018-06-11 14:00:00', 'caffè');
 
 insert into LATAZZASCHEMA.COMPRA_VISITATORE values ('Andrea','Manzi', 'caffè',10,'2018-07-10 8:00:00' );
 insert into LATAZZASCHEMA.COMPRA_VISITATORE values ('Edoardo','Vignola','thè',12,'2019-02-15 17:00:00');
-=======
-insert into LATAZZASCHEMA.COMPRA_DIPENDENTE('Simone','Campisi',true,13,'2018-06-11 13:00:00', 'caffè');
->>>>>>> Inizio Insert, Creazione Classe TestTrigger
