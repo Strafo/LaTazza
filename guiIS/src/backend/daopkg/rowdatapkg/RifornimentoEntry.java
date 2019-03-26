@@ -49,4 +49,6 @@ public class RifornimentoEntry extends AbstractEntryDB  {
     public Class<RifornimentoDao> getCorrespondigDaoClass() {
         return RifornimentoDao.class;
     }
+
+
 }

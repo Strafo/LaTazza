@@ -3,6 +3,7 @@ import backend.Euro;
 import backend.daopkg.gateways.CialdeDao;
 
 
+
 public class CialdeEntry extends AbstractEntryDB   {
     private String tipo;
     private Euro prezzo;
@@ -24,10 +25,7 @@ public class CialdeEntry extends AbstractEntryDB   {
     }
 
     public void setTipo(String tipo) {
-        if(!mementoStateIsSet()){
-            mementoState=new MementoCialde();
-            ((MementoCialde)mementoState).setMementoState(this);
-        }
+        setMementoIfNotDef();
         this.tipo = tipo;
     }
 
@@ -36,6 +34,7 @@ public class CialdeEntry extends AbstractEntryDB   {
     }
 
     public void setPrezzo(Euro prezzo) {
+        setMementoIfNotDef();
         this.prezzo = prezzo;
     }
 
@@ -51,15 +50,15 @@ public class CialdeEntry extends AbstractEntryDB   {
     }
 
     @Override
-    public Memento createMemento() {
+    public Memento<AbstractMemento> createMemento(){
         return new MementoCialde();
     }
 
-
-    private class MementoCialde implements Memento<CialdeEntry> {
+    private class MementoCialde extends AbstractMemento<CialdeEntry> implements Memento<CialdeEntry> {
 
         private String tipo;
         private Euro prezzo;
+
 
         @Override
         public void setMementoState(CialdeEntry originator) {
@@ -69,10 +68,8 @@ public class CialdeEntry extends AbstractEntryDB   {
 
         @Override
         public CialdeEntry getMementoState() {
-            return null;
+            return new CialdeEntry(tipo,prezzo);
         }
-
     }
-
 
 }

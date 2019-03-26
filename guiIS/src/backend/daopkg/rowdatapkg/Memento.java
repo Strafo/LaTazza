@@ -5,6 +5,7 @@ public interface Memento<E> {
 
     void setMementoState(E originator);
 
-    E getMementoState();
+    T getMementoState();
+
 
 }

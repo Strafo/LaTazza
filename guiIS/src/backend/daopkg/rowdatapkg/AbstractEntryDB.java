@@ -4,21 +4,19 @@ import backend.daopkg.gateways.AbstractDao;
 
 public abstract class AbstractEntryDB  {
 
-    protected Memento<?>mementoState;
+    private Memento<AbstractEntryDB>mementoState;
 
     public  abstract <T extends AbstractDao>  Class<T> getCorrespondigDaoClass();
 
     public AbstractEntryDB(){}
 
-    protected void removeMementoState(){mementoState=null;}
-
-    protected void setMementoState(AbstractEntryDB originator){
+    public void setMementoIfNotDef(){
         if(mementoState!=null){
-            this.mementoState=createMemento();
-            this.mementoState.setMementoState(originator);
+            mementoState=createMemento();
+            mementoState.setMementoState(this);
         }
-    }b
+    }
 
-    public abstract Memento createMemento();
+    public abstract Memento<> createMemento();
 
 }
