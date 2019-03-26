@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 
-public class DaoManager<T extends AbstractEntryDB> implements DaoInterface<T> {
+public class DaoManager implements DaoInterface {
 
     private Connection dataBaseConnection;
-    private AbstractDao<T> subdao;
+    private AbstractDao subdao;//il dao corrente (vengono switchati i tipi di dao a run time)
 
     public DaoManager(Connection dataBaseConnection){
         this.dataBaseConnection=dataBaseConnection;
@@ -21,9 +21,8 @@ public class DaoManager<T extends AbstractEntryDB> implements DaoInterface<T> {
         return dataBaseConnection;
     }
 
-
     @Override
-    public List<T> getAll(Class<T> t) {
+    public <T extends AbstractEntryDB> List<T> getAll(Class<T> t) {
         try{
             subdao=instantiateSpecificDao(t);
             return subdao.getAll();
@@ -34,7 +33,7 @@ public class DaoManager<T extends AbstractEntryDB> implements DaoInterface<T> {
     }
 
     @Override
-    public boolean save(T t) {
+    public <T extends AbstractEntryDB> boolean save(T t) {
         try{
             subdao=instantiateSpecificDao(t);
             return subdao.save(t);
@@ -45,7 +44,7 @@ public class DaoManager<T extends AbstractEntryDB> implements DaoInterface<T> {
     }
 
     @Override
-    public boolean update(T t) {
+    public <T extends AbstractEntryDB> boolean update(T t) {
         try{
             subdao=instantiateSpecificDao(t);
             return subdao.update(t);
@@ -56,7 +55,7 @@ public class DaoManager<T extends AbstractEntryDB> implements DaoInterface<T> {
     }
 
     @Override
-    public boolean delete(T t) {
+    public <T extends AbstractEntryDB> boolean delete(T t) {
         try{
             subdao=instantiateSpecificDao(t);
             return subdao.delete(t);
@@ -66,11 +65,11 @@ public class DaoManager<T extends AbstractEntryDB> implements DaoInterface<T> {
         }
     }
 
-    private AbstractDao<T> instantiateSpecificDao(T t) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+    private <T extends AbstractEntryDB> AbstractDao instantiateSpecificDao(T t) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         return t.getCorrespondigDaoClass().getConstructor(Connection.class).newInstance(dataBaseConnection);
     }
 
-    private AbstractDao<T> instantiateSpecificDao(Class<T> t) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+    private <T extends AbstractEntryDB> AbstractDao instantiateSpecificDao(Class<T> t) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         T obj=t.newInstance();
         return obj.getCorrespondigDaoClass().getConstructor(Connection.class).newInstance(dataBaseConnection);
     }
@@ -85,4 +84,6 @@ public class DaoManager<T extends AbstractEntryDB> implements DaoInterface<T> {
             LaTazzaLogger.getLOGGER().log(Level.SEVERE, "Errore esecuzione " + queryType + " query.\n", exc);
         }
     }
+
+
 }

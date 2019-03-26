@@ -11,7 +11,6 @@ import java.util.List;
  * I metodi non restituiranno MAI un eccezione (neanche i nullP. exc).
  * Se un metodo di questa interfaccia fallisce viene aggiornato un file di log dove viene
  * riportata data-ora-causa dell'eccezione.
- * @param <T> il tipo dell'oggetto che viene gestito dal Dao.
  * @apiNote
  * ESEMPIO:
  *  public static void main(String[] args) {
@@ -27,7 +26,7 @@ import java.util.List;
  *         }
  *     }
  */
-public interface DaoInterface<T extends AbstractEntryDB> {
+public interface DaoInterface {
 
     //Optional<T> get(Map keys); TODO TOBEIMPLEMENTED
 
@@ -36,28 +35,28 @@ public interface DaoInterface<T extends AbstractEntryDB> {
      * @param t il tipo della classe. es. passare Personale.class se si vuole la lista del personale
      * @return true se operazione andata a buon fine, false altrimenti.
      */
-    List<T> getAll(Class<T> t);
+    <T extends AbstractEntryDB> List<T> getAll(Class<T> t);
 
     /**
      * Questo metodo permette di ripristinare la coerenza tra oggetti salvati nel database e oggetti in Ram.
      * @param t l'oggetto da salvare nel database.
      * @return true se operazione andata a buon fine, false altrimenti.
      */
-    boolean save(T t);
+    <T extends AbstractEntryDB> boolean save(T t);
 
     /**
      *
      * @param t l'oggetto modificato da rendere coerente con la sua "versione" salvata nel DB.
      * @return true se operazione andata a buon fine, false altrimenti.
      */
-    boolean update(T t);//todo
+    <T extends AbstractEntryDB> boolean update(T t);//todo
 
     /**
      * Questo metodo permette di eliminare dal database l'oggetto "salvato" corrispondente all'oggetto passato.
      * @param t l'oggetto da eliminare all'interno del DB.
      * @return true se operazione andata a buon fine, false altrimenti.
      */
-    boolean delete(T t);
+    <T extends AbstractEntryDB> boolean delete(T t);
 
 }
 
