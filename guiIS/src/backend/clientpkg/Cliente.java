@@ -1,6 +1,8 @@
 package backend.clientpkg;
 import backend.daopkg.gateways.AbstractDao;
 import backend.daopkg.rowdatapkg.AbstractEntryDB;
+import backend.daopkg.rowdatapkg.AbstractMemento;
+import backend.daopkg.rowdatapkg.Memento;
 
 import java.util.Objects;
 
@@ -50,4 +52,23 @@ public abstract class Cliente extends AbstractEntryDB  {
         Cliente c= (Cliente) obj;
         return nome.equals(c.getNome()) && cognome.equals(c.getCognome());
     }
+
+    @Override
+    public abstract Memento createMemento();
+
+    protected abstract class MementoCliente extends AbstractMemento implements Memento{
+        protected String nome;
+        protected String cognome;
+
+        @Override
+        public abstract Cliente getMementoState();
+
+        @Override
+        public <T> void setMementoState(T originator) {
+            this.nome=((Cliente)originator).nome;
+            this.cognome=((Cliente)originator).cognome;
+        }
+    }
+
+
 }

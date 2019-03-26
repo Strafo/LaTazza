@@ -2,6 +2,7 @@ package backend.clientpkg;
 import backend.Debito;
 import backend.Euro;
 import backend.daopkg.gateways.PersonaleDao;
+import backend.daopkg.rowdatapkg.Memento;
 
 
 public final class Personale extends Cliente  {
@@ -14,7 +15,8 @@ public final class Personale extends Cliente  {
         return attivo;
     }
 
-    public void setAttivo(boolean attivo) {//todo denvo essere consiste con il database per�
+    public void setAttivo(boolean attivo) {
+        setMementoIfNotDef();
         this.attivo = attivo;
     }
 
@@ -23,6 +25,7 @@ public final class Personale extends Cliente  {
     }
 
     public void setDebito(Debito debito) {
+        setMementoIfNotDef();
         this.debito = debito;
     }
 
@@ -56,9 +59,29 @@ public final class Personale extends Cliente  {
     }
 
     @Override
+    public Memento createMemento() {
+        return new MementoPersonale();
+    }
+
+    @Override
     public Class<PersonaleDao> getCorrespondigDaoClass() {
         return PersonaleDao.class;
     }
 
+    private class MementoPersonale extends MementoCliente implements Memento {
+
+        private boolean attivo;
+
+        @Override
+        public <T> void setMementoState(T originator) {
+            super.setMementoState(originator);
+            this.attivo=((Personale)originator).attivo;
+        }
+
+        @Override
+        public  Personale getMementoState(){
+            return new Personale(nome,cognome,attivo);
+        }
+    }
 
 }

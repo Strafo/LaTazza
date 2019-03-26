@@ -1,11 +1,11 @@
 package backend.daopkg.rowdatapkg;
 
-public interface Memento<E> {
+public interface Memento {
 
 
-    void setMementoState(E originator);
+     <T> void setMementoState(T originator);
 
-    T getMementoState();
+     Object getMementoState();
 
 
 }

@@ -20,6 +20,7 @@ public class RifornimentoEntry extends AbstractEntryDB  {
     }
 
     public void setData(Timestamp data) {
+        setMementoIfNotDef();
         this.data = data;
     }
 
@@ -28,6 +29,7 @@ public class RifornimentoEntry extends AbstractEntryDB  {
     }
 
     public void setQta(int qta) {
+        setMementoIfNotDef();
         this.qta = qta;
     }
 
@@ -36,6 +38,7 @@ public class RifornimentoEntry extends AbstractEntryDB  {
     }
 
     public void setTipoCialda(String tipoCialda) {
+        setMementoIfNotDef();
         this.tipoCialda = tipoCialda;
     }
 
@@ -44,11 +47,33 @@ public class RifornimentoEntry extends AbstractEntryDB  {
         return "RifornimentoEntry: data:"+data.toString()+" tipoCialda:"+tipoCialda+" qta:"+qta;
     }
 
-
     @Override
     public Class<RifornimentoDao> getCorrespondigDaoClass() {
         return RifornimentoDao.class;
     }
 
+    @Override
+    public Memento createMemento() {
+        return new MementoRifornimento();
+    }
+
+    private class MementoRifornimento extends AbstractMemento implements Memento {
+
+        private Timestamp data;
+        private String tipoCialda;
+        private int qta;
+
+        @Override
+        public <T> void setMementoState(T originator) {
+            this.data=((RifornimentoEntry)originator).data;
+            this.tipoCialda=((RifornimentoEntry)originator).tipoCialda;
+            this.qta=((RifornimentoEntry)originator).qta;
+        }
+
+        @Override
+        public RifornimentoEntry getMementoState() {
+            return new RifornimentoEntry(data,qta,tipoCialda);
+        }
+    }
 
 }

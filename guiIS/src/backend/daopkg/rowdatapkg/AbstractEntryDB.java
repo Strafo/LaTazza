@@ -4,9 +4,9 @@ import backend.daopkg.gateways.AbstractDao;
 
 public abstract class AbstractEntryDB  {
 
-    private Memento<AbstractEntryDB>mementoState;
+    private Memento mementoState;
 
-    public  abstract <T extends AbstractDao>  Class<T> getCorrespondigDaoClass();
+    public abstract <T extends AbstractDao>  Class<T> getCorrespondigDaoClass();
 
     public AbstractEntryDB(){}
 
@@ -17,6 +17,6 @@ public abstract class AbstractEntryDB  {
         }
     }
 
-    public abstract Memento<> createMemento();
+    public abstract  Memento createMemento();
 
 }

@@ -1,12 +1,10 @@
 package backend.movimentopkg;
 import backend.clientpkg.Cliente;
-import backend.clientpkg.Visitatore;
 import backend.daopkg.gateways.AbstractDao;
 import backend.daopkg.gateways.MovimentoVenditaDao;
 import backend.daopkg.rowdatapkg.CialdeEntry;
-
+import backend.daopkg.rowdatapkg.Memento;
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.Objects;
 
 public final class MovimentoVendita extends Movimento {
@@ -31,11 +29,20 @@ public final class MovimentoVendita extends Movimento {
         return quantita;
     }
 
-    public void setQuantita(int quantita){this.quantita=quantita;}
+    public void setQuantita(int quantita){
+        setMementoIfNotDef();
+        this.quantita=quantita;
+    }
 
-    public void setTipo(CialdeEntry tipo) { this.tipo = tipo; }
+    public void setTipo(CialdeEntry tipo) {
+        setMementoIfNotDef();
+        this.tipo = tipo;
+    }
 
-    public void setContanti(boolean contanti) { this.contanti = contanti; }
+    public void setContanti(boolean contanti) {
+        setMementoIfNotDef();
+        this.contanti = contanti;
+    }
 
     public CialdeEntry getTipo() {
         return tipo;
@@ -59,5 +66,29 @@ public final class MovimentoVendita extends Movimento {
                 "  quantità:"+quantita+" tipo:"+tipo.getTipo()+" contanti:"+contanti+" (MovimentoVendita)";
     }
 
+    @Override
+    public Memento createMemento() {
+        return new MementoMovimentoVendita();
+    }
 
+
+    private class MementoMovimentoVendita extends MementoMovimento implements Memento {
+
+        private  int quantita;
+        private CialdeEntry tipo;
+        private boolean contanti;
+
+        @Override
+        public <T> void setMementoState(T originator) {
+            super.setMementoState(originator);
+            this.quantita=((MovimentoVendita)originator).quantita;
+            this.tipo=((MovimentoVendita)originator).tipo;
+            this.contanti=((MovimentoVendita)originator).contanti;
+        }
+
+        @Override
+        public  MovimentoVendita getMementoState(){
+            return new MovimentoVendita(getData(),getCliente(),quantita,tipo,contanti);
+        }
+    }
 }

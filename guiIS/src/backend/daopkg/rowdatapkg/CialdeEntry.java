@@ -50,20 +50,20 @@ public class CialdeEntry extends AbstractEntryDB   {
     }
 
     @Override
-    public Memento<AbstractMemento> createMemento(){
+    public  Memento createMemento() {
         return new MementoCialde();
     }
 
-    private class MementoCialde extends AbstractMemento<CialdeEntry> implements Memento<CialdeEntry> {
+
+    private class MementoCialde extends AbstractMemento implements Memento {
 
         private String tipo;
         private Euro prezzo;
 
-
         @Override
-        public void setMementoState(CialdeEntry originator) {
-            this.tipo=originator.tipo;
-            this.prezzo=originator.prezzo;
+        public <T> void setMementoState(T originator) {
+            this.tipo=((CialdeEntry)originator).tipo;
+            this.prezzo=((CialdeEntry)originator).prezzo;
         }
 
         @Override

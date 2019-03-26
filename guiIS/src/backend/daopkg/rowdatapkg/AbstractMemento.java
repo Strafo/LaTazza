@@ -1,15 +1,12 @@
 package backend.daopkg.rowdatapkg;
 
 
-public abstract class AbstractMemento<E> implements Memento<E>  {
+public abstract class  AbstractMemento implements Memento  {
 
     @Override
-    public abstract void setMementoState(E originator);
+    public  abstract <T> void setMementoState(T originator);
 
     @Override
-    public abstract E getMementoState();
-
-
-
+    public abstract  Object getMementoState();
 
 }
