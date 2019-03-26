@@ -2,8 +2,6 @@ package backend.daopkg.rowdatapkg;
 import backend.Euro;
 import backend.daopkg.gateways.CialdeDao;
 
-
-
 public class CialdeEntry extends AbstractEntryDB   {
     private String tipo;
     private Euro prezzo;
