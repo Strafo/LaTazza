@@ -58,7 +58,7 @@ public class TriggersTest {
             inFile.close();
             conn.close();
         }
-        System.out.println("File red and updated");
+
         schemaExists=true;
 
     }
@@ -72,19 +72,24 @@ public class TriggersTest {
         Connection conn= T.getDatabase().getConnection();
         Statement stat= conn.createStatement();
         T.updateTable("databaseConfig.sql");
+
+        try {
+            stat.execute("CREATE TRIGGER check_num_Cialde " +
+                    "AFTER INSERT ON LATAZZASCHEMA.COMPRA_VISITATORE FOR EACH ROW " +
+                    "CALL \"database.config.Trigger1\" ");
+        }catch (SQLException e){
+            System.out.println("Cristo Morto");
+        }
+
         T.updateTable("Insert.sql");
         DaoManager dao= new DaoManager(conn);
-
+/*
         List<Personale> listaPersonale=dao.getAll(Personale.class);//ottengo la lista del personale nel DB.
         for (Personale p: listaPersonale) {
             System.out.println(p.toString());
         }
 
-
-        stat.execute("CREATE TRIGGER check_num_Cialde " +
-                "AFTER INSERT ON LATAZZASCHEMA.COMPRA_VISITATORE FOR EACH ROW " +
-                "CALL \"database.config.Trigger1\" ");
-
+*/
         T.getDatabase().closeDataBase();
     }
 

@@ -12,12 +12,14 @@ public class Trigger1 implements Trigger {
     @Override
     public void init(Connection connection, String s, String t1, String t2, boolean b, int i) throws SQLException {
 
-
+        System.out.println("Madonna scostumata");
     }
 
 
     @Override
     public void fire(Connection conn, Object[] oldRow, Object[] newRow) throws SQLException {
+
+        System.out.println("RE:Madonna scostumata");
         PreparedStatement stat;
         ResultSet cV, cP, rif;
 
@@ -30,6 +32,7 @@ public class Trigger1 implements Trigger {
         String q3="select sum(qta*50)\n" +
                 " from LATAZZASCHEMA.RIFORNIMENTO\n" +
                 " where tipoCialda=?";
+
 
         stat= conn.prepareStatement(q1);
         stat.setNString (1, (String) newRow[2]); // sostituisce newRow[2] (tipo_cialda) al ?
