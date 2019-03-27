@@ -19,7 +19,7 @@ public class Trigger1 implements Trigger {
     @Override
     public void fire(Connection conn, Object[] oldRow, Object[] newRow) throws SQLException {
         PreparedStatement stat;
-        ResultSet cV, cP, magazzino;
+        ResultSet cV, cP, rif;
 
         String q1="select sum(numero_cialde) " +
                 " from LATAZZASCHEMA.COMPRA_VISITATORE T " +
@@ -27,8 +27,8 @@ public class Trigger1 implements Trigger {
         String q2="select sum(numero_cialde)\n" +
                 " from LATAZZASCHEMA.COMPRA_DIPENDENTE\n" +
                 " where tipo_cialda = ?";
-        String q3="select sum(QTA*50)\n" +
-                " from LATAZZASCHEMA.MAGAZZINO\n" +
+        String q3="select sum(qta*50)\n" +
+                " from LATAZZASCHEMA.RIFORNIMENTO\n" +
                 " where tipoCialda=?";
 
         stat= conn.prepareStatement(q1);
@@ -43,11 +43,11 @@ public class Trigger1 implements Trigger {
 
         stat= conn.prepareStatement(q3);
         stat.setNString (1, (String) newRow[2]);
-        magazzino=stat.executeQuery(q3);
-        magazzino.next();
+        rif=stat.executeQuery(q3);
+        rif.next();
 
 
-        if ((cV.getInt((Integer) newRow[0]) + cP.getInt((Integer) newRow[0])) > magazzino.getInt((Integer) newRow[0]))
+        if ((cV.getInt(1) + cP.getInt(1) > rif.getInt(1)))
             throw new SQLException("Numero di cialde da comprare superiore a quelle disponibili in magazzino.");
 
     }
