@@ -4,9 +4,10 @@ import java.util.List;
 
 /**
  * Questa interfaccia viene implementata( ed è pensata in coppia con) la classe DaoManager.
- * Questa interfaccia si pone, in una architettura multi-tier, come il confine tra il DataTier e il LogicTier e
- * cerca di fare Information Hiding rispetto alla gestione del database e le sue eccezioni.
- * Cerca inoltre di rendere semmplice la gestione della coerenza tra oggetti in Ram e oggetti salvati nel DB.
+ * Questa interfaccia si pone, in una architettura multi-tier, come il confine tra il DataLayer e il BusinessLogicLayer
+ * e cerca di fare Information Hiding rispetto alla gestione del database e le sue eccezioni.
+ * Implementa quindi insieme all'interfaccie Memento e AbstractEntry il DataAccessLayer.
+ * Cerca di rendere semplice la gestione della coerenza tra oggetti in Ram e oggetti salvati nel DB.
  * I metodi (getAll,save...) hanno due possibili risultati: true quindi tutto ok, o false se qualcosa non va a buon fine.
  * I metodi non restituiranno MAI un eccezione (neanche i nullP. exc).
  * Se un metodo di questa interfaccia fallisce viene aggiornato un file di log dove viene
