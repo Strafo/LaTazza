@@ -52,7 +52,7 @@ public interface DaoInterface {
      * @return true se operazione andata a buon fine, false altrimenti.
      * Nota:se l'update va a buon fine il memento viene eliminato e rimane solo lo stato attuale.
      */
-    <T extends AbstractEntryDB> boolean update(T t);//todo
+    <T extends AbstractEntryDB> boolean update(T t);
 
     /**
      * Questo metodo permette di eliminare dal database l'oggetto "salvato" corrispondente all'oggetto passato.
