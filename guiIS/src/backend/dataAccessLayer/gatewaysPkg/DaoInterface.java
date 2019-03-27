@@ -15,16 +15,27 @@ import java.util.List;
  * @apiNote
  * ESEMPIO:
  *  public static void main(String[] args) {
- *         Connection conn=.... in qualche modo definita;
- *         DaoInterface dao=new DaoManager(conn);
- *         List<Personale>listaPersonale=dao.getAll(Personale.class);//ottengo la lista del personale nel DB.
- *         Personale newPers=new Personale("George","Hotz",true);
- *         if(dao.save(newPers)){//se va tutto ok
- *             listaPersonale.add(newPers);
- *             //a questo punto abbiamo consistenza tra Db e oggetti in ram.
- *         }else{
- *             System.err.println("Impossibile aggiornare il backend.database!");
- *         }
+ *           Connection conn=.... in qualche modo definita;
+ *           DaoInterface dao=new DaoManager(conn);
+ *           List<Personale> listaPersonale=dao.getAll(Personale.class);//ottengo la lista del personale nel DB.
+ *           Personale newPers=new Personale("George","Hotz",true);
+ *           if(dao.save(newPers)){//se va tutto ok
+ *               listaPersonale.add(newPers);
+ *               //a questo punto abbiamo consistenza tra Db e oggetti in ram.
+ *           }else{
+ *               System.err.println("Impossibile aggiornare il backend.database!");
+ *           }
+ *           //ora modifico il personale appena inserito "George Hotz" con "andrea straforini"
+ *           //lo rimuovo dalla lista così non ho 2 riferimenti...
+ *           listaPersonale.remove(newPers);
+ *           newPers.setNome("andrea");
+ *           newPers.setCognome("straforini");
+ *           if(dao.update(newPers)){
+ *               listaPersonale.add(newPers);//lo riaggiungo alla lista
+ *           }else{
+ *               System.out.println("Update fallito ripristino stato originale");
+ *               newPers=(Personale)newPers.undoChanges();//ad eliminare quello vecchio ci pensa in grabage collector
+ *           }
  *     }
  */
 public interface DaoInterface {
