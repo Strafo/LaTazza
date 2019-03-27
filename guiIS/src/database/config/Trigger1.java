@@ -41,24 +41,33 @@ public class Trigger1 implements Trigger {
     public void fire(Connection conn, Object[] oldRow, Object[] newRow) throws SQLException {
         PreparedStatement stat;
         ResultSet cV, cP, magazzino;
+
         String q1="select sum(numero_cialde) " +
                 " from LATAZZASCHEMA.COMPRA_VISITATORE T " +
-                " where tipo_cialda = (select tipo_cialda from LATAZZASCHEMA.COMPRA_VISITATORE where T.TIPO_CIALDA=COMPRA_VISITATORE.TIPO_CIALDA); ";
+                " where tipo_cialda = ?; ";
         String q2="select sum(numero_cialde)\n" +
                 " from LATAZZASCHEMA.COMPRA_DIPENDENTE\n" +
-                " where tipo_cialda = (select tipo_cialda from LATAZZASCHEMA.COMPRA_DIPENDENTE T where T.TIPO_CIALDA=COMPRA_DIPENDENTE.TIPO_CIALDA);";
+                " where tipo_cialda = ?";
         String q3="select sum(QTA*50)\n" +
                 " from LATAZZASCHEMA.MAGAZZINO\n" +
-                " where tipoCialda=(select TIPOCIALDA from LATAZZASCHEMA.MAGAZZINO T where T.TIPOCIALDA=MAGAZZINO.TIPOCIALDA);";
+                " where tipoCialda=?";
 
-        stat= conn.prepareStatement(q1); cV=stat.executeQuery(q1);
-        stat= conn.prepareStatement(q2); cP = stat.executeQuery(q2);
-        stat= conn.prepareStatement(q3); magazzino=stat.executeQuery(q3);
-        magazzino = stat.executeQuery();
-
+        stat= conn.prepareStatement(q1);
+        stat.setNString (1, (String) newRow[2]); // sostituisce newRow[2] (tipo_cialda) al ?
+        cV=stat.executeQuery(q1);
         cV.next();
+
+        stat= conn.prepareStatement(q2);
+        stat.setNString (1, (String) newRow[2]);
+        cP = stat.executeQuery(q2);
         cP.next();
+
+        stat= conn.prepareStatement(q3);
+        stat.setNString (1, (String) newRow[2]);
+        magazzino=stat.executeQuery(q3);
         magazzino.next();
+
+
         if ((cV.getInt((Integer) newRow[0]) + cP.getInt((Integer) newRow[0])) > magazzino.getInt((Integer) newRow[0]))
             throw new SQLException("Numero di cialde da comprare superiore a quelle disponibili in magazzino.");
 
