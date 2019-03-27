@@ -2,7 +2,8 @@ package backend.movimentopkg;
 import backend.Euro;
 import backend.clientpkg.Cliente;
 import backend.daopkg.gateways.MovimentoDebitoDao;
-import backend.daopkg.rowdatapkg.Memento;
+import backend.memento.Memento;
+import backend.memento.MementoMovimentoDebito;
 import java.sql.Timestamp;
 import java.util.Objects;
 
@@ -45,20 +46,4 @@ public final class MovimentoDebito extends Movimento {
         return new MementoMovimentoDebito();
     }
 
-
-    private class MementoMovimentoDebito extends MementoMovimento implements Memento {
-
-        private  Euro importo;
-
-        @Override
-        public <T> void setMementoState(T originator) {
-            super.setMementoState(originator);
-            this.importo=((MovimentoDebito)originator).importo;
-        }
-
-        @Override
-        public  MovimentoDebito getMementoState(){
-            return new MovimentoDebito(data,cliente,importo);
-        }
-    }
 }

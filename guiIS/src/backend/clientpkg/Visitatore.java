@@ -1,7 +1,8 @@
 package backend.clientpkg;
 
 import backend.daopkg.gateways.VisitatoreDao;
-import backend.daopkg.rowdatapkg.Memento;
+import backend.memento.Memento;
+import backend.memento.MementoVisitatore;
 
 public final class Visitatore extends Cliente {
 
@@ -26,17 +27,5 @@ public final class Visitatore extends Cliente {
         return new MementoVisitatore();
     }
 
-    private class MementoVisitatore extends MementoCliente implements Memento {
-
-        @Override
-        public <T> void setMementoState(T originator) {
-            super.setMementoState(originator);
-        }
-
-        @Override
-        public  Visitatore getMementoState(){
-            return new Visitatore(nome,cognome);
-        }
-    }
 
 }

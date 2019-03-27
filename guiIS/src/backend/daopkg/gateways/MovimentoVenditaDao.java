@@ -17,12 +17,13 @@ public class MovimentoVenditaDao extends AbstractDao {
     public static final String TABLE_NAME_PERSONALE="LATAZZASCHEMA.compra_dipendente";
     public static final String TABLE_NAME_VISITATORE="LATAZZASCHEMA.compra_visitatore";
 
+    /**QUERY PER PERSONALE**/
     private static final String INSERT_STATEMENT_STRING_PERSONALE = "INSERT INTO " + TABLE_NAME_PERSONALE + " (nome,cognome,tipo_cialda,numero_cialde,data,contanti) VALUES (?,?,?,?,?,?)";
     private static final String UPDATE_STATEMENT_STRING_PERSONALE = "UPDATE  " + TABLE_NAME_PERSONALE + " SET nome = ? , cognome = ? , tipo_cialda = ? , numero_cialde = ? , data = ? , contanti = ? WHERE nome = ? AND cognome = ? AND tipo_cialda = ? AND numero_cialde = ? AND data = ? AND contanti  = ?";
     private static final String DELETE_STATEMENT_STRING_PERSONALE = "DELETE FROM " + TABLE_NAME_PERSONALE + " WHERE nome = ? AND cognome = ? AND data = ?";
     private static final String GET_ALL_STRING_PERSONALE="SELECT * FROM "+TABLE_NAME_PERSONALE;
 
-
+    /**QUERY PER VISITATORE**/
     private static final String INSERT_STATEMENT_STRING_VISITATORE = "INSERT INTO " + TABLE_NAME_VISITATORE + " (nome,cognome,tipo_cialda,numero_cialde,data) VALUES (?,?,?,?,?)";
     private static final String UPDATE_STATEMENT_STRING_VISITATORE = "UPDATE  " + TABLE_NAME_VISITATORE + " SET nome = ? , cognome = ? , tipo_cialda = ? , numero_cialde = ? , data = ? WHERE nome = ? AND cognome = ? AND tipo_cialda = ? AND numero_cialde = ? AND data = ?";
     private static final String DELETE_STATEMENT_STRING_VISITATORE = "DELETE FROM " + TABLE_NAME_VISITATORE + " WHERE nome = ? AND cognome = ? AND data = ?";
@@ -59,7 +60,7 @@ public class MovimentoVenditaDao extends AbstractDao {
                             new Visitatore(rs.getString("nome"), rs.getString("cognome")),
                             rs.getInt("numero_cialde"),
                             new CialdeEntry(rs.getString("tipo_cialda")),
-                            true
+                            true//todo non è detto
                             )
             );
         }
@@ -67,7 +68,36 @@ public class MovimentoVenditaDao extends AbstractDao {
     };
 
     private static ThrowingBiPredicate<Connection,MovimentoVendita> updateLambda=(Connection conn,MovimentoVendita entry)->{
-        return false;//TODO TOBE IMPLEMTED
+        PreparedStatement pst;
+        int j=0;
+        MovimentoVendita oldEntry=(MovimentoVendita) entry.getMemento().getMementoState();//old entry
+        //new entry
+        if(entry.getCliente() instanceof Personale){
+            pst=conn.prepareStatement(UPDATE_STATEMENT_STRING_PERSONALE);
+            pst.setBoolean(6,entry.isContanti());
+            pst.setBoolean(12,oldEntry.isContanti());
+        }else{
+            if(entry.getCliente() instanceof Visitatore){
+                pst=conn.prepareStatement(UPDATE_STATEMENT_STRING_VISITATORE);
+                j=1;
+            }else{
+                return false;
+            }
+        }
+        pst.setString(1,entry.getCliente().getNome());
+        pst.setString(2,entry.getCliente().getCognome());
+        pst.setString(3,entry.getTipo().getTipo());
+        pst.setInt(4,entry.getQuantita());
+        pst.setTimestamp(5,entry.getData());
+        //old entry
+        pst.setString(7-j,oldEntry.getCliente().getNome());
+        pst.setString(8-j,oldEntry.getCliente().getCognome());
+        pst.setString(9-j,oldEntry.getTipo().getTipo());
+        pst.setInt(10-j,oldEntry.getQuantita());
+        pst.setTimestamp(11-j,oldEntry.getData());
+        pst.executeUpdate();
+
+        return true;
     };
 
 

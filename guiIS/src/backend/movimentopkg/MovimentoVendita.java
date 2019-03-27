@@ -3,7 +3,9 @@ import backend.clientpkg.Cliente;
 import backend.daopkg.gateways.AbstractDao;
 import backend.daopkg.gateways.MovimentoVenditaDao;
 import backend.daopkg.rowdatapkg.CialdeEntry;
-import backend.daopkg.rowdatapkg.Memento;
+import backend.memento.Memento;
+import backend.memento.MementoMovimentoVendita;
+
 import java.sql.Timestamp;
 import java.util.Objects;
 
@@ -72,23 +74,4 @@ public final class MovimentoVendita extends Movimento {
     }
 
 
-    private class MementoMovimentoVendita extends MementoMovimento implements Memento {
-
-        private  int quantita;
-        private CialdeEntry tipo;
-        private boolean contanti;
-
-        @Override
-        public <T> void setMementoState(T originator) {
-            super.setMementoState(originator);
-            this.quantita=((MovimentoVendita)originator).quantita;
-            this.tipo=((MovimentoVendita)originator).tipo;
-            this.contanti=((MovimentoVendita)originator).contanti;
-        }
-
-        @Override
-        public  MovimentoVendita getMementoState(){
-            return new MovimentoVendita(getData(),getCliente(),quantita,tipo,contanti);
-        }
-    }
 }

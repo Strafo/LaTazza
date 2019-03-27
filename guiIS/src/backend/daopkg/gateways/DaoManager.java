@@ -46,8 +46,14 @@ public class DaoManager implements DaoInterface {
     @Override
     public <T extends AbstractEntryDB> boolean update(T t) {
         try{
-            subdao=instantiateSpecificDao(t);
-            return subdao.update(t);
+            boolean result;
+             subdao=instantiateSpecificDao(t);
+             if(result=subdao.update(t)){
+                t.removeMemento();
+             }else{
+                t= (T) t.getMemento().getMementoState();
+             }
+             return result;
         }catch(Exception exc){
             handleException("UPDATE",exc);
             return false;

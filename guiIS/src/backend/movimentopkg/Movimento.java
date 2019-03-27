@@ -2,8 +2,7 @@ package backend.movimentopkg;
 import backend.clientpkg.Cliente;
 import backend.daopkg.gateways.AbstractDao;
 import backend.daopkg.rowdatapkg.AbstractEntryDB;
-import backend.daopkg.rowdatapkg.AbstractMemento;
-import backend.daopkg.rowdatapkg.Memento;
+import backend.memento.Memento;
 import java.sql.Timestamp;
 import java.util.Objects;
 
@@ -45,18 +44,5 @@ public abstract class Movimento extends AbstractEntryDB {
     @Override
     public abstract Memento createMemento();
 
-    protected abstract class MementoMovimento extends AbstractMemento implements Memento {
 
-        protected Timestamp data;
-        protected Cliente cliente;
-
-        @Override
-        public <T> void setMementoState(T originator) {
-            this.data=((Movimento)originator).data;
-            this.cliente=((Movimento)originator).cliente;
-        }
-
-        @Override
-        public abstract Movimento getMementoState();
-    }
 }

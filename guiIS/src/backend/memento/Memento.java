@@ -1,4 +1,4 @@
-package backend.daopkg.rowdatapkg;
+package backend.memento;
 
 public interface Memento {
 

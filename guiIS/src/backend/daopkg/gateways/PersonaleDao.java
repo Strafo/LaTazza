@@ -39,7 +39,19 @@ public class PersonaleDao extends AbstractDao<Personale> {
     };
 
     private static ThrowingBiPredicate<Connection,Personale> updateLambda=(Connection conn,Personale pers)->{
-        return false;//TODO TOBE IMPLEMTED
+        PreparedStatement pst;
+        pst=conn.prepareStatement(UPDATE_STATEMENT_STRING);
+        //new entry
+        pst.setString(1,pers.getNome());
+        pst.setString(2,pers.getCognome());
+        pst.setBoolean(3,pers.isAttivo());
+        //old entry
+        Personale old= (Personale) pers.getMemento().getMementoState();
+        pst.setString(4,old.getNome());
+        pst.setString(5,old.getCognome());
+        pst.setBoolean(6,old.isAttivo());
+        pst.executeUpdate();
+        return true;
     };
 
 

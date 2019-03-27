@@ -42,7 +42,17 @@ public class CialdeDao extends AbstractDao<CialdeEntry> {
     };
 
     private static ThrowingBiPredicate<Connection,CialdeEntry> updateLambda=(Connection conn,CialdeEntry cialda)->{
-        return false;//TODO TOBE IMPLEMTED
+        PreparedStatement pst;
+        pst=conn.prepareStatement(UPDATE_STATEMENT_STRING);
+        //new entry
+        pst.setString(1,cialda.getTipo());
+        //pst.setTimestamp(2,cialda.getPrezzo());
+        pst.setDouble(2,3.3);//todo
+        //old entry
+        CialdeEntry oldEntry=(CialdeEntry)cialda.getMemento().getMementoState();
+        pst.setString(3,oldEntry.getTipo());
+        pst.executeUpdate();
+        return true;
     };
 
 

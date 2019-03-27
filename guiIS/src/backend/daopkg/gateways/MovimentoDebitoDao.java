@@ -41,8 +41,21 @@ public class MovimentoDebitoDao extends AbstractDao<MovimentoDebito> {
         return lista;
     };
 
-    private static ThrowingBiPredicate<Connection,MovimentoDebito> updateLambda=(Connection conn,MovimentoDebito pde)->{
-        return false;//TODO TOBE IMPLEMTED
+    private static ThrowingBiPredicate<Connection,MovimentoDebito> updateLambda=(Connection conn,MovimentoDebito entry)->{
+        PreparedStatement pst;
+        MovimentoDebito oldEntry=(MovimentoDebito) entry.getMemento().getMementoState();//old entry
+        //new entry
+        pst=conn.prepareStatement(UPDATE_STATEMENT_STRING);
+        pst.setString(1,entry.getCliente().getNome());
+        pst.setString(2,entry.getCliente().getCognome());
+        pst.setTimestamp(3,entry.getData());
+        pst.setDouble(4,3.3);//todo euro
+        //old entry
+        pst.setString(5,oldEntry.getCliente().getNome());
+        pst.setString(6,oldEntry.getCliente().getCognome());
+        pst.setTimestamp(7,oldEntry.getData());
+        pst.executeUpdate();
+        return true;
     };
 
 

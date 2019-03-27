@@ -1,5 +1,8 @@
 package backend.daopkg.rowdatapkg;
 import backend.daopkg.gateways.RifornimentoDao;
+import backend.memento.Memento;
+import backend.memento.MementoRifornimento;
+
 import java.sql.Timestamp;
 
 public class RifornimentoEntry extends AbstractEntryDB  {
@@ -55,25 +58,6 @@ public class RifornimentoEntry extends AbstractEntryDB  {
     @Override
     public Memento createMemento() {
         return new MementoRifornimento();
-    }
-
-    private class MementoRifornimento extends AbstractMemento implements Memento {
-
-        private Timestamp data;
-        private String tipoCialda;
-        private int qta;
-
-        @Override
-        public <T> void setMementoState(T originator) {
-            this.data=((RifornimentoEntry)originator).data;
-            this.tipoCialda=((RifornimentoEntry)originator).tipoCialda;
-            this.qta=((RifornimentoEntry)originator).qta;
-        }
-
-        @Override
-        public RifornimentoEntry getMementoState() {
-            return new RifornimentoEntry(data,qta,tipoCialda);
-        }
     }
 
 }

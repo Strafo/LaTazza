@@ -43,7 +43,19 @@ public class RifornimentoDao extends AbstractDao<RifornimentoEntry> {
     };
 
     private static ThrowingBiPredicate<Connection,RifornimentoEntry> updateLambda=(Connection conn,RifornimentoEntry entry)->{
-        return false;//TODO TOBE IMPLEMTED
+        PreparedStatement pst;
+        pst=conn.prepareStatement(UPDATE_STATEMENT_STRING);
+        //new entry
+        pst.setString(1,entry.getTipoCialda());
+        pst.setTimestamp(2,entry.getData());
+        pst.setInt(3,entry.getQta());
+        //old entry
+        RifornimentoEntry oldEntry=(RifornimentoEntry)entry.getMemento().getMementoState();
+        pst.setString(4,oldEntry.getTipoCialda());
+        pst.setTimestamp(5,oldEntry.getData());
+        pst.setInt(6,oldEntry.getQta());
+        pst.executeUpdate();
+        return true;
     };
 
 

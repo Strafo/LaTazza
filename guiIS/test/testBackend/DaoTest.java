@@ -23,7 +23,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -109,20 +108,32 @@ public class DaoTest{
 
     @ParameterizedTest
     @ValueSource(classes={Personale.class,CialdeEntry.class,Visitatore.class,RifornimentoEntry.class,MovimentoDebito.class,MovimentoVendita.class})
-    void updateTest() {
-        /*Personale pers=new Personale("andrea","straforini",true);
-        //dao.update(pers,new Personale("andrea","straforini",false));TODO
+    void updateTest(Class< AbstractEntryDB>  cls) {
+        try {
+            dao=new DaoManager(database.getConnection());
+            List<AbstractEntryDB> list=dao.getAll( cls);
+            AbstractEntryDB entryDB=list.get(0);
+            if(! (entryDB instanceof CialdeEntry)) {
+                System.out.print("MODIFICO:" + entryDB.toString());
+                modifyInstance(entryDB);
+                System.out.println(" CON " + entryDB.toString());
+                assertTrue(dao.update(entryDB));
 
-        List list=dao.getAll();
-
-        for(Object i:list){
-            if(((Personale)i).getCognome().equals("straforini")&&((Personale)i).getNome().equals("andrea")) {
-                assertFalse(((Personale)i).isAttivo());
+            }else{
+                System.out.print("PROVO MODIFICA MA NON VA PER CONSTRAINT:" + entryDB.toString());
+                modifyInstance(entryDB);
+                System.out.println(" CON " + entryDB.toString());
+                assertFalse(dao.update(entryDB));
+                list.remove(0);
+                list.add(entryDB.undoChanges());
             }
+            System.out.println("RESULT LIST:");
+            printList(list);
+            System.out.println("-----------------------------------------");
+        }catch(Exception exc){
+            exc.printStackTrace();
+            fail("Impossibile trovare costruttore");
         }
-        assertEquals(numInserimentiTupleDB,list.size());
-
-*/
     }
 
     @ParameterizedTest
@@ -281,7 +292,50 @@ public class DaoTest{
         return null;
     }
 
-    
+    private void modifyInstance(Object cls) {//modifica l'istanza passsata
+        try{
+                if (cls instanceof Personale) {
+                    ((Personale)cls).setNome("CICCIO");
+                    ((Personale)cls).setCognome("PASTICCIO");
+                    ((Personale)cls).setAttivo(false);
+                    return;
+                }
+                if (cls instanceof CialdeEntry) {
+                    ((CialdeEntry)cls).setPrezzo(new Euro(1000,1000));
+                    ((CialdeEntry)cls).setTipo("Gusto cipolla");
+                    return;
+                }
+                if (cls instanceof Visitatore) {
+                    ((Visitatore)cls).setNome("PIPPO");
+                    ((Visitatore)cls).setCognome("BAUDO");
+                    return;
+                }
+                if (cls instanceof RifornimentoEntry) {
+                    ((RifornimentoEntry)cls).setData(getRandomTimeStamp());
+                    ((RifornimentoEntry)cls).setQta(1000);
+                    ((RifornimentoEntry)cls).setTipoCialda("caffè");
+                    return;
+                }
+                if (cls instanceof MovimentoDebito) {
+                    ((MovimentoDebito)cls).setImporto(new Euro(1000,1000));
+                    ((MovimentoDebito)cls).setCliente(new Personale("andrea","straforini"));
+                    ((MovimentoDebito)cls).setData(getRandomTimeStamp());
+                    return;
+
+                }
+                if (cls instanceof MovimentoVendita) {
+                    ((MovimentoVendita)cls).setContanti(false);
+                    ((MovimentoVendita)cls).setQuantita(100000);
+                    ((MovimentoVendita)cls).setTipo(new CialdeEntry("caffè"));
+                    ((MovimentoVendita)cls).setData(getRandomTimeStamp());
+                    ((MovimentoVendita)cls).setCliente(new Visitatore("salmo","lebon"));
+                    return;
+                }
+                fail("istanza non riconosciuta");
+        }catch(Exception e){
+            fail(e.toString());
+        }
+    }
 
     private Timestamp getRandomTimeStamp(){
         long offset = Timestamp.valueOf("1990-01-01 00:00:00").getTime();

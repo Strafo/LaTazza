@@ -45,7 +45,9 @@ public interface DaoInterface {
     <T extends AbstractEntryDB> boolean save(T t);
 
     /**
-     *
+     * Questo metodo permette di aggiornare l'oggetto passato. t infatti ( implementando AbstractEntry) implementa
+     * il pattern memento.
+     * Il DaoManager quindi utilizza quest'ultimo per risalire allo stato originale dell'oggetto.
      * @param t l'oggetto modificato da rendere coerente con la sua "versione" salvata nel DB.
      * @return true se operazione andata a buon fine, false altrimenti.
      */

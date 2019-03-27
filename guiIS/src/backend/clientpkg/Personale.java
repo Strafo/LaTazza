@@ -2,7 +2,8 @@ package backend.clientpkg;
 import backend.Debito;
 import backend.Euro;
 import backend.daopkg.gateways.PersonaleDao;
-import backend.daopkg.rowdatapkg.Memento;
+import backend.memento.Memento;
+import backend.memento.MementoPersonale;
 
 
 public final class Personale extends Cliente  {
@@ -25,7 +26,6 @@ public final class Personale extends Cliente  {
     }
 
     public void setDebito(Debito debito) {
-        setMementoIfNotDef();
         this.debito = debito;
     }
 
@@ -68,20 +68,5 @@ public final class Personale extends Cliente  {
         return PersonaleDao.class;
     }
 
-    private class MementoPersonale extends MementoCliente implements Memento {
-
-        private boolean attivo;
-
-        @Override
-        public <T> void setMementoState(T originator) {
-            super.setMementoState(originator);
-            this.attivo=((Personale)originator).attivo;
-        }
-
-        @Override
-        public  Personale getMementoState(){
-            return new Personale(nome,cognome,attivo);
-        }
-    }
 
 }

@@ -1,6 +1,8 @@
 package backend.daopkg.rowdatapkg;
 import backend.Euro;
 import backend.daopkg.gateways.CialdeDao;
+import backend.memento.Memento;
+import backend.memento.MementoCialde;
 
 public class CialdeEntry extends AbstractEntryDB   {
     private String tipo;
@@ -48,26 +50,9 @@ public class CialdeEntry extends AbstractEntryDB   {
     }
 
     @Override
-    public  Memento createMemento() {
+    public Memento createMemento() {
         return new MementoCialde();
     }
 
-
-    private class MementoCialde extends AbstractMemento implements Memento {
-
-        private String tipo;
-        private Euro prezzo;
-
-        @Override
-        public <T> void setMementoState(T originator) {
-            this.tipo=((CialdeEntry)originator).tipo;
-            this.prezzo=((CialdeEntry)originator).prezzo;
-        }
-
-        @Override
-        public CialdeEntry getMementoState() {
-            return new CialdeEntry(tipo,prezzo);
-        }
-    }
 
 }

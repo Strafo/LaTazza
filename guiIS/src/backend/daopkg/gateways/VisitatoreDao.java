@@ -39,7 +39,17 @@ public class VisitatoreDao extends AbstractDao<Visitatore> {
     };
 
     private static ThrowingBiPredicate<Connection,Visitatore> updateLambda=(Connection conn,Visitatore pers)->{
-        return false;//TODO TOBE IMPLEMTED
+        PreparedStatement pst;
+        pst=conn.prepareStatement(UPDATE_STATEMENT_STRING);
+        //new entry
+        pst.setString(1,pers.getNome());
+        pst.setString(2,pers.getCognome());
+        //old entry
+        Visitatore old= (Visitatore) pers.getMemento().getMementoState();
+        pst.setString(3,old.getNome());
+        pst.setString(4,old.getCognome());
+        pst.executeUpdate();
+        return true;
     };
 
 

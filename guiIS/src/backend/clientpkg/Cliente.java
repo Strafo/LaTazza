@@ -1,8 +1,7 @@
 package backend.clientpkg;
 import backend.daopkg.gateways.AbstractDao;
 import backend.daopkg.rowdatapkg.AbstractEntryDB;
-import backend.daopkg.rowdatapkg.AbstractMemento;
-import backend.daopkg.rowdatapkg.Memento;
+import backend.memento.Memento;
 import java.util.Objects;
 
 public abstract class Cliente extends AbstractEntryDB  {
@@ -11,8 +10,8 @@ public abstract class Cliente extends AbstractEntryDB  {
     private String cognome;
 
     public Cliente(String nome,String cognome){
-        setNome(nome);
-        setCognome(cognome);
+        this.nome =Objects.requireNonNull(nome);
+        this.cognome =Objects.requireNonNull(cognome);
     }
 
     public Cliente(){}
@@ -53,19 +52,6 @@ public abstract class Cliente extends AbstractEntryDB  {
     @Override
     public abstract Memento createMemento();
 
-    protected abstract class MementoCliente extends AbstractMemento implements Memento{
-        protected String nome;
-        protected String cognome;
-
-        @Override
-        public abstract Cliente getMementoState();
-
-        @Override
-        public <T> void setMementoState(T originator) {
-            this.nome=((Cliente)originator).nome;
-            this.cognome=((Cliente)originator).cognome;
-        }
-    }
 
 
 }
