@@ -1,11 +1,14 @@
 package database.config;
 
+import backend.clientpkg.Personale;
+import backend.daopkg.gateways.DaoManager;
 import database.DataBase;
 
 import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -18,6 +21,7 @@ public class TriggersTest {
     private final String PATH="guiIS\\src\\database\\config\\";
     private Scanner inFile;
     private boolean schemaExists=false;
+
 
 
 
@@ -58,6 +62,7 @@ public class TriggersTest {
         schemaExists=true;
 
     }
+    DataBase getDatabase(){return database;}
 
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
@@ -68,15 +73,20 @@ public class TriggersTest {
         Statement stat= conn.createStatement();
         T.updateTable("databaseConfig.sql");
         T.updateTable("Insert.sql");
+        DaoManager dao= new DaoManager(conn);
+
+        List<Personale> listaPersonale=dao.getAll(Personale.class);//ottengo la lista del personale nel DB.
+        for (Personale p: listaPersonale) {
+            System.out.println(p.toString());
+        }
 
 
-        /*
         stat.execute("CREATE TRIGGER check_num_Cialde " +
                 "AFTER INSERT ON LATAZZASCHEMA.COMPRA_VISITATORE FOR EACH ROW " +
-                "CALL \"TriggersTest$Trigger1\" ");
-        */
+                "CALL \"database.config.Trigger1\" ");
+
         T.getDatabase().closeDataBase();
     }
 
-    DataBase getDatabase(){return database;}
+
 }
