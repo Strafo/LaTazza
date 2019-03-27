@@ -281,24 +281,7 @@ public class DaoTest{
         return null;
     }
 
-
-
-    private Date getRandomDate(){//https://stackoverflow.com/questions/3985392/generate-random-date-of-birth
-        Random  rnd;
-        long    ms;
-
-        // Get a new random instance, seeded from the clock
-        rnd = new Random();
-
-        // Get an Epoch value roughly between 1940 and 2010
-        // -946771200000L = January 1, 1940
-        // Add up to 70 years to it (using modulus on the next long)
-        ms = -946771200000L + (Math.abs(rnd.nextLong()) % (70L * 365 * 24 * 60 * 60 * 1000));
-
-        // Construct a date
-        return new Date(ms);
-
-    }
+    
 
     private Timestamp getRandomTimeStamp(){
         long offset = Timestamp.valueOf("1990-01-01 00:00:00").getTime();
