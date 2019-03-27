@@ -1,13 +1,13 @@
 package testBackend;
-import backend.Euro;
-import backend.clientpkg.Personale;
-import backend.clientpkg.Visitatore;
-import backend.daopkg.gateways.DaoInterface;
-import backend.daopkg.gateways.DaoManager;
-import backend.daopkg.rowdatapkg.*;
-import backend.movimentopkg.MovimentoDebito;
-import backend.movimentopkg.MovimentoVendita;
-import database.DataBase;
+import backend.businessLogicLayer.Euro;
+import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
+import backend.dataAccessLayer.rowdatapkg.clientPkg.Visitatore;
+import backend.dataAccessLayer.gatewaysPkg.DaoInterface;
+import backend.dataAccessLayer.gatewaysPkg.DaoManager;
+import backend.dataAccessLayer.rowdatapkg.*;
+import backend.dataAccessLayer.rowdatapkg.movimentoPkg.MovimentoDebito;
+import backend.dataAccessLayer.rowdatapkg.movimentoPkg.MovimentoVendita;
+import backend.database.DataBase;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -27,10 +27,10 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * @brief Questo tester crea un database h2 di tipo in memory.
+ * @brief Questo tester crea un backend.database h2 di tipo in memory.
  * Quindi è necessario configurarlo con le tabelle necessarie e i valori per il testing.
- * Successivamente si può eseguire il testing con il database temporaneo appena creato.
- * Essendo di tipo in memory quando l'ultima connessione viene chiusa il database viene "pulito"
+ * Successivamente si può eseguire il testing con il backend.database temporaneo appena creato.
+ * Essendo di tipo in memory quando l'ultima connessione viene chiusa il backend.database viene "pulito"
  * ATTENZIONE: se cambia il file DefaultSetEntry.sql deve cambiare anche nEntry                     <----------------------------------------------------------------------------------
  */
 public class DaoTest{
@@ -41,7 +41,7 @@ public class DaoTest{
     private Integer[] nEntry={14,4,4,4,5,5};//numero di inserimetni del file DefaultSetEntry.sql per le tabelle(in ordine):personale,cialde,visitatore,rifornimento,MovimentoDEbito,MovimentoVendita
 
     /**
-     * Inizializza il logger per il database.
+     * Inizializza il logger per il backend.database.
      * Tutti i log si trovano nel file ./LaTazza.log
      */
     @BeforeAll
@@ -50,19 +50,19 @@ public class DaoTest{
     }
 
     /**
-     * Carica il database con le tabelle necessarie.
-     * Le def. di quest tab sono nello script guiIS/src/database/config/databaseConfig.sql
+     * Carica il backend.database con le tabelle necessarie.
+     * Le def. di quest tab sono nello script LaTazza/guiIS/src/backend/database/config
      */
     @BeforeEach
     void setUp() {
-        database=new DataBase("jdbc:h2:mem:databaseTest");//database per il testing :mem (in memory)
+        database=new DataBase("jdbc:h2:mem:databaseTest");//backend.database per il testing :mem (in memory)
         try {
             database.initDataBase();
         } catch ( SQLException | ClassNotFoundException e) {
             fail(e.getMessage());
         }
-        updateTable("guiIS/src/database/config/databaseConfig.sql");//DATABASE CONFIG SQL FILE
-        updateTable("guiIS/src/database/config/DafualtEntrySet.sql");//inserisco un po di personale per il testing
+        updateTable("guiIS/src/backend/database/config/databaseConfig.sql");//DATABASE CONFIG SQL FILE
+        updateTable("guiIS/src/backend/database/config/DafualtEntrySet.sql");//inserisco un po di personale per il testing
     }
 
     @AfterEach
@@ -116,20 +116,18 @@ public class DaoTest{
             if(! (entryDB instanceof CialdeEntry)) {
                 System.out.print("MODIFICO:" + entryDB.toString());
                 modifyInstance(entryDB);
-                System.out.println(" CON " + entryDB.toString());
+                System.out.println(" \nCON " + entryDB.toString());
                 assertTrue(dao.update(entryDB));
 
-            }else{
+            }else{//E normale che venga tirata eccezione per constraint(fatto apposta)<-----------------------------
                 System.out.print("PROVO MODIFICA MA NON VA PER CONSTRAINT:" + entryDB.toString());
                 modifyInstance(entryDB);
-                System.out.println(" CON " + entryDB.toString());
+                System.out.println(" \nCON " + entryDB.toString());
                 assertFalse(dao.update(entryDB));
                 list.remove(0);
                 list.add(entryDB.undoChanges());
             }
-            System.out.println("RESULT LIST:");
             printList(list);
-            System.out.println("-----------------------------------------");
         }catch(Exception exc){
             exc.printStackTrace();
             fail("Impossibile trovare costruttore");
@@ -347,11 +345,14 @@ public class DaoTest{
     }
 
     private void printList(List l) {
+        System.out.println("LISTA-------------------------------------------------");
         if (PRINT_LIST) {
             for (Object i : l) {
                 System.out.println(i.toString());
             }
         }
+        System.out.println("------------------------------------------------------\n\n\n");
+
     }
 
 

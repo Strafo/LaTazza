@@ -1,7 +1,7 @@
 package testBackend;
 /*
-import backend.Magazzino;
-import backend.TipoCialda;
+import backend.businessLogicLayer.Magazzino;
+import backend.businessLogicLayer.TipoCialda;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
