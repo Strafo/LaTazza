@@ -1,19 +1,18 @@
 package guiLogicPkg.structurePanelsPkg;
 
-import java.awt.Color;
-import javax.swing.*;
-
 import guiConfig.KGradientPanel;
 import guiConfig.ResourcesClassLoader;
 import guiConfig.structurePanelsPropertiesPkg.MenuPaneProperties;
 import guiLogicPkg.LaTazzaFrame;
 import utils.LaTazzaColors;
 
-import java.awt.Font;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Map;
+
 import static guiConfig.structurePanelsPropertiesPkg.MenuPaneProperties.*;
 import static guiConfig.structurePanelsPropertiesPkg.RowPanelProperties.*;
 
@@ -29,11 +28,10 @@ public class MenuPane extends KGradientPanel {
     private JLabel labelTitolo=new JLabel("LaTazza");
     private JLabel labelIconaTazza=new JLabel();
 
-    public String[] nomeIconaLink={"stato","vendita","pagamento","rifornimento","gestione"};
 
     //create the Menu Panel that contains five links
 	public MenuPane(LaTazzaFrame laTazzaFrame) {
-        int j=0,img=0;
+        int j=0;
 		this.laTazzaFrame = laTazzaFrame;
 
 		setBounds(MenuPaneProperties.DEFAULTX,MenuPaneProperties.DEFAULTY,MenuPaneProperties.DEFAULT_WIDTH,MenuPaneProperties.DEFAULT_HEIGHT);
@@ -53,20 +51,23 @@ public class MenuPane extends KGradientPanel {
         System.out.println("Working Directory = " +
                 System.getProperty("user.dir"));//+" Class path:"+System.getProperty("java.class.path"));
 
-		labelIconaTazza.setIcon(ResourcesClassLoader.getIconTazza50());
+		labelIconaTazza.setIcon(ResourcesClassLoader.getIconTazza());
 
         this.add(panelSeparator);
         this.add(labelTitolo);
         this.add(labelIconaTazza);
 
+
+        //int j=0;
         for(LaTazzaFrame.JPanelsNames i:LaTazzaFrame.JPanelsNames.values()){
             linkMap.put(i,//todo check return value
                     new RowPanelLink(
                             laTazzaFrame.getPanelByName(i).getLINKDESCRIPTION(),
-                            ROWPANEL_DEFAULTX_BUTTON, ROWPANEL_DEFAULTX_ICON, ROWPANEL_DEFAULTY + ROWPANEL_DEFAULT_GAP * j++, ResourcesClassLoader.getIconW(nomeIconaLink[img]), ResourcesClassLoader.getIconB(nomeIconaLink[img++]))
+                            ROWPANEL_DEFAULTX_BUTTON, ROWPANEL_DEFAULTX_ICON,ROWPANEL_DEFAULTY+ROWPANEL_DEFAULT_GAP*j++,ResourcesClassLoader.getIconStatoW25(), ResourcesClassLoader.getIconStatoB25())
+
+
             );
         }
-
 
         RowPanelLink linkTemp;
 
