@@ -4,6 +4,7 @@ import java.awt.Color;
 import javax.swing.*;
 
 import guiConfig.KGradientPanel;
+import guiConfig.MyJLabel;
 import guiConfig.ResourcesClassLoader;
 import guiConfig.structurePanelsPropertiesPkg.MenuPaneProperties;
 import guiLogicPkg.LaTazzaFrame;
@@ -26,10 +27,11 @@ public class MenuPane extends KGradientPanel {
 
 
     private JPanel panelSeparator=new JPanel();
-    private JLabel labelTitolo=new JLabel("LaTazza");
-    private JLabel labelIconaTazza=new JLabel();
+    private JLabel labelTitolo;
+    private JLabel labelIconaTazza;
 
     public String[] nomeIconaLink={"stato","vendita","pagamento","rifornimento","gestione"};
+    public String titolo = "LaTazza";
 
     //create the Menu Panel that contains five links
 	public MenuPane(LaTazzaFrame laTazzaFrame) {
@@ -45,15 +47,13 @@ public class MenuPane extends KGradientPanel {
         panelSeparator.setBounds(DEFAULTX_SEPARATOR, DEFAULTY_SEPARATOR, DEFAULT_WIDTH_SEPARATOR, DEFAULT_HEIGHT_SEPARATOR);
 		panelSeparator.setBackground(Color.WHITE);
 
-		labelTitolo.setFont(new Font("Tahoma", Font.BOLD, 25));
-		labelTitolo.setBounds(DEFAULTX_TITOLO, DEFAULTY_TITOLO, DEFAULT_WIDTH_TITOLO, DEFAULT_HEIGHT_TITOLO);
+		labelTitolo = new MyJLabel(titolo,DEFAULT_FONT_TITOLO,DEFAULTX_TITOLO,DEFAULTY_TITOLO,DEFAULT_WIDTH_TITOLO,DEFAULT_HEIGHT_TITOLO,null);
 
-		labelIconaTazza.setBounds(DEFAULTX_ICONATITOLO, DEFAULTY_ICONATITOLO, DEFAULT_WIDTH_ICONATITOLO, DEFAULT_HEIGHT_ICONATITOLO);
+		labelIconaTazza = new MyJLabel(null,null,DEFAULTX_ICONATITOLO,
+                DEFAULTY_ICONATITOLO, DEFAULT_WIDTH_ICONATITOLO, DEFAULT_HEIGHT_ICONATITOLO,ResourcesClassLoader.getIconTazza50());
 
         System.out.println("Working Directory = " +
                 System.getProperty("user.dir"));//+" Class path:"+System.getProperty("java.class.path"));
-
-		labelIconaTazza.setIcon(ResourcesClassLoader.getIconTazza50());
 
         this.add(panelSeparator);
         this.add(labelTitolo);

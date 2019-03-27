@@ -4,6 +4,7 @@ import java.awt.*;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import guiConfig.KGradientPanel;
+import guiConfig.MyJLabel;
 import guiConfig.ResourcesClassLoader;
 import guiConfig.structurePanelsPropertiesPkg.TopBarProperties;
 import java.awt.event.MouseAdapter;
@@ -34,9 +35,8 @@ public class TopBarPane extends KGradientPanel {
         setkEndColor(CAFFE);
         setkStartColor(CAPPUCCINO);
         
-        labelClose = new JLabel();
-        labelClose.setIcon(ResourcesClassLoader.getIconCloseB());
-        labelClose.setBounds(DEFAULTX_LABELCLOSE, DEFAULTY_LABEL, DEFAULT_WIDTH_LABEL, DEFAULT_HEIGHT_LABEL);
+        labelClose = new MyJLabel(null,null,DEFAULTX_LABELCLOSE,
+				DEFAULTY_LABEL, DEFAULT_WIDTH_LABEL, DEFAULT_HEIGHT_LABEL,ResourcesClassLoader.getIconCloseB());
         add(labelClose);
         
         labelClose.addMouseListener(new MouseAdapter() {
@@ -54,9 +54,8 @@ public class TopBarPane extends KGradientPanel {
         	}
         });
         
-        labelMin = new JLabel();
-        labelMin.setIcon(ResourcesClassLoader.getIconMinB());
-        labelMin.setBounds(DEFAULTX_LABELMIN, DEFAULTY_LABEL, DEFAULT_WIDTH_LABEL, DEFAULT_HEIGHT_LABEL);
+        labelMin = new MyJLabel(null,null,DEFAULTX_LABELMIN,
+				DEFAULTY_LABEL, DEFAULT_WIDTH_LABEL, DEFAULT_HEIGHT_LABEL, ResourcesClassLoader.getIconMinB());
         add(labelMin);
         
         labelMin.addMouseListener(new MouseAdapter() {

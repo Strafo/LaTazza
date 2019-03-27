@@ -1,5 +1,7 @@
 package guiConfig.structurePanelsPropertiesPkg;
 
+import java.awt.*;
+
 public class MenuPaneProperties {
 	
 
@@ -27,6 +29,8 @@ public class MenuPaneProperties {
 	public static  final int DEFAULTY_SEPARATOR = 31;
 	public static  final int DEFAULT_WIDTH_SEPARATOR = 178;
 	public static  final int DEFAULT_HEIGHT_SEPARATOR = 2;
+
+	public static final Font DEFAULT_FONT_TITOLO = new Font("Tahoma", Font.BOLD, 25);
 
 	private MenuPaneProperties(){}
 	 

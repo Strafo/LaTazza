@@ -6,6 +6,7 @@ import java.text.NumberFormat;
 import javax.swing.*;
 import javax.swing.text.NumberFormatter;
 
+import guiConfig.MyJLabel;
 import guiConfig.ResourcesClassLoader;
 import guiConfig.contentsPanelsPropertiesPkg.RegPagamentoProperties;
 
@@ -27,27 +28,30 @@ public class RegistraPagamento extends AbstractPanel {
 
 	private final JComboBox<String> nomePersonaleMenu;
 
-	private JLabel labelTitolo = new JLabel();
-	private JLabel labelNomePersonale = new JLabel();
+	private JLabel labelTitolo;
+	private JLabel labelNomePersonale;
 
 	public RegistraPagamento() {
 
 		super(1L,DEFAULT_LINKDESCRIPTION,DEFAULT_PANELNAME);
 		RegPagamentoProperties.initRegistraPagamentoPanel(this);
 
-		creaLabel(labelTitolo,DEFAULT_LABELDESCRIPTION[0],DEFAULT_FONT_TITOLO,DEFAULTX_LABELTITOLO,
+		labelTitolo = new MyJLabel(DEFAULT_LABELDESCRIPTION[0],DEFAULT_FONT_TITOLO,DEFAULTX_LABELTITOLO,
                 DEFAULTY_LABELTITOLO,DEFAULT_WIDTH_LABELTITOLO,DEFAULT_HEIGHT_LABELTITOLO,ResourcesClassLoader.getIconPagamentoB32());
+		add(labelTitolo);
 
-		creaLabel(labelNomePersonale,DEFAULT_LABELDESCRIPTION[1],DEFAULT_FONT_DESCRIZIONI,DEFAULTX_COLONNA1,
+		labelNomePersonale = new MyJLabel(DEFAULT_LABELDESCRIPTION[1],DEFAULT_FONT_DESCRIZIONI,DEFAULTX_COLONNA1,
                 DEFAULTY_RIGA1,DEFAULT_WIDTH_SOTTOTITOLO,DEFAULT_HEIGHT_SOTTOTITOTLO,null);
+		add(labelNomePersonale);
 
 		nomePersonaleMenu = new JComboBox<>();
 		addItems(nomePersonale,nomePersonaleMenu);
 		nomePersonaleMenu.setBounds(DEFAULTX_COLONNA1,DEFAULTY_RIGA2,DEFAULT_WIDTH_FIELD,DEFAULT_HEIGHT_FIELD);
 		add(nomePersonaleMenu);
 
-		creaLabel(labelAmmontare,DEFAULT_LABELDESCRIPTION[2],DEFAULT_FONT_DESCRIZIONI,DEFAULTX_COLONNA1,
-                DEFAULTY_RIGA1+100,DEFAULT_WIDTH_SOTTOTITOLO,DEFAULT_HEIGHT_SOTTOTITOTLO,null);
+		labelAmmontare = new MyJLabel(DEFAULT_LABELDESCRIPTION[2],DEFAULT_FONT_DESCRIZIONI,DEFAULTX_COLONNA1,
+                DEFAULTY_RIGA1+DEFAULT_GAP_TXT,DEFAULT_WIDTH_SOTTOTITOLO,DEFAULT_HEIGHT_SOTTOTITOTLO,null);
+		add(labelAmmontare);
 
 		formatAmmontare = NumberFormat.getInstance();
 		formatterAmmontare = new NumberFormatter(formatAmmontare);

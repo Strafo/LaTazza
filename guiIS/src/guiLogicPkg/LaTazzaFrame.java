@@ -6,10 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-
-import com.apple.eawt.Application;
 import guiConfig.ResourcesClassLoader;
 import guiConfig.structurePanelsPropertiesPkg.LaTazzaFrameProperties;
 import guiLogicPkg.contentsPanelsPkg.*;
@@ -43,8 +40,16 @@ public class LaTazzaFrame extends JFrame {
 	 */
 	public LaTazzaFrame() {
 
-        Application.getApplication().setDockIconImage((ResourcesClassLoader.getIconTazzaBrown()).getImage());
-		
+        if(System.getProperty("os.name").toLowerCase().contains("mac os x"))
+            com.apple.eawt.Application.getApplication().setDockIconImage((ResourcesClassLoader.getIconTazzaBrown()).getImage());
+        else {
+            imgs.add(ResourcesClassLoader.getIconTazza16().getImage());
+            imgs.add(ResourcesClassLoader.getIconTazza25().getImage());
+            imgs.add(ResourcesClassLoader.getIconTazza32().getImage());
+            imgs.add(ResourcesClassLoader.getIconTazza64().getImage());
+            this.setIconImages(imgs);
+        }
+        
 		this.setBounds(laTazzaFrameProperties.getX(), laTazzaFrameProperties.getY(), laTazzaFrameProperties.getWidth(), laTazzaFrameProperties.getHeight());
 		this.setDefaultCloseOperation(laTazzaFrameProperties.getCloseOp());//todo checksetBounds(100, 100, 800, 500);
 		this.setUndecorated(true);
@@ -52,13 +57,6 @@ public class LaTazzaFrame extends JFrame {
         this.setContentPane(contentPane);
         this.add(topBarPanePane);
         this.setTitle("LaTazza");
-
-        imgs.add(ResourcesClassLoader.getIconTazza16().getImage());
-        imgs.add(ResourcesClassLoader.getIconTazza25().getImage());
-        imgs.add(ResourcesClassLoader.getIconTazza32().getImage());
-        imgs.add(ResourcesClassLoader.getIconTazza64().getImage());
-
-        this.setIconImages(imgs);
 
 		//todo check return value
         //inizializza i pannelli e li aggiune alla jPanelsMap

@@ -6,6 +6,7 @@ import java.text.NumberFormat;
 
 import javax.swing.*;
 
+import guiConfig.MyJLabel;
 import guiConfig.ResourcesClassLoader;
 import guiConfig.contentsPanelsPropertiesPkg.RegVenditeProperties;
 
@@ -47,27 +48,31 @@ public class RegistraVendite extends AbstractPanel {
 		super(1L,DEFAULT_LINKDESCRIPTION,DEFAULT_PANELNAME);
 		RegVenditeProperties.initRegistraVenditePanel(this);
 
-		creaLabel(labelRegVendite,DEFAULT_LABELDESCRIPTION[0],DEFAULT_FONT_TITOLO,DEFAULTX_LABELTITOLO,
+		labelRegVendite = new MyJLabel(DEFAULT_LABELDESCRIPTION[0],DEFAULT_FONT_TITOLO,DEFAULTX_LABELTITOLO,
                 DEFAULTY_LABELTITOLO,DEFAULT_WIDTH_LABELTITOLO,DEFAULT_HEIGHT_LABELTITOLO,ResourcesClassLoader.getIconVenditaB32());
+		add(labelRegVendite);
 
-        creaLabel(labelNomePersonale,DEFAULT_LABELDESCRIPTION[1],DEFAULT_FONT_DESCRIZIONI,DEFAULTX_COLONNA1,
+        labelNomePersonale = new MyJLabel(DEFAULT_LABELDESCRIPTION[1],DEFAULT_FONT_DESCRIZIONI,DEFAULTX_COLONNA1,
                 DEFAULTY_RIGA1,DEFAULT_WIDTH_SOTTOTITOLO,DEFAULT_HEIGHT_SOTTOTITOTLO,null);
+        add(labelNomePersonale);
 
         nomePersonaleMenu = new JComboBox<String>();
         nomePersonaleMenu.setBounds(DEFAULTX_COLONNA1,DEFAULTY_RIGA2,DEFAULT_WIDTH_FIELD,DEFAULT_HEIGHT_FIELD);
         addItems(nomePersonale,nomePersonaleMenu);
         add(nomePersonaleMenu);
 
-        creaLabel(labelTipoCialde,DEFAULT_LABELDESCRIPTION[2],DEFAULT_FONT_DESCRIZIONI,DEFAULTX_COLONNA1,
+        labelTipoCialde = new MyJLabel(DEFAULT_LABELDESCRIPTION[2],DEFAULT_FONT_DESCRIZIONI,DEFAULTX_COLONNA1,
                 DEFAULTY_RIGA3,DEFAULT_WIDTH_SOTTOTITOLO,DEFAULT_HEIGHT_SOTTOTITOTLO,null);
+        add(labelTipoCialde);
 
 		tipoCialdeMenu = new JComboBox<String>();
 		addItems(tipoCialde,tipoCialdeMenu);
 		tipoCialdeMenu.setBounds(DEFAULTX_COLONNA1,DEFAULTY_RIGA4,DEFAULT_WIDTH_FIELD,DEFAULT_HEIGHT_FIELD);
 		add(tipoCialdeMenu);
 
-        creaLabel(labelNomeCliente,DEFAULT_LABELDESCRIPTION[3],DEFAULT_FONT_DESCRIZIONI,DEFAULTX_COLONNA3,
+        labelNomeCliente = new MyJLabel(DEFAULT_LABELDESCRIPTION[3],DEFAULT_FONT_DESCRIZIONI,DEFAULTX_COLONNA3,
                 DEFAULTY_RIGA1,DEFAULT_WIDTH_SOTTOTITOLO,DEFAULT_HEIGHT_SOTTOTITOTLO,null);
+        add(labelNomeCliente);
 
         textFieldNomeCliente = new JTextField();
         textFieldNomeCliente.setBounds(DEFAULTX_COLONNA3,DEFAULTY_RIGA2,DEFAULT_WIDTH_FIELD,DEFAULT_HEIGHT_FIELD);
@@ -82,11 +87,13 @@ public class RegistraVendite extends AbstractPanel {
                 }
         );
 
-        creaLabel(labelOppure,DEFAULT_LABELDESCRIPTION[4],DEFAULT_FONT_DESCRIZIONI2,DEFAULTX_COLONNA2,
+        labelOppure = new MyJLabel(DEFAULT_LABELDESCRIPTION[4],DEFAULT_FONT_DESCRIZIONI2,DEFAULTX_COLONNA2,
                 DEFAULTY_RIGA2+DEFAULT_GAP_LABELOPPURE,DEFAULT_WIDTH_LABELDESCRIZIONE,DEFAULT_HEIGHT_LABELDESCRIZIONE,null);
+        add(labelOppure);
 
-        creaLabel(labelQuantita,DEFAULT_LABELDESCRIPTION[5],DEFAULT_FONT_DESCRIZIONI,DEFAULTX_COLONNA3,
+        labelQuantita = new MyJLabel(DEFAULT_LABELDESCRIPTION[5],DEFAULT_FONT_DESCRIZIONI,DEFAULTX_COLONNA3,
                 DEFAULTY_RIGA3,DEFAULT_WIDTH_SOTTOTITOLO,DEFAULT_HEIGHT_SOTTOTITOTLO,null);
+        add(labelQuantita);
 
         formatQuantita = NumberFormat.getInstance();
         formatterQuantita = new NumberFormatter(formatQuantita);
@@ -99,8 +106,9 @@ public class RegistraVendite extends AbstractPanel {
 		textFieldQuantita.setBounds(DEFAULTX_COLONNA3,DEFAULTY_RIGA4,DEFAULT_WIDTH_FIELD,DEFAULT_HEIGHT_FIELD);
 		add(textFieldQuantita);
 
-        creaLabel(labelPagamento,DEFAULT_LABELDESCRIPTION[6],DEFAULT_FONT_DESCRIZIONI2,DEFAULTX_COLONNA1+DEFAULT_GAP_LABELPAGAMENTO,
+        labelPagamento = new MyJLabel(DEFAULT_LABELDESCRIPTION[6],DEFAULT_FONT_DESCRIZIONI2,DEFAULTX_COLONNA1+DEFAULT_GAP_LABELPAGAMENTO,
                 DEFAULTY_RIGA5, DEFAULT_WIDTH_LABELDESCRIZIONE,DEFAULT_HEIGHT_LABELDESCRIZIONE,null);
+        add(labelPagamento);
 
 		radioButtContanti = new JRadioButton(DEFAULT_LABELDESCRIPTION[7]);
 		radioButtContanti.setBounds(DEFAULTX_RADIO1, DEFAULTY_RIGA5-DEFAULT_GAP_RADIOBUTTON,DEFAULT_WIDTH_BUTTON,DEFAULT_HEIGHT_BUTTON);

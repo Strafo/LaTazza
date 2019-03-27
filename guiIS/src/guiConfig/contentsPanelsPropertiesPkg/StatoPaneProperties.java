@@ -30,6 +30,7 @@ public class StatoPaneProperties extends AbstractPanelProperties {
 
     public static final int DEFAULT_GAP_SP2 = 32;
     public static final int DEFAULT_GAP_SP3 = 20;
+    public static final int DEFAULT_GAP_SP3_COLONNA = 22;
 
 
     public static void initStatoPanel(StatoPane sP)throws NullPointerException{
