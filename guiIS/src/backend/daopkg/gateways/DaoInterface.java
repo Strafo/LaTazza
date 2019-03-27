@@ -50,6 +50,7 @@ public interface DaoInterface {
      * Il DaoManager quindi utilizza quest'ultimo per risalire allo stato originale dell'oggetto.
      * @param t l'oggetto modificato da rendere coerente con la sua "versione" salvata nel DB.
      * @return true se operazione andata a buon fine, false altrimenti.
+     * Nota:se l'update va a buon fine il memento viene eliminato e rimane solo lo stato attuale.
      */
     <T extends AbstractEntryDB> boolean update(T t);//todo
 
