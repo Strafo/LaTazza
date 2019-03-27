@@ -2,97 +2,81 @@ package database.config;
 
 import database.DataBase;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-import static org.junit.jupiter.api.Assertions.fail;
+import java.util.Scanner;
 
 
 public class TriggersTest {
 
     private Connection conn;
     private DataBase database;
-    private static final String URL="jdbc:h2:mem:default";
+    private static final String URL="jdbc:h2:mem:databaseTest";
+    //private static final String URL="jdbc:h2:C:/Users/simoc/IdeaProjects/LaTazza/guiIS/src/database/config";
+    private final String PATH="guiIS\\src\\database\\config\\";
+    private Scanner inFile;
+    private boolean schemaExists=false;
+
+
 
 
     public TriggersTest() throws SQLException, ClassNotFoundException {
-        database= new DataBase(URL);
-        database.initDataBase();
-    }
-
-    public DataBase getDatabase(){ return database;}
-
-    public void updateTable(String sqlFilePath) {
-
-        String currentDirPath = System.getProperty("user.dir");
-
-        //String[] pathPart=currentDirPath.split("LaTazza/guiIs");//tapullata incredibile :D
-       String path=currentDirPath+sqlFilePath;//pathPart[0];
-        System.out.println("PATHHHH:  "+path);
-
-        //PER IL DEBUGGING
-        /*System.out.println("Current dir using System:" +currentDirPath);
-        for(String i:pathPart) {
-            System.out.println("part:" +i);
-        }fail("END");*/
-
-        try {
-            //legge il file sql e lo suddivide in query
-            File file = new File(path);
-            FileInputStream fis = new FileInputStream(file);
-            byte[] data = new byte[(int) file.length()];
-            fis.read(data);
-            fis.close();
-            String str = new String(data, "UTF-8");
-            String[] parts=str.split(";");
-
-            //PER DEBUGGING
-            /*System.out.println("START:");int j=0;
-            for(String i:parts) {
-                System.out.println("part["+j+"]:" +i);
-                j++;
-            }
-            System.out.println("END");*/
-
-
-            conn = database.getConnection();
-            Statement statement = conn.createStatement();
-            //esegue le query
-            for(String i:parts) {
-                statement.execute(i);
-            }
-
-        } catch (IOException | SQLException e) {
-            fail(e.getMessage());
-        }
-    }
-
-
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
-
-    System.out.println("eeeeeeeeeeee "+ System.getProperty("user.dir"));
-
-
         try {
             Class.forName("org.h2.Driver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+        database= new DataBase(URL);
+        database.initDataBase();
+        conn = database.getConnection();
+    }
+
+
+    public void updateTable(String sqlFileName) throws SQLException {
+
+        try {
+            StringBuilder file= new StringBuilder();
+            inFile= new Scanner(new FileReader(PATH+sqlFileName));
+            while(inFile.hasNext()) {
+                file.append(inFile.nextLine()).append("\n");
+            }
+            //System.out.println("----------------------------------\n"+schema+"\n------------------------");
+            Statement stmt=conn.createStatement();
+            stmt.addBatch(file.toString());
+            stmt.executeUpdate(file.toString());
+            stmt.close();
+        } catch ( Exception e ) {
+            System.err.println( e.getClass().getName()+": "+ e.getMessage() );
+            schemaExists=false;
+            System.exit(0);
+            inFile.close();
+            conn.close();
+        }
+        System.out.println("File red and updated");
+        schemaExists=true;
+
+    }
+
+
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+
+
         TriggersTest T= new TriggersTest();
         Connection conn= T.getDatabase().getConnection();
         Statement stat= conn.createStatement();
-        T.updateTable("\\guiIS\\src\\database\\config\\databaseConfig.sql");
-        T.updateTable("\\guiIS\\src\\database\\config\\DefaultEntrySet.sql");
+        T.updateTable("databaseConfig.sql");
+        T.updateTable("Insert.sql");
 
-        //ResultSet rs=stat.executeQuery();
+
         /*
         stat.execute("CREATE TRIGGER check_num_Cialde " +
                 "AFTER INSERT ON LATAZZASCHEMA.COMPRA_VISITATORE FOR EACH ROW " +
                 "CALL \"TriggersTest$Trigger1\" ");
         */
+        T.getDatabase().closeDataBase();
     }
+
+    DataBase getDatabase(){return database;}
 }
