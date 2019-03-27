@@ -24,4 +24,4 @@ insert into LATAZZASCHEMA.COMPRA_VISITATORE values ('Andrea','Manzi', 'caffè',10
 insert into LATAZZASCHEMA.COMPRA_VISITATORE values ('Edoardo','Vignola','thè',12,'2019-02-15 17:00:00');
 
 
---insert into LATAZZASCHEMA.COMPRA_DIPENDENTE values ('Jacopo','Dapueto',false,2000,'2018-06-11 12:00:00', 'caffè');
+insert into LATAZZASCHEMA.COMPRA_VISITATORE values ('Andrea','Manzi', 'caffè',2000,'2018-07-10 9:00:00' );
