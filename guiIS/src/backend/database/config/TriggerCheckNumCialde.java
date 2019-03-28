@@ -1,12 +1,17 @@
 package backend.database.config;
 import org.h2.api.Trigger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class TriggerCheckNumCialde implements Trigger {
+
+    private static final String TRIGGER_PATH="\"backend.database.config.TriggerCheckNumCialde\"";
+    private static final String TABLE_NAME_VISITATORE="LATAZZASCHEMA.COMPRA_VISITATORE";
+    private static final String TABLE_NAME_DIPENDENTE="LATAZZASCHEMA.COMPRA_DIPENDENTE";
+    private static final String TRIGGER_NAME_VISITATORE="check_num_cialde_visitatore";
+    private static final String TRIGGER_NAME_DIPENDENTE="check_num_cialde_dipendente";
+    private static final String CREATE_TRIGGER_STATEMENT_VISITATORE = "CREATE TRIGGER " + TRIGGER_NAME_VISITATORE + " AFTER INSERT ON "+ TABLE_NAME_VISITATORE+" FOR EACH ROW CALL "+TRIGGER_PATH;
+    private static final String CREATE_TRIGGER_STATEMENT_DIPENDETE = "CREATE TRIGGER " + TRIGGER_NAME_DIPENDENTE + " AFTER INSERT ON "+ TABLE_NAME_DIPENDENTE+" FOR EACH ROW CALL "+TRIGGER_PATH;
 
 
     @Override
@@ -61,6 +66,21 @@ public class TriggerCheckNumCialde implements Trigger {
 
     @Override
     public void remove() throws SQLException {
+
+    }
+
+    public static void initTrigger(Connection conn)  {
+
+        Statement stat= null;
+        try {
+            stat = conn.createStatement();
+            stat.execute(CREATE_TRIGGER_STATEMENT_VISITATORE);
+            stat.execute(CREATE_TRIGGER_STATEMENT_DIPENDETE);
+
+        } catch (SQLException e) {
+           System.out.println("madonna");
+            e.printStackTrace();
+        }
 
     }
 }
