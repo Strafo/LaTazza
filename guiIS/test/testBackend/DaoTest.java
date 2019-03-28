@@ -1,13 +1,13 @@
 package testBackend;
-import backend.Euro;
-import backend.clientpkg.Personale;
-import backend.clientpkg.Visitatore;
-import backend.daopkg.gateways.DaoInterface;
-import backend.daopkg.gateways.DaoManager;
-import backend.daopkg.rowdatapkg.*;
-import backend.movimentopkg.MovimentoDebito;
-import backend.movimentopkg.MovimentoVendita;
-import database.DataBase;
+import backend.businessLogicLayer.Euro;
+import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
+import backend.dataAccessLayer.rowdatapkg.clientPkg.Visitatore;
+import backend.dataAccessLayer.gatewaysPkg.DaoInterface;
+import backend.dataAccessLayer.gatewaysPkg.DaoManager;
+import backend.dataAccessLayer.rowdatapkg.*;
+import backend.dataAccessLayer.rowdatapkg.movimentoPkg.MovimentoDebito;
+import backend.dataAccessLayer.rowdatapkg.movimentoPkg.MovimentoVendita;
+import backend.database.DataBase;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -23,15 +23,14 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * @brief Questo tester crea un database h2 di tipo in memory.
+ * @brief Questo tester crea un backend.database h2 di tipo in memory.
  * Quindi è necessario configurarlo con le tabelle necessarie e i valori per il testing.
- * Successivamente si può eseguire il testing con il database temporaneo appena creato.
- * Essendo di tipo in memory quando l'ultima connessione viene chiusa il database viene "pulito"
+ * Successivamente si può eseguire il testing con il backend.database temporaneo appena creato.
+ * Essendo di tipo in memory quando l'ultima connessione viene chiusa il backend.database viene "pulito"
  * ATTENZIONE: se cambia il file DefaultSetEntry.sql deve cambiare anche nEntry                     <----------------------------------------------------------------------------------
  */
 public class DaoTest{
@@ -42,7 +41,7 @@ public class DaoTest{
     private Integer[] nEntry={14,4,4,4,5,5};//numero di inserimetni del file DefaultSetEntry.sql per le tabelle(in ordine):personale,cialde,visitatore,rifornimento,MovimentoDEbito,MovimentoVendita
 
     /**
-     * Inizializza il logger per il database.
+     * Inizializza il logger per il backend.database.
      * Tutti i log si trovano nel file ./LaTazza.log
      */
     @BeforeAll
@@ -51,19 +50,19 @@ public class DaoTest{
     }
 
     /**
-     * Carica il database con le tabelle necessarie.
-     * Le def. di quest tab sono nello script guiIS/src/database/config/databaseConfig.sql
+     * Carica il backend.database con le tabelle necessarie.
+     * Le def. di quest tab sono nello script LaTazza/guiIS/src/backend/database/config
      */
     @BeforeEach
     void setUp() {
-        database=new DataBase("jdbc:h2:mem:databaseTest");//database per il testing :mem (in memory)
+        database=new DataBase("jdbc:h2:mem:databaseTest");//backend.database per il testing :mem (in memory)
         try {
             database.initDataBase();
         } catch ( SQLException | ClassNotFoundException e) {
             fail(e.getMessage());
         }
-        updateTable("guiIS/src/database/config/databaseConfig.sql");//DATABASE CONFIG SQL FILE
-        updateTable("guiIS/src/database/config/DafualtEntrySet.sql");//inserisco un po di personale per il testing
+        updateTable("guiIS/src/backend/database/config/databaseConfig.sql");//DATABASE CONFIG SQL FILE
+        updateTable("guiIS/src/backend/database/config/DafualtEntrySet.sql");//inserisco un po di personale per il testing
     }
 
     @AfterEach
@@ -109,20 +108,30 @@ public class DaoTest{
 
     @ParameterizedTest
     @ValueSource(classes={Personale.class,CialdeEntry.class,Visitatore.class,RifornimentoEntry.class,MovimentoDebito.class,MovimentoVendita.class})
-    void updateTest() {
-        /*Personale pers=new Personale("andrea","straforini",true);
-        //dao.update(pers,new Personale("andrea","straforini",false));TODO
+    void updateTest(Class< AbstractEntryDB>  cls) {
+        try {
+            dao=new DaoManager(database.getConnection());
+            List<AbstractEntryDB> list=dao.getAll( cls);
+            AbstractEntryDB entryDB=list.get(0);
+            if(! (entryDB instanceof CialdeEntry)) {
+                System.out.print("MODIFICO:" + entryDB.toString());
+                modifyInstance(entryDB);
+                System.out.println(" \nCON " + entryDB.toString());
+                assertTrue(dao.update(entryDB));
 
-        List list=dao.getAll();
-
-        for(Object i:list){
-            if(((Personale)i).getCognome().equals("straforini")&&((Personale)i).getNome().equals("andrea")) {
-                assertFalse(((Personale)i).isAttivo());
+            }else{//E normale che venga tirata eccezione per constraint(fatto apposta)<-----------------------------
+                System.out.print("PROVO MODIFICA MA NON VA PER CONSTRAINT:" + entryDB.toString());
+                modifyInstance(entryDB);
+                System.out.println(" \nCON " + entryDB.toString());
+                assertFalse(dao.update(entryDB));
+                list.remove(0);
+                list.add(entryDB.undoChanges());
             }
+            printList(list);
+        }catch(Exception exc){
+            exc.printStackTrace();
+            fail("Impossibile trovare costruttore");
         }
-        assertEquals(numInserimentiTupleDB,list.size());
-
-*/
     }
 
     @ParameterizedTest
@@ -281,23 +290,49 @@ public class DaoTest{
         return null;
     }
 
+    private void modifyInstance(Object cls) {//modifica l'istanza passsata
+        try{
+                if (cls instanceof Personale) {
+                    ((Personale)cls).setNome("CICCIO");
+                    ((Personale)cls).setCognome("PASTICCIO");
+                    ((Personale)cls).setAttivo(false);
+                    return;
+                }
+                if (cls instanceof CialdeEntry) {
+                    ((CialdeEntry)cls).setPrezzo(new Euro(1000,1000));
+                    ((CialdeEntry)cls).setTipo("Gusto cipolla");
+                    return;
+                }
+                if (cls instanceof Visitatore) {
+                    ((Visitatore)cls).setNome("PIPPO");
+                    ((Visitatore)cls).setCognome("BAUDO");
+                    return;
+                }
+                if (cls instanceof RifornimentoEntry) {
+                    ((RifornimentoEntry)cls).setData(getRandomTimeStamp());
+                    ((RifornimentoEntry)cls).setQta(1000);
+                    ((RifornimentoEntry)cls).setTipoCialda("caffè");
+                    return;
+                }
+                if (cls instanceof MovimentoDebito) {
+                    ((MovimentoDebito)cls).setImporto(new Euro(1000,1000));
+                    ((MovimentoDebito)cls).setCliente(new Personale("andrea","straforini"));
+                    ((MovimentoDebito)cls).setData(getRandomTimeStamp());
+                    return;
 
-
-    private Date getRandomDate(){//https://stackoverflow.com/questions/3985392/generate-random-date-of-birth
-        Random  rnd;
-        long    ms;
-
-        // Get a new random instance, seeded from the clock
-        rnd = new Random();
-
-        // Get an Epoch value roughly between 1940 and 2010
-        // -946771200000L = January 1, 1940
-        // Add up to 70 years to it (using modulus on the next long)
-        ms = -946771200000L + (Math.abs(rnd.nextLong()) % (70L * 365 * 24 * 60 * 60 * 1000));
-
-        // Construct a date
-        return new Date(ms);
-
+                }
+                if (cls instanceof MovimentoVendita) {
+                    ((MovimentoVendita)cls).setContanti(false);
+                    ((MovimentoVendita)cls).setQuantita(100000);
+                    ((MovimentoVendita)cls).setTipo(new CialdeEntry("caffè"));
+                    ((MovimentoVendita)cls).setData(getRandomTimeStamp());
+                    ((MovimentoVendita)cls).setCliente(new Visitatore("salmo","lebon"));
+                    return;
+                }
+                fail("istanza non riconosciuta");
+        }catch(Exception e){
+            fail(e.toString());
+        }
     }
 
     private Timestamp getRandomTimeStamp(){
@@ -310,11 +345,14 @@ public class DaoTest{
     }
 
     private void printList(List l) {
+        System.out.println("LISTA-------------------------------------------------");
         if (PRINT_LIST) {
             for (Object i : l) {
                 System.out.println(i.toString());
             }
         }
+        System.out.println("------------------------------------------------------\n\n\n");
+
     }
 
 
