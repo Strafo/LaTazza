@@ -74,14 +74,12 @@ public class TriggerCheckNumCialde implements Trigger {
         Statement stat= null;
         try {
             stat = conn.createStatement();
-            System.out.println("MADONNACRISTO");
+
             stat.execute(CREATE_TRIGGER_STATEMENT_VISITATORE);
-            System.out.println("CRISTOFALCIATO");
+
             stat.execute(CREATE_TRIGGER_STATEMENT_DIPENDETE);
-            System.out.println("MADONNAASFALTATA");
 
         } catch (SQLException e) {
-           System.out.println("madonna");
             e.printStackTrace();
         }
 
