@@ -23,22 +23,28 @@ public class Trigger1 implements Trigger {
         PreparedStatement stat;
         ResultSet cV, cP, rif;
 
+        System.out.println("1");
         String q1="select sum(numero_cialde) " +
                 " from LATAZZASCHEMA.COMPRA_VISITATORE T " +
-                " where tipo_cialda = ?; ";
+                " where tipo_cialda = ? ";
         String q2="select sum(numero_cialde)\n" +
                 " from LATAZZASCHEMA.COMPRA_DIPENDENTE\n" +
                 " where tipo_cialda = ?";
         String q3="select sum(qta*50)\n" +
                 " from LATAZZASCHEMA.RIFORNIMENTO\n" +
                 " where tipoCialda=?";
+        System.out.println("2");
 
 
         stat= conn.prepareStatement(q1);
+        System.out.println("3");
         stat.setNString (1, (String) newRow[2]); // sostituisce newRow[2] (tipo_cialda) al ?
+        System.out.println("4");
         cV=stat.executeQuery(q1);
+        System.out.println("5");
+        System.out.println("cv:"+ cV.getInt(1));
         cV.next();
-
+        System.out.println("6");
         stat= conn.prepareStatement(q2);
         stat.setNString (1, (String) newRow[2]);
         cP = stat.executeQuery(q2);

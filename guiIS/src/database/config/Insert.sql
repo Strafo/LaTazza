@@ -1,7 +1,7 @@
 
 
 insert into LATAZZASCHEMA.CIALDE values('caffè',0.50);
-insert into LATAZZASCHEMA.CIALDE values ('thè', 0.25 );
+insert into LATAZZASCHEMA.CIALDE values ('thè', 0.50 );
 
 
 insert into LATAZZASCHEMA.VISITATORE values ( 'Andrea', 'Manzi' );
@@ -24,4 +24,4 @@ insert into LATAZZASCHEMA.COMPRA_VISITATORE values ('Andrea','Manzi', 'caffè',10
 insert into LATAZZASCHEMA.COMPRA_VISITATORE values ('Edoardo','Vignola','thè',12,'2019-02-15 17:00:00');
 
 
-insert into LATAZZASCHEMA.COMPRA_VISITATORE values ('Andrea','Manzi', 'caffè',2000,'2018-07-10 9:00:00' );
+insert into LATAZZASCHEMA.COMPRA_VISITATORE values ('Andrea','Manzi', 'caffè',2000,'2018-07-10 9:00:00');
