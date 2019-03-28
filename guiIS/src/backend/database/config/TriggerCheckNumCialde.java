@@ -37,18 +37,16 @@ public class TriggerCheckNumCialde implements Trigger {
         stat.setNString (1, (String) newRow[2]); // sostituisce newRow[2] (tipo_cialda) al ?
         cV=stat.executeQuery();
         cV.next();
-        System.out.println("Somma cialde comprate dai Visitatori per lo stesso tipo:"+ cV.getInt(1));
+
         stat= conn.prepareStatement(q2);
         stat.setNString (1, (String) newRow[2]);
         cP = stat.executeQuery();
         cP.next();
-        System.out.println("Somma cialde comprate dai Dipendenti per lo stesso tipo:"+ cP.getInt(1));
 
         stat= conn.prepareStatement(q3);
         stat.setNString (1, (String) newRow[2]);
         rif=stat.executeQuery();
         rif.next();
-        System.out.println("Somma cialde Rifornimento per lo stesso tipo:"+ rif.getInt(1));
 
 
         if ((cV.getInt(1) + cP.getInt(1) > rif.getInt(1)))
