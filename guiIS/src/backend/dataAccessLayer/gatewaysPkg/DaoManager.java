@@ -51,7 +51,7 @@ public class DaoManager implements DaoInterface {
              if(result=subdao.update(t)){
                 t.removeMemento();
              }else{
-                t= (T) t.getMemento().getMementoState();
+                t= (T) t.getMemento().getMementoState();//todo t passaggio per valore non serve sta linea di codice
              }
              return result;
         }catch(Exception exc){
