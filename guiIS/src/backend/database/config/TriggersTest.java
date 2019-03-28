@@ -75,22 +75,7 @@ public class TriggersTest {
         TriggerCheckNumCialde.initTrigger(conn);
 
         T.updateTable("Insert.sql");
-        /*
-        try {
-            stat.execute("CREATE TRIGGER check_num_Cialde " +
-                    "AFTER INSERT ON LATAZZASCHEMA.COMPRA_VISITATORE FOR EACH ROW " +
-                    "CALL \"backend.database.config.TriggerCheckNumCialde\" ");
 
-
-            stat.execute("CREATE TRIGGER check_num_Cialde " +
-                    "AFTER INSERT ON LATAZZASCHEMA.COMPRA_DIPENDENTE FOR EACH ROW " +
-                    "CALL \"backend.database.config.TriggerCheckNumCialde\" ");
-
-
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-        */
         System.out.println("4");
 
 
