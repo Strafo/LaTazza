@@ -1,14 +1,13 @@
-package database.config;
+package backend.database.config;
 
-import backend.clientpkg.Personale;
-import backend.daopkg.gateways.DaoManager;
-import database.DataBase;
+
+import backend.dataAccessLayer.gatewaysPkg.DaoManager;
+import backend.database.DataBase;
 
 import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
 import java.util.Scanner;
 
 
@@ -18,7 +17,7 @@ public class TriggersTest {
     private DataBase database;
     private static final String URL="jdbc:h2:mem:databaseTest";
     //private static final String URL="jdbc:h2:C:/Users/simoc/IdeaProjects/LaTazza/guiIS/src/database/config";
-    private final String PATH="guiIS\\src\\database\\config\\";
+    private final String PATH="guiIS\\src\\backend\\database\\config\\";
     private Scanner inFile;
     private boolean schemaExists=false;
 
@@ -42,6 +41,7 @@ public class TriggersTest {
 
         try {
             StringBuilder file= new StringBuilder();
+            System.out.println("PATH:  "+PATH+sqlFileName);
             inFile= new Scanner(new FileReader(PATH+sqlFileName));
             while(inFile.hasNext()) {
                 file.append(inFile.nextLine()).append("\n");
@@ -76,9 +76,10 @@ public class TriggersTest {
         try {
             stat.execute("CREATE TRIGGER check_num_Cialde " +
                     "AFTER INSERT ON LATAZZASCHEMA.COMPRA_VISITATORE FOR EACH ROW " +
-                    "CALL \"database.config.Trigger1\" ");
+                    "CALL \"backend.database.config.TriggerCheckNumCialde\" ");
         }catch (SQLException e){
-            System.out.println("Cristo Morto");
+            System.out.println("Cristo Morto: " );
+            e.printStackTrace();
         }
 
         T.updateTable("Insert.sql");
