@@ -3,4 +3,4 @@ set schema LATAZZASCHEMA;
 
 CREATE TRIGGER check_num_Cialde_Comprate
 AFTER UPDATE ON lATAZZASCHEMA.COMPRA_VISITATORE FOR EACH ROW
-CALL "database.config.Trigger1";
+CALL "backend.database.config.TriggerCheckNumCialde";
