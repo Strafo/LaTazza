@@ -73,6 +73,7 @@ public class TriggersTest {
         System.out.println("2");
         T.updateTable("databaseConfig.sql");
         TriggerCheckNumCialde.initTrigger(conn);
+        System.out.println("CristoéMortoPerManoDgliUltrà");
         T.updateTable("Insert.sql");
         /*
         try {
