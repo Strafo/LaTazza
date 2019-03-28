@@ -1,20 +1,18 @@
-package guiLogicPkg.structurePanelsPkg;
+package presentationLayer.guiLogicPkg.structurePanelsPkg;
 
-import guiConfig.KGradientPanel;
-import guiConfig.ResourcesClassLoader;
-import guiConfig.structurePanelsPropertiesPkg.MenuPaneProperties;
-import guiLogicPkg.LaTazzaFrame;
+import presentationLayer.guiConfig.KGradientPanel;
+import presentationLayer.guiConfig.ResourcesClassLoader;
+import presentationLayer.guiConfig.structurePanelsPropertiesPkg.MenuPaneProperties;
+import presentationLayer.guiLogicPkg.LaTazzaFrame;
 import utils.LaTazzaColors;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Map;
-
-import static guiConfig.structurePanelsPropertiesPkg.MenuPaneProperties.*;
-import static guiConfig.structurePanelsPropertiesPkg.RowPanelProperties.*;
+import static presentationLayer.guiConfig.structurePanelsPropertiesPkg.MenuPaneProperties.*;
+import static presentationLayer.guiConfig.structurePanelsPropertiesPkg.RowPanelProperties.*;
 
 
 public class MenuPane extends KGradientPanel {

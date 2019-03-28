@@ -41,7 +41,6 @@ public class TriggersTest {
 
         try {
             StringBuilder file= new StringBuilder();
-            System.out.println("PATH:  "+PATH+sqlFileName);
             inFile= new Scanner(new FileReader(PATH+sqlFileName));
             while(inFile.hasNext()) {
                 file.append(inFile.nextLine()).append("\n");
@@ -69,29 +68,37 @@ public class TriggersTest {
 
 
         TriggersTest T= new TriggersTest();
+        System.out.println("1");
         Connection conn= T.getDatabase().getConnection();
-        Statement stat= conn.createStatement();
+        System.out.println("2");
         T.updateTable("databaseConfig.sql");
-
+        TriggerCheckNumCialde.initTrigger(conn);
+        T.updateTable("Insert.sql");
+        /*
         try {
             stat.execute("CREATE TRIGGER check_num_Cialde " +
                     "AFTER INSERT ON LATAZZASCHEMA.COMPRA_VISITATORE FOR EACH ROW " +
                     "CALL \"backend.database.config.TriggerCheckNumCialde\" ");
+
+
+            stat.execute("CREATE TRIGGER check_num_Cialde " +
+                    "AFTER INSERT ON LATAZZASCHEMA.COMPRA_DIPENDENTE FOR EACH ROW " +
+                    "CALL \"backend.database.config.TriggerCheckNumCialde\" ");
+
+
         }catch (SQLException e){
-            System.out.println("Cristo Morto: " );
             e.printStackTrace();
         }
+        */
+        System.out.println("4");
 
-        T.updateTable("Insert.sql");
+
+
+        System.out.println("5");
         DaoManager dao= new DaoManager(conn);
-/*
-        List<Personale> listaPersonale=dao.getAll(Personale.class);//ottengo la lista del personale nel DB.
-        for (Personale p: listaPersonale) {
-            System.out.println(p.toString());
-        }
-
-*/
+        System.out.println("6");
         T.getDatabase().closeDataBase();
+        System.out.println("7");
     }
 
 
