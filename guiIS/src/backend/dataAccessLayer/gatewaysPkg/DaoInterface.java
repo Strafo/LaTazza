@@ -45,7 +45,7 @@ public interface DaoInterface {
     /**
      * Questo metodo permette di ottenere la lista di tutti gli oggetti di classe t.
      * @param t il tipo della classe. es. passare Personale.class se si vuole la lista del personale
-     * @return true se operazione andata a buon fine, false altrimenti.
+     * @return la lista  se operazione andata a buon fine, null altrimenti.
      */
     <T extends AbstractEntryDB> List<T> getAll(Class<T> t);
 
