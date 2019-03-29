@@ -73,5 +73,14 @@ public final class MovimentoVendita extends Movimento {
         return new MementoMovimentoVendita();
     }
 
+    @Override
+    public void undoChanges(){
+        super.undoChanges();
+        MovimentoVendita oldState=(MovimentoVendita) this.getMemento().getMementoState();
+        this.quantita=oldState.getQuantita();
+        this.contanti=oldState.isContanti();
+        this.tipo=oldState.getTipo();
+        removeMemento();
+    }
 
 }

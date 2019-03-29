@@ -46,4 +46,12 @@ public final class MovimentoDebito extends Movimento {
         return new MementoMovimentoDebito();
     }
 
+    @Override
+    public void undoChanges(){
+        super.undoChanges();
+        MovimentoDebito oldState=(MovimentoDebito) this.getMemento().getMementoState();
+        this.importo=oldState.getImporto();
+        removeMemento();
+    }
+
 }

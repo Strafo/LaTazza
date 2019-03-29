@@ -68,5 +68,12 @@ public final class Personale extends Cliente  {
         return PersonaleDao.class;
     }
 
-
+    @Override
+    public void undoChanges(){
+        super.undoChanges();
+        Personale oldState=(Personale) this.getMemento().getMementoState();
+        this.attivo=oldState.isAttivo();
+        //debito non viene toccato perchè non fa parte di memento
+        removeMemento();
+    }
 }

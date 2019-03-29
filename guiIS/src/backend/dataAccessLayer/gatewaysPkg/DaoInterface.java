@@ -34,7 +34,7 @@ import java.util.List;
  *               listaPersonale.add(newPers);//lo riaggiungo alla lista
  *           }else{
  *               System.out.println("Update fallito ripristino stato originale");
- *               newPers=(Personale)newPers.undoChanges();//ad eliminare quello vecchio ci pensa in grabage collector
+ *               newPers.undoChanges();
  *           }
  *     }
  */

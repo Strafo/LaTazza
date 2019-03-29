@@ -54,5 +54,13 @@ public class CialdeEntry extends AbstractEntryDB   {
         return new MementoCialde();
     }
 
+    @Override
+    public void undoChanges(){
+        CialdeEntry oldState=(CialdeEntry) this.getMemento().getMementoState();
+        this.tipo=oldState.getTipo();
+        this.prezzo=oldState.getPrezzo();
+        removeMemento();
+    }
+
 
 }

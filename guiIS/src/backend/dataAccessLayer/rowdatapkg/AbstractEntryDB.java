@@ -28,10 +28,6 @@ public abstract class AbstractEntryDB  {
         mementoState=null;
     }
 
-    public AbstractEntryDB undoChanges(){
-        AbstractEntryDB ret=(AbstractEntryDB) this.mementoState.getMementoState();
-        mementoState=null;
-        return ret;
-    }
+    public abstract void undoChanges();
 
 }

@@ -27,5 +27,9 @@ public final class Visitatore extends Cliente {
         return new MementoVisitatore();
     }
 
-
+    @Override
+    public void undoChanges(){
+        super.undoChanges();
+        removeMemento();
+    }
 }

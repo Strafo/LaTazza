@@ -42,7 +42,7 @@ public class ControllerPersonale {
         if(!list.contains(p))return;//todo check
         p.setAttivo(false);
         if(!LaTazzaApplication.dao.update(p)){//se fallisce ripristino stato iniziale
-            //todo undochanges() ---> la chiamata sarà p.undoChanges();
+            p.undoChanges();
         }
         list.remove(p);
     }

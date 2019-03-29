@@ -44,5 +44,11 @@ public abstract class Movimento extends AbstractEntryDB {
     @Override
     public abstract Memento createMemento();
 
+    @Override
+    public void undoChanges(){
+        Movimento oldState=(Movimento) this.getMemento().getMementoState();
+        this.data=oldState.getData();
+        this.cliente=oldState.getCliente();
+    }
 
 }

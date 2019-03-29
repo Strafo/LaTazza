@@ -52,6 +52,11 @@ public abstract class Cliente extends AbstractEntryDB  {
     @Override
     public abstract Memento createMemento();
 
-
+    @Override
+    public void undoChanges(){
+        Cliente oldState=(Cliente) this.getMemento().getMementoState();
+        this.nome=oldState.getNome();
+        this.cognome=oldState.getCognome();
+    }
 
 }

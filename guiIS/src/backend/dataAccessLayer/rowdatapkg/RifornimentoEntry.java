@@ -60,4 +60,14 @@ public class RifornimentoEntry extends AbstractEntryDB  {
         return new MementoRifornimento();
     }
 
+    @Override
+    public void undoChanges(){
+        RifornimentoEntry oldState=(RifornimentoEntry)this.getMemento().getMementoState();
+        this.data=oldState.getData();
+        this.qta=oldState.getQta();
+        this.qta=oldState.getQta();
+        removeMemento();
+    }
+
+
 }
