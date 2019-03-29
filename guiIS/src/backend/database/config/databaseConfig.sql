@@ -18,8 +18,8 @@ create table LATAZZASCHEMA.visitatore(
 create table LATAZZASCHEMA.rifornimento(
 
   dataR TIMESTAMP default CURRENT_TIMESTAMP not null,
-  tipo_cialda varchar(64) not null references LATAZZASCHEMA.cialde(tipo),
   qta integer not null, -- NUMERO DI cialde COMPRATE
+  tipo_cialda varchar(64) not null references LATAZZASCHEMA.cialde(tipo),
   primary key (dataR,tipo_Cialda)
 );
 

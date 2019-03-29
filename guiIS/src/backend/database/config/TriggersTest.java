@@ -18,9 +18,6 @@ public class TriggersTest {
     //private static final String URL="jdbc:h2:C:/Users/simoc/IdeaProjects/LaTazza/guiIS/src/database/config";
     private final String PATH="guiIS\\src\\backend\\database\\config\\";
     private Scanner inFile;
-    private boolean schemaExists=false;
-
-
 
 
 
@@ -51,13 +48,10 @@ public class TriggersTest {
             stmt.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName()+": "+ e.getMessage() );
-            schemaExists=false;
             System.exit(0);
             inFile.close();
             conn.close();
         }
-
-        schemaExists=true;
 
     }
     DataBase getDatabase(){return database;}
@@ -71,6 +65,7 @@ public class TriggersTest {
         T.updateTable("databaseConfig.sql");
         TriggerCheckNumCialdeVisitatore.initTrigger(conn);
         TriggerCheckNumCialdeDipendente.initTrigger(conn);
+        MaterializedViewMagazzino.initView(conn);
 
         T.updateTable("Insert.sql");
 
