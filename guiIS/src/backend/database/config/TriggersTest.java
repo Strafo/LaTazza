@@ -1,7 +1,6 @@
 package backend.database.config;
 
 
-import backend.dataAccessLayer.gatewaysPkg.DaoManager;
 import backend.database.DataBase;
 
 import java.io.FileReader;
@@ -68,23 +67,14 @@ public class TriggersTest {
 
 
         TriggersTest T= new TriggersTest();
-        System.out.println("1");
         Connection conn= T.getDatabase().getConnection();
-        System.out.println("2");
         T.updateTable("databaseConfig.sql");
-        TriggerCheckNumCialde.initTrigger(conn);
+        TriggerCheckNumCialdeVisitatore.initTrigger(conn);
+        TriggerCheckNumCialdeDipendente.initTrigger(conn);
 
         T.updateTable("Insert.sql");
 
-        System.out.println("4");
-
-
-
-        System.out.println("5");
-        DaoManager dao= new DaoManager(conn);
-        System.out.println("6");
         T.getDatabase().closeDataBase();
-        System.out.println("7");
     }
 
 
