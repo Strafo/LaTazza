@@ -19,7 +19,7 @@ create table LATAZZASCHEMA.rifornimento(
 
   dataR TIMESTAMP default CURRENT_TIMESTAMP not null,
   tipo_cialda varchar(64) not null references LATAZZASCHEMA.cialde(tipo),
-  qta integer not null, -- NUMERO DI SCATOLE COMPRATE
+  qta integer not null, -- NUMERO DI cialde COMPRATE
   primary key (dataR,tipo_Cialda)
 );
 
@@ -37,8 +37,7 @@ create table LATAZZASCHEMA.pagamento_debito(
   data TIMESTAMP default CURRENT_TIMESTAMP not null,
   importo double precision not null check( importo > 0),
   primary key (nome, cognome, data),
-  foreign key(nome, cognome) references LATAZZASCHEMA.personale(nome,cognome)
-  on update cascade on delete restrict
+  foreign key(nome, cognome) references LATAZZASCHEMA.personale(nome,cognome) on update cascade on delete restrict
 );
 
 create table LATAZZASCHEMA.compra_visitatore(
@@ -49,8 +48,7 @@ create table LATAZZASCHEMA.compra_visitatore(
   numero_cialde integer not null check (numero_cialde > 0),
   data TIMESTAMP default CURRENT_TIMESTAMP not null,
   primary key(nome,cognome, data),
-  foreign key(nome, cognome) references LATAZZASCHEMA.visitatore(nome, cognome)
-  on update cascade on delete restrict
+  foreign key(nome, cognome) references LATAZZASCHEMA.visitatore(nome, cognome) on update cascade on delete restrict
 );
 
 create table LATAZZASCHEMA.compra_dipendente(
@@ -62,27 +60,8 @@ create table LATAZZASCHEMA.compra_dipendente(
   numero_cialde integer not null check (numero_cialde > 0),
   data TIMESTAMP default CURRENT_TIMESTAMP not null,
   primary key (data, nome, cognome),
-  foreign key (nome, cognome) references LATAZZASCHEMA.personale(nome, cognome)
-  on update cascade on delete restrict
+  foreign key (nome, cognome) references LATAZZASCHEMA.personale(nome, cognome)on update cascade on delete restrict
 );
-
-
-create  view  Magazzino(tipoCialda, qta) as
-  select TIPO_CIALDA, sum(qta*50)
-  from  LATAZZASCHEMA.RIFORNIMENTO
-  group by TIPO_CIALDA
-
-    except
-
-  select tipo_cialda, sum(numero_cialde)
-  from LATAZZASCHEMA.COMPRA_VISITATORE
-  group by tipo_cialda
-
-    except
-
-  select tipo_cialda, sum(numero_cialde)
-  from LATAZZASCHEMA.COMPRA_DIPENDENTE
-  group by tipo_cialda;
 
 
 
