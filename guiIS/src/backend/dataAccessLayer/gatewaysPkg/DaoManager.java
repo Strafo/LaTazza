@@ -49,9 +49,7 @@ public class DaoManager implements DaoInterface {
             boolean result;
              subdao=instantiateSpecificDao(t);
              if(result=subdao.update(t)){
-                t.removeMemento();
-             }else{
-                t= (T) t.getMemento().getMementoState();//todo t passaggio per valore non serve sta linea di codice
+                t.removeMemento();//todo il caretaker per mento è separato in due classi...(questa e la chiamante) si riesce a mettere tutto in posto (ad esempio risucendo a fare un passaggio per riferimento a update e chiamando t.undochage()
              }
              return result;
         }catch(Exception exc){
