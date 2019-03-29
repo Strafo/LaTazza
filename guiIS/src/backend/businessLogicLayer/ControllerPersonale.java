@@ -38,13 +38,14 @@ public class ControllerPersonale {
     }
 
 
-    public void licenziaPersonale(Personale p){
-        if(!list.contains(p))return;//todo check
+    public void licenziaPersonale(Personale p) {
+        if (!list.contains(p)) return;//todo check
         p.setAttivo(false);
-        if(!LaTazzaApplication.dao.update(p)){//se fallisce ripristino stato iniziale
+        if (!LaTazzaApplication.dao.update(p)) {//se fallisce ripristino stato iniziale
             p.undoChanges();
+        } else {
+            list.remove(p);
         }
-        list.remove(p);
     }
 
 
