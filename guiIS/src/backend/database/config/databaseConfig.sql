@@ -18,7 +18,7 @@ create table LATAZZASCHEMA.visitatore(
 create table LATAZZASCHEMA.rifornimento(
 
   dataR TIMESTAMP default CURRENT_TIMESTAMP not null,
-  qta integer not null, -- NUMERO DI cialde COMPRATE
+  numero_cialde integer not null, -- NUMERO DI cialde COMPRATE
   tipo_cialda varchar(64) not null references LATAZZASCHEMA.cialde(tipo),
   primary key (dataR,tipo_Cialda)
 );
@@ -63,6 +63,12 @@ create table LATAZZASCHEMA.compra_dipendente(
   foreign key (nome, cognome) references LATAZZASCHEMA.personale(nome, cognome)on update cascade on delete restrict
 );
 
+
+create table LATAZZASCHEMA.Magazzino
+(
+  tipo varchar(64) not null primary key  references LATAZZASCHEMA.cialde(tipo),
+  qta integer not null default(0)
+);
 
 
 
