@@ -42,8 +42,8 @@ import java.util.List;
  *           listaPersonale=dao.getAll(Personale.class);//ottengo la lista del personale nel DB.
  *           int oldLength=listaPersonale.size();
  *           dao.startTransaction()
- *              dao.save(new Personale("Pino","Scotto");
- *              dao.save(new Personale("rick_rolled","youtube:dqw4w9wgxcq");
+ *              dao.save(new Personale("Richard","https://tinyurl.com/yxqfq9zj");
+ *              dao.save(new Personale("rick_rolled","https://tinyurl.com/2fcpre6");
  *              dao.delete("babbo","natale");
  *           dao.endTransaction();
  *           listaPersonale=dao.getAll(Personale.class);//ottengo la lista del personale nel DB.
