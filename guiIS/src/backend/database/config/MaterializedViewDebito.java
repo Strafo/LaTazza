@@ -14,6 +14,7 @@ public class MaterializedViewDebito implements Trigger {
 
 
 
+
     private static double getDebito(Connection conn, Object[] newRow)  throws SQLException{
 
         PreparedStatement stat= conn.prepareStatement("select sum(numero_cialde)*0.50 " +
@@ -58,6 +59,7 @@ public class MaterializedViewDebito implements Trigger {
         Statement stat= null;
         try {
             stat = conn.createStatement();
+
             stat.execute(CREATE_TRIGGER_STATEMENT_DEBITO);
         } catch (SQLException e) {
             e.printStackTrace();

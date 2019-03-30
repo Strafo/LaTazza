@@ -1,11 +1,12 @@
 package backend.database.config;
 
 
-import backend.dataAccessLayer.gatewaysPkg.DaoManager;
 import backend.database.DataBase;
 
 import java.io.FileReader;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Scanner;
 
 
@@ -43,7 +44,7 @@ public class TriggersTest {
             //System.out.println("----------------------------------\n"+schema+"\n------------------------");
             Statement stmt=conn.createStatement();
 
-            stmt.addBatch(file.toString());
+            //stmt.addBatch(file.toString());
             stmt.executeUpdate(file.toString());
             stmt.close();
         } catch ( Exception e ) {
@@ -87,6 +88,10 @@ System.out.println("Stronzo");
         resultSet=stat.executeQuery();
         while(resultSet.next())
             System.out.println(resultSet.getString(1) + " : " + resultSet.getInt(2) );
+        MaterializedViewCassaRifornimento.initView(conn);
+
+
+
 
         T.getDatabase().closeDataBase();
     }
