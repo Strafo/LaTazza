@@ -36,6 +36,23 @@ import java.util.List;
  *               System.out.println("Update fallito ripristino stato originale");
  *               newPers.undoChanges();
  *           }
+ *
+ *
+ *           //eseguo operazioni multiple in una unica transazione
+ *           listaPersonale=dao.getAll(Personale.class);//ottengo la lista del personale nel DB.
+ *           int oldLength=listaPersonale.size();
+ *           dao.startTransaction()
+ *              dao.save(new Personale("Pino","Scotto");
+ *              dao.save(new Personale("rick_rolled","youtube:dqw4w9wgxcq");
+ *              dao.delete("babbo","natale");
+ *           dao.endTransaction();
+ *           listaPersonale=dao.getAll(Personale.class);//ottengo la lista del personale nel DB.
+ *
+ *           if(dao.getTransactionStatus()){//se la transazione è andata a buon fine allora il personale è aumentato di 1
+ *             assert(listaPersonale.size()==oldLength+1);
+ *           }else{//altrimenti non è cambiato niente
+ *             assert(listaPersonale.size()==oldLength);
+ *           }
  *     }
  */
 public interface DaoInterface {
@@ -73,11 +90,26 @@ public interface DaoInterface {
      */
     <T extends AbstractEntryDB> boolean delete(T t);
 
-
-
+    /**
+     * Il seguente metodo permette di iniziare una transazione per il database.Leggere doxygen endTransaction.
+     */
     void startTransaction();
 
+    /**
+     * Il seguente metodo chiude la transazione iniziata da startTransaction().
+     * Se tutte le operazioni (getAll;save;update;delete) eseguite dopo il metodo startTransaction()
+     * sono andate a buon fine la transazione è valida e viene eseguito il commit.
+     * Se la transazione ha fallito per una delle operazini viene eseguito il rollBack.
+     */
     void endTransaction();
+
+    /**
+     * Il metodo ritorna lo stato dell'ultima transazione effettuata o lo stato della transazione corrente.
+     * @return il corrente stato della transazione o lo stato finale dell'ultima transazione effettuata
+     * (se il metodo viene chiamato dopo endTransaction() )
+     */
+    boolean getTransactionStatus();
+
 
 
 }

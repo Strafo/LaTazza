@@ -30,6 +30,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Successivamente si può eseguire il testing con il backend.database temporaneo appena creato.
  * Essendo di tipo in memory quando l'ultima connessione viene chiusa il backend.database viene "pulito"
  * ATTENZIONE: se cambia il file DefaultSetEntry.sql deve cambiare anche nEntry                     <----------------------------------------------------------------------------------
+ * Nota: il test del metodo  multipleIncorrectQueriesTransaction ci mette tanto perchè viene chiamato Thread.sleep
  */
 public class DaoTest{
 
@@ -194,7 +195,7 @@ public class DaoTest{
                 dao.startTransaction();
                 assertTrue(dao.save(entryDB=createInstance(cls,true)));
                 assertFalse(dao.save(entryDB));
-                assertFalse(((DaoManager)dao).getTransactionStatus());
+                assertFalse(dao.getTransactionStatus());
                 dao.endTransaction();
                 list=dao.getAll(cls);
                 checkNEntry(Object.class,0,list.size());//transazione fallita nessuna modifica
