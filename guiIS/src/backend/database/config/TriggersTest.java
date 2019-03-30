@@ -4,9 +4,7 @@ package backend.database.config;
 import backend.database.DataBase;
 
 import java.io.FileReader;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Scanner;
 
 
@@ -67,7 +65,31 @@ public class TriggersTest {
         TriggerCheckNumCialdeVisitatore.initTrigger(conn);
         TriggerCheckNumCialdeDipendente.initTrigger(conn);
         MaterializedViewMagazzino.initView(conn);
+        MaterializedViewDebito.initView(conn);
         T.updateTable("Insert.sql");
+System.out.println("Stronzo");
+
+
+        PreparedStatement stat;
+        ResultSet resultSet;
+
+
+        stat =conn.prepareStatement("select *" +
+                "from LATAZZASCHEMA.CIALDE " );
+        resultSet=stat.executeQuery();
+        while(resultSet.next())
+            System.out.println(resultSet.getString(1) + " : " + resultSet.getDouble(2) );
+
+        int numCialde;
+        stat =conn.prepareStatement("select *" +
+                "from LATAZZASCHEMA.Magazzino " );
+        resultSet=stat.executeQuery();
+        while(resultSet.next())
+            System.out.println(resultSet.getString(1) + " : " + resultSet.getInt(2) );
+        MaterializedViewCassaRifornimento.initView(conn);
+
+
+//gesu
 
         T.getDatabase().closeDataBase();
     }
