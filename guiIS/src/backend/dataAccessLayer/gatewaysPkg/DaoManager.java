@@ -4,6 +4,7 @@ import org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException;
 import utils.LaTazzaLogger;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
@@ -12,6 +13,7 @@ public class DaoManager implements DaoInterface {
 
     private Connection dataBaseConnection;
     private AbstractDao subdao;//il dao corrente (vengono switchati i tipi di dao a run time)
+    private boolean transactionStatus=true;//stato di errore della transazione--> false da fare rollback ; true da committare
 
     public DaoManager(Connection dataBaseConnection){
         this.dataBaseConnection=dataBaseConnection;
@@ -23,35 +25,44 @@ public class DaoManager implements DaoInterface {
 
     @Override
     public <T extends AbstractEntryDB> List<T> getAll(Class<T> t) {
+        List<T> result;
         try{
             subdao=instantiateSpecificDao(t);
-            return subdao.getAll();
+            result=subdao.getAll();
+            handleTransactionStatus(result);
+            return result;
         }catch(Exception exc){
             handleException("GETALL",exc);
+            handleTransactionStatus(null);
             return null;
         }
     }
 
     @Override
     public <T extends AbstractEntryDB> boolean save(T t) {
+        boolean exitStatus;
         try{
             subdao=instantiateSpecificDao(t);
-            return subdao.save(t);
+            exitStatus=subdao.save(t);
+            handleTransactionStatus(exitStatus);
+            return exitStatus;
         }catch(Exception exc){
             handleException("SAVE",exc);
+            handleTransactionStatus(false);
             return false;
         }
     }
 
     @Override
     public <T extends AbstractEntryDB> boolean update(T t) {
+        boolean exitStatus;
         try{
-            boolean result;
              subdao=instantiateSpecificDao(t);
-             if(result=subdao.update(t)){
+             if(exitStatus=subdao.update(t)){
                 t.removeMemento();//todo il caretaker per mento è separato in due classi...(questa e la chiamante) si riesce a mettere tutto in posto (ad esempio risucendo a fare un passaggio per riferimento a update e chiamando t.undochage()
              }
-             return result;
+             handleTransactionStatus(exitStatus);
+             return exitStatus;
         }catch(Exception exc){
             handleException("UPDATE",exc);
             return false;
@@ -60,14 +71,71 @@ public class DaoManager implements DaoInterface {
 
     @Override
     public <T extends AbstractEntryDB> boolean delete(T t) {
+        boolean exitStatus;
         try{
             subdao=instantiateSpecificDao(t);
-            return subdao.delete(t);
+            exitStatus=subdao.delete(t);
+            handleTransactionStatus(exitStatus);
+            return exitStatus;
         }catch(Exception exc){
             handleException("DELETE",exc);
             return false;
         }
     }
+
+    @Override
+    public void startTransaction() {
+        try {
+            dataBaseConnection.setAutoCommit(false);
+            transactionStatus=true;
+            return;
+        } catch (Exception e) {
+            transactionStatus=false;
+            handleException("START TRANSACTION",e);
+        }
+    }
+
+    @Override
+    public void endTransaction() {
+        try {
+            if (transactionStatus) {
+                dataBaseConnection.commit();
+            } else {
+                dataBaseConnection.rollback();
+            }
+            dataBaseConnection.setAutoCommit(true);
+        }catch (Exception e){
+            handleException("END TRANSACTION",e);
+        }
+    }
+
+
+    public boolean getTransactionStatus() {
+        return transactionStatus;
+    }
+
+    private void handleTransactionStatus(boolean newState){
+        try {
+            if(!dataBaseConnection.getAutoCommit()) {//se transazione con multiple query
+                transactionStatus&=newState;
+            }
+        } catch (Exception e) {
+            handleException("HANDLE TRANSACTION STATUS",e);
+        }
+    }
+
+    private void handleTransactionStatus(List newState){
+        try {
+            if(!dataBaseConnection.getAutoCommit()) {//se transazione con multiple query
+                if(newState==null){
+                    transactionStatus=false;
+                }
+            }
+        } catch (Exception e) {
+            handleException("HANDLE TRANSACTION STATUS",e);
+        }
+    }
+
 
     private <T extends AbstractEntryDB> AbstractDao instantiateSpecificDao(T t) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         return t.getCorrespondigDaoClass().getConstructor(Connection.class).newInstance(dataBaseConnection);

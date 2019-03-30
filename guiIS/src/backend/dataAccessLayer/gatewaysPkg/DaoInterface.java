@@ -73,5 +73,12 @@ public interface DaoInterface {
      */
     <T extends AbstractEntryDB> boolean delete(T t);
 
+
+
+    void startTransaction();
+
+    void endTransaction();
+
+
 }
 
