@@ -56,7 +56,7 @@ public class MaterializedViewMagazzino implements Trigger {
         stat.executeUpdate();
 
     }
-
+//gesu
     private static boolean isThereTipoCialda(String tipoCialda) throws SQLException{
         PreparedStatement stat;
         ResultSet resultSet;

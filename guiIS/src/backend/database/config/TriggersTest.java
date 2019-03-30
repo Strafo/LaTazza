@@ -91,7 +91,7 @@ System.out.println("Stronzo");
         MaterializedViewCassaRifornimento.initView(conn);
 
 
-
+//gesu
 
         T.getDatabase().closeDataBase();
     }
