@@ -4,9 +4,7 @@ package backend.database.config;
 import backend.database.DataBase;
 
 import java.io.FileReader;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Scanner;
 
 
@@ -68,7 +66,10 @@ public class TriggersTest {
         TriggerCheckNumCialdeDipendente.initTrigger(conn);
         MaterializedViewMagazzino.initView(conn);
         MaterializedViewDebito.initView(conn);
+        MaterializedViewCassaRifornimento.initView(conn);
         T.updateTable("Insert.sql");
+
+
 
         T.getDatabase().closeDataBase();
     }

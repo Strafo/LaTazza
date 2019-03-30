@@ -77,7 +77,12 @@ create table LATAZZASCHEMA.Debito(
   importo double not null default (0),
   foreign key (nome, cognome) references LATAZZASCHEMA.personale(nome, cognome)on update cascade on delete restrict
 
-)
+);
+
+create table LATAZZASCHEMA.Cassa(
+    importo double not null default (1500.00) primary key
+);
+insert into LATAZZASCHEMA.Cassa values ();--insert con valore di default
 
 
 
