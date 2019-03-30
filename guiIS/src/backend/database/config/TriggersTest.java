@@ -69,7 +69,7 @@ public class TriggersTest {
         MaterializedViewCassaRifornimento.initView(conn);
         T.updateTable("Insert.sql");
 
-
+//gesu
 
         T.getDatabase().closeDataBase();
     }
