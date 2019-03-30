@@ -17,9 +17,9 @@ public class MaterializedViewDebito implements Trigger {
 
     private static double getDebito(Connection conn, Object[] newRow)  throws SQLException{
 
-        PreparedStatement stat= conn.prepareStatement("select sum(numero_cialde)*0.50 " +
+        PreparedStatement stat= conn.prepareStatement("select sum(numero_cialde * prezzo) " +
                                                              "from " + TABLE_NAME_DIPENDENTE +
-                                                                " where contanti=false and nome=? and cognome=?" );
+                                                                " join LATAZZASCHEMA.CIALDE on (tipo=tipo_cialda) where contanti=false and nome=? and cognome=?" );
         stat.setNString(1, (String) newRow[0]);
         stat.setNString(2, (String) newRow[1]);
         ResultSet rs= stat.executeQuery();
