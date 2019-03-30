@@ -5,7 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class TriggerCheckNumCialde {
+public class TriggerCheckNumCialde{
+    private static final int tipoCialda=2;
 
     protected static int checkNumCialde(Connection conn, Object[] newRow)throws SQLException {
 
@@ -25,17 +26,17 @@ public class TriggerCheckNumCialde {
 
 
         stat= conn.prepareStatement(queryVisitatore);
-        stat.setNString (1, (String) newRow[2]); // sostituisce newRow[2] (tipo_cialda) al ?
+        stat.setNString (1, (String) newRow[tipoCialda]); // sostituisce newRow[2] (tipo_cialda) al ?
         acquistiVisitatore=stat.executeQuery();
         acquistiVisitatore.next();
 
         stat=conn.prepareStatement(queryDipendente);
-        stat.setNString (1, (String) newRow[2]);
+        stat.setNString (1, (String) newRow[tipoCialda]);
         acquistiPersonale = stat.executeQuery();
         acquistiPersonale.next();
 
         stat= conn.prepareStatement(queryRifornimenti);
-        stat.setNString (1, (String) newRow[2]);
+        stat.setNString (1, (String) newRow[tipoCialda]);
         rifornimento=stat.executeQuery();
         rifornimento.next();
 
