@@ -1,4 +1,6 @@
 
+
+
 insert into LATAZZASCHEMA.CIALDE values('caffe',0.50);
 insert into LATAZZASCHEMA.CIALDE values ('the', 0.50 );
 
@@ -12,6 +14,9 @@ insert into LATAZZASCHEMA.PERSONALE values ( 'Jacopo', 'Dapueto', true );
 insert into LATAZZASCHEMA.PERSONALE values ( 'Andrea', 'Straforini', true );
 insert into LATAZZASCHEMA.PERSONALE values ( 'Simone', 'Campisi', true );
 insert into LATAZZASCHEMA.PERSONALE values ( 'Gabriele', 'Armanino', true );
+
+
+
 --yyyy-MM-dd hh:mm:ss
 insert into LATAZZASCHEMA.RIFORNIMENTO values ('2019-01-12 12:00:00', 30,'caffe');
 insert into LATAZZASCHEMA.RIFORNIMENTO values ('2018-05-11 12:00:00', 25,'the');
@@ -28,3 +33,4 @@ insert into LATAZZASCHEMA.COMPRA_VISITATORE values ('Edoardo','Vignola','the',12
 
 insert into LATAZZASCHEMA.COMPRA_VISITATORE values ('Andrea','Manzi', 'caffe',2000,'2018-07-10 9:00:00');
 insert into LATAZZASCHEMA.COMPRA_DIPENDENTE values ('Jacopo','Dapueto', 'caffe',false,2000,'2018-07-10 9:00:00');
+

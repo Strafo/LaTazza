@@ -1,7 +1,6 @@
 package backend.database.config;
 
 
-import backend.dataAccessLayer.gatewaysPkg.DaoManager;
 import backend.database.DataBase;
 
 import java.io.FileReader;
@@ -43,7 +42,7 @@ public class TriggersTest {
             //System.out.println("----------------------------------\n"+schema+"\n------------------------");
             Statement stmt=conn.createStatement();
 
-            stmt.addBatch(file.toString());
+            //stmt.addBatch(file.toString());
             stmt.executeUpdate(file.toString());
             stmt.close();
         } catch ( Exception e ) {
@@ -67,26 +66,10 @@ public class TriggersTest {
         TriggerCheckNumCialdeDipendente.initTrigger(conn);
         MaterializedViewMagazzino.initView(conn);
         MaterializedViewDebito.initView(conn);
-        T.updateTable("InsertPt1.sql");
-System.out.println("Stronzo");
-        T.updateTable("InsertPt2.sql");
-
-        PreparedStatement stat;
-        ResultSet resultSet;
+        MaterializedViewCassaRifornimento.initView(conn);
+        T.updateTable("Insert.sql");
 
 
-        stat =conn.prepareStatement("select *" +
-                "from LATAZZASCHEMA.CIALDE " );
-        resultSet=stat.executeQuery();
-        while(resultSet.next())
-            System.out.println(resultSet.getString(1) + " : " + resultSet.getDouble(2) );
-
-        int numCialde;
-        stat =conn.prepareStatement("select *" +
-                "from LATAZZASCHEMA.Magazzino " );
-        resultSet=stat.executeQuery();
-        while(resultSet.next())
-            System.out.println(resultSet.getString(1) + " : " + resultSet.getInt(2) );
 
         T.getDatabase().closeDataBase();
     }
