@@ -4,9 +4,7 @@ package backend.database.config;
 import backend.database.DataBase;
 
 import java.io.FileReader;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Scanner;
 
 
@@ -68,9 +66,9 @@ public class TriggersTest {
         TriggerCheckNumCialdeDipendente.initTrigger(conn);
         MaterializedViewMagazzino.initView(conn);
         MaterializedViewDebito.initView(conn);
-        T.updateTable("InsertPt1.sql");
+        T.updateTable("Insert.sql");
 System.out.println("Stronzo");
-        T.updateTable("InsertPt2.sql");
+
 
         PreparedStatement stat;
         ResultSet resultSet;
