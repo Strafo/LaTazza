@@ -2,8 +2,7 @@
 
 create schema LATAZZASCHEMA;
 
-create table LATAZZASCHEMA.cialde
-(
+create table LATAZZASCHEMA.cialde(
   tipo varchar(64) not null primary key,
   prezzo double precision not null check (prezzo >= (0)::double precision)
 );
