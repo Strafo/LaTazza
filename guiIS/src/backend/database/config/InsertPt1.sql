@@ -18,7 +18,7 @@ insert into LATAZZASCHEMA.RIFORNIMENTO values ('2018-05-11 12:00:00', 25,'the');
 
 insert into LATAZZASCHEMA.COMPRA_DIPENDENTE values ('Simone','Campisi', 'caffe',true,13,'2018-06-11 13:00:00');
 insert into LATAZZASCHEMA.COMPRA_DIPENDENTE values ('Jacopo','Dapueto', 'caffe',false,8,'2018-06-11 14:00:00');
-insert into LATAZZASCHEMA.COMPRA_DIPENDENTE values ('Andrea','Straforini', 'the',false,15,'2018-06-11 11:00:00');
+insert into LATAZZASCHEMA.COMPRA_DIPENDENTE values ('Andrea','Straforini','the',false,15,'2018-06-11 11:00:00');
 insert into LATAZZASCHEMA.COMPRA_DIPENDENTE values ('Jacopo','Dapueto', 'caffe',false,5,'2018-06-11 13:00:00');
 
 
