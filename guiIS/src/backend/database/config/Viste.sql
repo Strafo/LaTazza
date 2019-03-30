@@ -1,4 +1,4 @@
-
+/*
 CREATE OR REPLACE  FUNCTION CialdeVendute(tipo varchar(64)) RETURNS Integer AS
 $$
 BEGIN
@@ -144,8 +144,8 @@ from (select importoV
 
       select importoRif
       from ImportoRifornimenti());
-
-
+*/
+/*
 create  view  Magazzino(tipoCialda, qta) as
   select TIPO_CIALDA, sum(qta*50)
   from  LATAZZASCHEMA.RIFORNIMENTO
@@ -168,7 +168,7 @@ create  view  Magazzino(tipoCialda, qta) as
 
 
 
-
+*/
 
 
 

@@ -19,7 +19,7 @@ public class TriggerCheckNumCialde {
         String queryDipendente="select sum(numero_cialde)\n" +
                 " from LATAZZASCHEMA.COMPRA_DIPENDENTE\n" +
                 " where tipo_cialda = ?";
-        String queryRifornimenti="select sum(qta*50)\n" +
+        String queryRifornimenti="select sum(numero_cialde)\n" +
                 " from LATAZZASCHEMA.RIFORNIMENTO\n" +
                 " where tipo_cialda=?";
 
