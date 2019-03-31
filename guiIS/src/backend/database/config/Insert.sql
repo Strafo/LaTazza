@@ -1,6 +1,8 @@
 
-insert into LATAZZASCHEMA.CIALDE values('caffe',0.50);
 insert into LATAZZASCHEMA.CIALDE values ('the', 0.50 );
+insert into LATAZZASCHEMA.CIALDE values('caffe',0.50);
+insert into LATAZZASCHEMA.CIALDE values('Camomilla',0.50);
+
 
 
 insert into LATAZZASCHEMA.VISITATORE values ( 'Andrea', 'Manzi' );

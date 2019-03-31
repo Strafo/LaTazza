@@ -34,7 +34,7 @@ public class MaterializedViewCassaRifornimento implements Trigger {
 
         double value=getValue(conn);
         //System.out.println("Value: "+ value);
-        PreparedStatement stat= conn.prepareStatement("update "+TABLE_NAME_CASSA+" set importo= importo- ?");
+        PreparedStatement stat= conn.prepareStatement("update "+TABLE_NAME_CASSA+" set importo= importo-?");
         stat.setDouble(1,value);
         stat.executeUpdate();
 
