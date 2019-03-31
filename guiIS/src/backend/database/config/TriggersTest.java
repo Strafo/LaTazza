@@ -67,7 +67,6 @@ public class TriggersTest {
         TriggerCheckNumCialdeVisitatore.initTrigger(conn);
         TriggerCheckNumCialdeDipendente.initTrigger(conn);
         MaterializedViewMagazzino.initView(conn);
-        MaterializedViewDebito.initView(conn);
         T.updateTable("Insert.sql");
 
         T.getDatabase().closeDataBase();
