@@ -67,7 +67,31 @@ public class TriggersTest {
         TriggerCheckNumCialdeVisitatore.initTrigger(conn);
         TriggerCheckNumCialdeDipendente.initTrigger(conn);
         MaterializedViewMagazzino.initView(conn);
-        T.updateTable("Insert.sql");
+        MaterializedViewDebito.initView(conn);
+        T.updateTable("InsertPt1.sql");
+System.out.println("Stronzo");
+        T.updateTable("InsertPt2.sql");
+
+        PreparedStatement stat;
+        ResultSet resultSet;
+
+
+        stat =conn.prepareStatement("select *" +
+                "from LATAZZASCHEMA.CIALDE " );
+        resultSet=stat.executeQuery();
+        while(resultSet.next())
+            System.out.println(resultSet.getString(1) + " : " + resultSet.getDouble(2) );
+
+        int numCialde;
+        stat =conn.prepareStatement("select *" +
+                "from LATAZZASCHEMA.Magazzino " );
+        resultSet=stat.executeQuery();
+        while(resultSet.next())
+            System.out.println(resultSet.getString(1) + " : " + resultSet.getInt(2) );
+        MaterializedViewCassaRifornimento.initView(conn);
+
+
+//gesu
 
         T.getDatabase().closeDataBase();
     }

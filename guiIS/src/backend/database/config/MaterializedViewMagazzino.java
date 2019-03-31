@@ -51,7 +51,6 @@ public class MaterializedViewMagazzino implements Trigger {
     private static void insertTipoCialda( String tipoCialda) throws  SQLException{
 
         PreparedStatement stat;
-        //stat =connection.prepareStatement("insert into LATAZZASCHEMA.MAGAZZINO (tipo, qta) select tipo , 0 from LATAZZASCHEMA.CIALDE where tipo='"+ tipoCialda+"'" );
         stat =connection.prepareStatement("insert into LATAZZASCHEMA.MAGAZZINO values ('"+ tipoCialda+"', 0)");
         stat.executeUpdate();
 
