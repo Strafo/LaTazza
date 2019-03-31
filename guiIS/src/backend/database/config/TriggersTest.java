@@ -67,12 +67,13 @@ public class TriggersTest {
         MaterializedViewMagazzino.initView(conn);
         MaterializedViewDebito.initView(conn);
         T.updateTable("Insert.sql");
-
+System.out.println("Stronzo");
+        //T.updateTable("InsertPt2.sql");
 
         PreparedStatement stat;
         ResultSet resultSet;
 
-/*
+
         stat =conn.prepareStatement("select *" +
                 "from LATAZZASCHEMA.CIALDE " );
         resultSet=stat.executeQuery();
@@ -85,7 +86,6 @@ public class TriggersTest {
         resultSet=stat.executeQuery();
         while(resultSet.next())
             System.out.println(resultSet.getString(1) + " : " + resultSet.getInt(2) );
-            */
         MaterializedViewCassaRifornimento.initView(conn);
 
 
