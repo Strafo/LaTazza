@@ -37,6 +37,7 @@ public class MaterializedViewCassaVisitatore implements Trigger {
         stat.executeUpdate();
 
 
+
         PreparedStatement stat1= conn.prepareStatement("select importo from "+"LATAZZASCHEMA.CASSA");
         ResultSet rs= stat1.executeQuery();
 
