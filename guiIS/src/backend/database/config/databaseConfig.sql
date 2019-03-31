@@ -4,7 +4,7 @@ create schema LATAZZASCHEMA;
 
 create table LATAZZASCHEMA.cialde(
   tipo varchar(64) not null primary key,
-  prezzo double not null default(0.50) check (prezzo >=0)
+  prezzo double not null default (0.50) check ( prezzo >=0)
 );
 
 

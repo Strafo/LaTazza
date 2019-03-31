@@ -63,28 +63,35 @@ public class TriggersTest {
         Connection conn= T.getDatabase().getConnection();
         T.updateTable("databaseConfig.sql");
         TriggerCheckNumCialdeVisitatore.initTrigger(conn);
+
         TriggerCheckNumCialdeDipendente.initTrigger(conn);
+
        // MaterializedViewMagazzino.initView(conn);
+
+
         MaterializedViewDebito.initView(conn);
 
+
+       // TriggerPagamentoDebito.initView(conn);
+
         MaterializedViewCassaVisitatore.initView(conn);
+
         T.updateTable("Insert.sql");
-System.out.println("Stronzo");
+
         //T.updateTable("InsertPt2.sql");
 
         PreparedStatement stat;
         ResultSet resultSet;
 
 
-       /* stat =conn.prepareStatement("select *" +
-                "from LATAZZASCHEMA.CIALDE " );
+        stat =conn.prepareStatement("select *" +
+                "from LATAZZASCHEMA.compra_dipendente" );
         resultSet=stat.executeQuery();
         while(resultSet.next())
-            System.out.println(resultSet.getString(1) + " : " + resultSet.getDouble(2) );
-        */
+            System.out.println(resultSet.getString(1)+", "+resultSet.getString(2));
 
-        int numCialde;
-        stat =conn.prepareStatement("select *" +
+
+       /* stat =conn.prepareStatement("select *" +
                 "from LATAZZASCHEMA.Magazzino " );
         resultSet=stat.executeQuery();
 
@@ -92,9 +99,8 @@ System.out.println("Stronzo");
             System.out.println(resultSet.getString(1) + " : " + resultSet.getInt(2) );
         MaterializedViewCassaRifornimento.initView(conn);
 
+        */
 
-
-//gesu
 
         T.getDatabase().closeDataBase();
     }
