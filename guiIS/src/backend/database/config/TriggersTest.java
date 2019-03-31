@@ -39,7 +39,7 @@ public class TriggersTest {
             while(inFile.hasNext()) {
                 file.append(inFile.nextLine()).append("\n");
             }
-            //System.out.println("----------------------------------\n"+schema+"\n------------------------");
+            //System.out.println("----------------------------------\n"+file+"\n------------------------");
             Statement stmt=conn.createStatement();
 
             //stmt.addBatch(file.toString());
@@ -64,8 +64,10 @@ public class TriggersTest {
         T.updateTable("databaseConfig.sql");
         TriggerCheckNumCialdeVisitatore.initTrigger(conn);
         TriggerCheckNumCialdeDipendente.initTrigger(conn);
-        MaterializedViewMagazzino.initView(conn);
+       // MaterializedViewMagazzino.initView(conn);
         MaterializedViewDebito.initView(conn);
+
+        MaterializedViewCassaVisitatore.initView(conn);
         T.updateTable("Insert.sql");
 System.out.println("Stronzo");
         //T.updateTable("InsertPt2.sql");
@@ -74,19 +76,22 @@ System.out.println("Stronzo");
         ResultSet resultSet;
 
 
-        stat =conn.prepareStatement("select *" +
+       /* stat =conn.prepareStatement("select *" +
                 "from LATAZZASCHEMA.CIALDE " );
         resultSet=stat.executeQuery();
         while(resultSet.next())
             System.out.println(resultSet.getString(1) + " : " + resultSet.getDouble(2) );
+        */
 
         int numCialde;
         stat =conn.prepareStatement("select *" +
                 "from LATAZZASCHEMA.Magazzino " );
         resultSet=stat.executeQuery();
+
         while(resultSet.next())
             System.out.println(resultSet.getString(1) + " : " + resultSet.getInt(2) );
         MaterializedViewCassaRifornimento.initView(conn);
+
 
 
 //gesu

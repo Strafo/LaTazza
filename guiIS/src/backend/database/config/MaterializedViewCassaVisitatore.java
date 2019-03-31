@@ -31,7 +31,7 @@ public class MaterializedViewCassaVisitatore implements Trigger {
     @Override
     public void fire(Connection conn, Object[] oldRow, Object[] newRow) throws SQLException {
         double value = getValue(conn);
-        System.out.println("Value: "+ value);
+        //System.out.println("Value: "+ value);
         PreparedStatement stat = conn.prepareStatement("update " + TABLE_NAME_CASSA + " set importo= importo + ?");
         stat.setDouble(1, value);
         stat.executeUpdate();
@@ -40,9 +40,9 @@ public class MaterializedViewCassaVisitatore implements Trigger {
         PreparedStatement stat1= conn.prepareStatement("select importo from "+"LATAZZASCHEMA.CASSA");
         ResultSet rs= stat1.executeQuery();
 
-        if(rs.next())
+       /* if(rs.next())
             System.out.println("Valore Aggiornato Dopo Rifornimento "+ rs.getDouble(1));
-
+        */
 
     }
 
