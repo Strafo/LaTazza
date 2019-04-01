@@ -1,6 +1,6 @@
 package backend.dataAccessLayer.rowdatapkg.clientPkg;
 import backend.businessLogicLayer.Debito;
-import backend.businessLogicLayer.Euro;
+import utils.Euro;
 import backend.dataAccessLayer.gatewaysPkg.PersonaleDao;
 import backend.dataAccessLayer.mementoPkg.Memento;
 import backend.dataAccessLayer.mementoPkg.MementoPersonale;

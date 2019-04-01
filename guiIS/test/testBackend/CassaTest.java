@@ -1,7 +1,7 @@
 package testBackend;
 /*
 import backend.businessLogicLayer.Cassa;
-import backend.businessLogicLayer.Euro;
+import utils.Euro;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

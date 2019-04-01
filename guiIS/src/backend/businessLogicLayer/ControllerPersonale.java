@@ -10,14 +10,16 @@ public class ControllerPersonale {
 
     public ControllerPersonale(){
         list=LaTazzaApplication.dao.getAll(Personale.class);//inizializza il campo list facendo query sul dataBase
+        List<Personale>toRemove=new ArrayList<>();
         if(list==null){//inizializzazione fallita...
             //todo cosa fare?
         }else{
             for (Personale i:list) {//seleziono solo quelli attivi
                 if(!i.isAttivo()){
-                    list.remove(i);
+                    toRemove.add(i);
                 }
             }
+            list.removeAll(toRemove);
         }
     }
 
@@ -28,7 +30,7 @@ public class ControllerPersonale {
 
     public void aggiungiPersonale(String nome, String cognome){
         Personale p=new Personale(nome,cognome);//può lanciare null pointer exception!
-        if(list.contains(p)) return;//todo check
+        if(list.contains(p)) return;
         if(LaTazzaApplication.dao.save(p)){
             list.add(p);
         }else{
@@ -39,7 +41,7 @@ public class ControllerPersonale {
 
 
     public void licenziaPersonale(Personale p) {
-        if (!list.contains(p)) return;//todo check
+        if (!list.contains(p)) return;
         p.setAttivo(false);
         if (!LaTazzaApplication.dao.update(p)) {//se fallisce ripristino stato iniziale
             p.undoChanges();

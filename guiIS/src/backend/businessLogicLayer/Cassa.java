@@ -1,5 +1,7 @@
 package backend.businessLogicLayer;
 
+import utils.Euro;
+
 import static java.util.Objects.requireNonNull;
 
 public class Cassa {

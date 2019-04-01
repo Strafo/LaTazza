@@ -1,5 +1,5 @@
 package testBackend;
-import backend.businessLogicLayer.Euro;
+import utils.Euro;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Visitatore;
 import backend.dataAccessLayer.gatewaysPkg.DaoInterface;
