@@ -10,27 +10,33 @@ public class MaterializedViewDebito implements Trigger {
     private static final String TABLE_NAME_DIPENDENTE="LATAZZASCHEMA.COMPRA_DIPENDENTE";
 
     private static final String TABLE_NAME_DEBITO="LATAZZASCHEMA.DEBITO";
+    private static final String TABLE_NAME_CIALDE="LATAZZASCHEMA.CIALDE";
     private static final String TRIGGER_NAME="Update_Table_Debiti_Pagati";
-    private static final String CREATE_TRIGGER_STATEMENT_DEBITO = "CREATE TRIGGER " + TRIGGER_NAME+ " AFTER INSERT ON "+ TABLE_NAME_DIPENDENTE+" FOR EACH ROW CALL "+TRIGGER_PATH;
+    private static final String CREATE_TRIGGER_STATEMENT_DEBITO = "CREATE TRIGGER " + TRIGGER_NAME+ " AFTER INSERT ON "+TABLE_NAME_DIPENDENTE+" FOR EACH ROW CALL "+TRIGGER_PATH;
 
 
 
-
-
-    private static double getDebito(Connection conn, Object[] newRow)  throws SQLException{
-
-        double debito = 0.0;
-        PreparedStatement stat= conn.prepareStatement("select sum(numero_cialde)*0.50 " +
-                                                             "from " + TABLE_NAME_DIPENDENTE +" T "+
-                                                                " join LATAZZASCHEMA.CIALDE on (tipo=tipo_cialda) where contanti=false and nome=? and cognome=?" );
-        //stat.setNString(1, (String) newRow[2]);
-        stat.setNString(1, (String) newRow[0]);
-        stat.setNString(2, (String) newRow[1]);
-
-
+    private static double getPrezzo(Connection conn, Object[] newRow) throws SQLException {
+        PreparedStatement stat= conn.prepareStatement("select prezzo " +
+                "from " + TABLE_NAME_CIALDE+" where tipo=?" );
+        stat.setNString(1, (String) newRow[2]);
         ResultSet rs= stat.executeQuery();
         rs.next();
         return rs.getDouble(1);
+    }
+
+    private static double getDebito(Connection conn, Object[] newRow)  throws SQLException{
+
+        PreparedStatement stat= conn.prepareStatement("select sum(numero_cialde) " +
+                                                             "from " + TABLE_NAME_DIPENDENTE +
+                                                                " where contanti=false and nome=? and cognome=? and tipo_cialda=?" );
+
+        stat.setNString(1, (String) newRow[0]);
+        stat.setNString(2, (String) newRow[1]);
+        stat.setNString(3, (String) newRow[2]);
+        ResultSet rs= stat.executeQuery();
+        rs.next();
+        return rs.getDouble(1)*getPrezzo(conn,newRow);
     }
 
 
@@ -67,23 +73,24 @@ public class MaterializedViewDebito implements Trigger {
     public void fire(Connection conn, Object[] oldRow, Object[] newRow) throws SQLException {
 
         insertIfNotExist(conn,(String) newRow[0],(String) newRow[1]);
-        double debito=  getDebito(conn, newRow);
+        double debito= getDebito(conn, newRow);
         //per test
-        //System.out.println(newRow[0]+" "+" "+newRow[1]+" : "+totDebito);
+
         PreparedStatement stat= conn.prepareStatement("update "+TABLE_NAME_DEBITO+" set importo= "
                                                             +debito+" where nome=? and cognome=? ");
+
         stat.setNString(1, (String) newRow[0]);
         stat.setNString(2, (String) newRow[1]);
         stat.executeUpdate();
 
 
-       ResultSet resultSet;
+        ResultSet rs;
         PreparedStatement prep;
-                prep=conn.prepareStatement("select *" +
+        prep=conn.prepareStatement("select *" +
                 "from LATAZZASCHEMA.DEBITO " );
-        resultSet=prep.executeQuery();
-        while(resultSet.next())
-            System.out.println(resultSet.getString(1) + ", " + resultSet.getString(2)+" : "+ resultSet.getDouble(3) );
+        rs=prep.executeQuery();
+        while(rs.next())
+            System.out.println("1 : \n"+rs.getString(1) + ", " + rs.getString(2)+" : "+ rs.getDouble(3) );
 
 
 

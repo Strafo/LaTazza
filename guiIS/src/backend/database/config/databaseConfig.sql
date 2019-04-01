@@ -75,6 +75,7 @@ create table LATAZZASCHEMA.Debito(
   nome varchar(64) not null,
   cognome varchar(64) not null,
   importo double not null default (0),
+  primary key (nome,cognome),
   foreign key (nome, cognome) references LATAZZASCHEMA.personale(nome, cognome)on update cascade on delete restrict
 
 );
