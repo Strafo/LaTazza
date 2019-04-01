@@ -4,7 +4,9 @@ import org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException;
 import utils.LaTazzaLogger;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
-import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.Statement;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
@@ -108,6 +110,34 @@ public class DaoManager implements DaoInterface {
             handleException("END TRANSACTION",e);
         }
     }
+
+    public boolean executeStatement(String sqlStatement){
+        try{
+            Statement pst;
+            ResultSet rst;
+            ResultSetMetaData rsmd ;
+            int columnsNumber;
+            pst=dataBaseConnection.createStatement();
+            if(pst.execute(sqlStatement)) {//true->multiple res
+                rst = pst.getResultSet();
+                rsmd = rst.getMetaData();
+                columnsNumber = rsmd.getColumnCount();
+                while (rst.next()) {
+                    for (int i = 1; i <= columnsNumber; i++) {
+                        if (i > 1) System.out.print(",  ");
+                        String columnValue = rst.getString(i);
+                        System.out.print(columnValue + " " + rsmd.getColumnName(i));
+                    }
+                    System.out.println();
+                }
+            }
+            return true;
+        }catch(Exception e){
+            handleException("EXTERN SQLSTATEMENT",e);
+        }
+        return false;
+    }
+
 
 
     public boolean getTransactionStatus() {
