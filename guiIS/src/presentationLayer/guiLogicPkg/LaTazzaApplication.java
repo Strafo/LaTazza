@@ -12,9 +12,8 @@ public  class LaTazzaApplication implements Runnable {
     public static DataBase dataBase;
     public static DaoInterface dao;
 
-    public static void main(String[] args) {
+    public static void main(String[] args)  {
         java.awt.EventQueue.invokeLater(new LaTazzaApplication());
-
 
     }
 
@@ -39,5 +38,7 @@ public  class LaTazzaApplication implements Runnable {
         laTazzaFrame.setLocationCenter();
 
     }
+
+
 
 }

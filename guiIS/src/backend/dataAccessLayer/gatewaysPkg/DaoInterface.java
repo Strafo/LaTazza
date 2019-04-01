@@ -111,6 +111,5 @@ public interface DaoInterface {
     boolean getTransactionStatus();
 
 
-
 }
 
