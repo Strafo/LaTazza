@@ -14,6 +14,7 @@ public class TriggerPagamentoDebito implements Trigger {
     private static final String CREATE_TRIGGER = "CREATE TRIGGER " + TRIGGER_NAME + " AFTER INSERT ON " + TABLE_NAME + " FOR EACH ROW CALL " + TRIGGER_PATH;
 
     private static double getDebitoPagato(Connection conn, Object[] newRow) throws SQLException {
+
         PreparedStatement stat = conn.prepareStatement("select importo " +
                 "from " + TABLE_NAME +
                 " where nome=? and cognome=? and data= ? ");
@@ -27,6 +28,18 @@ public class TriggerPagamentoDebito implements Trigger {
         return rs.getDouble(1);
     }
 
+    private static double getDebitoAggiornato(Connection conn, Object[] newRow) throws SQLException {
+
+        ResultSet rs;
+        PreparedStatement stat= conn.prepareStatement("select importo from "+TABLE_NAME_DEBITO+
+                                                           " where nome=? and cognome=?");
+        stat.setNString(1, (String) newRow[0]);
+        stat.setNString(2, (String) newRow[1]);
+        rs=stat.executeQuery();
+        rs.next();
+        return rs.getDouble(1)-getDebitoPagato(conn, newRow);
+    }
+
 
     @Override
     public void init(Connection connection, String s, String s1, String s2, boolean b, int i) throws SQLException {
@@ -36,23 +49,26 @@ public class TriggerPagamentoDebito implements Trigger {
     @Override
     public void fire(Connection conn, Object[] oldRow, Object[] newRow) throws SQLException {
 
-        double debitoPagato=getDebitoPagato(conn,newRow);
-        PreparedStatement stat= conn.prepareStatement("update "+TABLE_NAME_DEBITO+" set importo= importo - "
-                +debitoPagato+" where nome=? and cognome=? ");
+        double debitoAggiornato=getDebitoAggiornato(conn,newRow);
+        System.out.println(debitoAggiornato);
+        PreparedStatement stat= conn.prepareStatement("update "+TABLE_NAME_DEBITO+" set importo="
+                +debitoAggiornato+" where nome=? and cognome=? ");
 
         stat.setNString(1, (String) newRow[0]);
         stat.setNString(2, (String) newRow[1]);
         stat.executeUpdate();
 
 
-       /* ResultSet rs;
+
+        ResultSet rs;
         PreparedStatement prep;
         prep=conn.prepareStatement("select *" +
                 "from LATAZZASCHEMA.DEBITO " );
         rs=prep.executeQuery();
         while(rs.next())
-            System.out.println(rs.getString(1) + ", " + rs.getString(2)+" : "+ rs.getDouble(3) );
-        */
+            System.out.println("2 : \n"+rs.getString(1) + ", " + rs.getString(2)+" : "+ rs.getDouble(3) );
+
+
     }
 
     @Override

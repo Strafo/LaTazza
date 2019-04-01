@@ -14,9 +14,10 @@ insert into LATAZZASCHEMA.PERSONALE values ( 'Jacopo', 'Dapueto', true );
 insert into LATAZZASCHEMA.PERSONALE values ( 'Andrea', 'Straforini', true );
 insert into LATAZZASCHEMA.PERSONALE values ( 'Simone', 'Campisi', true );
 insert into LATAZZASCHEMA.PERSONALE values ( 'Gabriele', 'Armanino', true );
+
 --yyyy-MM-dd hh:mm:ss
-insert into LATAZZASCHEMA.RIFORNIMENTO values ('2019-01-12 12:00:00', 30,'caffe');
-insert into LATAZZASCHEMA.RIFORNIMENTO values ('2018-05-11 12:00:00', 25,'the');
+insert into LATAZZASCHEMA.RIFORNIMENTO values ('2019-01-12 12:00:00', 500,'caffe');
+insert into LATAZZASCHEMA.RIFORNIMENTO values ('2018-05-11 12:00:00', 350,'the');
 
 insert into LATAZZASCHEMA.COMPRA_DIPENDENTE values ('Simone','Campisi', 'caffe',true,13,'2018-06-11 13:00:00');
 insert into LATAZZASCHEMA.COMPRA_DIPENDENTE values ('Jacopo','Dapueto', 'caffe',false,8,'2018-06-11 14:00:00');

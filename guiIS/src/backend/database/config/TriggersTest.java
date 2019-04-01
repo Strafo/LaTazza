@@ -39,11 +39,9 @@ public class TriggersTest {
             while(inFile.hasNext()) {
                 file.append(inFile.nextLine()).append("\n");
             }
-            //System.out.println("----------------------------------\n"+file+"\n------------------------");
-            Statement stmt=conn.createStatement();
-
-            //stmt.addBatch(file.toString());
-            stmt.executeUpdate(file.toString());
+            System.out.println("----------------------------------\n"+file.toString()+"\n------------------------");
+            PreparedStatement stmt=conn.prepareStatement(file.toString());
+            stmt.execute();
             stmt.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName()+": "+ e.getMessage() );
@@ -53,6 +51,9 @@ public class TriggersTest {
         }
 
     }
+
+
+
     DataBase getDatabase(){return database;}
 
 
@@ -62,24 +63,26 @@ public class TriggersTest {
         TriggersTest T= new TriggersTest();
         Connection conn= T.getDatabase().getConnection();
         T.updateTable("databaseConfig.sql");
-        TriggerCheckNumCialdeVisitatore.initTrigger(conn);
 
-        TriggerCheckNumCialdeDipendente.initTrigger(conn);
 
+        TriggerCheckNumCialdeVisitatore.initTrigger(conn);//ok
+
+       TriggerCheckNumCialdeDipendente.initTrigger(conn);
        // MaterializedViewMagazzino.initView(conn);
-
-
         MaterializedViewDebito.initView(conn);
 
 
-       // TriggerPagamentoDebito.initView(conn);
 
-        MaterializedViewCassaVisitatore.initView(conn);
+
+        TriggerPagamentoDebito.initView(conn);
+
+        //MaterializedViewCassaVisitatore.initView(conn);
 
         T.updateTable("Insert.sql");
 
-        //T.updateTable("InsertPt2.sql");
 
+
+/*
         PreparedStatement stat;
         ResultSet resultSet;
 
@@ -88,8 +91,8 @@ public class TriggersTest {
                 "from LATAZZASCHEMA.compra_dipendente" );
         resultSet=stat.executeQuery();
         while(resultSet.next())
-            System.out.println(resultSet.getString(1)+", "+resultSet.getString(2));
-
+            System.out.println(resultSet.getString(1)+", "+resultSet.getString(2)+", "+resultSet.getNString(3)+", "+ resultSet.getBoolean(4)+", "+resultSet.getInt(5)+", "+resultSet.getTimestamp(6));
+        */
 
        /* stat =conn.prepareStatement("select *" +
                 "from LATAZZASCHEMA.Magazzino " );
@@ -100,7 +103,6 @@ public class TriggersTest {
         MaterializedViewCassaRifornimento.initView(conn);
 
         */
-
 
         T.getDatabase().closeDataBase();
     }
