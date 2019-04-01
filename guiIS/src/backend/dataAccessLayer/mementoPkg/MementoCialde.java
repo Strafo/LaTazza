@@ -1,5 +1,5 @@
 package backend.dataAccessLayer.mementoPkg;
-import backend.businessLogicLayer.Euro;
+import utils.Euro;
 import backend.dataAccessLayer.rowdatapkg.CialdeEntry;
 
 public class MementoCialde extends AbstractMemento implements Memento {

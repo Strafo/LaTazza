@@ -1,6 +1,6 @@
 package testBackend;
 
-import backend.businessLogicLayer.Euro;
+import utils.Euro;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

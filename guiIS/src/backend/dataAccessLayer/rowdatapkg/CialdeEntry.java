@@ -1,5 +1,5 @@
 package backend.dataAccessLayer.rowdatapkg;
-import backend.businessLogicLayer.Euro;
+import utils.Euro;
 import backend.dataAccessLayer.gatewaysPkg.CialdeDao;
 import backend.dataAccessLayer.mementoPkg.Memento;
 import backend.dataAccessLayer.mementoPkg.MementoCialde;

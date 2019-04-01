@@ -1,6 +1,7 @@
 package backend.dataAccessLayer.mementoPkg;
 
-import backend.businessLogicLayer.Euro;
+import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
+import utils.Euro;
 import backend.dataAccessLayer.rowdatapkg.movimentoPkg.MovimentoDebito;
 
 public class MementoMovimentoDebito extends MementoMovimento implements Memento {
@@ -15,6 +16,6 @@ public class MementoMovimentoDebito extends MementoMovimento implements Memento 
 
     @Override
     public  MovimentoDebito getMementoState(){
-        return new MovimentoDebito(data,cliente,importo);
+        return new MovimentoDebito(data,(Personale)cliente,importo);
     }
 }

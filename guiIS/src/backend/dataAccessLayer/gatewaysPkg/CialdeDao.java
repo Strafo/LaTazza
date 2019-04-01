@@ -1,5 +1,5 @@
 package backend.dataAccessLayer.gatewaysPkg;
-import backend.businessLogicLayer.Euro;
+import utils.Euro;
 import backend.dataAccessLayer.rowdatapkg.CialdeEntry;
 import utils.ThrowingBiPredicate;
 import utils.ThrowingFunction;

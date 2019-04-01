@@ -1,44 +1,47 @@
 package backend.businessLogicLayer;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
+import backend.dataAccessLayer.rowdatapkg.movimentoPkg.Movimento;
 import backend.dataAccessLayer.rowdatapkg.movimentoPkg.MovimentoDebito;
+import presentationLayer.guiLogicPkg.LaTazzaApplication;
+import utils.Euro;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-public class ControllerDebito {
-    ControllerPersonale controller;
-    public void ControllerDebito(ControllerPersonale cp){
-        this.controller=cp;
-    }
+public  final class ControllerDebito {
 
-    private void aggiornaMovimento(Personale p, Euro importo){
+    private  ControllerDebito(){}
+
+
+    private static boolean aggiornaMovimento(Personale p, Euro importo){
         Date date=new Date();
-        MovimentoDebito movimentoDebito=new MovimentoDebito(new Timestamp(date.getTime()),p,importo);
-        movimentoDebito.aggiornaDebito();
+        Movimento mp=new MovimentoDebito(new Timestamp(date.getTime()),p,importo);
+        return LaTazzaApplication.dao.save(mp);
     }
 
-    public void registrarePagamentoDebito(Euro importo , Personale p){
-        List<Personale> list=controller.getCopyList();
+    public static boolean registrarePagamentoDebito(Euro importo , Personale p){
+        List<Personale> list=LaTazzaApplication.controllerPersonale.getCopyList();
         int index= list.indexOf(p);
-        if(index == -1) return;
+        if(index == -1) return false;
         Personale cliente=list.get(index);
         cliente.pagamentoDebito(importo);
         aggiornaMovimento(cliente, importo);
+        return true;
     }
 
 
 
 
-    public HashMap<Personale, Euro> esaminareDebitiPersonale(){
-        HashMap<Personale,Euro> debiti= new HashMap<Personale,Euro>();
-        ArrayList<Personale> list= (ArrayList<Personale>)controller.getCopyList();
+    public static HashMap<Personale, Euro> esaminareDebitiPersonale(){
+        HashMap<Personale, Euro> debiti= new HashMap<Personale,Euro>();
+        List<Personale> list= LaTazzaApplication.controllerPersonale.getCopyList();
         for (Personale p:list) {
             debiti.put(p,p.getImportoDebito());
         }
         return debiti;
     }
+
 
 }

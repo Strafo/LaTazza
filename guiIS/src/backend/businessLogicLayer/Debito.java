@@ -1,5 +1,6 @@
 package backend.businessLogicLayer;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
+import utils.Euro;
 
 import java.util.Objects;
 
@@ -36,19 +37,8 @@ public class Debito {
 
     }
 
-    /* Ormai inutile
-    public Euro pagamentoDebito(Personale pers, Euro importo, Date data)  {
 
 
-        Euro resto=this.sottraiDebito(importo);//todo queste operazioni devono essere eseguite o tutte o  nessuna (gestire quindi le possibili eccezioni ecc...)
-       MovimentoDebito movimentoDebito=new MovimentoDebito(data,pers,importo);
-        movimentoDebito.aggiornaDebito();//todo fino a qui
-
-
-        return resto;
-    }
-
-*/
     public Euro pagamentoDebito(Personale pers,Euro importo){
         return sottraiDebito(importo);
     }

@@ -1,4 +1,4 @@
-package backend.businessLogicLayer;
+package utils;
 
 
 public class Euro {

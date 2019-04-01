@@ -1,11 +1,15 @@
 package backend.businessLogicLayer;
-
-import java.util.EnumMap;
+import backend.dataAccessLayer.rowdatapkg.CialdeEntry;
+import backend.dataAccessLayer.rowdatapkg.RifornimentoEntry;
+import presentationLayer.guiLogicPkg.LaTazzaApplication;
+import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Magazzino {
 
     //Lista contente per ogni tipo di cialda il numero di cialde disponibili
-    private EnumMap<TipoCialda,Integer> stato;
+    private Map<CialdeEntry,Integer> stato;
     //Il numero di cialde contenute in una scatola
     private static final int qtaCialdeScatole=50;
 
@@ -14,23 +18,34 @@ public class Magazzino {
     }
     //Inizializzazione del magazzino: quando il magazzino viene creato non sono presenti
     public Magazzino(){
-        stato= new EnumMap(TipoCialda.class);
-        for(TipoCialda t: TipoCialda.values() ){
-            stato.put(t,0);
-        }
-    }
-    //Copia lo stato del magazzino e lo ritorna
-    public EnumMap<TipoCialda,Integer> getCopyStato(){
-        EnumMap<TipoCialda,Integer> copy= new EnumMap(stato);
-        return copy;
+        stato= new HashMap<>();
+        //todo inizializzazione della vista Magazzino
     }
 
-    public void aggiungiScatole(TipoCialda t, int qta) {
-        stato.put(t, stato.get(t) + qta*qtaCialdeScatole);
+    //Copia lo stato del magazzino e lo ritorna
+    public Map<CialdeEntry,Integer> getCopyStato(){
+        return new HashMap<>(stato);
+    }
+
+    public boolean aggiungiScatole(CialdeEntry t, int qtaScatole) {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        Integer qta=qtaScatole*qtaCialdeScatole;
+        RifornimentoEntry entry=new RifornimentoEntry(timestamp,qta,t.getTipo());
+        Integer oldQta;
+        if(LaTazzaApplication.dao.save(entry)){
+            if((oldQta=stato.getOrDefault(t,null))!=null){//se contiene già un entry per il tipo faccio somma del numero cialde
+                stato.put(t,qta+oldQta);
+            }else{
+                stato.put(t,qta);
+            }
+            return true;
+        }else{
+           return false;
+        }
     }
 
     //Se non sono presenti abbastanza cialde il metodo ritorna false
-    public boolean rimuoviCialde(TipoCialda t, int qta){
+    public boolean rimuoviCialde(CialdeEntry t, int qta){
         int nuovaQta=stato.get(t) - qta;
         if(nuovaQta < 0) return false;
         stato.put(t, nuovaQta);

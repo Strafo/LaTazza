@@ -52,10 +52,6 @@ public final class MovimentoVendita extends Movimento {
 
     public boolean isContanti() { return contanti;}
 
-    public boolean aggiungiVendita(){
-        //todo
-        return false;
-    }
 
     @Override
     public Class<?extends AbstractDao> getCorrespondigDaoClass() {

@@ -1,16 +1,17 @@
 package backend.dataAccessLayer.rowdatapkg.movimentoPkg;
-import backend.businessLogicLayer.Euro;
-import backend.dataAccessLayer.rowdatapkg.clientPkg.Cliente;
+import utils.Euro;
 import backend.dataAccessLayer.gatewaysPkg.MovimentoDebitoDao;
 import backend.dataAccessLayer.mementoPkg.Memento;
 import backend.dataAccessLayer.mementoPkg.MementoMovimentoDebito;
+import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
+
 import java.sql.Timestamp;
 import java.util.Objects;
 
 public final class MovimentoDebito extends Movimento {
     private Euro importo;
 
-    public MovimentoDebito(Timestamp data, Cliente cliente, Euro importo) {
+    public MovimentoDebito(Timestamp data, Personale cliente, Euro importo) {
         super(data, cliente);
         this.importo=Objects.requireNonNull(importo);
     }
@@ -26,9 +27,6 @@ public final class MovimentoDebito extends Movimento {
         this.importo = importo;
     }
 
-    public void aggiornaDebito(){
-        //todo
-    }
 
     @Override
     public Class<MovimentoDebitoDao> getCorrespondigDaoClass() {
