@@ -50,7 +50,7 @@ public class TriggerPagamentoDebito implements Trigger {
     public void fire(Connection conn, Object[] oldRow, Object[] newRow) throws SQLException {
 
         double debitoAggiornato=getDebitoAggiornato(conn,newRow);
-        System.out.println(debitoAggiornato);
+        //System.out.println(debitoAggiornato);
         PreparedStatement stat= conn.prepareStatement("update "+TABLE_NAME_DEBITO+" set importo="
                 +debitoAggiornato+" where nome=? and cognome=? ");
 
@@ -66,7 +66,7 @@ public class TriggerPagamentoDebito implements Trigger {
                 "from LATAZZASCHEMA.DEBITO " );
         rs=prep.executeQuery();
         while(rs.next())
-            System.out.println("2 : \n"+rs.getString(1) + ", " + rs.getString(2)+" : "+ rs.getDouble(3) );
+            System.out.println("2 : \n"+rs.getString(1) + ", " + rs.getString(2));
 
 
     }

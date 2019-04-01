@@ -39,7 +39,7 @@ public class TriggersTest {
             while(inFile.hasNext()) {
                 file.append(inFile.nextLine()).append("\n");
             }
-            System.out.println("----------------------------------\n"+file.toString()+"\n------------------------");
+            //System.out.println("----------------------------------\n"+file.toString()+"\n------------------------");
             PreparedStatement stmt=conn.prepareStatement(file.toString());
             stmt.execute();
             stmt.close();
