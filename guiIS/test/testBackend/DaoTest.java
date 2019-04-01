@@ -19,10 +19,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -32,6 +30,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Successivamente si può eseguire il testing con il backend.database temporaneo appena creato.
  * Essendo di tipo in memory quando l'ultima connessione viene chiusa il backend.database viene "pulito"
  * ATTENZIONE: se cambia il file DefaultSetEntry.sql deve cambiare anche nEntry                     <----------------------------------------------------------------------------------
+ * Nota: il test del metodo  multipleIncorrectQueriesTransaction ci mette tanto perchè viene chiamato Thread.sleep
  */
 public class DaoTest{
 
@@ -67,6 +66,9 @@ public class DaoTest{
 
     @AfterEach
     void tearDown(){
+
+
+
         try {
             database.closeDataBase();
         } catch (SQLException e) {
@@ -124,8 +126,7 @@ public class DaoTest{
                 modifyInstance(entryDB);
                 System.out.println(" \nCON " + entryDB.toString());
                 assertFalse(dao.update(entryDB));
-                list.remove(0);
-                list.add(entryDB.undoChanges());
+                entryDB.undoChanges();
             }
             printList(list);
         }catch(Exception exc){
@@ -152,6 +153,66 @@ public class DaoTest{
 
 
     }
+
+
+    @ParameterizedTest
+    @ValueSource(classes={Personale.class,CialdeEntry.class,Visitatore.class,RifornimentoEntry.class,MovimentoDebito.class,MovimentoVendita.class,MovimentoVendita.class})
+    void multipleCorrectQueriesTransaction(Class<? extends AbstractEntryDB>cls){
+        try {
+            List list = null;
+            AbstractEntryDB entryDB;
+            dao=new DaoManager(database.getConnection());
+            for(int i=1;i<=5;i++) {
+                dao.startTransaction();
+                assertTrue(dao.save(createInstance(cls,true)));
+                assertTrue(dao.save(entryDB=createInstance(cls,true)));
+                assertTrue(dao.delete(entryDB));
+                list=dao.getAll(cls);
+                checkNEntry(Object.class,i,list.size());
+                dao.endTransaction();
+            }
+            printList(list);
+        }catch(Exception exc){
+            exc.printStackTrace();
+            fail("Impossibile trovare costruttore");
+        }
+    }
+
+
+
+    @ParameterizedTest
+    @ValueSource(classes={Personale.class,CialdeEntry.class,Visitatore.class,RifornimentoEntry.class,MovimentoDebito.class,MovimentoVendita.class,MovimentoVendita.class})
+    void multipleIncorrectQueriesTransaction(Class<? extends AbstractEntryDB>cls){
+
+        try {
+            System.out.flush();
+            System.out.println("LE SEGUENTI 5 ECCEZIONI SONO PREVISTE(potrebbero essere oltre i separtori perchè stdout e sterr non sono sincronizzati)---------------------------------");
+
+            List list ;
+            AbstractEntryDB entryDB;
+            dao=new DaoManager(database.getConnection());
+            for(int i=1;i<=5;i++) {
+                dao.startTransaction();
+                assertTrue(dao.save(entryDB=createInstance(cls,true)));
+                assertFalse(dao.save(entryDB));
+                assertFalse(dao.getTransactionStatus());
+                dao.endTransaction();
+                list=dao.getAll(cls);
+                checkNEntry(Object.class,0,list.size());//transazione fallita nessuna modifica
+            }
+            System.err.flush();
+            Thread.sleep(500);
+            System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------");
+        }catch(Exception exc){
+            exc.printStackTrace();
+            fail("Impossibile trovare costruttore");
+        }
+
+
+    }
+
+
+
 
 
     private  void updateTable(String sqlFilePath) {
@@ -226,17 +287,22 @@ public class DaoTest{
 
     private AbstractEntryDB createInstance(Class<?> cls, boolean random) {
         try{
-        DateFormat format = new SimpleDateFormat("yyyy-mm-dd");
         if (random) {
-            String randomchar = Long.toString((new Date()).getTime());
+            Random r = new Random();
+            String randomchars="";
+            char c;
+            for(int contatore=0;contatore<10;contatore++){
+                c = (char)(r.nextInt(26) + 'a');
+                randomchars=randomchars.concat(String.valueOf(c));
+            }
             if (cls == Personale.class) {
-                return new Personale("zio", "pino" + randomchar, true);//get time serve per "randomizzare"
+                return new Personale("zio", "pino" + randomchars, true);//get time serve per "randomizzare"
             }
             if (cls == CialdeEntry.class) {
-                return new CialdeEntry("caffè" + randomchar, new Euro(0, 5));
+                return new CialdeEntry("caffè" + randomchars, new Euro(0, 5));
             }
             if (cls == Visitatore.class) {
-                return new Visitatore("ciccio", "pasticcio" + randomchar);
+                return new Visitatore("ciccio", "pasticcio" + randomchars);
             }
             if (cls == RifornimentoEntry.class) {
                 return new RifornimentoEntry(getRandomTimeStamp(), 100, "caffè");
