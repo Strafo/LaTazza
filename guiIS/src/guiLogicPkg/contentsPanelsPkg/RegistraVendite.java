@@ -60,9 +60,20 @@ public class RegistraVendite extends AbstractPanel {
         nomePersonaleMenu.setBounds(DEFAULTX_COLONNA1,DEFAULTY_RIGA2,DEFAULT_WIDTH_FIELD,DEFAULT_HEIGHT_FIELD);
         addItems(nomePersonale,nomePersonaleMenu);
         add(nomePersonaleMenu);
+        nomePersonaleMenu.addMouseListener(
+                new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        if(!textFieldNomeCliente.getText().isEmpty())
+                        {
+                            radioButtACredito.setEnabled(true);
+                            textFieldNomeCliente.setText(null);
+                        }
+                    }
+                });
 
-        labelTipoCialde = new MyJLabel(DEFAULT_LABELDESCRIPTION[2],DEFAULT_FONT_DESCRIZIONI,DEFAULTX_COLONNA1,
-                DEFAULTY_RIGA3,DEFAULT_WIDTH_SOTTOTITOLO,DEFAULT_HEIGHT_SOTTOTITOTLO,null);
+                labelTipoCialde = new MyJLabel(DEFAULT_LABELDESCRIPTION[2], DEFAULT_FONT_DESCRIZIONI, DEFAULTX_COLONNA1,
+                        DEFAULTY_RIGA3, DEFAULT_WIDTH_SOTTOTITOLO, DEFAULT_HEIGHT_SOTTOTITOTLO, null);
         add(labelTipoCialde);
 
 		tipoCialdeMenu = new JComboBox<String>();
@@ -80,9 +91,16 @@ public class RegistraVendite extends AbstractPanel {
         textFieldNomeCliente.addMouseListener(
                 new MouseAdapter(){
                     @Override
-                    public void mouseClicked(MouseEvent e)
+                    public void mouseExited(MouseEvent e)
                     {
-                        nomePersonaleMenu.setSelectedIndex(0);
+                        if(!textFieldNomeCliente.getText().isEmpty())
+                        {
+                            radioButtACredito.setEnabled(false);
+                            nomePersonaleMenu.setSelectedIndex(0);
+                        }
+                        else{
+                                radioButtACredito.setEnabled(true);
+                            }
                     }
                 }
         );
@@ -117,7 +135,7 @@ public class RegistraVendite extends AbstractPanel {
                 new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e){
-                            radioButtACredito.setSelected(false);
+                        radioButtACredito.setSelected(false);
                     }
                 }
         );
@@ -133,7 +151,7 @@ public class RegistraVendite extends AbstractPanel {
                     }
                 }
         );
-		
+
 		buttonConferma = new JButton(DEFAULT_LABELDESCRIPTION[9]);
 		buttonConferma.setBounds(DEFAULTX_BUTTON1,DEFAULT_RIGA6,DEFAULT_WIDTH_BUTTON,DEFAULT_HEIGHT_BUTTON);
 		add(buttonConferma);

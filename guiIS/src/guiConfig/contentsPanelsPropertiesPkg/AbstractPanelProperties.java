@@ -25,7 +25,7 @@ public class AbstractPanelProperties {
     public static final int DEFAULT_HEIGHT_LABELDESCRIZIONE = 16;
 
     public static final int DEFAULT_WIDTH_SOTTOTITOLO = 180;
-    public static final int DEFAULT_HEIGHT_SOTTOTITOTLO = 26;
+    public static final int DEFAULT_HEIGHT_SOTTOTITOTLO = 30;
 
     public static final int DEFAULT_WIDTH_BUTTON = 117;
     public static final int DEFAULT_HEIGHT_BUTTON = 25;
