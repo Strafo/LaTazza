@@ -1,12 +1,10 @@
 package guiLogicPkg.contentsPanelsPkg;
 
-import java.awt.Font;
 import javax.swing.*;
 
-import guiConfig.MyJLabel;
+import utils.MyJLabel;
 import guiConfig.ResourcesClassLoader;
 import guiConfig.contentsPanelsPropertiesPkg.GestPersonaleProperties;
-import utils.LaTazzaColors;
 
 import static guiConfig.contentsPanelsPropertiesPkg.GestPersonaleProperties.*;
 

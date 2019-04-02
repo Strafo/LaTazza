@@ -8,46 +8,42 @@ public class ResourcesClassLoader{
 
     private static ClassLoader classLoader = ClassLoader.getSystemClassLoader();
 
-
-    private static ImageIcon iconaTazza=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/iconaTazza2.png");
-    private static ImageIcon iconaTazzaBrown=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/iconaTazzaB2.png");
-    private static ImageIcon iconaTazzaWhite=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/iconaTazzaW.png");
-    private static ImageIcon iconaTazza16=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/iconaTazza16.png");
-    private static ImageIcon iconaTazza25=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/iconaTazzaB25.png");
-    private static ImageIcon iconaTazza32=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/iconaTazzaB32.png");
-    private static ImageIcon iconaTazza50=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/iconaTazzaB50.png");
-    private static ImageIcon iconaTazza64=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/iconaTazza64.png");
-    private static ImageIcon iconaStatoB25=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/statoB25.png");
-    private static ImageIcon iconaStatoW25=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/statoW25.png");
-    private static ImageIcon iconaVenditaW25=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/venditaW25.png");
-    private static ImageIcon iconaVenditaB25=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/venditaB25.png");
-    private static ImageIcon iconaRifornimentoW25=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/rifornimentoW25.png");
-    private static ImageIcon iconaRifornimentoB25=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/rifornimentoB25.png");
-    private static ImageIcon iconaPagamentoW25=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/pagamentoW25.png");
-    private static ImageIcon iconaPagamentoB25=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/pagamentoB25.png");
-    private static ImageIcon iconaGestioneW25=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/gestioneW25.png");
-    private static ImageIcon iconaGestioneB25=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/gestioneB25.png");
-    private static ImageIcon iconaCloseB=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/closeDark.png");
-    private static ImageIcon iconaCloseR=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/closeRed.png");
-    private static ImageIcon iconaMinB=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/minimizeD.png");
-    private static ImageIcon iconaMinW=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/minimizeW.png");
-    private static ImageIcon iconaVenditaB32=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/venditaB32.png");
-    private static ImageIcon iconaStatoB32=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/statoB32.png");
-    private static ImageIcon iconaRifornimentoB32=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/rifornimentoB32.png");
-    private static ImageIcon iconaPagamentoB32=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/pagamentoB32.png");
-    private static ImageIcon iconaGestioneB32=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/gestioneB32.png");
-    private static ImageIcon iconaCassa=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/cassa.png");
-    private static ImageIcon iconaMagazzino=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/magazzino.png");
-    private static ImageIcon iconaDebiti=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/debiti.png");
-    private static ImageIcon iconaAggPersonale=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/iconAggiuntaUtente.png");
-    private static ImageIcon iconaRimPersonale=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/iconRimozioneUtente.png");
-    private static ImageIcon iconaMacchinetta=new ImageIcon(System.getProperty("user.dir")+"/guiIS/src/iconeGui/CoffeeMaker.png");
-
+    private static ImageIcon iconaTazza= retriveIcon("iconaTazza2.png");
+    private static ImageIcon iconaTazzaBrown= retriveIcon("iconaTazzaB2.png");
+    private static ImageIcon iconaTazzaWhite= retriveIcon("iconaTazzaW.png");
+    private static ImageIcon iconaTazza16= retriveIcon("iconaTazza16.png");
+    private static ImageIcon iconaTazza25= retriveIcon("iconaTazzaB25.png");
+    private static ImageIcon iconaTazza32= retriveIcon("iconaTazzaB32.png");
+    private static ImageIcon iconaTazza50= retriveIcon("iconaTazzaB50.png");
+    private static ImageIcon iconaTazza64= retriveIcon("iconaTazza64.png");
+    private static ImageIcon iconaStatoB25= retriveIcon("statoB25.png");
+    private static ImageIcon iconaStatoW25= retriveIcon("statoW25.png");
+    private static ImageIcon iconaVenditaW25= retriveIcon("venditaW25.png");
+    private static ImageIcon iconaVenditaB25= retriveIcon("venditaB25.png");
+    private static ImageIcon iconaRifornimentoW25= retriveIcon("rifornimentoW25.png");
+    private static ImageIcon iconaRifornimentoB25= retriveIcon("rifornimentoB25.png");
+    private static ImageIcon iconaPagamentoW25= retriveIcon("pagamentoW25.png");
+    private static ImageIcon iconaPagamentoB25= retriveIcon("pagamentoB25.png");
+    private static ImageIcon iconaGestioneW25= retriveIcon("gestioneW25.png");
+    private static ImageIcon iconaGestioneB25= retriveIcon("gestioneB25.png");
+    private static ImageIcon iconaCloseB= retriveIcon("closeDark.png");
+    private static ImageIcon iconaCloseR= retriveIcon("closeRed.png");
+    private static ImageIcon iconaMinB= retriveIcon("minimizeD.png");
+    private static ImageIcon iconaMinW= retriveIcon("minimizeW.png");
+    private static ImageIcon iconaVenditaB32= retriveIcon("venditaB32.png");
+    private static ImageIcon iconaStatoB32= retriveIcon("statoB32.png");
+    private static ImageIcon iconaRifornimentoB32= retriveIcon("rifornimentoB32.png");
+    private static ImageIcon iconaPagamentoB32= retriveIcon("pagamentoB32.png");
+    private static ImageIcon iconaGestioneB32= retriveIcon("gestioneB32.png");
+    private static ImageIcon iconaCassa= retriveIcon("cassa.png");
+    private static ImageIcon iconaMagazzino= retriveIcon("magazzino.png");
+    private static ImageIcon iconaDebiti= retriveIcon("debiti.png");
+    private static ImageIcon iconaAggPersonale= retriveIcon("iconAggiuntaUtente.png");
+    private static ImageIcon iconaRimPersonale= retriveIcon("iconRimozioneUtente.png");
 
     public static ImageIcon retriveIcon(String iconAddress) {
-        String path=System.getProperty("java.class.path")+"/guiIS/src/iconeGui/"+iconAddress;
-        System.out.println("Path:"+path);
-        return new ImageIcon(Objects.requireNonNull(classLoader.getResource(path)));
+        String path=System.getProperty("user.dir")+"/guiIS/src/iconeGui/"+iconAddress;
+        return new ImageIcon(Objects.requireNonNull(path));
     }
 
     public static ImageIcon getIconW(String nomeIcona)
@@ -188,7 +184,4 @@ public class ResourcesClassLoader{
         return iconaRimPersonale;
     }
 
-    public static ImageIcon getIconaMacchinetta() {
-        return iconaMacchinetta;
-    }
 }

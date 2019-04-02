@@ -1,7 +1,7 @@
 package guiLogicPkg.contentsPanelsPkg;
 
-
 import guiLogicPkg.LaTazzaFrame;
+
 import javax.swing.*;
 
 

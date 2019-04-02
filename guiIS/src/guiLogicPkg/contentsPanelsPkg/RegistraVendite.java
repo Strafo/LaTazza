@@ -6,7 +6,7 @@ import java.text.NumberFormat;
 
 import javax.swing.*;
 
-import guiConfig.MyJLabel;
+import utils.MyJLabel;
 import guiConfig.ResourcesClassLoader;
 import guiConfig.contentsPanelsPropertiesPkg.RegVenditeProperties;
 

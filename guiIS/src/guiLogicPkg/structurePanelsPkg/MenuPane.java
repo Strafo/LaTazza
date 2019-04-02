@@ -4,13 +4,12 @@ import java.awt.Color;
 import javax.swing.*;
 
 import guiConfig.KGradientPanel;
-import guiConfig.MyJLabel;
+import utils.MyJLabel;
 import guiConfig.ResourcesClassLoader;
 import guiConfig.structurePanelsPropertiesPkg.MenuPaneProperties;
 import guiLogicPkg.LaTazzaFrame;
 import utils.LaTazzaColors;
 
-import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;

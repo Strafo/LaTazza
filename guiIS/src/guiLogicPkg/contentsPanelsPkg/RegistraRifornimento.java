@@ -7,7 +7,7 @@ import java.text.NumberFormat;
 import javax.swing.*;
 import javax.swing.text.NumberFormatter;
 
-import guiConfig.MyJLabel;
+import utils.MyJLabel;
 import guiConfig.ResourcesClassLoader;
 import guiConfig.contentsPanelsPropertiesPkg.RegRifornimentoProperties;
 

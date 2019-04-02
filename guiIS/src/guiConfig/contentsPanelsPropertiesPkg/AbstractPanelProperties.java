@@ -33,6 +33,5 @@ public class AbstractPanelProperties {
     public static final int DEFAULT_GAP_TXT= 100;
     public static final int DEFAULT_GAP_BUTTON = 200;
 
-
 }
 

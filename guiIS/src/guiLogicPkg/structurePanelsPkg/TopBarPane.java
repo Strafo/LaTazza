@@ -4,7 +4,7 @@ import java.awt.*;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import guiConfig.KGradientPanel;
-import guiConfig.MyJLabel;
+import utils.MyJLabel;
 import guiConfig.ResourcesClassLoader;
 import guiConfig.structurePanelsPropertiesPkg.TopBarProperties;
 import java.awt.event.MouseAdapter;
