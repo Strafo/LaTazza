@@ -34,6 +34,7 @@ insert into LATAZZASCHEMA.COMPRA_VISITATORE values ('Andrea','Manzi', 'caffe',20
 
 insert into LATAZZASCHEMA.PAGAMENTO_DEBITO values ('Jacopo','Dapueto', '2019-01-11 14:00:00',2);
 insert into LATAZZASCHEMA.PAGAMENTO_DEBITO values ('Jacopo','Dapueto', '2019-02-11 14:00:00',5);
+insert into LATAZZASCHEMA.PAGAMENTO_DEBITO values ('Gabriele','Armanino', '2019-01-04 11:00:00',10);
 
 
 

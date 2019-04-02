@@ -83,14 +83,14 @@ public class MaterializedViewDebito extends TriggerDebito implements Trigger  {
         stat.executeUpdate();
 
 
-        ResultSet rs;
+       /* ResultSet rs;
         PreparedStatement prep;
         prep=conn.prepareStatement("select *" +
                 "from LATAZZASCHEMA.DEBITO " );
         rs=prep.executeQuery();
         while(rs.next())
             System.out.println("1 : \n"+rs.getString(1) + ", " + rs.getString(2)+" : "+ rs.getDouble(3) );
-
+*/
 
 
 
