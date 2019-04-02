@@ -25,8 +25,10 @@ public class MaterializedViewDebito implements Trigger {
 
         stat.setNString(1, (String) newRow[2]);
         rs= stat.executeQuery();
-        if(rs.next()) num=rs.getDouble(1);
-        System.out.println("Prezzo: "+num);
+        if(rs.next())
+            num = rs.getDouble(1);
+            System.out.println("Prezzo: " + num);
+
         return num;
     }
 
@@ -68,7 +70,7 @@ public class MaterializedViewDebito implements Trigger {
     private static boolean isInDebit(Connection conn, String nome, String cognome) throws SQLException {
         ResultSet rs;
         PreparedStatement stat= conn.prepareStatement("select * " +
-                "from LATAZZASCHEMA.Debito where nome='"+ nome+"' and cognome='"+cognome+"'");
+                "from "+ TABLE_NAME_DEBITO + " where nome='"+ nome+"' and cognome='"+cognome+"'");
         rs= stat.executeQuery();
         return rs.next();
     }

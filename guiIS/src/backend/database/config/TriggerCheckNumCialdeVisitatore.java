@@ -24,6 +24,7 @@ public class TriggerCheckNumCialdeVisitatore extends TriggerCheckNumCialde  impl
             //throw new SQLException("Numero di cialde da comprare superiore a quelle disponibili in magazzino.");
             stat=conn.prepareStatement("DELETE from " + TABLE_NAME_VISITATORE + " where nome='"+ newRow[0] +"' and cognome='"+ newRow[1] +"' and data='" + newRow[4] +"'" );
             int num=stat.executeUpdate();
+            stat.close();
         }
 
     }
@@ -45,6 +46,7 @@ public class TriggerCheckNumCialdeVisitatore extends TriggerCheckNumCialde  impl
             stat = conn.createStatement();
 
             stat.execute(CREATE_TRIGGER_STATEMENT_VISITATORE);
+            stat.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
