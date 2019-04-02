@@ -43,7 +43,7 @@ create table LATAZZASCHEMA.compra_visitatore(
 
   nome varchar(64) not null,
   cognome varchar(64) not null,
-  tipo_cialda varchar(64) not null references LATAZZASCHEMA.cialde(tipo),
+  tipo_cialda varchar(64) not null references LATAZZASCHEMA.cialde(tipo) on update cascade on delete restrict,
   numero_cialde integer not null check (numero_cialde > 0),
   data TIMESTAMP default CURRENT_TIMESTAMP not null,
   primary key(nome,cognome, data),
@@ -54,7 +54,7 @@ create table LATAZZASCHEMA.compra_dipendente(
 
   nome varchar(64) not null,
   cognome varchar(64) not null,
-  tipo_cialda varchar(64) not null references LATAZZASCHEMA.cialde(tipo),
+  tipo_cialda varchar(64) not null references LATAZZASCHEMA.cialde(tipo) on update cascade on delete restrict,
   contanti boolean not null, -- se � false paga con credito, altrimenti in contanti
   numero_cialde integer not null check (numero_cialde > 0),
   data TIMESTAMP default CURRENT_TIMESTAMP not null,
@@ -66,8 +66,7 @@ create table LATAZZASCHEMA.compra_dipendente(
 create table LATAZZASCHEMA.Magazzino
 (
   tipo varchar(64) not null primary key,
-  qta integer not null default(0),
-  foreign key (tipo) references LATAZZASCHEMA.cialde(tipo) on update cascade on delete restrict
+  qta integer not null default(0)
 );
 
 create table LATAZZASCHEMA.Debito(
@@ -83,6 +82,7 @@ create table LATAZZASCHEMA.Debito(
 create table LATAZZASCHEMA.Cassa(
     importo double not null default (1500.00) primary key
 );
+SET LOCK_MODE 1;
 insert into LATAZZASCHEMA.Cassa values ();--insert con valore di default
 
 

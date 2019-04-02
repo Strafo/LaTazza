@@ -36,6 +36,11 @@ insert into LATAZZASCHEMA.PAGAMENTO_DEBITO values ('Jacopo','Dapueto', '2019-01-
 insert into LATAZZASCHEMA.PAGAMENTO_DEBITO values ('Jacopo','Dapueto', '2019-02-11 14:00:00',5);
 insert into LATAZZASCHEMA.PAGAMENTO_DEBITO values ('Gabriele','Armanino', '2019-01-04 11:00:00',10);
 
+insert into LATAZZASCHEMA.CIALDE values('Cocaina',10.0);
+
+delete from LATAZZASCHEMA.MAGAZZINO where tipo='Cocaina';
+
+update LATAZZASCHEMA.CIALDE set tipo='topa' where tipo='caffe';
 
 
 
