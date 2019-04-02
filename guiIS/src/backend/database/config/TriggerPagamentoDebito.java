@@ -22,11 +22,10 @@ public class TriggerPagamentoDebito extends TriggerDebito implements Trigger {
 
         stat.setNString(1, (String) newRow[0]);
         stat.setNString(2, (String) newRow[1]);
-        System.out.println("NewRo0: "+ newRow[0]+" NewRow1: "+newRow[1]+" NewRow2: "+newRow[3]);
-
         stat.setTimestamp(3, (Timestamp) newRow[2]);
+
         ResultSet rs = stat.executeQuery();
-        if(rs.next()) {rs.getDouble(1); System.out.println("debito Pagato: "+rs.getDouble(1));}
+        if(rs.next()) return rs.getDouble(1); //System.out.println("debito Pagato: "+rs.getDouble(1));}
             return 0.0;
     }
 
@@ -38,9 +37,11 @@ public class TriggerPagamentoDebito extends TriggerDebito implements Trigger {
     @Override
     public void fire(Connection conn, Object[] oldRow, Object[] newRow) throws SQLException {
 
-        double debitoAggiornato=getCurrentDebito(conn,newRow)-getDebitoPagato(conn,newRow);
 
-        System.out.println("Debito Aggiornato: "+debitoAggiornato);
+
+        double debitoAggiornato=getCurrentDebito(conn,newRow)-getDebitoPagato(conn,newRow);
+        //System.out.println("Debito Aggiornato: "+debitoAggiornato+" Debito Pagato: "+getDebitoPagato(conn,newRow));
+        //System.out.println( newRow[0]+" "+newRow[1]+" NewRow2: "+newRow[3]);
         PreparedStatement stat= conn.prepareStatement("update "+TABLE_NAME_DEBITO+" set importo="
                 +debitoAggiornato+" where nome=? and cognome=? ");
         stat.setNString(1, (String) newRow[0]);
