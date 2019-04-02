@@ -27,6 +27,7 @@ public class TriggerCheckNumCialdeDipendente extends TriggerCheckNumCialde imple
            // throw new SQLException("Numero di cialde da comprare superiore a quelle disponibili in magazzino.");
             stat=conn.prepareStatement("DELETE from " + TABLE_NAME_DIPENDENTE + " where nome='"+ newRow[0] +"' and cognome='"+ newRow[1] +"' and data='" + newRow[5] +"'" );
             int num=stat.executeUpdate();
+            stat.close();
 
         }
 
@@ -49,7 +50,7 @@ public class TriggerCheckNumCialdeDipendente extends TriggerCheckNumCialde imple
             stat = conn.createStatement();
 
             stat.execute(CREATE_TRIGGER_STATEMENT_DIPENDETE);
-
+            stat.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

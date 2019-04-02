@@ -8,6 +8,12 @@ import java.sql.SQLException;
 public class TriggerCheckNumCialde{
     private static final int tipoCialda=2;
 
+    public static void initTrigger(Connection conn)  {
+        TriggerCheckNumCialdeDipendente.initTrigger(conn);
+        TriggerCheckNumCialdeVisitatore.initTrigger(conn);
+
+    }
+
     protected static int checkNumCialde(Connection conn, Object[] newRow)throws SQLException {
 
 
@@ -39,7 +45,6 @@ public class TriggerCheckNumCialde{
         stat.setNString (1, (String) newRow[tipoCialda]);
         rifornimento=stat.executeQuery();
         rifornimento.next();
-
 
         return   rifornimento.getInt(1) - (acquistiVisitatore.getInt(1) + acquistiPersonale.getInt(1));
     }
