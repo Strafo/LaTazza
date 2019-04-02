@@ -25,29 +25,8 @@ public class MaterializedViewDebito implements Trigger {
 
         stat.setNString(1, (String) newRow[2]);
         rs= stat.executeQuery();
-        if(rs.next())
-            num = rs.getDouble(1);
-            System.out.println("Prezzo: " + num);
-
-        return num;
-    }
-
-    private static double getCurrentDebito(Connection conn, Object[] newRow)  throws SQLException{
-
-        double num=0.0;
-        ResultSet rs;
-        PreparedStatement stat= conn.prepareStatement("select importo " +
-                "from " + TABLE_NAME_DEBITO+
-                " where nome=? and cognome=?");
-        System.out.println(newRow[0]+", "+newRow[1]);
-
-        stat.setNString(1, (String) newRow[0]);
-        stat.setNString(2, (String) newRow[1]);
-        rs=stat.executeQuery();
-        if(rs.next()) num=rs.getDouble(1);
-        System.out.println("CurrentDebito: "+num);
-        System.out.println(newRow[2]);
-        return num;
+        if(rs.next()) return rs.getDouble(1);
+        return 0.0;
     }
 
 
@@ -61,8 +40,8 @@ public class MaterializedViewDebito implements Trigger {
         stat.setNString(2, (String) newRow[1]);
         stat.setTimestamp(3, (Timestamp) newRow[5]);
         ResultSet rs= stat.executeQuery();
-        rs.next();
-        return getCurrentDebito(conn, newRow)-(rs.getInt(1)*getPrezzo(conn,newRow));
+        if(rs.next()) return (getCurrentDebito(conn, newRow)+(rs.getInt(1)*getPrezzo(conn,newRow)));
+        return 0.0;
     }
 
 

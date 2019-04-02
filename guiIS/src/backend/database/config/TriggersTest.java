@@ -89,16 +89,17 @@ public class TriggersTest {
         while(resultSet.next())
             System.out.println(resultSet.getString(1)+", "+resultSet.getString(2)+", "+resultSet.getNString(3)+", "+ resultSet.getBoolean(4)+", "+resultSet.getInt(5)+", "+resultSet.getTimestamp(6));
         */
+/*System.out.println("--------------MAIN----------------------------------");
+        ResultSet rs;
+        PreparedStatement prep;
+        prep=conn.prepareStatement("select *" +
+                "from LATAZZASCHEMA.DEBITO " );
+        rs=prep.executeQuery();
+        while(rs.next())
+            System.out.println("\n"+rs.getString(1) + ", " + rs.getString(2)+": "+ rs.getDouble(3));
+            */
 
-       /* stat =conn.prepareStatement("select *" +
-                "from LATAZZASCHEMA.Magazzino " );
-        resultSet=stat.executeQuery();
 
-        while(resultSet.next())
-            System.out.println(resultSet.getString(1) + " : " + resultSet.getInt(2) );
-        MaterializedViewCassaRifornimento.initView(conn);
-
-        */
 
         T.getDatabase().closeDataBase();
     }
