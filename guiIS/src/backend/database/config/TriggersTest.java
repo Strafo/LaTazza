@@ -65,30 +65,14 @@ public class TriggersTest {
         T.updateTable("databaseConfig.sql");
         TriggerCheckNumCialde.initTrigger(conn);
         TriggerMagazzino.initView(conn);
-
-        //MaterializedViewDebito.initView(conn);
-
-
-
-
-        //TriggerPagamentoDebito.initView(conn);
+        MaterializedViewDebito.initView(conn);
+        TriggerPagamentoDebito.initView(conn);
 
         //MaterializedViewCassaVisitatore.initView(conn);
 
         T.updateTable("Insert.sql");
 
 
-/*
-        PreparedStatement stat;
-        ResultSet resultSet;
-
-
-        stat =conn.prepareStatement("select *" +
-                "from LATAZZASCHEMA.compra_dipendente" );
-        resultSet=stat.executeQuery();
-        while(resultSet.next())
-            System.out.println(resultSet.getString(1)+", "+resultSet.getString(2)+", "+resultSet.getNString(3)+", "+ resultSet.getBoolean(4)+", "+resultSet.getInt(5)+", "+resultSet.getTimestamp(6));
-        */
 System.out.println("--------------MAIN----------------------------------");
         ResultSet rs;
         PreparedStatement prep;
@@ -97,9 +81,6 @@ System.out.println("--------------MAIN----------------------------------");
         rs=prep.executeQuery();
         while(rs.next())
             System.out.println("\n"+rs.getString(1) + ", " + rs.getString(2)+": "+ rs.getDouble(3));
-
-
-
 
         T.getDatabase().closeDataBase();
     }
