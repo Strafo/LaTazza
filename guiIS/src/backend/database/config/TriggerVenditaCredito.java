@@ -1,7 +1,7 @@
 package backend.database.config;
 
-import backend.businessLogicLayer.Euro;
 import org.h2.api.Trigger;
+import utils.Euro;
 
 import java.sql.*;
 
@@ -28,7 +28,7 @@ public class TriggerVenditaCredito extends ViewDebito implements Trigger {
     }
 
 
-    private static Euro getNewDebito( Object[] newRow)  throws SQLException{
+    private static Euro getNewDebito(Object[] newRow)  throws SQLException{
 
         PreparedStatement stat= connection.prepareStatement("select numero_cialde " +
                                                              "from " + TABLE_NAME_DIPENDENTE +

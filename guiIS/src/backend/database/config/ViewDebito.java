@@ -1,8 +1,11 @@
 package backend.database.config;
 
-import backend.businessLogicLayer.Euro;
+import utils.Euro;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class ViewDebito {
     protected static final String TABLE_NAME_DEBITO="LATAZZASCHEMA.DEBITO";

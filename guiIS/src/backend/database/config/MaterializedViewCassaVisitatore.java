@@ -32,8 +32,8 @@ public class MaterializedViewCassaVisitatore extends ViewCassa implements Trigge
         stat.setTimestamp(3, (Timestamp) newRow[4]);
         ResultSet rs=stat.executeQuery();
         if(rs.next()){
-            Euro numCialde= new Euro(rs.getLong(1),0);
-            Euro prezzo=  multEuro(getPrezzo(conn, newRow), numCialde);
+            Euro prezzo=getPrezzo(conn, newRow);
+            prezzo.moltiplicaImporto(rs.getInt(1));
             return  prezzo.aggiungiImporto(getCurrent(conn));
         }
         return new Euro(0,0);
