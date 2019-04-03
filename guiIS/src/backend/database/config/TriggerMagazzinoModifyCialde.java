@@ -4,7 +4,7 @@ import org.h2.api.Trigger;
 
 import java.sql.*;
 
-public class TriggerViewMagazzinoModifyCialde extends TriggerMagazzino implements Trigger {
+public class TriggerMagazzinoModifyCialde extends ViewMagazzino implements Trigger {
 
     protected static final String TRIGGER_PATH="\"backend.database.config.TriggerViewMagazzinoModifyCialde\"";
 
@@ -36,6 +36,14 @@ public class TriggerViewMagazzinoModifyCialde extends TriggerMagazzino implement
         stat.close();
     }
 
+    private static void updateTipoCialde(String tipoNuovo, String tipoVecchio) throws SQLException{
+        PreparedStatement stat;
+        stat =connection.prepareStatement("update "+TABLE_NAME_MAGAZZINO+" set tipo= '"
+                +tipoNuovo+"'  where tipo= '"+tipoVecchio+"' ");
+        stat.executeUpdate();
+        stat.close();
+    }
+
     @Override
     public void fire(Connection conn, Object[] oldRow, Object[] newRow) throws SQLException {
 
@@ -45,7 +53,7 @@ public class TriggerViewMagazzinoModifyCialde extends TriggerMagazzino implement
         else
             if(newRow != null)insertTipoCialde((String) newRow[0]);
             else
-            System.out.println("UPDATEEEEEEE");
+                updateTipoCialde((String) newRow[0], (String) oldRow[0] );
 
     }
 

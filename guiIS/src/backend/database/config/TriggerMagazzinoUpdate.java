@@ -4,7 +4,7 @@ import org.h2.api.Trigger;
 
 import java.sql.*;
 
-public class MaterializedViewMagazzino extends TriggerMagazzino implements Trigger {
+public class TriggerMagazzinoUpdate extends ViewMagazzino implements Trigger {
 
     protected static final String TRIGGER_PATH="\"backend.database.config.MaterializedViewMagazzino\"";
 

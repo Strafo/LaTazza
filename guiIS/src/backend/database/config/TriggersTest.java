@@ -64,8 +64,8 @@ public class TriggersTest {
         Connection conn= T.getDatabase().getConnection();
         T.updateTable("databaseConfig.sql");
         TriggerCheckNumCialde.initTrigger(conn);
-        TriggerMagazzino.initView(conn);
-        //MaterializedViewDebito.initView(conn);
+        ViewMagazzino.initView(conn);
+        //TriggerVenditaCredito.initView(conn);
         //TriggerPagamentoDebito.initView(conn);
 
         //MaterializedViewCassaVisitatore.initView(conn);
