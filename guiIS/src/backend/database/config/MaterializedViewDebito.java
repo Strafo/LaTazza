@@ -8,10 +8,9 @@ public class MaterializedViewDebito extends TriggerDebito implements Trigger {
 
     private static final String TRIGGER_PATH="\"backend.database.config.MaterializedViewDebito\"";
     private static final String TABLE_NAME_DIPENDENTE="LATAZZASCHEMA.COMPRA_DIPENDENTE";
-    private static final String TABLE_NAME_CIALDE="LATAZZASCHEMA.CIALDE";
     private static final String TRIGGER_NAME="Update_Table_Debiti_Pagati";
     private static final String CREATE_TRIGGER_STATEMENT_DEBITO = "CREATE TRIGGER " + TRIGGER_NAME+ " AFTER INSERT ON "+TABLE_NAME_DIPENDENTE+" FOR EACH ROW CALL "+TRIGGER_PATH;
-
+    private static final String TABLE_NAME_CIALDE="LATAZZASCHEMA.CIALDE";
 
 
     private static double getPrezzo(Connection conn, Object[] newRow) throws SQLException {
@@ -25,8 +24,7 @@ public class MaterializedViewDebito extends TriggerDebito implements Trigger {
         if(rs.next()) return rs.getDouble(1);
         return 0.0;
     }
-
-
+    
     private static double getDebito(Connection conn, Object[] newRow)  throws SQLException{
 
         PreparedStatement stat= conn.prepareStatement("select numero_cialde " +

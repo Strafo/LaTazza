@@ -57,11 +57,12 @@ create table LATAZZASCHEMA.compra_dipendente(
   nome varchar(64) not null,
   cognome varchar(64) not null,
   tipo_cialda varchar(64) not null references LATAZZASCHEMA.cialde(tipo) on update cascade on delete restrict,
-  contanti boolean not null, -- se � false paga con credito, altrimenti in contanti
   numero_cialde integer not null check (numero_cialde > 0),
   data TIMESTAMP default CURRENT_TIMESTAMP not null,
+  contanti boolean not null, -- se � false paga con credito, altrimenti in contanti
   primary key (data, nome, cognome),
   foreign key (nome, cognome) references LATAZZASCHEMA.personale(nome, cognome)on update cascade on delete restrict
+
 );
 
 

@@ -3,7 +3,10 @@ package backend.database.config;
 import java.sql.*;
 
 public class TriggerDebito {
+
     protected static final String TABLE_NAME_DEBITO="LATAZZASCHEMA.DEBITO";
+
+
 
     protected static double getCurrentDebito(Connection conn, Object[] newRow)  throws SQLException {
 
@@ -18,6 +21,7 @@ public class TriggerDebito {
         if(rs.next()) return rs.getDouble(1);
         return 0.0;
     }
+
 
     protected static void initView(Connection conn, String trigger) {
         Statement stat = null;

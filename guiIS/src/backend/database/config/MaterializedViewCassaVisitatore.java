@@ -1,25 +1,42 @@
 package backend.database.config;
 
+import backend.businessLogicLayer.Euro;
 import org.h2.api.Trigger;
 
 import java.sql.*;
 
 
-public class MaterializedViewCassaVisitatore implements Trigger {
+public class MaterializedViewCassaVisitatore extends ViewCassa implements Trigger {
 
     private static final String TRIGGER_PATH = "\"backend.database.config.MaterializedViewCassaVisitatore\"";
-    private static final String TABLE_NAME = "LATAZZASCHEMA.Compra_Visitatore";
-    private static final String TABLE_NAME_CASSA = "LATAZZASCHEMA.CASSA";
-    private static final String TRIGGER_NAME = "Update_Table_Cassa_Visitatore";
-    private static final String CREATE_TRIGGER = "CREATE TRIGGER " + TRIGGER_NAME + " AFTER INSERT ON " + TABLE_NAME + " FOR EACH ROW CALL " + TRIGGER_PATH;
+    private static final String TABLE_NAME_COMPRA_VISITATORE = "LATAZZASCHEMA.Compra_Visitatore";
+    private static final String TABLE_NAME_COMPRA_DIPENDENTE = "LATAZZASCHEMA.Compra_Dipendente";
+    private static final String TRIGGER_NAME_VISITATORE = "Update_Table_Cassa_Visitatore";
+    private static final String TRIGGER_NAME_DIPENDENTE = "Update_Table_Cassa_Dipendente";
+    private static final String CREATE_TRIGGER_VISITATORE = "CREATE TRIGGER " + TRIGGER_NAME_VISITATORE+ " AFTER INSERT ON " + TABLE_NAME_COMPRA_VISITATORE + " FOR EACH ROW CALL " + TRIGGER_PATH;
+    private static final String CREATE_TRIGGER_DIPENDENTE = "CREATE TRIGGER " + TRIGGER_NAME_DIPENDENTE + " AFTER INSERT ON " + TABLE_NAME_COMPRA_DIPENDENTE + " FOR EACH ROW CALL " + TRIGGER_PATH;
 
 
-    protected static double getValue(Connection conn) throws SQLException {
-        PreparedStatement stat= conn.prepareStatement("select sum(numero_cialde)*0.50 " +
-                "from " + TABLE_NAME);
+    public static Euro multEuro(Euro euro1, Euro euro2){
+
+        return new Euro(0,0);
+    }
+
+
+    private static Euro updateCassa(Connection conn, Object[] newRow, String tableName) throws SQLException {
+        PreparedStatement stat= conn.prepareStatement("select numero_cialde " +
+                "from " + tableName+ (tableName.equals(TABLE_NAME_COMPRA_DIPENDENTE)? " where contanti= true ":" ")+
+                " and nome=? and cognome=? and data=? ");
+        stat.setNString(1, (String) newRow[0]);
+        stat.setNString(2, (String) newRow[1]);
+        stat.setTimestamp(3, (Timestamp) newRow[4]);
         ResultSet rs=stat.executeQuery();
-        rs.next();
-        return rs.getDouble(1);
+        if(rs.next()){
+            Euro numCialde= new Euro(rs.getLong(1),0);
+            Euro prezzo=  multEuro(getPrezzo(conn, newRow), numCialde);
+            return  prezzo.aggiungiImporto(getCurrent(conn));
+        }
+        return new Euro(0,0);
     }
 
 
@@ -30,21 +47,15 @@ public class MaterializedViewCassaVisitatore implements Trigger {
 
     @Override
     public void fire(Connection conn, Object[] oldRow, Object[] newRow) throws SQLException {
-        double value = getValue(conn);
-        //System.out.println("Value: "+ value);
-        PreparedStatement stat = conn.prepareStatement("update " + TABLE_NAME_CASSA + " set importo= importo + ?");
-        stat.setDouble(1, value);
-        stat.executeUpdate();
 
-
-
-        PreparedStatement stat1= conn.prepareStatement("select importo from "+"LATAZZASCHEMA.CASSA");
-        ResultSet rs= stat1.executeQuery();
-
-       /* if(rs.next())
-            System.out.println("Valore Aggiornato Dopo Rifornimento "+ rs.getDouble(1));
-        */
-
+        Euro incassoVisitatore=  updateCassa(conn,newRow, TABLE_NAME_COMPRA_VISITATORE);
+        Euro incassoDipendenti= updateCassa(conn, newRow, TABLE_NAME_COMPRA_DIPENDENTE);
+        PreparedStatement statV = conn.prepareStatement("update " + TABLE_NAME_CASSA + " set euro= " +
+                                                           incassoVisitatore.getEuro()+", centesimi= "+incassoVisitatore.getCentesimi());
+        statV.executeUpdate();
+        PreparedStatement statD  = conn.prepareStatement("update " + TABLE_NAME_CASSA + " set euro= " +
+                incassoDipendenti.getEuro()+", centesimi= "+incassoDipendenti.getCentesimi());
+        statD.executeUpdate();
     }
 
     @Override
@@ -61,7 +72,8 @@ public class MaterializedViewCassaVisitatore implements Trigger {
         Statement stat = null;
         try {
             stat = conn.createStatement();
-            stat.execute(CREATE_TRIGGER);
+            stat.execute(CREATE_TRIGGER_DIPENDENTE);
+            stat.execute(CREATE_TRIGGER_VISITATORE);
         } catch (SQLException e) {
             e.printStackTrace();
         }
