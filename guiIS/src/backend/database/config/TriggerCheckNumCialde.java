@@ -7,6 +7,10 @@ import java.sql.SQLException;
 
 public class TriggerCheckNumCialde{
     private static final int tipoCialda=2;
+    private static final int qtaCialde=1;
+    protected static final int nome=0;
+    protected static final int cognome=1;
+    protected static final int timestamp=4;
 
     public static void initTrigger(Connection conn)  {
         TriggerCheckNumCialdeDipendente.initTrigger(conn);
@@ -46,6 +50,6 @@ public class TriggerCheckNumCialde{
         rifornimento=stat.executeQuery();
         rifornimento.next();
 
-        return   rifornimento.getInt(1) - (acquistiVisitatore.getInt(1) + acquistiPersonale.getInt(1));
+        return   rifornimento.getInt(qtaCialde) - (acquistiVisitatore.getInt(qtaCialde) + acquistiPersonale.getInt(qtaCialde));
     }
 }

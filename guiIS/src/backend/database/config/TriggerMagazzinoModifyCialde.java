@@ -15,7 +15,7 @@ public class TriggerMagazzinoModifyCialde extends ViewMagazzino implements Trigg
     private static final String CREATE_TRIGGER_STATEMENT_INSERT_CIALDE = "CREATE TRIGGER " + TRIGGER_NAME_INSERT_CIALDE + " AFTER INSERT ON "+ TABLE_NAME_CIALDE +" FOR EACH ROW CALL " + TRIGGER_PATH;
     private static final String CREATE_TRIGGER_STATEMENT_DELETE_CIALDE = "CREATE TRIGGER " + TRIGGER_NAME_DELETE_CIALDE + " AFTER DELETE ON "+ TABLE_NAME_CIALDE +" FOR EACH ROW CALL " + TRIGGER_PATH;
     private static final String CREATE_TRIGGER_STATEMENT_UPDATE_CIALDE = "CREATE TRIGGER " + TRIGGER_NAME_UPDATE_CIALDE + " AFTER UPDATE ON "+ TABLE_NAME_CIALDE +" FOR EACH ROW CALL " + TRIGGER_PATH;
-
+    private static final int tipoCialda=0;
 
     @Override
     public void init(Connection connection, String s, String s1, String s2, boolean b, int i) throws SQLException {
@@ -49,11 +49,11 @@ public class TriggerMagazzinoModifyCialde extends ViewMagazzino implements Trigg
 
 
 
-        if(oldRow != null)deleteTipoCialde((String) oldRow[0]);
+        if(oldRow != null)deleteTipoCialde((String) oldRow[tipoCialda]);
         else
-            if(newRow != null)insertTipoCialde((String) newRow[0]);
+            if(newRow != null)insertTipoCialde((String) newRow[tipoCialda]);
             else
-                updateTipoCialde((String) newRow[0], (String) oldRow[0] );
+                updateTipoCialde((String) newRow[tipoCialda], (String) oldRow[tipoCialda] );
 
     }
 

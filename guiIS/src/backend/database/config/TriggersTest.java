@@ -65,8 +65,7 @@ public class TriggersTest {
         T.updateTable("databaseConfig.sql");
         TriggerCheckNumCialde.initTrigger(conn);
         ViewMagazzino.initView(conn);
-        //TriggerVenditaCredito.initView(conn);
-        //TriggerPagamentoDebito.initView(conn);
+        ViewDebito.initView(conn);
 
         //MaterializedViewCassaVisitatore.initView(conn);
 

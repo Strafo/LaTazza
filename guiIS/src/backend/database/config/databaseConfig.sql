@@ -76,10 +76,10 @@ create table LATAZZASCHEMA.Debito(
 
   nome varchar(64) not null,
   cognome varchar(64) not null,
-  euro bigint not null check( euro > 0),
+  euro bigint not null check( euro >= 0),
   centesimi tinyint not null check(centesimi>=0 and centesimi < 100),
-  primary key (nome,cognome),
-  foreign key (nome, cognome) references LATAZZASCHEMA.personale(nome, cognome)on update cascade on delete restrict
+  attivo boolean not null,
+  primary key (nome,cognome)
 
 );
 

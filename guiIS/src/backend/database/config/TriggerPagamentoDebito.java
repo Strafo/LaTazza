@@ -12,20 +12,20 @@ public class TriggerPagamentoDebito extends ViewDebito implements Trigger {
     private static final String TABLE_NAME = "LATAZZASCHEMA.PAGAMENTO_DEBITO";
     private static final String TRIGGER_NAME = "Update_Table_Debito";
     private static final String CREATE_TRIGGER = "CREATE TRIGGER " + TRIGGER_NAME + " AFTER INSERT ON " + TABLE_NAME + " FOR EACH ROW CALL " + TRIGGER_PATH;
+    private static final int timestamp=2;
 
     private static Euro getDebitoPagato(Object[] newRow) throws SQLException {
 
 
-        PreparedStatement stat = connection.prepareStatement("select euro,centesimi " +
+        stat = connection.prepareStatement("select euro,centesimi " +
                 "from " + TABLE_NAME +
                 " where nome=? and cognome=? and data= ? ");
 
-        stat.setNString(1, (String) newRow[0]);
-        stat.setNString(2, (String) newRow[1]);
-        stat.setTimestamp(3, (Timestamp) newRow[2]);
-
-        ResultSet rs = stat.executeQuery();
-        if (rs.next()) return new Euro(rs.getLong(1), rs.getInt(2) );
+        stat.setNString(1, (String) newRow[nome]);
+        stat.setNString(2, (String) newRow[cognome]);
+        stat.setTimestamp(3, (Timestamp) newRow[timestamp]);
+        rs = stat.executeQuery();
+        if (rs.next()) return new Euro(rs.getLong(euro), rs.getInt(centesimi) );
         return new Euro(0,0);
     }
 
@@ -39,10 +39,10 @@ public class TriggerPagamentoDebito extends ViewDebito implements Trigger {
         Euro debito=getDebitoCorrente(newRow);
         Euro pagato=getDebitoPagato(newRow);
         debito.sottraiImporto(pagato);
-        PreparedStatement stat = conn.prepareStatement("update " + TABLE_NAME_DEBITO + " set euro="
+        stat = conn.prepareStatement("update " + TABLE_NAME_DEBITO + " set euro="
                 + pagato.getEuro() + ", centesimi= "+ pagato.getCentesimi()+" where nome=? and cognome=? ");
-        stat.setNString(1, (String) newRow[0]);
-        stat.setNString(2, (String) newRow[1]);
+        stat.setNString(1, (String) newRow[nome]);
+        stat.setNString(2, (String) newRow[cognome]);
         stat.executeUpdate();
 
     }
