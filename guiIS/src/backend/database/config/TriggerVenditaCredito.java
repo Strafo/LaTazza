@@ -7,7 +7,7 @@ import java.sql.*;
 
 public class TriggerVenditaCredito extends ViewDebito implements Trigger {
 
-    private static final String TRIGGER_PATH="\"backend.database.config.MaterializedViewDebito\"";
+    private static final String TRIGGER_PATH="\"backend.database.config.TriggerVenditaCredito\"";
     private static final String TABLE_NAME_DIPENDENTE="LATAZZASCHEMA.COMPRA_DIPENDENTE";
     private static final String TABLE_NAME_CIALDE="LATAZZASCHEMA.CIALDE";
     private static final String TRIGGER_NAME="Update_Table_Debiti_Pagati";
@@ -35,7 +35,7 @@ public class TriggerVenditaCredito extends ViewDebito implements Trigger {
                                                                 " where contanti=false and nome=? and cognome=? and data=?" );
         stat.setNString(1, (String) newRow[0]);
         stat.setNString(2, (String) newRow[1]);
-        stat.setTimestamp(3, (Timestamp) newRow[5]);
+        stat.setTimestamp(3, (Timestamp) newRow[4]);
         ResultSet rs= stat.executeQuery();
         //getCurrentDebito( newRow)+(rs.getInt(1)*getPrezzo(newRow)));
         if(rs.next()) return new Euro(0,0);
