@@ -46,7 +46,6 @@ public class MaterializedViewMagazzino extends TriggerMagazzino implements Trigg
         rifornimenti=getNumCialde(TABLE_NAME_RIFORNIMENTO,(String) newRow[tipoCialda]);
         venditaD=getNumCialde(TABLE_NAME_DIPENDENTE,(String) newRow[tipoCialda]);
         venditaV=getNumCialde(TABLE_NAME_VISITATORE,(String) newRow[tipoCialda]);
-
         return rifornimenti - (venditaD + venditaV);
     }
         @Override

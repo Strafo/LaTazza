@@ -1,7 +1,7 @@
 
-insert into LATAZZASCHEMA.CIALDE values ('the', 0.50 );
-insert into LATAZZASCHEMA.CIALDE values('caffe',0.50);
-insert into LATAZZASCHEMA.CIALDE values('camomilla',0.50);
+insert into LATAZZASCHEMA.CIALDE values ('the', 0,50 );
+insert into LATAZZASCHEMA.CIALDE values('caffe',0,50);
+insert into LATAZZASCHEMA.CIALDE values('camomilla',0,50);
 
 
 
@@ -36,7 +36,7 @@ insert into LATAZZASCHEMA.PAGAMENTO_DEBITO values ('Jacopo','Dapueto', '2019-01-
 insert into LATAZZASCHEMA.PAGAMENTO_DEBITO values ('Jacopo','Dapueto', '2019-02-11 14:00:00',5, 66);
 insert into LATAZZASCHEMA.PAGAMENTO_DEBITO values ('Gabriele','Armanino', '2019-01-04 11:00:00',10,33);
 
-insert into LATAZZASCHEMA.CIALDE values('Cocaina',10.0);
+insert into LATAZZASCHEMA.CIALDE values('Cocaina',10,0);
 
 delete from LATAZZASCHEMA.MAGAZZINO where tipo='Cocaina';
 

@@ -4,7 +4,8 @@ create schema LATAZZASCHEMA;
 
 create table LATAZZASCHEMA.cialde(
   tipo varchar(64) not null primary key,
-  prezzo double not null default (0.50) check ( prezzo >=0)
+  prezzo_euro int not null default (0) check ( prezzo_euro >=0),
+  prezzo_centesimi tinyint not null default (50) check( prezzo_centesimi >= 0 and prezzo_centesimi <100)
 );
 
 
@@ -35,7 +36,7 @@ create table LATAZZASCHEMA.pagamento_debito(
   cognome varchar(64) not null,
   data TIMESTAMP default CURRENT_TIMESTAMP not null,
   euro bigint not null check( euro > 0),
-  centesimi tinyint not null check(centesimi>=0 and centesimi < 99),
+  centesimi tinyint not null check(centesimi>=0 and centesimi < 100),
   primary key (nome, cognome, data),
   foreign key(nome, cognome) references LATAZZASCHEMA.personale(nome,cognome) on update cascade on delete restrict
 );
@@ -74,14 +75,16 @@ create table LATAZZASCHEMA.Debito(
 
   nome varchar(64) not null,
   cognome varchar(64) not null,
-  importo double not null default (0),
+  euro bigint not null check( euro > 0),
+  centesimi tinyint not null check(centesimi>=0 and centesimi < 100),
   primary key (nome,cognome),
   foreign key (nome, cognome) references LATAZZASCHEMA.personale(nome, cognome)on update cascade on delete restrict
 
 );
 
 create table LATAZZASCHEMA.Cassa(
-    importo double not null default (1500.00) primary key
+  euro bigint not null default (500)check( euro >= 0),
+  centesimi tinyint not null default (0) check(centesimi>=0 and centesimi < 100)
 );
 SET LOCK_MODE 1;
 insert into LATAZZASCHEMA.Cassa values ();--insert con valore di default
