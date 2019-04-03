@@ -1,7 +1,7 @@
 package backend.database.config;
 
-import backend.businessLogicLayer.Euro;
 import org.h2.api.Trigger;
+import utils.Euro;
 
 import java.sql.*;
 

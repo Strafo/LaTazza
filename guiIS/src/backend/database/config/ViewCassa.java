@@ -1,6 +1,6 @@
 package backend.database.config;
 
-import backend.businessLogicLayer.Euro;
+import utils.Euro;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
