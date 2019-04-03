@@ -137,5 +137,33 @@ public class EuroTest {
 
     }
 
+    @Test
+    void testMoltiplicaImporto(){
+
+        try{
+            s1.moltiplicaImporto(5);
+            assertEquals(s1.getEuro(),501);
+            assertEquals(s1.getCentesimi(),0);
+        }catch(Exception exc){
+            fail("Exception  thrown s1");
+        }
+        try{
+            s2.moltiplicaImporto(5);
+            assertEquals(s2.getEuro(),454);
+            assertEquals(s2.getCentesimi(),95);
+        }catch(Exception exc){
+            fail("Exception  thrown s2");
+        }
+        try{
+            s3.moltiplicaImporto(1000000000);
+            fail("Exception  thrown s2");
+        }catch(Exception exc){
+            assertTrue(exc instanceof Euro.OverflowEuroException);
+        }
+
+
+
+    }
+
 
 }

@@ -129,7 +129,24 @@ public class Euro {
         return this.clone();
     }
 
-
+    /**
+     * Moltiplica l'importo corrente con il valore moltiplicatore.
+     * @param moltiplicatore
+     * @throws IllegalArgumentException se i parametri hanno valore negativo.
+     * @throws OverflowEuroException se il moltiplicatore passato provoca un overflow sul tdd primitivo long o int.
+     */
+    public void moltiplicaImporto(int moltiplicatore){
+        if (moltiplicatore < 0)
+            throw new IllegalArgumentException("impossibile moltiplicare per quantità negativa");
+        try {
+            long euroNew=Math.multiplyExact(this.euro, moltiplicatore);
+            int centesimiNew=Math.multiplyExact(this.centesimi, moltiplicatore);
+            this.euro = Math.addExact(Math.floorDiv(centesimiNew, MODULONUM), euroNew);
+            this.centesimi = centesimiNew % MODULONUM;
+        } catch(ArithmeticException exc){
+            throw new OverflowEuroException("Impossibile moltiplicare l'importo. (overflow)",exc.getCause());
+        }
+    }
 
     public long getEuro() {
         return euro;
