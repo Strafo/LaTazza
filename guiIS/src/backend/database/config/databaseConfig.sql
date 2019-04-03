@@ -34,7 +34,8 @@ create table LATAZZASCHEMA.pagamento_debito(
   nome varchar(64) not null,
   cognome varchar(64) not null,
   data TIMESTAMP default CURRENT_TIMESTAMP not null,
-  importo double precision not null check( importo > 0),
+  euro bigint not null check( euro > 0),
+  centesimi tinyint not null check(centesimi>=0 and centesimi < 99),
   primary key (nome, cognome, data),
   foreign key(nome, cognome) references LATAZZASCHEMA.personale(nome,cognome) on update cascade on delete restrict
 );

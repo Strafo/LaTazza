@@ -65,14 +65,14 @@ public class TriggersTest {
         T.updateTable("databaseConfig.sql");
         TriggerCheckNumCialde.initTrigger(conn);
         TriggerMagazzino.initView(conn);
-        MaterializedViewDebito.initView(conn);
-        TriggerPagamentoDebito.initView(conn);
+        //MaterializedViewDebito.initView(conn);
+        //TriggerPagamentoDebito.initView(conn);
 
         //MaterializedViewCassaVisitatore.initView(conn);
 
         T.updateTable("Insert.sql");
 
-
+/*
 System.out.println("--------------MAIN----------------------------------");
         ResultSet rs;
         PreparedStatement prep;
@@ -81,7 +81,7 @@ System.out.println("--------------MAIN----------------------------------");
         rs=prep.executeQuery();
         while(rs.next())
             System.out.println("\n"+rs.getString(1) + ", " + rs.getString(2)+": "+ rs.getDouble(3));
-
+*/
         T.getDatabase().closeDataBase();
     }
 
