@@ -20,7 +20,7 @@ public class RowPanelProperties {
     static public final int DEFAULTHEIGHT_BUTTONLABEL = 16;
     static public final int DEFAULTX_BUTTONLABEL = 6;
     public static  final int DEFAULTY_BUTTONLABEL = 6;
-    public final static Font DEFAULTFONT=new Font("Tahoma",Font.PLAIN,13);
+    public final static Font DEFAULTFONT=new Font("Avenir",Font.PLAIN,13);
 
     private  RowPanelProperties(){
 

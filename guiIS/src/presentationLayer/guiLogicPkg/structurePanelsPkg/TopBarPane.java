@@ -1,6 +1,6 @@
 package presentationLayer.guiLogicPkg.structurePanelsPkg;
 
-import java.awt.Frame;
+import java.awt.*;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import presentationLayer.guiConfig.KGradientPanel;
@@ -18,8 +18,8 @@ public class TopBarPane extends KGradientPanel {
 	private JLabel labelClose;
 	private JLabel labelMin;
 
-	private static final int DEFAULTX_LABELCLOSE = 820;
-	private static final int DEFAULTX_LABELMIN = 795;
+	private static final int DEFAULTX_LABELCLOSE = 780;
+	private static final int DEFAULTX_LABELMIN = 755;
 
 	private static final int DEFAULTY_LABEL = 3;
 	private static final int DEFAULT_WIDTH_LABEL = 25;
@@ -35,9 +35,8 @@ public class TopBarPane extends KGradientPanel {
         setkEndColor(CAFFE);
         setkStartColor(CAPPUCCINO);
         
-        labelClose = new JLabel();
-        labelClose.setIcon(ResourcesClassLoader.getIconCloseB());
-        labelClose.setBounds(DEFAULTX_LABELCLOSE, DEFAULTY_LABEL, DEFAULT_WIDTH_LABEL, DEFAULT_HEIGHT_LABEL);
+        labelClose = new MyJLabel(null,null,DEFAULTX_LABELCLOSE,
+				DEFAULTY_LABEL, DEFAULT_WIDTH_LABEL, DEFAULT_HEIGHT_LABEL,ResourcesClassLoader.getIconCloseW());
         add(labelClose);
         
         labelClose.addMouseListener(new MouseAdapter() {
@@ -51,27 +50,18 @@ public class TopBarPane extends KGradientPanel {
         	}
         	@Override
         	public void mouseExited(MouseEvent e) {
-        		labelClose.setIcon(ResourcesClassLoader.getIconCloseB());
+        		labelClose.setIcon(ResourcesClassLoader.getIconCloseW());
         	}
         });
         
-        labelMin = new JLabel();
-        labelMin.setIcon(ResourcesClassLoader.getIconMinB());
-        labelMin.setBounds(DEFAULTX_LABELMIN, DEFAULTY_LABEL, DEFAULT_WIDTH_LABEL, DEFAULT_HEIGHT_LABEL);
+        labelMin = new MyJLabel(null,null,DEFAULTX_LABELMIN,
+				DEFAULTY_LABEL, DEFAULT_WIDTH_LABEL, DEFAULT_HEIGHT_LABEL, ResourcesClassLoader.getIconMinW());
         add(labelMin);
-        
+
         labelMin.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mouseClicked(MouseEvent e) {
         		frame.setState(Frame.ICONIFIED);
-        	}
-        	@Override
-        	public void mouseEntered(MouseEvent e) {
-        		labelMin.setIcon(ResourcesClassLoader.getIconMinW());
-        	}
-        	@Override
-        	public void mouseExited(MouseEvent e) {
-        		labelMin.setIcon(ResourcesClassLoader.getIconMinB());
         	}
         });
 		
