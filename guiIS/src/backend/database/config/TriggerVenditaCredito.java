@@ -85,6 +85,7 @@ public class TriggerVenditaCredito extends ViewDebito implements Trigger {
     }
 
 
+
     public static void initTrigger(Connection conn){
         Statement stat= null;
         try {
