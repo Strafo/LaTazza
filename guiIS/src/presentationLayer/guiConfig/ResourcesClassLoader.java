@@ -36,7 +36,7 @@ public class ResourcesClassLoader{
     private static ImageIcon iconaRimPersonale= retriveIcon("iconRimozioneUtente.png");
 
     public static ImageIcon retriveIcon(String iconAddress) {
-        String path=System.getProperty("user.dir")+"/guiIS/src/iconeGui/"+iconAddress;
+        String path=System.getProperty("user.dir")+"/guiIS/src/presentationLayer/iconeGui/"+iconAddress;
         return new ImageIcon(Objects.requireNonNull(path));
     }
 

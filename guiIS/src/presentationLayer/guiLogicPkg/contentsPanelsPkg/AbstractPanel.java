@@ -13,7 +13,7 @@ public abstract class AbstractPanel extends JPanel {
     private final LaTazzaFrame.JPanelsNames PANELNAME;
 
 
-    protected AbstractPanel(long serialVersionUID, String linkdescription, LaTazzaFrame.JPanelsNames panelname) {
+    AbstractPanel(long serialVersionUID, String linkdescription, LaTazzaFrame.JPanelsNames panelname) {
         this.serialVersionUID = serialVersionUID;
         LINKDESCRIPTION = linkdescription;
         PANELNAME = panelname;
@@ -30,5 +30,11 @@ public abstract class AbstractPanel extends JPanel {
 
     public LaTazzaFrame.JPanelsNames getPANELNAME() {
         return PANELNAME;
+    }
+
+    void addItems(String[] stringa, JComboBox<String> cb) {
+        for (String s : stringa) {
+            cb.addItem(s);
+        }
     }
 }

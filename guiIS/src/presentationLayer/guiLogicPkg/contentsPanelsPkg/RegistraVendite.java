@@ -12,6 +12,8 @@ import utils.MyJLabel;
 
 import javax.swing.JRadioButton;
 import javax.swing.JButton;
+import javax.swing.text.NumberFormatter;
+
 import static presentationLayer.guiConfig.contentsPanelsPropertiesPkg.RegVenditeProperties.*;
 
 public class RegistraVendite extends AbstractPanel {

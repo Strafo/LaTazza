@@ -41,7 +41,7 @@ public class StatoPane extends AbstractPanel {
         add(panelMagazzino1);
 
 		labelMagazzino = new MyJLabel(DEFAULT_LABELDESCRIPTION[1],DEFAULT_FONT_DESCRIZIONI,SwingConstants.LEFT,
-                SwingConstants.CENTER,DEFAULT_WIDTH_SOTTOTITOLO,DEFAULT_HEIGHT_SOTTOTITOTLO,ResourcesClassLoader.getIconMagazzino() );
+                SwingConstants.CENTER,DEFAULT_WIDTH_SOTTOTITOLO,DEFAULT_HEIGHT_SOTTOTITOTLO,ResourcesClassLoader.getIconMagazzino());
         panelMagazzino1.add(labelMagazzino);
 
         JPanel panelCassa1 = new JPanel();
