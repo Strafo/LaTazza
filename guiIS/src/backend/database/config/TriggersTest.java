@@ -69,11 +69,11 @@ public class TriggersTest {
         ViewCassa.initView(conn);
 
         T.updateTable("Insert.sql");
-
-/*
-System.out.println("--------------MAIN----------------------------------");
         ResultSet rs;
         PreparedStatement prep;
+/*
+System.out.println("--------------MAIN----------------------------------");
+
 /*
         System.out.println("--------------MAIN----------------------------------");
 
@@ -92,6 +92,7 @@ System.out.println("--------------MAIN----------------------------------");
         while(rs.next())
             System.out.println("\n"+rs.getString(1) + ", " + rs.getString(2)+": "+ rs.getLong(3)+"."+rs.getInt(4));
 
+        /*
         System.out.println("------------------------------------------------ \nCOMPRA_DIPENDENTE:\n");
 
         prep=conn.prepareStatement("select *" +
@@ -104,7 +105,7 @@ System.out.println("--------------MAIN----------------------------------");
         rs=prep.executeQuery();
         while(rs.next())
             System.out.println("CASSA: "+rs.getLong(1)+"."+rs.getInt(2)+" euro");
-
+*/
         T.getDatabase().closeDataBase();
     }
 

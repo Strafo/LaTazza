@@ -13,6 +13,7 @@ public class TriggerVenditaCredito extends ViewDebito implements Trigger {
     private static final String TRIGGER_NAME="Update_Table_Debiti_Pagati";
     private static final String CREATE_TRIGGER_STATEMENT_DEBITO = "CREATE TRIGGER " + TRIGGER_NAME+ " AFTER INSERT ON "+TABLE_NAME_DIPENDENTE+" FOR EACH ROW CALL "+TRIGGER_PATH;
     private static final int timestamp=4;
+    private static final int contanti=5;
 
     private static Euro getPrezzo( Object[] newRow) throws SQLException {
 
