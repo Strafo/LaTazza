@@ -1,8 +1,8 @@
 package presentationLayer.guiConfig.contentsPanelsPropertiesPkg;
 
+import guiConfig.contentsPanelsPropertiesPkg.AbstractPanelProperties;
 import presentationLayer.guiLogicPkg.contentsPanelsPkg.GestionePersonale;
 import presentationLayer.guiLogicPkg.LaTazzaFrame;
-
 import java.awt.*;
 
 public class GestPersonaleProperties extends AbstractPanelProperties {

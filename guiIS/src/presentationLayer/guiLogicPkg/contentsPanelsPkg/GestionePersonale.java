@@ -1,15 +1,10 @@
 package presentationLayer.guiLogicPkg.contentsPanelsPkg;
 
-import java.awt.Font;
 import javax.swing.JLabel;
 import presentationLayer.guiConfig.ResourcesClassLoader;
 import presentationLayer.guiConfig.contentsPanelsPropertiesPkg.GestPersonaleProperties;
 import javax.swing.*;
-
 import utils.MyJLabel;
-import guiConfig.ResourcesClassLoader;
-import guiConfig.contentsPanelsPropertiesPkg.GestPersonaleProperties;
-
 import static presentationLayer.guiConfig.contentsPanelsPropertiesPkg.GestPersonaleProperties.*;
 
 public class GestionePersonale extends AbstractPanel {

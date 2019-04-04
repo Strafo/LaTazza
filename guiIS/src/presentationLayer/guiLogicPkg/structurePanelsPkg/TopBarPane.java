@@ -6,6 +6,8 @@ import javax.swing.JLabel;
 import presentationLayer.guiConfig.KGradientPanel;
 import presentationLayer.guiConfig.ResourcesClassLoader;
 import presentationLayer.guiConfig.structurePanelsPropertiesPkg.TopBarProperties;
+import utils.MyJLabel;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import static utils.LaTazzaColors.*;

@@ -8,6 +8,8 @@ import javax.swing.*;
 
 import presentationLayer.guiConfig.ResourcesClassLoader;
 import presentationLayer.guiConfig.contentsPanelsPropertiesPkg.RegVenditeProperties;
+import utils.MyJLabel;
+
 import javax.swing.JRadioButton;
 import javax.swing.JButton;
 import static presentationLayer.guiConfig.contentsPanelsPropertiesPkg.RegVenditeProperties.*;

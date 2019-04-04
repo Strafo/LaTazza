@@ -2,11 +2,10 @@ package presentationLayer.guiLogicPkg.contentsPanelsPkg;
 
 import presentationLayer.guiConfig.ResourcesClassLoader;
 import presentationLayer.guiConfig.contentsPanelsPropertiesPkg.StatoPaneProperties;
-
+import utils.MyJLabel;
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
 import java.awt.*;
-
 import static presentationLayer.guiConfig.contentsPanelsPropertiesPkg.StatoPaneProperties.*;
 
 

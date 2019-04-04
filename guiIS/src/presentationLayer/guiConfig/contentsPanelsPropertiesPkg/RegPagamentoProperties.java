@@ -1,12 +1,13 @@
 package presentationLayer.guiConfig.contentsPanelsPropertiesPkg;
 
+import guiConfig.contentsPanelsPropertiesPkg.AbstractPanelProperties;
 import presentationLayer.guiLogicPkg.LaTazzaFrame;
 import presentationLayer.guiLogicPkg.contentsPanelsPkg.RegistraPagamento;
 import java.awt.*;
 
 import static presentationLayer.guiLogicPkg.LaTazzaFrame.JPanelsNames.REGPAGAMENTOPANE;
 
-public  class RegPagamentoProperties extends AbstractPanelProperties{
+public  class RegPagamentoProperties extends AbstractPanelProperties {
 
     public static final String DEFAULT_LINKDESCRIPTION="Registra pagamento";
     public static final LaTazzaFrame.JPanelsNames DEFAULT_PANELNAME=REGPAGAMENTOPANE;

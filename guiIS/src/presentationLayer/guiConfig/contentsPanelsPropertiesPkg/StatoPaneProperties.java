@@ -1,10 +1,9 @@
 package presentationLayer.guiConfig.contentsPanelsPropertiesPkg;
 
+import guiConfig.contentsPanelsPropertiesPkg.AbstractPanelProperties;
 import presentationLayer.guiLogicPkg.LaTazzaFrame;
 import presentationLayer.guiLogicPkg.contentsPanelsPkg.StatoPane;
-
 import java.awt.*;
-
 import static presentationLayer.guiLogicPkg.LaTazzaFrame.JPanelsNames.STATOPANE;
 
 public class StatoPaneProperties extends AbstractPanelProperties {

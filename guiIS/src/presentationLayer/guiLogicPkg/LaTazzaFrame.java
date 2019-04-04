@@ -3,20 +3,13 @@ package presentationLayer.guiLogicPkg;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.swing.*;
-
 //import com.apple.eawt.Application;//todo qui non so se va bene è una lib di apple
-import presentationLayer.guiConfig.ResourcesClassLoader;
 import presentationLayer.guiConfig.structurePanelsPropertiesPkg.LaTazzaFrameProperties;
 import presentationLayer.guiLogicPkg.contentsPanelsPkg.*;
 import presentationLayer.guiLogicPkg.structurePanelsPkg.MenuPane;
 import presentationLayer.guiLogicPkg.structurePanelsPkg.TopBarPane;
-import guiConfig.ResourcesClassLoader;
-import guiConfig.structurePanelsPropertiesPkg.LaTazzaFrameProperties;
-import guiLogicPkg.contentsPanelsPkg.*;
-import guiLogicPkg.structurePanelsPkg.MenuPane;
-import guiLogicPkg.structurePanelsPkg.TopBarPane;
+
 
 public class LaTazzaFrame extends JFrame {
 

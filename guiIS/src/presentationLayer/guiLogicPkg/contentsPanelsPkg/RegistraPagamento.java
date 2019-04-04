@@ -1,10 +1,13 @@
 package presentationLayer.guiLogicPkg.contentsPanelsPkg;
 
-import java.awt.Font;
-import javax.swing.JLabel;
+import javax.swing.*;
+import javax.swing.text.NumberFormatter;
 import presentationLayer.guiConfig.ResourcesClassLoader;
 import presentationLayer.guiConfig.contentsPanelsPropertiesPkg.RegPagamentoProperties;
-
+import utils.MyJLabel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.NumberFormat;
 import static presentationLayer.guiConfig.contentsPanelsPropertiesPkg.RegPagamentoProperties.*;
 
 

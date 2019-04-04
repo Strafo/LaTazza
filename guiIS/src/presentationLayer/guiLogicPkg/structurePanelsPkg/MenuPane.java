@@ -8,6 +8,7 @@ import presentationLayer.guiConfig.ResourcesClassLoader;
 import presentationLayer.guiConfig.structurePanelsPropertiesPkg.MenuPaneProperties;
 import presentationLayer.guiLogicPkg.LaTazzaFrame;
 import utils.LaTazzaColors;
+import utils.MyJLabel;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

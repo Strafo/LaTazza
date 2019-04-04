@@ -9,6 +9,7 @@ import javax.swing.text.NumberFormatter;
 
 import presentationLayer.guiConfig.ResourcesClassLoader;
 import presentationLayer.guiConfig.contentsPanelsPropertiesPkg.RegRifornimentoProperties;
+import utils.MyJLabel;
 
 import static presentationLayer.guiConfig.contentsPanelsPropertiesPkg.RegRifornimentoProperties.*;
 

@@ -1,11 +1,11 @@
 package presentationLayer.guiConfig.contentsPanelsPropertiesPkg;
 
+import guiConfig.contentsPanelsPropertiesPkg.AbstractPanelProperties;
 import presentationLayer.guiLogicPkg.LaTazzaFrame;
 import presentationLayer.guiLogicPkg.contentsPanelsPkg.RegistraVendite;
-
 import java.awt.*;
 
-public class RegVenditeProperties extends AbstractPanelProperties{
+public class RegVenditeProperties extends AbstractPanelProperties {
 
     public static final String DEFAULT_LINKDESCRIPTION="Registra vendita";
     public static final LaTazzaFrame.JPanelsNames DEFAULT_PANELNAME=LaTazzaFrame.JPanelsNames.REGVENDITEPANE;
