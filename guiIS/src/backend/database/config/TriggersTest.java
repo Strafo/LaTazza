@@ -71,18 +71,32 @@ public class TriggersTest {
 
         T.updateTable("Insert.sql");
 
-/*
-System.out.println("--------------MAIN----------------------------------");
+
+System.out.println("--------------MAIN---------------------------------- \nDEBITO:\n");
         ResultSet rs;
         PreparedStatement prep;
         prep=conn.prepareStatement("select *" +
                 "from LATAZZASCHEMA.DEBITO " );
         rs=prep.executeQuery();
         while(rs.next())
-            System.out.println("\n"+rs.getString(1) + ", " + rs.getString(2)+": "+ rs.getDouble(3));
-*/
+            System.out.println("\n"+rs.getString(1) + ", " + rs.getString(2)+": "+ rs.getLong(3)+"."+rs.getInt(4));
+
+        System.out.println("------------------------------------------------ \nCOMPRA_DIPENDENTE:\n");
+
+        prep=conn.prepareStatement("select *" +
+                "from LATAZZASCHEMA.Compra_Dipendente " );
+        rs=prep.executeQuery();
+        while(rs.next())
+            System.out.println("\n"+rs.getString(1) + ", " + rs.getString(2)+", "+ rs.getNString(3)+","+rs.getInt(4)+","+rs.getTimestamp(5));
+
+
+
+
         T.getDatabase().closeDataBase();
+
+
     }
+
 
 
 }

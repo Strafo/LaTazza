@@ -40,7 +40,7 @@ insert into LATAZZASCHEMA.CIALDE values('Cocaina',10,0);
 
 delete from LATAZZASCHEMA.MAGAZZINO where tipo='Cocaina';
 
-update LATAZZASCHEMA.CIALDE set tipo='topa' where tipo='caffe';
+--update LATAZZASCHEMA.CIALDE set tipo='topa' where tipo='caffe';
 
 
 
