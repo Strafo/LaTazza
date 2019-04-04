@@ -66,7 +66,6 @@ public class TriggersTest {
         TriggerCheckNumCialde.initTrigger(conn);
         ViewMagazzino.initView(conn);
         ViewDebito.initView(conn);
-
         ViewCassa.initView(conn);
 
         T.updateTable("Insert.sql");

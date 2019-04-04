@@ -30,13 +30,13 @@ public class TriggerCassaCredito extends ViewCassa implements Trigger {
 
     @Override
     public void init(Connection connection, String s, String s1, String s2, boolean b, int i) throws SQLException {
-    this.conn=connection;
+        conn=connection;
     }
 
     @Override
     public void fire(Connection conn, Object[] oldRow, Object[] newRow) throws SQLException {
 
-        Euro incasso=getCurrent(conn).aggiungiImporto(getDebitoPagato(newRow));
+            Euro incasso=getCurrent().aggiungiImporto(getDebitoPagato(newRow));
             stat = conn.prepareStatement("update " + TABLE_NAME_CASSA + " set euro= " +
                                                 incasso.getEuro()+", centesimi= "+incasso.getCentesimi());
             stat.executeUpdate();

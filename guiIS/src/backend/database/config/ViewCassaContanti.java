@@ -18,17 +18,21 @@ public class ViewCassaContanti extends ViewCassa implements Trigger {
 
 
     private static Euro updateCassa(Object[] newRow, String tableName) throws SQLException {
-         stat= conn.prepareStatement("select numero_cialde " +
+        //System.out.println("Updatecassa prezzo "+getPrezzo(newRow).toString());
+        stat= conn.prepareStatement("select numero_cialde " +
                 " from " + tableName+" where"+((tableName.equals(TABLE_NAME_COMPRA_DIPENDENTE))? " contanti=true and ":" ")+
                 " nome=? and cognome=? and data=? ");
         stat.setNString(1, (String) newRow[0]);
         stat.setNString(2, (String) newRow[1]);
         stat.setTimestamp(3, (Timestamp) newRow[4]);
         ResultSet rs=stat.executeQuery();
+        System.out.println("1");
         if(rs.next()){
-            Euro prezzo=getPrezzo(conn, newRow);
+            System.out.println("2");
+            Euro prezzo=getPrezzo(newRow);
+            System.out.println("Updatecassa prezzo "+prezzo.toString());
             prezzo.moltiplicaImporto(rs.getInt(1));
-            return  prezzo.aggiungiImporto(getCurrent(conn));
+            return  prezzo.aggiungiImporto(getCurrent());
         }
         return new Euro(0,0);
     }
@@ -36,14 +40,16 @@ public class ViewCassaContanti extends ViewCassa implements Trigger {
 
     @Override
     public void init(Connection connection, String s, String s1, String s2, boolean b, int i) throws SQLException {
-        this.conn = connection;
+        conn = connection;
     }
 
     @Override
     public void fire(Connection connection, Object[] oldRow, Object[] newRow) throws SQLException {
 
         Euro incassoVisitatore=  updateCassa(newRow, TABLE_NAME_COMPRA_VISITATORE);
+        System.out.println("incasso visitatore "+incassoVisitatore.toString());
         Euro incassoDipendenti= updateCassa(newRow, TABLE_NAME_COMPRA_DIPENDENTE);
+        System.out.println("incasso dipendente "+incassoDipendenti.toString());
         stat = connection.prepareStatement("update " + TABLE_NAME_CASSA + " set euro= " +
                                                            incassoVisitatore.getEuro()+", centesimi= "+incassoVisitatore.getCentesimi());
         stat.executeUpdate();

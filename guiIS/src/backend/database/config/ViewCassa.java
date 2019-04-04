@@ -16,7 +16,7 @@ public class ViewCassa {
     protected static ResultSet rs;
 
 
-    protected static Euro getCurrent(Connection conn) throws SQLException {
+    protected static Euro getCurrent() throws SQLException {
 
         stat= conn.prepareStatement("select euro, centesimi " +
                 "from " + TABLE_NAME_CASSA);
@@ -25,7 +25,7 @@ public class ViewCassa {
         return new Euro(0,0);
     }
 
-    protected static Euro getPrezzo(Connection conn, Object[] newRow) throws SQLException {
+    protected static Euro getPrezzo(Object[] newRow) throws SQLException {
 
         stat = conn.prepareStatement("select prezzo_euro, prezzo_centesimi " +
                 "from " + TABLE_NAME_CIALDE + " where tipo=?");
