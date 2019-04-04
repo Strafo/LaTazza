@@ -21,7 +21,6 @@ public class TriggerDebitoModifyPersonale extends ViewDebito implements Trigger 
 
     @Override
     public void init(Connection connection, String s, String s1, String s2, boolean b, int i) throws SQLException {
-
     }
 
     private static void deletePersonale(String nome, String cognome) throws  SQLException{
@@ -49,8 +48,7 @@ public class TriggerDebitoModifyPersonale extends ViewDebito implements Trigger 
     @Override
     public void fire(Connection conn, Object[] oldRow, Object[] newRow) throws SQLException {
 
-
-
+        this.connection=conn;
         if(oldRow != null)deletePersonale((String) oldRow[nome],(String) oldRow[cognome]);
         else
         if(newRow != null)insertPersonale((String) newRow[nome],(String) newRow[cognome],(boolean) newRow[attivo]);

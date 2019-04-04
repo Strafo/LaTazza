@@ -10,7 +10,7 @@ public class TriggerPagamentoDebito extends ViewDebito implements Trigger {
 
     private static final String TRIGGER_PATH = "\"backend.database.config.TriggerPagamentoDebito\"";
     private static final String TABLE_NAME = "LATAZZASCHEMA.PAGAMENTO_DEBITO";
-    private static final String TRIGGER_NAME = "Update_Table_Debito";
+    private static final String TRIGGER_NAME = "Update_Table_Debito_pagamento";
     private static final String CREATE_TRIGGER = "CREATE TRIGGER " + TRIGGER_NAME + " AFTER INSERT ON " + TABLE_NAME + " FOR EACH ROW CALL " + TRIGGER_PATH;
     private static final int timestamp=2;
 
@@ -31,16 +31,17 @@ public class TriggerPagamentoDebito extends ViewDebito implements Trigger {
 
     @Override
     public void init(Connection connection, String s, String s1, String s2, boolean b, int i) throws SQLException {
-
+        //this.connection=connection;
     }
 
     @Override
     public void fire(Connection conn, Object[] oldRow, Object[] newRow) throws SQLException {
-        Euro debito=getDebitoCorrente(newRow);
+        this.connection=conn;
+        Euro debito= getDebitoCorrente(newRow);
         Euro pagato=getDebitoPagato(newRow);
         debito.sottraiImporto(pagato);
-        stat = conn.prepareStatement("update " + TABLE_NAME_DEBITO + " set euro="
-                + pagato.getEuro() + ", centesimi= "+ pagato.getCentesimi()+" where nome=? and cognome=? ");
+        stat = connection.prepareStatement("update " + TABLE_NAME_DEBITO + " set euro="
+                + debito.getEuro() + ", centesimi= "+ debito.getCentesimi()+" where nome=? and cognome=? ");
         stat.setNString(1, (String) newRow[nome]);
         stat.setNString(2, (String) newRow[cognome]);
         stat.executeUpdate();

@@ -28,6 +28,7 @@ public class ViewDebito {
         stat.setNString(1, (String) newRow[nome]);
         stat.setNString(2, (String) newRow[cognome]);
         rs=stat.executeQuery();
+
         if(rs.next()) return new Euro(rs.getLong(euro), rs.getInt(centesimi));
         return new Euro(0,0);
     }
@@ -35,6 +36,7 @@ public class ViewDebito {
     public static void initView(Connection conn) {
         TriggerPagamentoDebito.initTrigger(conn);
         TriggerVenditaCredito.initTrigger(conn);
+        TriggerDebitoModifyPersonale.initTrigger(conn);
     }
 
 
