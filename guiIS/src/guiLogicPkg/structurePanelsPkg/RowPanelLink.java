@@ -16,15 +16,13 @@ public class RowPanelLink{
 	private JLabel buttonLabel;
 	
 	private ImageIcon iconWhite;
-	private ImageIcon iconBlack;
 
 	//Constructor
 	//create a panel that has got a label, that describes the link, and create another label to contain the imageIcon of link
 
 
-	public RowPanelLink(String buttonLabel,int button_x, int icon_x, int y, ImageIcon iconWhite, ImageIcon iconBlack) {
+	public RowPanelLink(String buttonLabel,int button_x, int icon_x, int y, ImageIcon iconWhite) {
 		this.iconWhite=iconWhite;
-		this.iconBlack=iconBlack;
 		this.buttonLabel = new JLabel(buttonLabel);
 		
 		button.setBackground(null);
@@ -34,9 +32,11 @@ public class RowPanelLink{
 
 		this.buttonLabel.setBounds(DEFAULTX_BUTTONLABEL, DEFAULTY_BUTTONLABEL, DEFAULTWIDTH_BUTTONLABEL, DEFAULTHEIGHT_BUTTONLABEL);
 		this.buttonLabel.setFont(DEFAULTFONT);
+        this.buttonLabel.setForeground(Color.white);
 
 		button.add(this.buttonLabel);
 		icon.setBounds(icon_x, y, DEFAULTWIDTH_ICON, DEFAULTHEIGHT_ICON);
+		icon.setIcon(iconWhite);
 		
 	}
 	
@@ -44,9 +44,7 @@ public class RowPanelLink{
      *
      */
 	public void setLinesW() {
-		buttonLabel.setForeground(Color.white);
 		button.setBorder(new MatteBorder(1, 1, 1, 0,  Color.WHITE));
-		icon.setIcon(iconWhite);
 	}
 
 
@@ -54,9 +52,7 @@ public class RowPanelLink{
      *
      */
 	public void setLinesB() {
-		buttonLabel.setForeground(Color.black);
-		button.setBorder(new MatteBorder(0, 0, 1, 0,  Color.black));
-		icon.setIcon(iconBlack);
+		button.setBorder(new MatteBorder(0, 0, 1, 0,  Color.white));
 	}
 
 

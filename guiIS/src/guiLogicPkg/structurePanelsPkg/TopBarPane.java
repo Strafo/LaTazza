@@ -36,7 +36,7 @@ public class TopBarPane extends KGradientPanel {
         setkStartColor(CAPPUCCINO);
         
         labelClose = new MyJLabel(null,null,DEFAULTX_LABELCLOSE,
-				DEFAULTY_LABEL, DEFAULT_WIDTH_LABEL, DEFAULT_HEIGHT_LABEL,ResourcesClassLoader.getIconCloseB());
+				DEFAULTY_LABEL, DEFAULT_WIDTH_LABEL, DEFAULT_HEIGHT_LABEL,ResourcesClassLoader.getIconCloseW());
         add(labelClose);
         
         labelClose.addMouseListener(new MouseAdapter() {
@@ -50,26 +50,18 @@ public class TopBarPane extends KGradientPanel {
         	}
         	@Override
         	public void mouseExited(MouseEvent e) {
-        		labelClose.setIcon(ResourcesClassLoader.getIconCloseB());
+        		labelClose.setIcon(ResourcesClassLoader.getIconCloseW());
         	}
         });
         
         labelMin = new MyJLabel(null,null,DEFAULTX_LABELMIN,
-				DEFAULTY_LABEL, DEFAULT_WIDTH_LABEL, DEFAULT_HEIGHT_LABEL, ResourcesClassLoader.getIconMinB());
+				DEFAULTY_LABEL, DEFAULT_WIDTH_LABEL, DEFAULT_HEIGHT_LABEL, ResourcesClassLoader.getIconMinW());
         add(labelMin);
-        
+
         labelMin.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mouseClicked(MouseEvent e) {
         		frame.setState(Frame.ICONIFIED);
-        	}
-        	@Override
-        	public void mouseEntered(MouseEvent e) {
-        		labelMin.setIcon(ResourcesClassLoader.getIconMinW());
-        	}
-        	@Override
-        	public void mouseExited(MouseEvent e) {
-        		labelMin.setIcon(ResourcesClassLoader.getIconMinB());
         	}
         });
 		

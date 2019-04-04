@@ -37,9 +37,9 @@ public class LaTazzaFrame extends JFrame {
 	public LaTazzaFrame() {
 
         if(System.getProperty("os.name").toLowerCase().contains("mac os x"))
-            com.apple.eawt.Application.getApplication().setDockIconImage((ResourcesClassLoader.getIconTazzaBrown()).getImage());
+            com.apple.eawt.Application.getApplication().setDockIconImage((ResourcesClassLoader.getIconTazza2()).getImage());
         else {
-            this.setIconImage(ResourcesClassLoader.getIconTazza32().getImage());
+            this.setIconImage(ResourcesClassLoader.getIconTazza2().getImage());
         }
 
 		this.setBounds(laTazzaFrameProperties.getX(), laTazzaFrameProperties.getY(), laTazzaFrameProperties.getWidth(), laTazzaFrameProperties.getHeight());

@@ -19,7 +19,7 @@ public class RegistraVendite extends AbstractPanel {
     private JComboBox<String> tipoCialdeMenu;
 	private JComboBox<String> nomePersonaleMenu;
 
-    private String[] tipoCialde = new String[]{"vuoto","Arabica","Decaffeinato","Espresso","The'","The' limone","Cioccolata","Camomilla"};
+    private String[] tipoCialde = new String[]{"vuoto","Arabica","Decaffeinato","Espresso","Thè","Thè limone","Cioccolata","Camomilla"};
     private String[] nomePersonale = new String[]{"vuoto","Gianna","Pippo","Pluto"};
 	
 	private JLabel labelRegVendite;
@@ -60,19 +60,8 @@ public class RegistraVendite extends AbstractPanel {
         nomePersonaleMenu.setBounds(DEFAULTX_COLONNA1,DEFAULTY_RIGA2,DEFAULT_WIDTH_FIELD,DEFAULT_HEIGHT_FIELD);
         addItems(nomePersonale,nomePersonaleMenu);
         add(nomePersonaleMenu);
-        nomePersonaleMenu.addMouseListener(
-                new MouseAdapter() {
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                        if(!textFieldNomeCliente.getText().isEmpty())
-                        {
-                            radioButtACredito.setEnabled(true);
-                            textFieldNomeCliente.setText(null);
-                        }
-                    }
-                });
 
-                labelTipoCialde = new MyJLabel(DEFAULT_LABELDESCRIPTION[2], DEFAULT_FONT_DESCRIZIONI, DEFAULTX_COLONNA1,
+        labelTipoCialde = new MyJLabel(DEFAULT_LABELDESCRIPTION[2], DEFAULT_FONT_DESCRIZIONI, DEFAULTX_COLONNA1,
                         DEFAULTY_RIGA3, DEFAULT_WIDTH_SOTTOTITOLO, DEFAULT_HEIGHT_SOTTOTITOTLO, null);
         add(labelTipoCialde);
 

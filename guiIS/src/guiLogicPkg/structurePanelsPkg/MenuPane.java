@@ -26,11 +26,14 @@ public class MenuPane extends KGradientPanel {
 
 
     private JPanel panelSeparator=new JPanel();
-    private JLabel labelTitolo;
+    private MyJLabel labelTitolo;
+    private MyJLabel labelTitolo2;
     private JLabel labelIconaTazza;
 
     public String[] nomeIconaLink={"stato","vendita","pagamento","rifornimento","gestione"};
-    public String titolo = "LaTazza";
+    public String titolo2 = "LA";
+    public String titolo = "TAZZA";
+
 
     //create the Menu Panel that contains five links
 	public MenuPane(LaTazzaFrame laTazzaFrame) {
@@ -47,9 +50,13 @@ public class MenuPane extends KGradientPanel {
 		panelSeparator.setBackground(Color.WHITE);
 
 		labelTitolo = new MyJLabel(titolo,DEFAULT_FONT_TITOLO,DEFAULTX_TITOLO,DEFAULTY_TITOLO,DEFAULT_WIDTH_TITOLO,DEFAULT_HEIGHT_TITOLO,null);
+		labelTitolo.setForeground(Color.WHITE);
+
+        labelTitolo2 = new MyJLabel(titolo2,DEFAULT_FONT_TITOLO2,DEFAULTX_TITOLO2,DEFAULTY_TITOLO2,DEFAULT_WIDTH_TITOLO2,DEFAULT_HEIGHT_TITOLO,null);
+        labelTitolo2.setForeground(Color.WHITE);
 
 		labelIconaTazza = new MyJLabel(null,null,DEFAULTX_ICONATITOLO,
-                DEFAULTY_ICONATITOLO, DEFAULT_WIDTH_ICONATITOLO, DEFAULT_HEIGHT_ICONATITOLO,ResourcesClassLoader.getIconTazza50());
+                DEFAULTY_ICONATITOLO, DEFAULT_WIDTH_ICONATITOLO, DEFAULT_HEIGHT_ICONATITOLO,ResourcesClassLoader.getIconTazza());
 
         System.out.println("Working Directory = " +
                 System.getProperty("user.dir"));//+" Class path:"+System.getProperty("java.class.path"));
@@ -57,12 +64,13 @@ public class MenuPane extends KGradientPanel {
         this.add(panelSeparator);
         this.add(labelTitolo);
         this.add(labelIconaTazza);
+        this.add(labelTitolo2);
 
         for(LaTazzaFrame.JPanelsNames i:LaTazzaFrame.JPanelsNames.values()){
             linkMap.put(i,//todo check return value
                     new RowPanelLink(
                             laTazzaFrame.getPanelByName(i).getLINKDESCRIPTION(),
-                            ROWPANEL_DEFAULTX_BUTTON, ROWPANEL_DEFAULTX_ICON, ROWPANEL_DEFAULTY + ROWPANEL_DEFAULT_GAP * j++, ResourcesClassLoader.getIconW(nomeIconaLink[img]), ResourcesClassLoader.getIconB(nomeIconaLink[img++]))
+                            ROWPANEL_DEFAULTX_BUTTON, ROWPANEL_DEFAULTX_ICON, ROWPANEL_DEFAULTY + ROWPANEL_DEFAULT_GAP * j++, ResourcesClassLoader.getIconW(nomeIconaLink[img++]))
             );
         }
 

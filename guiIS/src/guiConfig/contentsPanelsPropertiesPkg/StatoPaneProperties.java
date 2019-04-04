@@ -30,9 +30,9 @@ public class StatoPaneProperties extends AbstractPanelProperties {
     public static final int DEFAULT_HEIGHT_PANEL = 215;
     public static final int DEFAULT_WIDTH_PANEL = 250;
 
+    public static final int DEFAULT_WIDTH_PANEL1 = 110;
+
     public static final int DEFAULT_WIDTH_PANEL2 = 118;
-
-
 
 
 

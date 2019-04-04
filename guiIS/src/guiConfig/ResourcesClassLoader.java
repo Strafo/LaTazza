@@ -8,14 +8,9 @@ public class ResourcesClassLoader{
 
     private static ClassLoader classLoader = ClassLoader.getSystemClassLoader();
 
-    private static ImageIcon iconaTazza= retriveIcon("iconaTazza2.png");
-    private static ImageIcon iconaTazzaBrown= retriveIcon("iconaTazzaB2.png");
+    private static ImageIcon iconaTazza= retriveIcon("iconaTazza.png");
+    private static ImageIcon iconaTazza2= retriveIcon("iconaTazza2.png");
     private static ImageIcon iconaTazzaWhite= retriveIcon("iconaTazzaW.png");
-    private static ImageIcon iconaTazza16= retriveIcon("iconaTazza16.png");
-    private static ImageIcon iconaTazza25= retriveIcon("iconaTazzaB25.png");
-    private static ImageIcon iconaTazza32= retriveIcon("iconaTazzaB32.png");
-    private static ImageIcon iconaTazza50= retriveIcon("iconaTazzaB50.png");
-    private static ImageIcon iconaTazza64= retriveIcon("iconaTazza64.png");
     private static ImageIcon iconaStatoB25= retriveIcon("statoB25.png");
     private static ImageIcon iconaStatoW25= retriveIcon("statoW25.png");
     private static ImageIcon iconaVenditaW25= retriveIcon("venditaW25.png");
@@ -26,9 +21,8 @@ public class ResourcesClassLoader{
     private static ImageIcon iconaPagamentoB25= retriveIcon("pagamentoB25.png");
     private static ImageIcon iconaGestioneW25= retriveIcon("gestioneW25.png");
     private static ImageIcon iconaGestioneB25= retriveIcon("gestioneB25.png");
-    private static ImageIcon iconaCloseB= retriveIcon("closeDark.png");
+    private static ImageIcon iconaCloseW= retriveIcon("closeW.png");
     private static ImageIcon iconaCloseR= retriveIcon("closeRed.png");
-    private static ImageIcon iconaMinB= retriveIcon("minimizeD.png");
     private static ImageIcon iconaMinW= retriveIcon("minimizeW.png");
     private static ImageIcon iconaVenditaB32= retriveIcon("venditaB32.png");
     private static ImageIcon iconaStatoB32= retriveIcon("statoB32.png");
@@ -60,32 +54,8 @@ public class ResourcesClassLoader{
         return iconaTazza;
     }
 
-    public static ImageIcon getIconTazza16() {
-        return iconaTazza16;
-    }
-
-    public static ImageIcon getIconTazza25() {
-        return iconaTazza25;
-    }
-
-    public static ImageIcon getIconTazza32() {
-        return iconaTazza32;
-    }
-
-    public static ImageIcon getIconTazza50() {
-        return iconaTazza50;
-    }
-
-    public static ImageIcon getIconTazza64() {
-        return iconaTazza64;
-    }
-
-    public static ImageIcon getIconTazzaBrown() {
-        return iconaTazzaBrown;
-    }
-
-    public static ImageIcon getIconTazzaW() {
-        return iconaTazzaWhite;
+    public static ImageIcon getIconTazza2() {
+        return iconaTazza2;
     }
 
     public static ImageIcon getIconStatoB25() {
@@ -128,16 +98,12 @@ public class ResourcesClassLoader{
         return iconaPagamentoW25;
     }
 
-    public static ImageIcon getIconCloseB() {
-        return iconaCloseB;
+    public static ImageIcon getIconCloseW() {
+        return iconaCloseW;
     }
 
     public static ImageIcon getIconCloseR() {
         return iconaCloseR;
-    }
-
-    public static ImageIcon getIconMinB() {
-        return iconaMinB;
     }
 
     public static ImageIcon getIconMinW() {

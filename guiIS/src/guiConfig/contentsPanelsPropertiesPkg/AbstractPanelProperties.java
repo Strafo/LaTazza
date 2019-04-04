@@ -14,9 +14,9 @@ public class AbstractPanelProperties {
     public static final int DEFAULT_WIDTH_LABELTITOLO = 600;
     public static final int DEFAULT_HEIGHT_LABELTITOLO = 50;
 
-    public static final Font DEFAULT_FONT_TITOLO= new Font("Tahoma", Font.BOLD, 20);
-    public static final Font DEFAULT_FONT_DESCRIZIONI2= new Font("Tahoma", Font.PLAIN, 13);
-    public static final Font DEFAULT_FONT_DESCRIZIONI= new Font("Tahoma", Font.PLAIN, 16);
+    public static final Font DEFAULT_FONT_TITOLO= new Font("Avenir", Font.BOLD, 20);
+    public static final Font DEFAULT_FONT_DESCRIZIONI2= new Font("Avenir", Font.PLAIN, 13);
+    public static final Font DEFAULT_FONT_DESCRIZIONI= new Font("Avenir", Font.PLAIN, 16);
 
     public static final int DEFAULT_WIDTH_FIELD = 170;
     public static final int DEFAULT_HEIGHT_FIELD = 27;
