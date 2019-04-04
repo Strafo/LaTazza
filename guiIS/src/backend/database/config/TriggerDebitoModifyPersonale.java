@@ -3,7 +3,6 @@ package backend.database.config;
 import org.h2.api.Trigger;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 

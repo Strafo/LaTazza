@@ -66,11 +66,12 @@ public class TriggersTest {
         TriggerCheckNumCialde.initTrigger(conn);
         ViewMagazzino.initView(conn);
         ViewDebito.initView(conn);
-
-        //MaterializedViewCassaVisitatore.initView(conn);
+        ViewCassa.initView(conn);
 
         T.updateTable("Insert.sql");
 
+/*
+System.out.println("--------------MAIN----------------------------------");
         ResultSet rs;
         PreparedStatement prep;
 /*
@@ -89,8 +90,21 @@ System.out.println("--------------MAIN----------------------------------");
                 "from LATAZZASCHEMA.DEBITO " );
         rs=prep.executeQuery();
         while(rs.next())
-            System.out.println("\n"+rs.getString(1) + ", " + rs.getString(2)+": "+ rs.getInt(3)+ "." + rs.getInt(4));
-*/
+            System.out.println("\n"+rs.getString(1) + ", " + rs.getString(2)+": "+ rs.getLong(3)+"."+rs.getInt(4));
+
+        System.out.println("------------------------------------------------ \nCOMPRA_DIPENDENTE:\n");
+
+        prep=conn.prepareStatement("select *" +
+                "from LATAZZASCHEMA.Compra_Dipendente " );
+        rs=prep.executeQuery();
+        while(rs.next())
+            System.out.println("\n"+rs.getString(1) + ", " + rs.getString(2)+", "+ rs.getNString(3)+","+rs.getInt(4)+","+rs.getTimestamp(5));
+        System.out.println("------------------------------------------------");
+        prep=conn.prepareStatement("select * from LATAZZASCHEMA.CASSA");
+        rs=prep.executeQuery();
+        while(rs.next())
+            System.out.println("CASSA: "+rs.getLong(1)+"."+rs.getInt(2)+" euro");
+
         T.getDatabase().closeDataBase();
     }
 

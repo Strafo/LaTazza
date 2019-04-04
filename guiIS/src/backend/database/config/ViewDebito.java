@@ -33,7 +33,7 @@ public class ViewDebito {
         return new Euro(0,0);
     }
 
-    public static void initView(Connection conn) {
+    public static void initView(Connection conn) throws SQLException {
         TriggerPagamentoDebito.initTrigger(conn);
         TriggerVenditaCredito.initTrigger(conn);
         TriggerDebitoModifyPersonale.initTrigger(conn);

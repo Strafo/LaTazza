@@ -13,8 +13,6 @@ public class TriggerVenditaCredito extends ViewDebito implements Trigger {
     private static final String TRIGGER_NAME="Update_Table_Debiti_Pagati";
     private static final String CREATE_TRIGGER_STATEMENT_DEBITO = "CREATE TRIGGER " + TRIGGER_NAME+ " AFTER INSERT ON "+TABLE_NAME_DIPENDENTE+" FOR EACH ROW CALL "+TRIGGER_PATH;
     private static final int timestamp=4;
-    private static final int tipoCialda=2;
-    private static final int contanti=5;
 
     private static Euro getPrezzo( Object[] newRow) throws SQLException {
 
@@ -22,7 +20,7 @@ public class TriggerVenditaCredito extends ViewDebito implements Trigger {
          stat= connection.prepareStatement("select prezzo_euro, prezzo_centesimi  " +
                 "from " + TABLE_NAME_CIALDE+" where tipo=?" );
 
-        stat.setNString(1, (String) newRow[tipoCialda]);
+        stat.setNString(1, (String) newRow[2]);
         rs= stat.executeQuery();
         if(rs.next()) return new Euro(rs.getLong(euro), rs.getInt(centesimi));
         return new Euro(0,0);
@@ -31,7 +29,7 @@ public class TriggerVenditaCredito extends ViewDebito implements Trigger {
     private static int getNumeroCialde(Object[] newRow) throws SQLException{
         stat= connection.prepareStatement("select numero_cialde " +
                 "from " + TABLE_NAME_DIPENDENTE +
-                " where  nome=? and cognome=? and data=?" );
+                " where contanti=false and nome=? and cognome=? and data=?" );
         stat.setNString(1, (String) newRow[nome]);
         stat.setNString(2, (String) newRow[cognome]);
         stat.setTimestamp(3, (Timestamp) newRow[timestamp]);
@@ -49,7 +47,6 @@ public class TriggerVenditaCredito extends ViewDebito implements Trigger {
             return currentDebito;//se la tupla cercata nella select viene precedentemente eliminata dal trigger CheckNumCialde
         Euro importoVendita= getPrezzo(newRow);
         importoVendita.moltiplicaImporto(qtaCialde);
-        System.out.println(importoVendita);
         return currentDebito.aggiungiImporto(importoVendita);
 
     }
@@ -74,8 +71,7 @@ public class TriggerVenditaCredito extends ViewDebito implements Trigger {
 
         stat.setNString(1, (String) newRow[nome]);
         stat.setNString(2, (String) newRow[cognome]);
-        int n=stat.executeUpdate();
-        System.out.println(n);
+        stat.executeUpdate();
     }
 
     @Override
