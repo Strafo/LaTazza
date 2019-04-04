@@ -14,10 +14,9 @@ public class TriggerCassaCredito extends ViewCassa implements Trigger {
     private static final String TRIGGER_NAME = "Update_Cassa_Credito";
     private static final String CREATE_TRIGGER = "CREATE TRIGGER " + TRIGGER_NAME + " AFTER INSERT ON " + TABLE_NAME + " FOR EACH ROW CALL " + TRIGGER_PATH;
 
-    private static Euro getDebitoPagato(Connection conn, Object[] newRow) throws SQLException {
+    private static Euro getDebitoPagato(Object[] newRow) throws SQLException {
 
-        ResultSet rs;
-        PreparedStatement stat = conn.prepareStatement("select euro,centesimi " +
+        stat = conn.prepareStatement("select euro,centesimi " +
                 "from " + TABLE_NAME +
                 " where nome=? and cognome=? and data= ? ");
 
@@ -31,18 +30,16 @@ public class TriggerCassaCredito extends ViewCassa implements Trigger {
 
     @Override
     public void init(Connection connection, String s, String s1, String s2, boolean b, int i) throws SQLException {
-
+    this.conn=connection;
     }
 
     @Override
     public void fire(Connection conn, Object[] oldRow, Object[] newRow) throws SQLException {
 
-        Euro incasso=getCurrent(conn).aggiungiImporto(getDebitoPagato(conn,newRow));
-        PreparedStatement statD  = conn.prepareStatement("update " + TABLE_NAME_CASSA + " set euro= " +
-                incasso.getEuro()+", centesimi= "+incasso.getCentesimi());
-        statD.executeUpdate();
-
-
+        Euro incasso=getCurrent(conn).aggiungiImporto(getDebitoPagato(newRow));
+            stat = conn.prepareStatement("update " + TABLE_NAME_CASSA + " set euro= " +
+                                                incasso.getEuro()+", centesimi= "+incasso.getCentesimi());
+            stat.executeUpdate();
     }
 
     @Override
@@ -56,14 +53,12 @@ public class TriggerCassaCredito extends ViewCassa implements Trigger {
     }
 
     public static void initView(Connection conn){
-
-        Statement stat = null;
         try {
-            stat = conn.createStatement();
+            Statement stat = conn.createStatement();
             stat.execute(CREATE_TRIGGER);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
     }
 }
 
