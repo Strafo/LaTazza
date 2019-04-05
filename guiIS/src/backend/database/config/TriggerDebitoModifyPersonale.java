@@ -22,23 +22,23 @@ public class TriggerDebitoModifyPersonale extends ViewDebito implements Trigger 
     public void init(Connection connection, String s, String s1, String s2, boolean b, int i) throws SQLException {
     }
 
-    private static void deletePersonale(String nome, String cognome) throws  SQLException{
+    private static void deletePersonale(Connection conn,String nome, String cognome) throws  SQLException{
 
-        stat =connection.prepareStatement("DELETE from "+ TABLE_NAME_DEBITO+" where nome='"+ nome+"' and cognome='"+cognome+"'");
+        stat =conn.prepareStatement("DELETE from "+ TABLE_NAME_DEBITO+" where nome='"+ nome+"' and cognome='"+cognome+"'");
         stat.executeUpdate();
         stat.close();
     }
 
-    private static void insertPersonale(String nome, String cognome, boolean attivo) throws SQLException{
+    private static void insertPersonale(Connection conn,String nome, String cognome, boolean attivo) throws SQLException{
 
-        stat =connection.prepareStatement("insert into "+TABLE_NAME_DEBITO+" VALUES('"+nome+"', '"+cognome+"',0, 0 , "+attivo+" )");
+        stat =conn.prepareStatement("insert into "+TABLE_NAME_DEBITO+" VALUES('"+nome+"', '"+cognome+"',0, 0 , "+attivo+" )");
         stat.executeUpdate();
         stat.close();
     }
 
-    private static void updatePersonale(Object[] oldRow, Object[] newRow) throws SQLException{
+    private static void updatePersonale(Connection conn,Object[] oldRow, Object[] newRow) throws SQLException{
 
-        stat =connection.prepareStatement("update "+TABLE_NAME_DEBITO+" set nome= '"
+        stat =conn.prepareStatement("update "+TABLE_NAME_DEBITO+" set nome= '"
                 + newRow[nome]+"', cognome='"+ newRow[cognome] +"', attivo="+ newRow[attivo]+"  where nome='"+ oldRow[nome] +"' and cognome='"+oldRow[cognome]+"'");
         stat.executeUpdate();
         stat.close();
@@ -47,12 +47,12 @@ public class TriggerDebitoModifyPersonale extends ViewDebito implements Trigger 
     @Override
     public void fire(Connection conn, Object[] oldRow, Object[] newRow) throws SQLException {
 
-        this.connection=conn;
-        if(oldRow != null)deletePersonale((String) oldRow[nome],(String) oldRow[cognome]);
+
+        if(oldRow != null)deletePersonale(conn,(String) oldRow[nome],(String) oldRow[cognome]);
         else
-        if(newRow != null)insertPersonale((String) newRow[nome],(String) newRow[cognome],(boolean) newRow[attivo]);
+        if(newRow != null)insertPersonale(conn,(String) newRow[nome],(String) newRow[cognome],(boolean) newRow[attivo]);
         else
-            updatePersonale(oldRow, newRow);
+            updatePersonale(conn,oldRow, newRow);
 
     }
 

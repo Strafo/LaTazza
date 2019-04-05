@@ -23,12 +23,12 @@ public class TriggerMagazzinoUpdate extends ViewMagazzino implements Trigger {
 
 
 
-    private static int getNumCialde(String table, String tipoCialda)  throws SQLException{
+    private static int getNumCialde(Connection conn,String table, String tipoCialda)  throws SQLException{
 
         PreparedStatement stat;
         ResultSet resultSet;
         int numCialde;
-        stat =connection.prepareStatement("select sum(numero_cialde) " +
+        stat =conn.prepareStatement("select sum(numero_cialde) " +
                 "from "+ table +
                 " where tipo_cialda= '"+ tipoCialda +"' " );
 
@@ -38,25 +38,25 @@ public class TriggerMagazzinoUpdate extends ViewMagazzino implements Trigger {
         return numCialde;
     }
 
-    private static int statoCialdaMagazzino( Object[] newRow)throws SQLException {
+    public static int statoCialdaMagazzino(Connection conn, Object[] newRow)throws SQLException {
 
         int rifornimenti, venditaD, venditaV;
-        rifornimenti=getNumCialde(TABLE_NAME_RIFORNIMENTO,(String) newRow[tipoCialda]);
-        venditaD=getNumCialde(TABLE_NAME_DIPENDENTE,(String) newRow[tipoCialda]);
-        venditaV=getNumCialde(TABLE_NAME_VISITATORE,(String) newRow[tipoCialda]);
+        rifornimenti=getNumCialde(conn,TABLE_NAME_RIFORNIMENTO,(String) newRow[tipoCialda]);
+        venditaD=getNumCialde(conn,TABLE_NAME_DIPENDENTE,(String) newRow[tipoCialda]);
+        venditaV=getNumCialde(conn,TABLE_NAME_VISITATORE,(String) newRow[tipoCialda]);
         return rifornimenti - (venditaD + venditaV);
     }
         @Override
     public void init(Connection connection, String s, String s1, String s2, boolean b, int i) throws SQLException {
 
-        this.connection=connection;
+
     }
 
     @Override
     public void fire(Connection conn, Object[] oldRow, Object[] newRow) throws SQLException {
 
-        int numCialde =statoCialdaMagazzino( newRow);
-        PreparedStatement prepUpdate = connection.prepareStatement("UPDATE   "+ TABLE_NAME_MAGAZZINO  +
+        int numCialde =statoCialdaMagazzino(conn, newRow);
+        PreparedStatement prepUpdate = conn.prepareStatement("UPDATE   "+ TABLE_NAME_MAGAZZINO  +
                                                                 " SET "+"qta= "+ numCialde +" where tipo=? ");
         prepUpdate.setNString(1, (String) newRow[tipoCialda]);
         int n= prepUpdate.executeUpdate();

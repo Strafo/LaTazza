@@ -22,23 +22,23 @@ public class TriggerMagazzinoModifyCialde extends ViewMagazzino implements Trigg
 
     }
 
-    private static void deleteTipoCialde(String tipo) throws  SQLException{
+    private static void deleteTipoCialde(Connection conn,String tipo) throws  SQLException{
         PreparedStatement stat;
-        stat =connection.prepareStatement("DELETE from "+ TABLE_NAME_MAGAZZINO+" where tipo='"+ tipo+"'");
+        stat =conn.prepareStatement("DELETE from "+ TABLE_NAME_MAGAZZINO+" where tipo='"+ tipo+"'");
         stat.executeUpdate();
         stat.close();
     }
 
-    private static void insertTipoCialde(String tipo) throws SQLException{
+    private static void insertTipoCialde(Connection conn,String tipo) throws SQLException{
         PreparedStatement stat;
-        stat =connection.prepareStatement("insert into "+TABLE_NAME_MAGAZZINO+" values ('"+ tipo +"', 0)");
+        stat =conn.prepareStatement("insert into "+TABLE_NAME_MAGAZZINO+" values ('"+ tipo +"', 0)");
         stat.executeUpdate();
         stat.close();
     }
 
-    private static void updateTipoCialde(String tipoNuovo, String tipoVecchio) throws SQLException{
+    private static void updateTipoCialde(Connection conn,String tipoNuovo, String tipoVecchio) throws SQLException{
         PreparedStatement stat;
-        stat =connection.prepareStatement("update "+TABLE_NAME_MAGAZZINO+" set tipo= '"
+        stat =conn.prepareStatement("update "+TABLE_NAME_MAGAZZINO+" set tipo= '"
                 +tipoNuovo+"'  where tipo= '"+tipoVecchio+"' ");
         stat.executeUpdate();
         stat.close();
@@ -49,11 +49,11 @@ public class TriggerMagazzinoModifyCialde extends ViewMagazzino implements Trigg
 
 
 
-        if(oldRow != null)deleteTipoCialde((String) oldRow[tipoCialda]);
+        if(oldRow != null)deleteTipoCialde(conn,(String) oldRow[tipoCialda]);
         else
-            if(newRow != null)insertTipoCialde((String) newRow[tipoCialda]);
+            if(newRow != null)insertTipoCialde(conn,(String) newRow[tipoCialda]);
             else
-                updateTipoCialde((String) newRow[tipoCialda], (String) oldRow[tipoCialda] );
+                updateTipoCialde(conn,(String) newRow[tipoCialda], (String) oldRow[tipoCialda] );
 
     }
 

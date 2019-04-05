@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ViewDebito {
+    //SUPPONENDO CHE NESSUN PAGAMENTO SIA MAGGIORE DEL DEBITO
     protected static final String TABLE_NAME_DEBITO="LATAZZASCHEMA.DEBITO";
     protected static Connection connection;
     protected static  ResultSet rs;
@@ -18,10 +19,20 @@ public class ViewDebito {
     protected static final int euro=1;
     protected static final int centesimi=2;
 
-    protected static Euro getDebitoCorrente(Object[] newRow)  throws SQLException {
+
+    protected static void updateDebito(Connection conn,Euro debito, Object[] newRow) throws  SQLException{
+        stat = conn.prepareStatement("update " + TABLE_NAME_DEBITO + " set euro="
+                + debito.getEuro() + ", centesimi= "+ debito.getCentesimi()+" where nome=? and cognome=? ");
+        stat.setNString(1, (String) newRow[nome]);
+        stat.setNString(2, (String) newRow[cognome]);
+        stat.executeUpdate();
+    }
 
 
-        stat= connection.prepareStatement("select euro, centesimi " +
+    protected static Euro getDebitoCorrente(Connection conn,Object[] newRow)  throws SQLException {
+
+
+        stat= conn.prepareStatement("select euro, centesimi " +
                 "from " + TABLE_NAME_DEBITO+
                 " where nome=? and cognome=?");
 
@@ -30,12 +41,12 @@ public class ViewDebito {
         rs=stat.executeQuery();
 
         if(rs.next()) return new Euro(rs.getLong(euro), rs.getInt(centesimi));
-        return new Euro(0,0);
+        return new Euro(0,0);//se la tupla cercata nella select viene precedentemente eliminata dal trigger CheckNumCialde
     }
 
     public static void initView(Connection conn) throws SQLException {
-        TriggerPagamentoDebito.initTrigger(conn);
-        TriggerVenditaCredito.initTrigger(conn);
+        TriggerDebitoPagamentoDebito.initTrigger(conn);
+        TriggerDebitoVenditaCredito.initTrigger(conn);
         TriggerDebitoModifyPersonale.initTrigger(conn);
     }
 

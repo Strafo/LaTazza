@@ -9,14 +9,22 @@ import java.sql.SQLException;
 
 public class ViewCassa {
 
+    //SUPPONENDO CHE NESSUNA OPERAZIONE FACCIA DIVENTARE NEGATIVO IL SALDO DELLA CASSA
     protected static final String TABLE_NAME_CASSA = "LATAZZASCHEMA.CASSA";
-    protected static final String TABLE_NAME_CIALDE="LATAZZASCHEMA.CIALDE";
-    protected static Connection conn;
+    protected static Connection connection;
     protected static PreparedStatement stat;
     protected static ResultSet rs;
+    protected static final int nome=0;
+    protected static final int cognome=1;
 
 
-    protected static Euro getCurrent() throws SQLException {
+    protected static void updateCassa(Connection conn,Euro importo) throws SQLException{
+        System.out.println(importo);
+        stat = conn.prepareStatement("update " + TABLE_NAME_CASSA + " set euro= " + importo.getEuro()+", centesimi= "+importo.getCentesimi());
+        stat.executeUpdate();
+    }
+
+    protected static Euro getCassaCorrente(Connection conn) throws SQLException {
 
         stat= conn.prepareStatement("select euro, centesimi " +
                 "from " + TABLE_NAME_CASSA);
@@ -25,20 +33,11 @@ public class ViewCassa {
         return new Euro(0,0);
     }
 
-    protected static Euro getPrezzo(Object[] newRow) throws SQLException {
 
-        stat = conn.prepareStatement("select prezzo_euro, prezzo_centesimi " +
-                "from " + TABLE_NAME_CIALDE + " where tipo=?");
-
-        stat.setNString(1, (String) newRow[2]);
-        rs = stat.executeQuery();
-        if (rs.next()) return new Euro(rs.getLong(1), rs.getInt(2));
-        return new Euro(0, 0);
-    }
-
-    public static void initView(Connection conn){
-        ViewCassaContanti.initView(conn);
-        TriggerCassaCredito.initView(conn);
+    public static void initView(Connection conn)throws SQLException{
+        TriggerCassaPagamentoDebito.initTrigger(conn);
+        TriggerCassaVendita.initTrigger(conn);
+        TriggerCassaRifornimento.initTrigger(conn);
     }
 
 

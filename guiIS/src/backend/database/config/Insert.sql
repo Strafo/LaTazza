@@ -23,7 +23,7 @@ insert into LATAZZASCHEMA.RIFORNIMENTO values ('2018-05-11 12:00:00', 500,'camom
 insert into LATAZZASCHEMA.COMPRA_DIPENDENTE values ('Simone','Campisi', 'caffe',13,'2018-06-11 13:00:00',true);
 insert into LATAZZASCHEMA.COMPRA_DIPENDENTE values ('Jacopo','Dapueto', 'the',8,'2018-06-11 14:00:00',false);
 insert into LATAZZASCHEMA.COMPRA_DIPENDENTE values ('Jacopo','Dapueto', 'caffe',15,'2018-08-11 16:30:00',false);
---insert into LATAZZASCHEMA.COMPRA_DIPENDENTE values ('Jacopo','Dapueto', 'caffe',false,2000,'2018-07-10 9:00:00');--per trigger
+insert into LATAZZASCHEMA.COMPRA_DIPENDENTE values ('Jacopo','Dapueto', 'caffe',2000,'2018-07-10 9:00:00', false);--per trigger
 insert into LATAZZASCHEMA.COMPRA_DIPENDENTE values ('Gabriele','Armanino', 'camomilla',30,'2018-09-11 15:30:00',false);
 
 

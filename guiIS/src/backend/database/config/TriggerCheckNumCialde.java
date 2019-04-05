@@ -6,8 +6,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class TriggerCheckNumCialde{
+    protected static Connection connection;
+
+    private static final String TABLE_NAME_VISITATORE="LATAZZASCHEMA.COMPRA_VISITATORE";
+    private static final String TABLE_NAME_DIPENDENTE="LATAZZASCHEMA.COMPRA_DIPENDENTE";
+    private static final String TABLE_NAME_RIFORNIMENTO="LATAZZASCHEMA.RIFORNIMENTO";
     private static final int tipoCialda=2;
-    private static final int qtaCialde=1;
     protected static final int nome=0;
     protected static final int cognome=1;
     protected static final int timestamp=4;
@@ -18,38 +22,15 @@ public class TriggerCheckNumCialde{
 
     }
 
+    protected static void deleteVendita(Connection conn,String table, Object[] newRow) throws SQLException {
+        PreparedStatement stat;
+        stat=conn.prepareStatement("DELETE from " + table + " where nome='"+ newRow[nome] +"' and cognome='"+ newRow[cognome] +"' and data='" + newRow[timestamp] +"'" );
+        stat.executeUpdate();
+    }
+
+
     protected static int checkNumCialde(Connection conn, Object[] newRow)throws SQLException {
 
-
-        PreparedStatement stat;
-        ResultSet acquistiVisitatore, acquistiPersonale, rifornimento;
-
-        String queryVisitatore="select sum(numero_cialde) " +
-                " from LATAZZASCHEMA.COMPRA_VISITATORE T " +
-                " where tipo_cialda = ? ";
-        String queryDipendente="select sum(numero_cialde)\n" +
-                " from LATAZZASCHEMA.COMPRA_DIPENDENTE\n" +
-                " where tipo_cialda = ?";
-        String queryRifornimenti="select sum(numero_cialde)\n" +
-                " from LATAZZASCHEMA.RIFORNIMENTO\n" +
-                " where tipo_cialda=?";
-
-
-        stat= conn.prepareStatement(queryVisitatore);
-        stat.setNString (1, (String) newRow[tipoCialda]); // sostituisce newRow[2] (tipo_cialda) al ?
-        acquistiVisitatore=stat.executeQuery();
-        acquistiVisitatore.next();
-
-        stat=conn.prepareStatement(queryDipendente);
-        stat.setNString (1, (String) newRow[tipoCialda]);
-        acquistiPersonale = stat.executeQuery();
-        acquistiPersonale.next();
-
-        stat= conn.prepareStatement(queryRifornimenti);
-        stat.setNString (1, (String) newRow[tipoCialda]);
-        rifornimento=stat.executeQuery();
-        rifornimento.next();
-
-        return   rifornimento.getInt(qtaCialde) - (acquistiVisitatore.getInt(qtaCialde) + acquistiPersonale.getInt(qtaCialde));
+        return  TriggerMagazzinoUpdate.statoCialdaMagazzino(conn,newRow) ;
     }
 }
