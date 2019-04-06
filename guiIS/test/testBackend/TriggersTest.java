@@ -17,9 +17,9 @@ public class TriggersTest {
     private Connection conn;
     private DataBase database;
     private static final String URL="jdbc:h2:mem:databaseTest";
-    //private static final String URL="jdbc:h2:C:/Users/simoc/IdeaProjects/LaTazza/guiIS/src/database/config";
-    private final String PATHConfig="guiIS\\src\\backend\\database\\config\\";
-    private final String PATHInsert="guiIS\\src\\testBackend\\";
+    private static final String userDir=System.getProperty("user.dir");
+    private final String PATHConfig="\\src\\backend\\database\\config\\";
+    private final String PATHInsert="\\test\\testBackend\\";
     private Scanner inFile;
 
 
@@ -39,8 +39,10 @@ public class TriggersTest {
     private void updateTable(String path,String sqlFileName) throws SQLException {
 
         try {
+
             StringBuilder file= new StringBuilder();
-            inFile= new Scanner(new FileReader(path+sqlFileName));
+            System.out.println("Path: "+System.getProperty("user.dir")+sqlFileName);
+            inFile= new Scanner(new FileReader(userDir+path+sqlFileName));
             while(inFile.hasNext()) {
                 file.append(inFile.nextLine()).append("\n");
             }
