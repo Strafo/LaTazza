@@ -20,9 +20,10 @@ public class ViewDebitoTest {
     private Connection c;
     private static ResultSet rs;
     private static PreparedStatement stat;
-    private static int cassaEuro=385;
-    private static int cassaCentesimi=49;
-    private static Euro cassaAfterInsert= new Euro(cassaEuro,cassaCentesimi);
+    private static int debitoEuro=3;
+    private static int debitoCentesimi=51;
+    private static Euro debitoAfterInsert= new Euro(debitoEuro,debitoCentesimi);
+    private static Euro debitoNullo= new Euro(0,0);
 
     @BeforeEach
     void setUp(){
@@ -47,64 +48,48 @@ public class ViewDebitoTest {
     void testView() {
         try {
 
-            assertTrue(rs.next());
-            assertEquals(cassaAfterInsert.getEuro(), rs.getInt(1) );
-            assertEquals(cassaAfterInsert.getCentesimi(), rs.getInt(2));
+            while (rs.next()) {
+                switch (rs.getString(2)) {
+                    case "Dapueto":
+                        assertEquals(debitoAfterInsert.getEuro(), rs.getInt(2));
+                        assertEquals(debitoAfterInsert.getCentesimi(),  rs.getInt(3));
+                        break;
+                    default:
+                        assertEquals(debitoNullo.getEuro(), rs.getInt(2));
+                        assertEquals(debitoNullo.getCentesimi(),rs.getInt(3));
+                }
+            }
         } catch (SQLException e) {
             fail(e.getMessage());
         }
     }
 
 
-
-
     @Test
-    void testRifornimento(){
-        try {
-            int qta=40;
-            Euro importo= new Euro(0,40);
-            importo.moltiplicaImporto(qta);
-            cassaAfterInsert.sottraiImporto(importo);
-            stat=c.prepareStatement("insert into LATAZZASCHEMA.RIFORNIMENTO values ('2019-05-12 12:00:00',"+qta+" ,'caffe')" );
-            rs=stat.executeQuery();
-            assertTrue(rs.next());
-            assertEquals(cassaAfterInsert.getEuro(), rs.getInt(1) );
-            assertEquals(cassaAfterInsert.getCentesimi(), rs.getInt(2));
-        } catch (SQLException e) {
-            fail(e.getMessage());
-        }
-
-    }
-
-
-    @Test
-    void testPagamentoDebito(){
-        try {
-            Euro importo= new Euro(3,50);
-            stat=c.prepareStatement("insert into LATAZZASCHEMA.PAGAMENTO_DEBITO values ('Jacopo','Dapueto', '2019-03-11 14:00:00',"+cassaAfterInsert.getEuro()+", "+cassaAfterInsert.getCentesimi()+")" );
-            rs=stat.executeQuery();
-            cassaAfterInsert.aggiungiImporto(importo);
-            assertTrue(rs.next());
-            assertEquals(cassaAfterInsert.getEuro(), rs.getInt(1) );
-            assertEquals(cassaAfterInsert.getCentesimi(), rs.getInt(2));
-        } catch (SQLException e) {
-            fail(e.getMessage());
-        }
-
-    }
-
-    @Test
-    void testVendita(){
+    void testVenditaCredito(){
         try {
             int qta=2;
             Euro importo= new Euro(0,50);
             importo.moltiplicaImporto(qta);
-            stat=c.prepareStatement("insert into LATAZZASCHEMA.COMPRA_DIPENDENTE values ('Simone','Campisi', 'caffe',"+qta+",'2018-07-11 13:00:00',true)");
+            stat=c.prepareStatement("insert into LATAZZASCHEMA.COMPRA_DIPENDENTE values ('Simone','Campisi', 'caffe',"+qta+",'2018-07-11 13:00:00',false)");
             rs=stat.executeQuery();
-            cassaAfterInsert.aggiungiImporto(importo);
-            assertTrue(rs.next());
-            assertEquals(cassaAfterInsert.getEuro(), rs.getInt(1) );
-            assertEquals(cassaAfterInsert.getCentesimi(), rs.getInt(2));
+            debitoNullo.aggiungiImporto(importo);
+            while(rs.next()) {
+                switch (rs.getString(2)) {
+                    case "Dapueto":
+                        assertEquals(debitoAfterInsert.getEuro(), rs.getInt(2));
+                        assertEquals(debitoAfterInsert.getCentesimi(),  rs.getInt(3));
+                        break;
+                    case "Campisi":
+                        assertEquals(debitoNullo.getEuro(), rs.getInt(2));
+                        assertEquals(debitoNullo.getCentesimi(),  rs.getInt(3));
+                        break;
+
+                    default:
+                        assertEquals(debitoNullo.getEuro(), rs.getInt(2));
+                        assertEquals(debitoNullo.getCentesimi(),rs.getInt(3));
+                }
+            }
         } catch (SQLException e) {
             fail(e.getMessage());
         }
