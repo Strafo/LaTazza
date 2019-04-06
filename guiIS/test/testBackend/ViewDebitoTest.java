@@ -1,6 +1,5 @@
 package testBackend;
 
-import testBackend.TriggersTest;
 import utils.Euro;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,23 +41,10 @@ public class ViewDebitoTest {
         stat=c.prepareStatement("SELECT * from " + TABLE);
         rs=stat.executeQuery();
     }
-
-
     @Test
     void testView() {
         try {
-
-            while (rs.next()) {
-                switch (rs.getString(2)) {
-                    case "Dapueto":
-                        assertEquals(debitoAfterInsert.getEuro(), rs.getInt(2));
-                        assertEquals(debitoAfterInsert.getCentesimi(),  rs.getInt(3));
-                        break;
-                    default:
-                        assertEquals(debitoNullo.getEuro(), rs.getInt(2));
-                        assertEquals(debitoNullo.getCentesimi(),rs.getInt(3));
-                }
-            }
+            checkDebito();
         } catch (SQLException e) {
             fail(e.getMessage());
         }
@@ -72,8 +58,9 @@ public class ViewDebitoTest {
             Euro importo= new Euro(0,50);
             importo.moltiplicaImporto(qta);
             stat=c.prepareStatement("insert into LATAZZASCHEMA.COMPRA_DIPENDENTE values ('Simone','Campisi', 'caffe',"+qta+",'2018-07-11 13:00:00',false)");
-            rs=stat.executeQuery();
+            stat.executeUpdate();
             debitoNullo.aggiungiImporto(importo);
+            executeSelect();
             while(rs.next()) {
                 switch (rs.getString(2)) {
                     case "Dapueto":
@@ -96,10 +83,34 @@ public class ViewDebitoTest {
 
     }
 
+    @Test
+    void testPagamentoDebito(){
+        try {
+            Euro importo= new Euro(3,50);
+            stat=c.prepareStatement("insert into LATAZZASCHEMA.PAGAMENTO_DEBITO values ('Jacopo','Dapueto', '2019-03-11 14:00:00',"+importo.getEuro()+", "+importo.getCentesimi()+")" );
+            stat.executeUpdate();
+            debitoAfterInsert.sottraiImporto(importo);
+            executeSelect();
+            checkDebito();
+        } catch (SQLException e) {
+            fail(e.getMessage());
+        }
 
+    }
 
-
-
+    private void checkDebito() throws SQLException {
+        while (rs.next()) {
+            switch (rs.getString(2)) {
+                case "Dapueto":
+                    assertEquals(debitoAfterInsert.getEuro(), rs.getInt(2));
+                    assertEquals(debitoAfterInsert.getCentesimi(),  rs.getInt(3));
+                    break;
+                default:
+                    assertEquals(debitoNullo.getEuro(), rs.getInt(2));
+                    assertEquals(debitoNullo.getCentesimi(),rs.getInt(3));
+            }
+        }
+    }
 
 
 }
