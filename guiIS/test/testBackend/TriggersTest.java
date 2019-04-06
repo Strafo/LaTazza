@@ -22,7 +22,7 @@ public class TriggersTest {
     private final String PATHInsert="\\test\\testBackend\\";
     private Scanner inFile;
 
-
+//ciao socio
 
     public TriggersTest() throws SQLException, ClassNotFoundException {
         try {
