@@ -1,5 +1,6 @@
 package testBackend;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import utils.Euro;
@@ -8,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,6 +21,18 @@ public class ViewMagazzinoTest {
     private Connection c;
     private static ResultSet rs;
     private static PreparedStatement stat;
+    private static int qtaCaffe=162;
+
+
+    @AfterEach
+    void tearDown(){
+
+        try {
+            t.closeConnection();
+        } catch (SQLException e) {
+            fail(e.getMessage());
+        }
+    }
 
     @BeforeEach
     void setUp(){
@@ -45,7 +59,7 @@ public class ViewMagazzinoTest {
             while (rs.next()) {
                 switch (rs.getString(1)) {
                     case "caffe":
-                        assertEquals(162, rs.getInt(2));
+                        assertEquals(qtaCaffe, rs.getInt(2));
                         break;
                     case "the":
                         assertEquals(130, rs.getInt(2));
@@ -84,7 +98,7 @@ public class ViewMagazzinoTest {
             while (rs.next()) {
                 switch (rs.getString(1)) {
                     case "caffe":
-                        assertEquals(162, rs.getInt(2));
+                        assertEquals(qtaCaffe+qta, rs.getInt(2));
                         break;
                 }
             }

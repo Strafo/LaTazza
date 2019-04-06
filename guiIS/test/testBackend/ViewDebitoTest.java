@@ -1,5 +1,6 @@
 package testBackend;
 
+import org.junit.jupiter.api.AfterEach;
 import utils.Euro;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,6 +25,16 @@ public class ViewDebitoTest {
     private static Euro debitoAfterInsert= new Euro(debitoEuro,debitoCentesimi);
     private static Euro debitoNullo= new Euro(0,0);
 
+    @AfterEach
+    void tearDown(){
+
+        try {
+            t.closeConnection();
+        } catch (SQLException e) {
+            fail(e.getMessage());
+        }
+    }
+
     @BeforeEach
     void setUp(){
         try {
@@ -46,7 +57,8 @@ public class ViewDebitoTest {
         try {
             checkDebito();
         } catch (SQLException e) {
-            fail(e.getMessage());
+            e.printStackTrace();
+            //fail(e.getMessage());
         }
     }
 
@@ -62,7 +74,9 @@ public class ViewDebitoTest {
             debitoNullo.aggiungiImporto(importo);
             executeSelect();
             while(rs.next()) {
-                switch (rs.getString(2)) {
+                String cognome=rs.getString(1);
+
+                switch (cognome) {
                     case "Dapueto":
                         assertEquals(debitoAfterInsert.getEuro(), rs.getInt(2));
                         assertEquals(debitoAfterInsert.getCentesimi(),  rs.getInt(3));
@@ -78,7 +92,8 @@ public class ViewDebitoTest {
                 }
             }
         } catch (SQLException e) {
-            fail(e.getMessage());
+            e.printStackTrace();
+            //fail(e.getMessage());
         }
 
     }
@@ -93,14 +108,16 @@ public class ViewDebitoTest {
             executeSelect();
             checkDebito();
         } catch (SQLException e) {
-            fail(e.getMessage());
+            e.printStackTrace();
+            //fail(e.getMessage());
         }
 
     }
 
     private void checkDebito() throws SQLException {
         while (rs.next()) {
-            switch (rs.getString(2)) {
+            String cognome=rs.getString(1);
+            switch (cognome) {
                 case "Dapueto":
                     assertEquals(debitoAfterInsert.getEuro(), rs.getInt(2));
                     assertEquals(debitoAfterInsert.getCentesimi(),  rs.getInt(3));

@@ -1,5 +1,6 @@
 package testBackend;
 
+import org.junit.jupiter.api.AfterEach;
 import utils.Euro;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,6 +23,16 @@ public class ViewCassaTest {
     private static int cassaEuro=385;
     private static int cassaCentesimi=49;
     private static Euro cassaAfterInsert= new Euro(cassaEuro,cassaCentesimi);
+
+    @AfterEach
+    void tearDown(){
+
+        try {
+            t.closeConnection();
+        } catch (SQLException e) {
+            fail(e.getMessage());
+        }
+    }
 
     @BeforeEach
     void setUp(){
