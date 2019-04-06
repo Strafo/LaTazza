@@ -23,7 +23,7 @@ public class ViewDebitoTest {
     private static int cassaEuro=385;
     private static int cassaCentesimi=49;
     private static Euro cassaAfterInsert= new Euro(cassaEuro,cassaCentesimi);
-/*
+
     @BeforeEach
     void setUp(){
         try {
@@ -54,6 +54,8 @@ public class ViewDebitoTest {
             fail(e.getMessage());
         }
     }
+
+
 
 
     @Test
@@ -110,7 +112,7 @@ public class ViewDebitoTest {
     }
 
 
-*/
+
 
 
 
