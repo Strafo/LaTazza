@@ -1,7 +1,5 @@
 package backend.dataAccessLayer.gatewaysPkg.receiverPkg;
 import backend.dataAccessLayer.rowdatapkg.RifornimentoEntry;
-import utils.ThrowingBiPredicate;
-import utils.ThrowingFunction;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,13 +20,11 @@ public class RifornimentoDaoReceiver extends AbstractDaoReceiver<RifornimentoEnt
         super(dataBaseConnection);
     }
 
-
-
-
-    private ThrowingFunction<Connection,List<RifornimentoEntry>> getAllLambda=(Connection conn)->{
+    @Override
+    public List<RifornimentoEntry> getAll() throws Exception {
         List<RifornimentoEntry> lista=new LinkedList<>();
         ResultSet rs;
-        Statement st =conn.createStatement();
+        Statement st =dataBaseConnection.createStatement();
         rs=st.executeQuery(GET_ALL_STRING);
         while(rs.next()){
             lista.add(
@@ -39,48 +35,45 @@ public class RifornimentoDaoReceiver extends AbstractDaoReceiver<RifornimentoEnt
                     )
             );
         }
-        return lista;
-    };
+        return lista;    }
 
-    private ThrowingBiPredicate<Connection,RifornimentoEntry> updateLambda=(Connection conn,RifornimentoEntry entry)->{
+    @Override
+    public boolean save(RifornimentoEntry rifornimentoEntry) throws Exception {
         PreparedStatement pst;
-        pst=conn.prepareStatement(UPDATE_STATEMENT_STRING);
-        //new entry
-        pst.setString(1,entry.getTipoCialda());
-        pst.setTimestamp(2,entry.getData());
-        pst.setInt(3,entry.getQta());
-        //old entry
-        RifornimentoEntry oldEntry=(RifornimentoEntry)entry.getMemento().getMementoState();
+        pst=dataBaseConnection.prepareStatement(INSERT_STATEMENT_STRING);
+        pst.setString(1, rifornimentoEntry.getTipoCialda());
+        pst.setTimestamp(2,rifornimentoEntry.getData());
+        pst.setInt(3,rifornimentoEntry.getQta());
+        pst.executeUpdate();
+        return true;
+    }
+
+    @Override
+    public boolean update(RifornimentoEntry rifornimentoEntry) throws Exception {
+        PreparedStatement pst;
+        pst=dataBaseConnection.prepareStatement(UPDATE_STATEMENT_STRING);
+        //new rifornimentoEntry
+        pst.setString(1,rifornimentoEntry.getTipoCialda());
+        pst.setTimestamp(2,rifornimentoEntry.getData());
+        pst.setInt(3,rifornimentoEntry.getQta());
+        //old rifornimentoEntry
+        RifornimentoEntry oldEntry=(RifornimentoEntry)rifornimentoEntry.getMemento().getMementoState();
         pst.setString(4,oldEntry.getTipoCialda());
         pst.setTimestamp(5,oldEntry.getData());
         pst.setInt(6,oldEntry.getQta());
         pst.executeUpdate();
         return true;
-    };
+    }
 
-
-
-    private ThrowingBiPredicate<Connection,RifornimentoEntry>  saveLambda=(Connection conn,RifornimentoEntry entry)->{
+    @Override
+    public boolean delete(RifornimentoEntry rifornimentoEntry) throws Exception {
         PreparedStatement pst;
-        pst=conn.prepareStatement(INSERT_STATEMENT_STRING);
-        pst.setString(1, entry.getTipoCialda());
-        pst.setTimestamp(2,entry.getData());
-        pst.setInt(3,entry.getQta());
+        pst=dataBaseConnection.prepareStatement(DELETE_STATEMENT_STRING);
+        pst.setTimestamp(1,rifornimentoEntry.getData());
+        pst.setString(2, rifornimentoEntry.getTipoCialda());
         pst.executeUpdate();
         return true;
-    };
-
-
-
-    private ThrowingBiPredicate<Connection,RifornimentoEntry>  deleteLambda=(Connection conn,RifornimentoEntry entry)->{
-        PreparedStatement pst;
-        pst=conn.prepareStatement(DELETE_STATEMENT_STRING);
-        pst.setTimestamp(1,entry.getData());
-        pst.setString(2, entry.getTipoCialda());
-        pst.executeUpdate();
-        return true;
-    };
-
+    }
 
 
 }

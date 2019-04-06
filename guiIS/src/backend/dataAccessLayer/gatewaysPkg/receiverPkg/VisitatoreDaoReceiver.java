@@ -21,11 +21,11 @@ public class VisitatoreDaoReceiver extends AbstractDaoReceiver<Visitatore> {
         super(dataBaseConnection);
     }
 
-
-    private  ThrowingFunction<Connection,List<Visitatore>> getAllLambda=(Connection conn)->{
+    @Override
+    public List<Visitatore> getAll() throws Exception {
         List<Visitatore> lista=new LinkedList<>();
         ResultSet rs;
-        Statement st =conn.createStatement();
+        Statement st =dataBaseConnection.createStatement();
         rs=st.executeQuery(GET_ALL_STRING);
         while(rs.next()){
             lista.add(
@@ -36,42 +36,41 @@ public class VisitatoreDaoReceiver extends AbstractDaoReceiver<Visitatore> {
             );
         }
         return lista;
-    };
+    }
 
-    private  ThrowingBiPredicate<Connection,Visitatore> updateLambda=(Connection conn,Visitatore pers)->{
+    @Override
+    public boolean save(Visitatore visitatore) throws Exception {
         PreparedStatement pst;
-        pst=conn.prepareStatement(UPDATE_STATEMENT_STRING);
+        pst=dataBaseConnection.prepareStatement(INSERT_STATEMENT_STRING);
+        pst.setString(1, visitatore.getNome());
+        pst.setString(2, visitatore.getCognome());
+        pst.executeUpdate();
+        return true;
+    }
+
+    @Override
+    public boolean update(Visitatore visitatore) throws Exception {
+        PreparedStatement pst;
+        pst=dataBaseConnection.prepareStatement(UPDATE_STATEMENT_STRING);
         //new entry
-        pst.setString(1,pers.getNome());
-        pst.setString(2,pers.getCognome());
+        pst.setString(1,visitatore.getNome());
+        pst.setString(2,visitatore.getCognome());
         //old entry
-        Visitatore old= (Visitatore) pers.getMemento().getMementoState();
+        Visitatore old= (Visitatore) visitatore.getMemento().getMementoState();
         pst.setString(3,old.getNome());
         pst.setString(4,old.getCognome());
         pst.executeUpdate();
         return true;
-    };
+    }
 
-
-
-    private  ThrowingBiPredicate<Connection,Visitatore>  saveLambda=(Connection conn,Visitatore pers)->{
+    @Override
+    public boolean delete(Visitatore visitatore) throws Exception {
         PreparedStatement pst;
-        pst=conn.prepareStatement(INSERT_STATEMENT_STRING);
-        pst.setString(1, pers.getNome());
-        pst.setString(2, pers.getCognome());
+        pst=dataBaseConnection.prepareStatement(DELETE_STATEMENT_STRING);
+        pst.setString(1, visitatore.getNome());
+        pst.setString(2, visitatore.getCognome());
         pst.executeUpdate();
         return true;
-    };
-
-
-
-    private  ThrowingBiPredicate<Connection,Visitatore>  deleteLambda=(Connection conn,Visitatore pers)->{
-        PreparedStatement pst;
-        pst=conn.prepareStatement(DELETE_STATEMENT_STRING);
-        pst.setString(1, pers.getNome());
-        pst.setString(2, pers.getCognome());
-        pst.executeUpdate();
-        return true;
-    };
+    }
 
 }

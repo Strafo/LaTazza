@@ -2,8 +2,6 @@ package backend.dataAccessLayer.gatewaysPkg.receiverPkg;
 import utils.Euro;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import backend.dataAccessLayer.rowdatapkg.movimentoPkg.MovimentoDebito;
-import utils.ThrowingBiPredicate;
-import utils.ThrowingFunction;
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,11 +18,11 @@ public class MovimentoDebitoDaoReceiver extends AbstractDaoReceiver<MovimentoDeb
         super(dataBaseConnection);
     }
 
-
-    private static ThrowingFunction<Connection,List<MovimentoDebito>> getAllLambda=(Connection conn)->{
+    @Override
+    public List<MovimentoDebito> getAll() throws SQLException {
         List<MovimentoDebito> lista = new LinkedList<>();
         ResultSet rs;
-        Statement st = conn.createStatement();
+        Statement st = dataBaseConnection.createStatement();
         rs = st.executeQuery(GET_ALL_STRING);
         while (rs.next()) {
             lista.add(
@@ -37,49 +35,49 @@ public class MovimentoDebitoDaoReceiver extends AbstractDaoReceiver<MovimentoDeb
             );
         }
 
-        return lista;
-    };
+        return lista;    }
 
-    private  ThrowingBiPredicate<Connection,MovimentoDebito> updateLambda=(Connection conn,MovimentoDebito entry)->{
+    @Override
+    public boolean save(MovimentoDebito movimentoDebito) throws SQLException {
         PreparedStatement pst;
-        MovimentoDebito oldEntry=(MovimentoDebito) entry.getMemento().getMementoState();//old entry
-        //new entry
-        pst=conn.prepareStatement(UPDATE_STATEMENT_STRING);
-        pst.setString(1,entry.getCliente().getNome());
-        pst.setString(2,entry.getCliente().getCognome());
-        pst.setTimestamp(3,entry.getData());
+        pst=dataBaseConnection.prepareStatement(INSERT_STATEMENT_STRING);
+        pst.setString(1, movimentoDebito.getCliente().getNome());
+        pst.setString(2, movimentoDebito.getCliente().getCognome());
+        pst.setTimestamp(3,movimentoDebito.getData());
+        pst.setDouble(4,1.0);//todo set importo
+        pst.executeUpdate();
+        return true;
+    }
+
+    @Override
+    public boolean update(MovimentoDebito movimentoDebito) throws SQLException {
+        PreparedStatement pst;
+        MovimentoDebito oldEntry=(MovimentoDebito) movimentoDebito.getMemento().getMementoState();//old movimentoDebito
+        //new movimentoDebito
+        pst=dataBaseConnection.prepareStatement(UPDATE_STATEMENT_STRING);
+        pst.setString(1,movimentoDebito.getCliente().getNome());
+        pst.setString(2,movimentoDebito.getCliente().getCognome());
+        pst.setTimestamp(3,movimentoDebito.getData());
         pst.setDouble(4,3.3);//todo euro
-        //old entry
+        //old movimentoDebito
         pst.setString(5,oldEntry.getCliente().getNome());
         pst.setString(6,oldEntry.getCliente().getCognome());
         pst.setTimestamp(7,oldEntry.getData());
         pst.executeUpdate();
         return true;
-    };
+    }
 
-
-
-    private  ThrowingBiPredicate<Connection,MovimentoDebito>  saveLambda=(Connection conn,MovimentoDebito pde)->{
+    @Override
+    public boolean delete(MovimentoDebito movimentoDebito) throws SQLException {
         PreparedStatement pst;
-        pst=conn.prepareStatement(INSERT_STATEMENT_STRING);
-        pst.setString(1, pde.getCliente().getNome());
-        pst.setString(2, pde.getCliente().getCognome());
-        pst.setTimestamp(3,pde.getData());
-        pst.setDouble(4,1.0);//todo set importo
+        pst=dataBaseConnection.prepareStatement(DELETE_STATEMENT_STRING);
+        pst.setString(1, movimentoDebito.getCliente().getNome());
+        pst.setString(2,movimentoDebito.getCliente().getCognome());
+        pst.setTimestamp(3,movimentoDebito.getData());
         pst.executeUpdate();
         return true;
-    };
+    }
 
 
-
-    private  ThrowingBiPredicate<Connection,MovimentoDebito>  deleteLambda=(Connection conn,MovimentoDebito pde)->{
-        PreparedStatement pst;
-        pst=conn.prepareStatement(DELETE_STATEMENT_STRING);
-        pst.setString(1, pde.getCliente().getNome());
-        pst.setString(2,pde.getCliente().getCognome());
-        pst.setTimestamp(3,pde.getData());
-        pst.executeUpdate();
-        return true;
-    };
 
 }

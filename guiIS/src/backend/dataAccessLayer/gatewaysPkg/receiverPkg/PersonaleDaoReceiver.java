@@ -1,7 +1,5 @@
 package backend.dataAccessLayer.gatewaysPkg.receiverPkg;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
-import utils.ThrowingBiPredicate;
-import utils.ThrowingFunction;
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,11 +16,11 @@ public class PersonaleDaoReceiver extends AbstractDaoReceiver<Personale> {
         super(dataBaseConnection);
     }
 
-
-    private  ThrowingFunction<Connection,List<Personale>> getAllLambda=(Connection conn)->{
+    @Override
+    public List<Personale> getAll() throws Exception {
         List<Personale> lista=new LinkedList<>();
         ResultSet rs;
-        Statement st =conn.createStatement();
+        Statement st =dataBaseConnection.createStatement();
         rs=st.executeQuery(GET_ALL_STRING);
         while(rs.next()){
             lista.add(
@@ -33,46 +31,45 @@ public class PersonaleDaoReceiver extends AbstractDaoReceiver<Personale> {
                     )
             );
         }
-        return lista;
-    };
+        return lista;    }
 
-    private  ThrowingBiPredicate<Connection,Personale> updateLambda=(Connection conn,Personale pers)->{
+    @Override
+    public boolean save(Personale personale) throws Exception {
         PreparedStatement pst;
-        pst=conn.prepareStatement(UPDATE_STATEMENT_STRING);
+        pst=dataBaseConnection.prepareStatement(INSERT_STATEMENT_STRING);
+        pst.setString(1, personale.getNome());
+        pst.setString(2, personale.getCognome());
+        pst.setBoolean(3,personale.isAttivo());
+        pst.executeUpdate();
+        return true;    }
+
+    @Override
+    public boolean update(Personale personale) throws Exception {
+        PreparedStatement pst;
+        pst=dataBaseConnection.prepareStatement(UPDATE_STATEMENT_STRING);
         //new entry
-        pst.setString(1,pers.getNome());
-        pst.setString(2,pers.getCognome());
-        pst.setBoolean(3,pers.isAttivo());
+        pst.setString(1,personale.getNome());
+        pst.setString(2,personale.getCognome());
+        pst.setBoolean(3,personale.isAttivo());
         //old entry
-        Personale old= (Personale) pers.getMemento().getMementoState();
+        Personale old= (Personale) personale.getMemento().getMementoState();
         pst.setString(4,old.getNome());
         pst.setString(5,old.getCognome());
         pst.setBoolean(6,old.isAttivo());
         pst.executeUpdate();
         return true;
-    };
+    }
 
-
-
-    private  ThrowingBiPredicate<Connection,Personale>  saveLambda=(Connection conn,Personale pers)->{
+    @Override
+    public boolean delete(Personale personale) throws Exception {
         PreparedStatement pst;
-        pst=conn.prepareStatement(INSERT_STATEMENT_STRING);
-        pst.setString(1, pers.getNome());
-        pst.setString(2, pers.getCognome());
-        pst.setBoolean(3,pers.isAttivo());
+        pst=dataBaseConnection.prepareStatement(DELETE_STATEMENT_STRING);
+        pst.setString(1, personale.getNome());
+        pst.setString(2, personale.getCognome());
         pst.executeUpdate();
         return true;
-    };
+    }
 
 
-
-    private  ThrowingBiPredicate<Connection,Personale>  deleteLambda=(Connection conn,Personale pers)->{
-        PreparedStatement pst;
-        pst=conn.prepareStatement(DELETE_STATEMENT_STRING);
-        pst.setString(1, pers.getNome());
-        pst.setString(2, pers.getCognome());
-        pst.executeUpdate();
-        return true;
-    };
 
 }

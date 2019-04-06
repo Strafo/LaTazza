@@ -1,12 +1,7 @@
 package backend.dataAccessLayer.gatewaysPkg.receiverPkg;
 import utils.Euro;
 import backend.dataAccessLayer.rowdatapkg.CialdeEntry;
-import utils.ThrowingBiPredicate;
-import utils.ThrowingFunction;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,11 +17,11 @@ public class CialdeDaoReceiver extends AbstractDaoReceiver<CialdeEntry> {
         super(dataBaseConnection);
     }
 
-
-    private  ThrowingFunction<Connection,List<CialdeEntry>> getAllLambda=(Connection conn)->{
+    @Override
+    public List<CialdeEntry> getAll() throws SQLException {
         List<CialdeEntry> lista = new LinkedList<>();
         ResultSet rs;
-        Statement st = conn.createStatement();
+        Statement st = dataBaseConnection.createStatement();
         rs = st.executeQuery(GET_ALL_STRING);
         while (rs.next()) {
             lista.add(
@@ -39,42 +34,40 @@ public class CialdeDaoReceiver extends AbstractDaoReceiver<CialdeEntry> {
         }
 
         return lista;
-    };
+    }
 
-    private  ThrowingBiPredicate<Connection,CialdeEntry> updateLambda=(Connection conn,CialdeEntry cialda)->{
+    @Override
+    public boolean save(CialdeEntry cialdeEntry) throws SQLException {
         PreparedStatement pst;
-        pst=conn.prepareStatement(UPDATE_STATEMENT_STRING);
-        //new entry
-        pst.setString(1,cialda.getTipo());
-        //pst.setTimestamp(2,cialda.getPrezzo());
-        pst.setDouble(2,3.3);//todo
-        //old entry
-        CialdeEntry oldEntry=(CialdeEntry)cialda.getMemento().getMementoState();
-        pst.setString(3,oldEntry.getTipo());
-        pst.executeUpdate();
-        return true;
-    };
-
-
-
-    private  ThrowingBiPredicate<Connection,CialdeEntry>  saveLambda=(Connection conn,CialdeEntry cialda)->{
-        PreparedStatement pst;
-        pst=conn.prepareStatement(INSERT_STATEMENT_STRING);
-        pst.setString(1, cialda.getTipo());
+        pst=dataBaseConnection.prepareStatement(INSERT_STATEMENT_STRING);
+        pst.setString(1, cialdeEntry.getTipo());
         pst.setDouble(2, 3.3);//cialda.getPrezzo());//todo
         pst.executeUpdate();
         return true;
-    };
+    }
 
-
-
-    private  ThrowingBiPredicate<Connection,CialdeEntry>  deleteLambda=(Connection conn,CialdeEntry cialda)->{
+    @Override
+    public boolean update(CialdeEntry cialdeEntry) throws SQLException {
         PreparedStatement pst;
-        pst=conn.prepareStatement(DELETE_STATEMENT_STRING);
-        pst.setString(1, cialda.getTipo());
+        pst=dataBaseConnection.prepareStatement(UPDATE_STATEMENT_STRING);
+        //new entry
+        pst.setString(1,cialdeEntry.getTipo());
+        //pst.setTimestamp(2,cialda.getPrezzo());
+        pst.setDouble(2,3.3);//todo
+        //old entry
+        CialdeEntry oldEntry=(CialdeEntry)cialdeEntry.getMemento().getMementoState();
+        pst.setString(3,oldEntry.getTipo());
         pst.executeUpdate();
         return true;
-    };
+    }
 
+    @Override
+    public boolean delete(CialdeEntry cialdeEntry) throws SQLException {
+        PreparedStatement pst;
+        pst=dataBaseConnection.prepareStatement(DELETE_STATEMENT_STRING);
+        pst.setString(1, cialdeEntry.getTipo());
+        pst.executeUpdate();
+        return true;
+    }
 
 }
