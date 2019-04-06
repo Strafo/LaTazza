@@ -17,10 +17,8 @@ public class TriggerCassaRifornimento extends ViewCassa implements Trigger {
 
     private static Euro nuovaCassa(Connection conn,int numeroCialde) throws SQLException {
         Euro costo=new Euro(costoCialdeEuro,costoCialdeCentesimi);
-        System.out.println("Costo per cialda: " +costo +", qta: "+ numeroCialde);
         costo.moltiplicaImporto(numeroCialde);
         Euro cassaCorrente=getCassaCorrente(conn);
-        System.out.println("Costo totale"+costo);
         return cassaCorrente.sottraiImporto(costo);
     }
 

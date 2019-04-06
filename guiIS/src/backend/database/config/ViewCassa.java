@@ -19,7 +19,7 @@ public class ViewCassa {
 
 
     protected static void updateCassa(Connection conn,Euro importo) throws SQLException{
-        //System.out.println(importo);
+
         stat = conn.prepareStatement("update " + TABLE_NAME_CASSA + " set euro= " + importo.getEuro()+", centesimi= "+importo.getCentesimi());
         stat.executeUpdate();
     }

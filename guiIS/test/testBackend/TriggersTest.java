@@ -21,6 +21,8 @@ public class TriggersTest {
     private final String PATHConfig="\\src\\backend\\database\\config\\";
     private final String PATHInsert="\\test\\testBackend\\";
     private Scanner inFile;
+    private static ResultSet rs;
+    private static PreparedStatement stat;
 
 //ciao socio
 
@@ -41,7 +43,7 @@ public class TriggersTest {
         try {
 
             StringBuilder file= new StringBuilder();
-            System.out.println("Path: "+System.getProperty("user.dir")+sqlFileName);
+            //System.out.println("Path: "+System.getProperty("user.dir")+sqlFileName);
             inFile= new Scanner(new FileReader(userDir+path+sqlFileName));
             while(inFile.hasNext()) {
                 file.append(inFile.nextLine()).append("\n");
@@ -74,10 +76,25 @@ public class TriggersTest {
         ViewDebito.initView(conn);
         ViewCassa.initView(conn);
         updateTable(PATHInsert,"Insert.sql");
+        System.out.println("---DIPEND");
+        executeSelect("LATAZZASCHEMA.COMPRA_DIPENDENTE");
+        System.out.println("---VISIT");
+        executeSelect("LATAZZASCHEMA.COMPRA_VISITATORE");
+        System.out.println("---CASSA");
+        executeSelect("LATAZZASCHEMA.CASSA");
+
 
     }
     public void closeConnection() throws SQLException {
         database.closeDataBase();
+    }
+
+    private void executeSelect(String table) throws SQLException{
+        stat=conn.prepareStatement("SELECT * from " + table);
+        rs=stat.executeQuery();
+        while(rs.next()){
+            System.out.println(rs.getString(1));
+        }
     }
 
 

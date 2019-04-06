@@ -24,6 +24,8 @@ public class ViewDebitoTest {
     private static int debitoCentesimi=51;
     private static Euro debitoAfterInsert= new Euro(debitoEuro,debitoCentesimi);
     private static Euro debitoNullo= new Euro(0,0);
+    private static String dapueto="Dapueto";
+    private static String campisi="Campisi";
 
     @AfterEach
     void tearDown(){
@@ -57,8 +59,8 @@ public class ViewDebitoTest {
         try {
             checkDebito();
         } catch (SQLException e) {
-            e.printStackTrace();
-            //fail(e.getMessage());
+            //e.printStackTrace();
+            fail(e.getMessage());
         }
     }
 
@@ -74,26 +76,27 @@ public class ViewDebitoTest {
             debitoNullo.aggiungiImporto(importo);
             executeSelect();
             while(rs.next()) {
-                String cognome=rs.getString(1);
-
-                switch (cognome) {
-                    case "Dapueto":
+                String cognome= rs.getString(2);
+                System.out.println(cognome);
+                    if(cognome.equals("Dapueto")) {
                         assertEquals(debitoAfterInsert.getEuro(), rs.getInt(2));
-                        assertEquals(debitoAfterInsert.getCentesimi(),  rs.getInt(3));
-                        break;
-                    case "Campisi":
-                        assertEquals(debitoNullo.getEuro(), rs.getInt(2));
-                        assertEquals(debitoNullo.getCentesimi(),  rs.getInt(3));
-                        break;
+                        assertEquals(debitoAfterInsert.getCentesimi(), rs.getInt(3));
+                    }
+                    else
+                        if(cognome.equals("Campisi")) {
+                            assertEquals(debitoNullo.getEuro(), rs.getInt(2));
+                            assertEquals(debitoNullo.getCentesimi(), rs.getInt(3));
+                        }
+                        else {
 
-                    default:
-                        assertEquals(debitoNullo.getEuro(), rs.getInt(2));
-                        assertEquals(debitoNullo.getCentesimi(),rs.getInt(3));
-                }
+                            assertEquals(debitoNullo.getEuro(), rs.getInt(2));
+                            assertEquals(debitoNullo.getCentesimi(), rs.getInt(3));
+                        }
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            //fail(e.getMessage());
+            fail(e.getMessage());
         }
 
     }
@@ -108,24 +111,26 @@ public class ViewDebitoTest {
             executeSelect();
             checkDebito();
         } catch (SQLException e) {
-            e.printStackTrace();
-            //fail(e.getMessage());
+            //e.printStackTrace();
+            fail(e.getMessage());
         }
 
     }
 
     private void checkDebito() throws SQLException {
         while (rs.next()) {
-            String cognome=rs.getString(1);
-            switch (cognome) {
-                case "Dapueto":
-                    assertEquals(debitoAfterInsert.getEuro(), rs.getInt(2));
-                    assertEquals(debitoAfterInsert.getCentesimi(),  rs.getInt(3));
-                    break;
-                default:
-                    assertEquals(debitoNullo.getEuro(), rs.getInt(2));
-                    assertEquals(debitoNullo.getCentesimi(),rs.getInt(3));
+            String cognome=rs.getString(2);
+
+            if(cognome.equals("Dapueto")) {
+                assertEquals(debitoAfterInsert.getEuro(), rs.getInt(2));
+                assertEquals(debitoAfterInsert.getCentesimi(),  rs.getInt(3));
             }
+            else {
+
+                assertEquals(debitoNullo.getEuro(), rs.getInt(2));
+                assertEquals(debitoNullo.getCentesimi(),rs.getInt(3));
+            }
+
         }
     }
 
