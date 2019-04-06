@@ -4,7 +4,7 @@ import backend.businessLogicLayer.ControllerContabilita;
 import backend.businessLogicLayer.ControllerPersonale;
 import backend.dataAccessLayer.gatewaysPkg.receiverPkg.*;
 import backend.dataAccessLayer.gatewaysPkg.IDaoFacade;
-import backend.dataAccessLayer.gatewaysPkg.IDaoInvoker;
+import backend.dataAccessLayer.gatewaysPkg.DaoInvoker;
 import backend.dataAccessLayer.rowdatapkg.AbstractEntryDB;
 import backend.dataAccessLayer.rowdatapkg.CialdeEntry;
 import backend.dataAccessLayer.rowdatapkg.RifornimentoEntry;
@@ -50,7 +50,7 @@ public  class LaTazzaApplication implements Runnable {
         databaseConnectionHandler =new DatabaseConnectionHandler();//inizializzo databaseConnectionHandler
         try {
             databaseConnectionHandler.initDataBase();
-            dao=new IDaoInvoker(databaseConnectionHandler.getConnection(),daoCollection);
+            dao=new DaoInvoker(databaseConnectionHandler.getConnection(),daoCollection);
         } catch ( SQLException| ClassNotFoundException e) {
             e.printStackTrace();//todo fare una migliore gestione degli errori
             System.exit(1);

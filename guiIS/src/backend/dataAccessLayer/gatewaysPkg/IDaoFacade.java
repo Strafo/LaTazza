@@ -3,7 +3,7 @@ import backend.dataAccessLayer.rowdatapkg.AbstractEntryDB;
 import java.util.List;
 
 /**
- * Questa interfaccia viene implementata( ed è pensata in coppia con) la classe IDaoInvoker.
+ * Questa interfaccia viene implementata( ed è pensata in coppia con) la classe DaoInvoker.
  * Questa interfaccia si pone, in una architettura multi-tier, come il confine tra il DataLayer e il BusinessLogicLayer
  * e cerca di fare Information Hiding rispetto alla gestione del backend.database e le sue eccezioni.
  * Implementa quindi insieme all'interfaccie Memento e AbstractEntry il DataAccessLayer.
@@ -16,7 +16,7 @@ import java.util.List;
  * ESEMPIO:
  *  public static void main(String[] args) {
  *           Connection conn=.... in qualche modo definita;
- *           IDaoFacade dao=new IDaoInvoker(conn);
+ *           IDaoFacade dao=new DaoInvoker(conn);
  *           List<Personale> listaPersonale=dao.getAll(Personale.class);//ottengo la lista del personale nel DB.
  *           Personale newPers=new Personale("George","Hotz",true);
  *           if(dao.save(newPers)){//se va tutto ok
@@ -76,7 +76,7 @@ public interface IDaoFacade {
     /**
      * Questo metodo permette di aggiornare l'oggetto passato. t infatti ( implementando AbstractEntry) implementa
      * il pattern mementoPkg.
-     * Il IDaoInvoker quindi utilizza quest'ultimo per risalire allo stato originale dell'oggetto.
+     * Il DaoInvoker quindi utilizza quest'ultimo per risalire allo stato originale dell'oggetto.
      * @param t l'oggetto modificato da rendere coerente con la sua "versione" salvata nel DB.
      * @return true se operazione andata a buon fine, false altrimenti.
      * Nota:se l'update va a buon fine il mementoPkg viene eliminato e rimane solo lo stato attuale.

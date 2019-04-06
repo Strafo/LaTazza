@@ -14,14 +14,14 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 
-public class IDaoInvoker implements IDaoFacade {
+public class DaoInvoker implements IDaoFacade {
 
     private SimpleDaoReceiverFactory factory;
     private Connection dataBaseConnection;
     private AbstractDaoReceiver concreteDaoReceiver;//il dao corrente (vengono switchati i tipi di dao a run time)
     private boolean transactionStatus=true;//stato di errore della transazione--> false da fare rollback ; true da committare
 
-    public IDaoInvoker(Connection dataBaseConnection, Collection<Pair<Class<? extends AbstractEntryDB>,Class<? extends AbstractDaoReceiver>>> daoCollection){
+    public DaoInvoker(Connection dataBaseConnection, Collection<Pair<Class<? extends AbstractEntryDB>,Class<? extends AbstractDaoReceiver>>> daoCollection){
         this.dataBaseConnection=dataBaseConnection;
         this.factory=new SimpleDaoReceiverFactory(dataBaseConnection,daoCollection);
     }
