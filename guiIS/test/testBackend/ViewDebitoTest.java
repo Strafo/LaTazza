@@ -1,6 +1,5 @@
 package testBackend;
 
-import backend.database.config.TriggersTest;
 import utils.Euro;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -45,7 +44,6 @@ public class ViewDebitoTest {
     @Test
     void testView() {
         try {
-
             checkDebito();
         } catch (SQLException e) {
             fail(e.getMessage());
@@ -60,8 +58,9 @@ public class ViewDebitoTest {
             Euro importo= new Euro(0,50);
             importo.moltiplicaImporto(qta);
             stat=c.prepareStatement("insert into LATAZZASCHEMA.COMPRA_DIPENDENTE values ('Simone','Campisi', 'caffe',"+qta+",'2018-07-11 13:00:00',false)");
-            rs=stat.executeQuery();
+            stat.executeUpdate();
             debitoNullo.aggiungiImporto(importo);
+            executeSelect();
             while(rs.next()) {
                 switch (rs.getString(2)) {
                     case "Dapueto":
@@ -89,7 +88,7 @@ public class ViewDebitoTest {
         try {
             Euro importo= new Euro(3,50);
             stat=c.prepareStatement("insert into LATAZZASCHEMA.PAGAMENTO_DEBITO values ('Jacopo','Dapueto', '2019-03-11 14:00:00',"+importo.getEuro()+", "+importo.getCentesimi()+")" );
-            rs=stat.executeQuery();
+            stat.executeUpdate();
             debitoAfterInsert.sottraiImporto(importo);
             executeSelect();
             checkDebito();

@@ -1,8 +1,8 @@
 package testBackend;
 
-import backend.database.config.TriggersTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import utils.Euro;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -26,6 +26,7 @@ public class ViewMagazzinoTest {
             t= new TriggersTest();
             c=t.getConn();
             t.initDataBase();
+            executeSelect();
         }catch (Exception exc){
             fail(exc.getMessage());
         }
@@ -41,8 +42,6 @@ public class ViewMagazzinoTest {
     @Test
     void testView() {
         try {
-
-            executeSelect();
             while (rs.next()) {
                 switch (rs.getString(1)) {
                     case "caffe":
@@ -63,7 +62,8 @@ public class ViewMagazzinoTest {
             try {
                 executeSelect();
                 stat=c.prepareStatement("update " +TABLE+" set tipo='Camomilla' where tipo='the' " );
-                rs=stat.executeQuery();
+                stat.executeUpdate();
+                executeSelect();
                 String the= new String("the");
                 while(rs.next()){
                     assertFalse(the.equals(rs.getString(1)));
@@ -77,13 +77,22 @@ public class ViewMagazzinoTest {
     @Test
     void testRifornimento(){
         try {
-
+            int qta=40;
+            stat=c.prepareStatement("insert into LATAZZASCHEMA.RIFORNIMENTO values ('2019-05-12 12:00:00',"+qta+" ,'caffe')" );
+            stat.executeUpdate();
+            executeSelect();
+            while (rs.next()) {
+                switch (rs.getString(1)) {
+                    case "caffe":
+                        assertEquals(162, rs.getInt(2));
+                        break;
+                }
+            }
         } catch (SQLException e) {
             fail(e.getMessage());
         }
 
     }
-
 
 
 

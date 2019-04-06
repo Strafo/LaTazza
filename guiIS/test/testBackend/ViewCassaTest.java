@@ -1,6 +1,5 @@
 package testBackend;
 
-import backend.database.config.TriggersTest;
 import utils.Euro;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -64,7 +63,8 @@ public class ViewCassaTest {
             importo.moltiplicaImporto(qta);
             cassaAfterInsert.sottraiImporto(importo);
             stat=c.prepareStatement("insert into LATAZZASCHEMA.RIFORNIMENTO values ('2019-05-12 12:00:00',"+qta+" ,'caffe')" );
-            rs=stat.executeQuery();
+            stat.executeUpdate();
+            executeSelect();
             assertTrue(rs.next());
             assertEquals(cassaAfterInsert.getEuro(), rs.getInt(1) );
             assertEquals(cassaAfterInsert.getCentesimi(), rs.getInt(2));
@@ -80,8 +80,9 @@ public class ViewCassaTest {
         try {
             Euro importo= new Euro(3,50);
             stat=c.prepareStatement("insert into LATAZZASCHEMA.PAGAMENTO_DEBITO values ('Jacopo','Dapueto', '2019-03-11 14:00:00',"+importo.getEuro()+", "+importo.getCentesimi()+")" );
-            rs=stat.executeQuery();
+            stat.executeUpdate();
             cassaAfterInsert.aggiungiImporto(importo);
+            executeSelect();
             assertTrue(rs.next());
             assertEquals(cassaAfterInsert.getEuro(), rs.getInt(1) );
             assertEquals(cassaAfterInsert.getCentesimi(), rs.getInt(2));
@@ -98,8 +99,9 @@ public class ViewCassaTest {
             Euro importo= new Euro(0,50);
             importo.moltiplicaImporto(qta);
             stat=c.prepareStatement("insert into LATAZZASCHEMA.COMPRA_DIPENDENTE values ('Simone','Campisi', 'caffe',"+qta+",'2018-07-11 13:00:00',true)");
-            rs=stat.executeQuery();
+            stat.executeUpdate();
             cassaAfterInsert.aggiungiImporto(importo);
+            executeSelect();
             assertTrue(rs.next());
             assertEquals(cassaAfterInsert.getEuro(), rs.getInt(1) );
             assertEquals(cassaAfterInsert.getCentesimi(), rs.getInt(2));

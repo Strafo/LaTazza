@@ -1,4 +1,4 @@
-package backend.database.config;
+package testBackend;
 
 
 import backend.database.DataBase;
