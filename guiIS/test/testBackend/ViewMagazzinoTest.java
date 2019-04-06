@@ -1,6 +1,6 @@
 package testBackend;
 
-import utils.Euro;
+import backend.database.config.TriggersTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -73,6 +73,17 @@ public class ViewMagazzinoTest {
             }
 
         }
+
+    @Test
+    void testRifornimento(){
+        try {
+
+        } catch (SQLException e) {
+            fail(e.getMessage());
+        }
+
+    }
+
 
 
 

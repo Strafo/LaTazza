@@ -1,4 +1,4 @@
-package testBackend;
+package backend.database.config;
 
 
 import backend.database.DataBase;
@@ -13,14 +13,16 @@ import java.util.Scanner;
 
 
 public class TriggersTest {
-
+    //C:\Users\jacop\Desktop\dev\LaTazza\guiIS\src\backend\database\config\databaseConfig.sql
     private Connection conn;
     private DataBase database;
     private static final String URL="jdbc:h2:mem:databaseTest";
     //private static final String URL="jdbc:h2:C:/Users/simoc/IdeaProjects/LaTazza/guiIS/src/database/config";
-    private final String PATHConfig="guiIS\\src\\backend\\database\\config\\";
-    private final String PATHInsert="guiIS\\src\\testBackend\\";
+    //private final String PATHConfig="guiIS\\src\\backend\\database\\config\\databaseConfig.sql";
+    private final String PATHConfig="guiIS\\src\\backend\\database\\config\\databaseConfig.sql";
+    private final String PATHInsert="guiIS\\src\\test\\testBackend\\Insert.sql";
     private Scanner inFile;
+
 
 
 
@@ -36,11 +38,11 @@ public class TriggersTest {
     }
 
 
-    private void updateTable(String path,String sqlFileName) throws SQLException {
+    private void updateTable(String path) throws SQLException {
 
         try {
             StringBuilder file= new StringBuilder();
-            inFile= new Scanner(new FileReader(path+sqlFileName));
+            inFile= new Scanner(new FileReader(path));
             while(inFile.hasNext()) {
                 file.append(inFile.nextLine()).append("\n");
             }
@@ -66,12 +68,12 @@ public class TriggersTest {
     }
 
     public void initDataBase() throws SQLException{
-        updateTable(PATHConfig,"databaseConfig.sql");
+        updateTable(PATHConfig);
         TriggerCheckNumCialde.initTrigger(conn);
         ViewMagazzino.initView(conn);
         ViewDebito.initView(conn);
         ViewCassa.initView(conn);
-        updateTable(PATHInsert,"Insert.sql");
+        updateTable(PATHInsert);
 
     }
     public void closeConnection() throws SQLException {

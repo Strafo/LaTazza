@@ -1,6 +1,6 @@
 package testBackend;
 
-import testBackend.TriggersTest;
+import backend.database.config.TriggersTest;
 import utils.Euro;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,23 +42,11 @@ public class ViewDebitoTest {
         stat=c.prepareStatement("SELECT * from " + TABLE);
         rs=stat.executeQuery();
     }
-
-
     @Test
     void testView() {
         try {
 
-            while (rs.next()) {
-                switch (rs.getString(2)) {
-                    case "Dapueto":
-                        assertEquals(debitoAfterInsert.getEuro(), rs.getInt(2));
-                        assertEquals(debitoAfterInsert.getCentesimi(),  rs.getInt(3));
-                        break;
-                    default:
-                        assertEquals(debitoNullo.getEuro(), rs.getInt(2));
-                        assertEquals(debitoNullo.getCentesimi(),rs.getInt(3));
-                }
-            }
+            checkDebito();
         } catch (SQLException e) {
             fail(e.getMessage());
         }
@@ -96,10 +84,34 @@ public class ViewDebitoTest {
 
     }
 
+    @Test
+    void testPagamentoDebito(){
+        try {
+            Euro importo= new Euro(3,50);
+            stat=c.prepareStatement("insert into LATAZZASCHEMA.PAGAMENTO_DEBITO values ('Jacopo','Dapueto', '2019-03-11 14:00:00',"+importo.getEuro()+", "+importo.getCentesimi()+")" );
+            rs=stat.executeQuery();
+            debitoAfterInsert.sottraiImporto(importo);
+            executeSelect();
+            checkDebito();
+        } catch (SQLException e) {
+            fail(e.getMessage());
+        }
 
+    }
 
-
-
+    private void checkDebito() throws SQLException {
+        while (rs.next()) {
+            switch (rs.getString(2)) {
+                case "Dapueto":
+                    assertEquals(debitoAfterInsert.getEuro(), rs.getInt(2));
+                    assertEquals(debitoAfterInsert.getCentesimi(),  rs.getInt(3));
+                    break;
+                default:
+                    assertEquals(debitoNullo.getEuro(), rs.getInt(2));
+                    assertEquals(debitoNullo.getCentesimi(),rs.getInt(3));
+            }
+        }
+    }
 
 
 }

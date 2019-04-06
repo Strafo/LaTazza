@@ -1,5 +1,6 @@
 package testBackend;
 
+import backend.database.config.TriggersTest;
 import utils.Euro;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -78,7 +79,7 @@ public class ViewCassaTest {
     void testPagamentoDebito(){
         try {
             Euro importo= new Euro(3,50);
-            stat=c.prepareStatement("insert into LATAZZASCHEMA.PAGAMENTO_DEBITO values ('Jacopo','Dapueto', '2019-03-11 14:00:00',"+cassaAfterInsert.getEuro()+", "+cassaAfterInsert.getCentesimi()+")" );
+            stat=c.prepareStatement("insert into LATAZZASCHEMA.PAGAMENTO_DEBITO values ('Jacopo','Dapueto', '2019-03-11 14:00:00',"+importo.getEuro()+", "+importo.getCentesimi()+")" );
             rs=stat.executeQuery();
             cassaAfterInsert.aggiungiImporto(importo);
             assertTrue(rs.next());
