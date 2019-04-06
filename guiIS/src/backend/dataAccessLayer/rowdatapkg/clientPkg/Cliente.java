@@ -1,5 +1,4 @@
 package backend.dataAccessLayer.rowdatapkg.clientPkg;
-import backend.dataAccessLayer.gatewaysPkg.AbstractDao;
 import backend.dataAccessLayer.rowdatapkg.AbstractEntryDB;
 import backend.dataAccessLayer.mementoPkg.Memento;
 import java.util.Objects;
@@ -34,7 +33,6 @@ public abstract class Cliente extends AbstractEntryDB  {
         this.cognome =Objects.requireNonNull(cognome);
     }
 
-    public abstract Class<? extends AbstractDao>getCorrespondigDaoClass();
 
     @Override
     public String toString() {

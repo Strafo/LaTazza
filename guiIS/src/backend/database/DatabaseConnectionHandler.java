@@ -3,7 +3,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DataBase {
+public class DatabaseConnectionHandler {
 
     private static final String DB_DRIVER = "org.h2.Driver";
     private static final String DEFAULT_OPT="DB_CLOSE_DELAY=-1;";
@@ -14,11 +14,11 @@ public class DataBase {
     private Connection connection;
     private String path;
 
-    public DataBase(){
+    public DatabaseConnectionHandler(){
         this(DB_CONNECTION_DEFAULT);
     }
 
-    public DataBase(String databasePath){
+    public DatabaseConnectionHandler(String databasePath){
         this.path=databasePath;
 
     }

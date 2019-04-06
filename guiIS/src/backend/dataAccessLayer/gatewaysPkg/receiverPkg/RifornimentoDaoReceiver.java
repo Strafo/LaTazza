@@ -1,4 +1,4 @@
-package backend.dataAccessLayer.gatewaysPkg;
+package backend.dataAccessLayer.gatewaysPkg.receiverPkg;
 import backend.dataAccessLayer.rowdatapkg.RifornimentoEntry;
 import utils.ThrowingBiPredicate;
 import utils.ThrowingFunction;
@@ -9,7 +9,8 @@ import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
-public class RifornimentoDao extends AbstractDao<RifornimentoEntry> {
+public class RifornimentoDaoReceiver extends AbstractDaoReceiver<RifornimentoEntry> {
+
     public static final String TABLE_NAME="LATAZZASCHEMA.rifornimento";
     private static final String INSERT_STATEMENT_STRING = "INSERT INTO " + TABLE_NAME + " (tipo_cialda,dataR,qta) VALUES (?,?,?)";
     private static final String UPDATE_STATEMENT_STRING = "UPDATE  " + TABLE_NAME + " SET tipo_cialda = ? , dataR = ? , qta = ? WHERE tipo_cialda = ? AND dataR = ? AND qta = ?";
@@ -17,15 +18,14 @@ public class RifornimentoDao extends AbstractDao<RifornimentoEntry> {
     private static final String GET_ALL_STRING="SELECT * FROM "+TABLE_NAME;
 
 
-    public RifornimentoDao(Connection dataBaseConnection){
+    public RifornimentoDaoReceiver(Connection dataBaseConnection){
         super(dataBaseConnection);
     }
 
 
 
 
-
-    private static ThrowingFunction<Connection,List<RifornimentoEntry>> getAllLambda=(Connection conn)->{
+    private ThrowingFunction<Connection,List<RifornimentoEntry>> getAllLambda=(Connection conn)->{
         List<RifornimentoEntry> lista=new LinkedList<>();
         ResultSet rs;
         Statement st =conn.createStatement();
@@ -42,7 +42,7 @@ public class RifornimentoDao extends AbstractDao<RifornimentoEntry> {
         return lista;
     };
 
-    private static ThrowingBiPredicate<Connection,RifornimentoEntry> updateLambda=(Connection conn,RifornimentoEntry entry)->{
+    private ThrowingBiPredicate<Connection,RifornimentoEntry> updateLambda=(Connection conn,RifornimentoEntry entry)->{
         PreparedStatement pst;
         pst=conn.prepareStatement(UPDATE_STATEMENT_STRING);
         //new entry
@@ -60,7 +60,7 @@ public class RifornimentoDao extends AbstractDao<RifornimentoEntry> {
 
 
 
-    private static ThrowingBiPredicate<Connection,RifornimentoEntry>  saveLambda=(Connection conn,RifornimentoEntry entry)->{
+    private ThrowingBiPredicate<Connection,RifornimentoEntry>  saveLambda=(Connection conn,RifornimentoEntry entry)->{
         PreparedStatement pst;
         pst=conn.prepareStatement(INSERT_STATEMENT_STRING);
         pst.setString(1, entry.getTipoCialda());
@@ -72,7 +72,7 @@ public class RifornimentoDao extends AbstractDao<RifornimentoEntry> {
 
 
 
-    private static ThrowingBiPredicate<Connection,RifornimentoEntry>  deleteLambda=(Connection conn,RifornimentoEntry entry)->{
+    private ThrowingBiPredicate<Connection,RifornimentoEntry>  deleteLambda=(Connection conn,RifornimentoEntry entry)->{
         PreparedStatement pst;
         pst=conn.prepareStatement(DELETE_STATEMENT_STRING);
         pst.setTimestamp(1,entry.getData());
@@ -81,24 +81,6 @@ public class RifornimentoDao extends AbstractDao<RifornimentoEntry> {
         return true;
     };
 
-    @Override
-    public ThrowingFunction<Connection, List<RifornimentoEntry>> getLambdaGetAll()  {
-        return getAllLambda;
-    }
 
-    @Override
-    public ThrowingBiPredicate<Connection, RifornimentoEntry> getLambdaUpdate()  {
-        return updateLambda;
-    }
-
-    @Override
-    public ThrowingBiPredicate<Connection, RifornimentoEntry> getLambdaSave()  {
-        return saveLambda;
-    }
-
-    @Override
-    public ThrowingBiPredicate<Connection, RifornimentoEntry> getLambdaDelete()  {
-        return deleteLambda;
-    }
 
 }

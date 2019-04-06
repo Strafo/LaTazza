@@ -1,6 +1,5 @@
 package backend.dataAccessLayer.rowdatapkg.movimentoPkg;
 import utils.Euro;
-import backend.dataAccessLayer.gatewaysPkg.MovimentoDebitoDao;
 import backend.dataAccessLayer.mementoPkg.Memento;
 import backend.dataAccessLayer.mementoPkg.MementoMovimentoDebito;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
@@ -25,12 +24,6 @@ public final class MovimentoDebito extends Movimento {
     public void setImporto(Euro importo) {
         setMementoIfNotDef();
         this.importo = importo;
-    }
-
-
-    @Override
-    public Class<MovimentoDebitoDao> getCorrespondigDaoClass() {
-        return MovimentoDebitoDao.class;
     }
 
     @Override

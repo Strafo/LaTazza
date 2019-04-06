@@ -1,4 +1,4 @@
-package backend.dataAccessLayer.gatewaysPkg;
+package backend.dataAccessLayer.gatewaysPkg.receiverPkg;
 import utils.Euro;
 import backend.dataAccessLayer.rowdatapkg.CialdeEntry;
 import utils.ThrowingBiPredicate;
@@ -10,7 +10,7 @@ import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
-public class CialdeDao extends AbstractDao<CialdeEntry> {
+public class CialdeDaoReceiver extends AbstractDaoReceiver<CialdeEntry> {
 
     public static final String TABLE_NAME="LATAZZASCHEMA.cialde";
     private static final String GET_ALL_STRING="SELECT * FROM "+TABLE_NAME;
@@ -18,12 +18,12 @@ public class CialdeDao extends AbstractDao<CialdeEntry> {
     private static final String UPDATE_STATEMENT_STRING = "UPDATE  " + TABLE_NAME + " SET tipo = ? , prezzo = ? WHERE tipo = ?  ";
     private static final String DELETE_STATEMENT_STRING = "DELETE FROM " + TABLE_NAME + " WHERE tipo = ? ";
 
-    public CialdeDao(Connection dataBaseConnection){
+    public CialdeDaoReceiver(Connection dataBaseConnection){
         super(dataBaseConnection);
     }
 
 
-    private static ThrowingFunction<Connection,List<CialdeEntry>> getAllLambda=(Connection conn)->{
+    private  ThrowingFunction<Connection,List<CialdeEntry>> getAllLambda=(Connection conn)->{
         List<CialdeEntry> lista = new LinkedList<>();
         ResultSet rs;
         Statement st = conn.createStatement();
@@ -41,7 +41,7 @@ public class CialdeDao extends AbstractDao<CialdeEntry> {
         return lista;
     };
 
-    private static ThrowingBiPredicate<Connection,CialdeEntry> updateLambda=(Connection conn,CialdeEntry cialda)->{
+    private  ThrowingBiPredicate<Connection,CialdeEntry> updateLambda=(Connection conn,CialdeEntry cialda)->{
         PreparedStatement pst;
         pst=conn.prepareStatement(UPDATE_STATEMENT_STRING);
         //new entry
@@ -57,7 +57,7 @@ public class CialdeDao extends AbstractDao<CialdeEntry> {
 
 
 
-    private static ThrowingBiPredicate<Connection,CialdeEntry>  saveLambda=(Connection conn,CialdeEntry cialda)->{
+    private  ThrowingBiPredicate<Connection,CialdeEntry>  saveLambda=(Connection conn,CialdeEntry cialda)->{
         PreparedStatement pst;
         pst=conn.prepareStatement(INSERT_STATEMENT_STRING);
         pst.setString(1, cialda.getTipo());
@@ -68,7 +68,7 @@ public class CialdeDao extends AbstractDao<CialdeEntry> {
 
 
 
-    private static ThrowingBiPredicate<Connection,CialdeEntry>  deleteLambda=(Connection conn,CialdeEntry cialda)->{
+    private  ThrowingBiPredicate<Connection,CialdeEntry>  deleteLambda=(Connection conn,CialdeEntry cialda)->{
         PreparedStatement pst;
         pst=conn.prepareStatement(DELETE_STATEMENT_STRING);
         pst.setString(1, cialda.getTipo());
@@ -76,24 +76,5 @@ public class CialdeDao extends AbstractDao<CialdeEntry> {
         return true;
     };
 
-    @Override
-    public ThrowingFunction<Connection, List<CialdeEntry>> getLambdaGetAll()  {
-        return getAllLambda;
-    }
-
-    @Override
-    public ThrowingBiPredicate<Connection, CialdeEntry> getLambdaUpdate()  {
-        return updateLambda;
-    }
-
-    @Override
-    public ThrowingBiPredicate<Connection, CialdeEntry> getLambdaSave()  {
-        return saveLambda;
-    }
-
-    @Override
-    public ThrowingBiPredicate<Connection, CialdeEntry> getLambdaDelete()  {
-        return deleteLambda;
-    }
 
 }

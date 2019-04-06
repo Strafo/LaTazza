@@ -1,4 +1,4 @@
-package backend.dataAccessLayer.gatewaysPkg;
+package backend.dataAccessLayer.gatewaysPkg.receiverPkg;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import utils.ThrowingBiPredicate;
 import utils.ThrowingFunction;
@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
-public class PersonaleDao extends AbstractDao<Personale> {
+public class PersonaleDaoReceiver extends AbstractDaoReceiver<Personale> {
 
     public static final String TABLE_NAME="LATAZZASCHEMA.personale";
     private static final String INSERT_STATEMENT_STRING = "INSERT INTO " + TABLE_NAME + " (nome,cognome,attivo) VALUES (?,?,?)";
@@ -14,14 +14,12 @@ public class PersonaleDao extends AbstractDao<Personale> {
     private static final String DELETE_STATEMENT_STRING = "DELETE FROM " + TABLE_NAME + " WHERE nome = ? AND cognome = ?";
     private static final String GET_ALL_STRING="SELECT * FROM "+TABLE_NAME;
 
-    public PersonaleDao(Connection dataBaseConnection){
+    public PersonaleDaoReceiver(Connection dataBaseConnection){
         super(dataBaseConnection);
     }
 
 
-
-
-    private static ThrowingFunction<Connection,List<Personale>> getAllLambda=(Connection conn)->{
+    private  ThrowingFunction<Connection,List<Personale>> getAllLambda=(Connection conn)->{
         List<Personale> lista=new LinkedList<>();
         ResultSet rs;
         Statement st =conn.createStatement();
@@ -38,7 +36,7 @@ public class PersonaleDao extends AbstractDao<Personale> {
         return lista;
     };
 
-    private static ThrowingBiPredicate<Connection,Personale> updateLambda=(Connection conn,Personale pers)->{
+    private  ThrowingBiPredicate<Connection,Personale> updateLambda=(Connection conn,Personale pers)->{
         PreparedStatement pst;
         pst=conn.prepareStatement(UPDATE_STATEMENT_STRING);
         //new entry
@@ -56,7 +54,7 @@ public class PersonaleDao extends AbstractDao<Personale> {
 
 
 
-    private static ThrowingBiPredicate<Connection,Personale>  saveLambda=(Connection conn,Personale pers)->{
+    private  ThrowingBiPredicate<Connection,Personale>  saveLambda=(Connection conn,Personale pers)->{
         PreparedStatement pst;
         pst=conn.prepareStatement(INSERT_STATEMENT_STRING);
         pst.setString(1, pers.getNome());
@@ -68,7 +66,7 @@ public class PersonaleDao extends AbstractDao<Personale> {
 
 
 
-    private static ThrowingBiPredicate<Connection,Personale>  deleteLambda=(Connection conn,Personale pers)->{
+    private  ThrowingBiPredicate<Connection,Personale>  deleteLambda=(Connection conn,Personale pers)->{
         PreparedStatement pst;
         pst=conn.prepareStatement(DELETE_STATEMENT_STRING);
         pst.setString(1, pers.getNome());
@@ -76,25 +74,5 @@ public class PersonaleDao extends AbstractDao<Personale> {
         pst.executeUpdate();
         return true;
     };
-
-    @Override
-    public ThrowingFunction<Connection, List<Personale>> getLambdaGetAll()  {
-        return getAllLambda;
-    }
-
-    @Override
-    public ThrowingBiPredicate<Connection, Personale> getLambdaUpdate()  {
-        return updateLambda;
-    }
-
-    @Override
-    public ThrowingBiPredicate<Connection, Personale> getLambdaSave()  {
-        return saveLambda;
-    }
-
-    @Override
-    public ThrowingBiPredicate<Connection, Personale> getLambdaDelete()  {
-        return deleteLambda;
-    }
 
 }

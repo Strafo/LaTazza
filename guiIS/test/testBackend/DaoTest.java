@@ -1,13 +1,14 @@
 package testBackend;
+import backend.dataAccessLayer.gatewaysPkg.IDaoInvoker;
+import backend.dataAccessLayer.gatewaysPkg.IDaoFacade;
+import backend.database.DatabaseConnectionHandler;
+import presentationLayer.guiLogicPkg.LaTazzaApplication;
 import utils.Euro;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Visitatore;
-import backend.dataAccessLayer.gatewaysPkg.DaoInterface;
-import backend.dataAccessLayer.gatewaysPkg.DaoManager;
 import backend.dataAccessLayer.rowdatapkg.*;
 import backend.dataAccessLayer.rowdatapkg.movimentoPkg.MovimentoDebito;
 import backend.dataAccessLayer.rowdatapkg.movimentoPkg.MovimentoVendita;
-import backend.database.DataBase;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -35,8 +36,8 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DaoTest{
 
     private boolean PRINT_LIST=true;
-    private DaoInterface dao;
-    private DataBase database;
+    private IDaoFacade dao;
+    private DatabaseConnectionHandler database;
     private Integer[] nEntry={14,4,4,4,5,5};//numero di inserimetni del file DefaultSetEntry.sql per le tabelle(in ordine):personale,cialde,visitatore,rifornimento,MovimentoDEbito,MovimentoVendita
 
     /**
@@ -54,7 +55,7 @@ public class DaoTest{
      */
     @BeforeEach
     void setUp() {
-        database=new DataBase("jdbc:h2:mem:databaseTest");//backend.database per il testing :mem (in memory)
+        database=new DatabaseConnectionHandler("jdbc:h2:mem:databaseTest");//backend.database per il testing :mem (in memory)
         try {
             database.initDataBase();
         } catch ( SQLException | ClassNotFoundException e) {
@@ -80,7 +81,7 @@ public class DaoTest{
     @ValueSource(classes={Personale.class,CialdeEntry.class,Visitatore.class,RifornimentoEntry.class,MovimentoDebito.class,MovimentoVendita.class})
     void getAllTest(Class<? extends AbstractEntryDB> cls) {
         try {
-            dao=new DaoManager(database.getConnection());
+            dao=new IDaoInvoker(database.getConnection(),LaTazzaApplication.daoCollection);
             List list=dao.getAll(cls);
             checkNEntry(Object.class,0,list.size());
             printList(list);
@@ -94,7 +95,7 @@ public class DaoTest{
     @ValueSource(classes={Personale.class,CialdeEntry.class,Visitatore.class,RifornimentoEntry.class,MovimentoDebito.class,MovimentoVendita.class,MovimentoVendita.class})
     void saveTest(Class<? extends AbstractEntryDB>  cls)  {
         try {
-            dao=new DaoManager(database.getConnection());
+            dao=new IDaoInvoker(database.getConnection(),LaTazzaApplication.daoCollection);
             assertTrue(dao.save(createInstance(cls,true)));
             assertTrue(dao.save(createInstance(cls,true)));
             List list=dao.getAll(cls);
@@ -112,7 +113,7 @@ public class DaoTest{
     @ValueSource(classes={Personale.class,CialdeEntry.class,Visitatore.class,RifornimentoEntry.class,MovimentoDebito.class,MovimentoVendita.class})
     void updateTest(Class< AbstractEntryDB>  cls) {
         try {
-            dao=new DaoManager(database.getConnection());
+            dao=new IDaoInvoker(database.getConnection(),LaTazzaApplication.daoCollection);
             List<AbstractEntryDB> list=dao.getAll( cls);
             AbstractEntryDB entryDB=list.get(0);
             if(! (entryDB instanceof CialdeEntry)) {
@@ -141,7 +142,7 @@ public class DaoTest{
 
 
         try {
-            dao=new DaoManager(database.getConnection());
+            dao=new IDaoInvoker(database.getConnection(),LaTazzaApplication.daoCollection);
             assertTrue(dao.delete(createInstance(cls,false)));
             List list=dao.getAll(cls);
             checkNEntry(Object.class,-1,list.size());
@@ -161,7 +162,7 @@ public class DaoTest{
         try {
             List list = null;
             AbstractEntryDB entryDB;
-            dao=new DaoManager(database.getConnection());
+            dao=new IDaoInvoker(database.getConnection(),LaTazzaApplication.daoCollection);
             for(int i=1;i<=5;i++) {
                 dao.startTransaction();
                 assertTrue(dao.save(createInstance(cls,true)));
@@ -190,7 +191,7 @@ public class DaoTest{
 
             List list ;
             AbstractEntryDB entryDB;
-            dao=new DaoManager(database.getConnection());
+            dao=new IDaoInvoker(database.getConnection(),LaTazzaApplication.daoCollection);
             for(int i=1;i<=5;i++) {
                 dao.startTransaction();
                 assertTrue(dao.save(entryDB=createInstance(cls,true)));

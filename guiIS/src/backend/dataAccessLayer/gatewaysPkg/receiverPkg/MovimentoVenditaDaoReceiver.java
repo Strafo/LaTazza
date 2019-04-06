@@ -1,4 +1,4 @@
-package backend.dataAccessLayer.gatewaysPkg;
+package backend.dataAccessLayer.gatewaysPkg.receiverPkg;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Visitatore;
 import backend.dataAccessLayer.rowdatapkg.CialdeEntry;
@@ -12,7 +12,7 @@ import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
-public class MovimentoVenditaDao extends AbstractDao {
+public class MovimentoVenditaDaoReceiver extends AbstractDaoReceiver {
 
     public static final String TABLE_NAME_PERSONALE="LATAZZASCHEMA.compra_dipendente";
     public static final String TABLE_NAME_VISITATORE="LATAZZASCHEMA.compra_visitatore";
@@ -30,13 +30,13 @@ public class MovimentoVenditaDao extends AbstractDao {
     private static final String GET_ALL_STRING_VISITATORE="SELECT * FROM "+TABLE_NAME_VISITATORE;
 
 
-    public MovimentoVenditaDao(Connection dataBaseConnection) {
+    public MovimentoVenditaDaoReceiver(Connection dataBaseConnection) {
         super(dataBaseConnection);
     }
 
 
 
-    private static ThrowingFunction<Connection,List<MovimentoVendita>> getAllLambda=(Connection conn)->{
+    private  ThrowingFunction<Connection,List<MovimentoVendita>> getAllLambda=(Connection conn)->{
         List<MovimentoVendita> lista=new LinkedList<>();
         ResultSet rs;
         Statement st =conn.createStatement();
@@ -67,7 +67,7 @@ public class MovimentoVenditaDao extends AbstractDao {
         return lista;
     };
 
-    private static ThrowingBiPredicate<Connection,MovimentoVendita> updateLambda=(Connection conn,MovimentoVendita entry)->{
+    private  ThrowingBiPredicate<Connection,MovimentoVendita> updateLambda=(Connection conn,MovimentoVendita entry)->{
         PreparedStatement pst;
         int j=0;
         MovimentoVendita oldEntry=(MovimentoVendita) entry.getMemento().getMementoState();//old entry
@@ -102,7 +102,7 @@ public class MovimentoVenditaDao extends AbstractDao {
 
 
 
-    private static ThrowingBiPredicate<Connection,MovimentoVendita>  saveLambda=(Connection conn,MovimentoVendita entry)->{
+    private  ThrowingBiPredicate<Connection,MovimentoVendita>  saveLambda=(Connection conn,MovimentoVendita entry)->{
         PreparedStatement pst;
         if(entry.getCliente() instanceof Personale){
             pst=conn.prepareStatement(INSERT_STATEMENT_STRING_PERSONALE);
@@ -123,7 +123,7 @@ public class MovimentoVenditaDao extends AbstractDao {
         return true;
     };
 
-    private static ThrowingBiPredicate<Connection,MovimentoVendita>  deleteLambda=(Connection conn,MovimentoVendita entry)->{
+    private  ThrowingBiPredicate<Connection,MovimentoVendita>  deleteLambda=(Connection conn,MovimentoVendita entry)->{
         PreparedStatement pst;
         if(entry.getCliente() instanceof Personale){
             pst=conn.prepareStatement(DELETE_STATEMENT_STRING_PERSONALE);
@@ -141,23 +141,4 @@ public class MovimentoVenditaDao extends AbstractDao {
         return true;
     };
 
-    @Override
-    public ThrowingFunction<Connection, List<MovimentoVendita>> getLambdaGetAll()  {
-        return getAllLambda;
-    }
-
-    @Override
-    public ThrowingBiPredicate<Connection, MovimentoVendita> getLambdaUpdate()  {
-        return updateLambda;
-    }
-
-    @Override
-    public ThrowingBiPredicate<Connection, MovimentoVendita> getLambdaSave()  {
-        return saveLambda;
-    }
-
-    @Override
-    public ThrowingBiPredicate<Connection, MovimentoVendita> getLambdaDelete()  {
-        return deleteLambda;
-    }
 }

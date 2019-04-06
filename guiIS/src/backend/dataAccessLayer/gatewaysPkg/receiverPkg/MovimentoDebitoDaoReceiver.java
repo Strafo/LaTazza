@@ -1,4 +1,4 @@
-package backend.dataAccessLayer.gatewaysPkg;
+package backend.dataAccessLayer.gatewaysPkg.receiverPkg;
 import utils.Euro;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import backend.dataAccessLayer.rowdatapkg.movimentoPkg.MovimentoDebito;
@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
-public class MovimentoDebitoDao extends AbstractDao<MovimentoDebito> {
+public class MovimentoDebitoDaoReceiver extends AbstractDaoReceiver<MovimentoDebito> {
 
     public static final String TABLE_NAME="LATAZZASCHEMA.pagamento_debito";
     private static final String GET_ALL_STRING="SELECT * FROM "+TABLE_NAME;
@@ -16,10 +16,9 @@ public class MovimentoDebitoDao extends AbstractDao<MovimentoDebito> {
     private static final String UPDATE_STATEMENT_STRING = "UPDATE  " + TABLE_NAME + " SET nome = ? , cognome = ? ,data = ? ,importo = ? WHERE nome = ? AND cognome = ? AND data = ? ";
     private static final String DELETE_STATEMENT_STRING = "DELETE FROM " + TABLE_NAME + " WHERE nome = ? AND cognome = ? AND data = ?";
 
-    public MovimentoDebitoDao(Connection dataBaseConnection){
+    public MovimentoDebitoDaoReceiver(Connection dataBaseConnection){
         super(dataBaseConnection);
     }
-
 
 
     private static ThrowingFunction<Connection,List<MovimentoDebito>> getAllLambda=(Connection conn)->{
@@ -41,7 +40,7 @@ public class MovimentoDebitoDao extends AbstractDao<MovimentoDebito> {
         return lista;
     };
 
-    private static ThrowingBiPredicate<Connection,MovimentoDebito> updateLambda=(Connection conn,MovimentoDebito entry)->{
+    private  ThrowingBiPredicate<Connection,MovimentoDebito> updateLambda=(Connection conn,MovimentoDebito entry)->{
         PreparedStatement pst;
         MovimentoDebito oldEntry=(MovimentoDebito) entry.getMemento().getMementoState();//old entry
         //new entry
@@ -60,7 +59,7 @@ public class MovimentoDebitoDao extends AbstractDao<MovimentoDebito> {
 
 
 
-    private static ThrowingBiPredicate<Connection,MovimentoDebito>  saveLambda=(Connection conn,MovimentoDebito pde)->{
+    private  ThrowingBiPredicate<Connection,MovimentoDebito>  saveLambda=(Connection conn,MovimentoDebito pde)->{
         PreparedStatement pst;
         pst=conn.prepareStatement(INSERT_STATEMENT_STRING);
         pst.setString(1, pde.getCliente().getNome());
@@ -73,7 +72,7 @@ public class MovimentoDebitoDao extends AbstractDao<MovimentoDebito> {
 
 
 
-    private static ThrowingBiPredicate<Connection,MovimentoDebito>  deleteLambda=(Connection conn,MovimentoDebito pde)->{
+    private  ThrowingBiPredicate<Connection,MovimentoDebito>  deleteLambda=(Connection conn,MovimentoDebito pde)->{
         PreparedStatement pst;
         pst=conn.prepareStatement(DELETE_STATEMENT_STRING);
         pst.setString(1, pde.getCliente().getNome());
@@ -82,25 +81,5 @@ public class MovimentoDebitoDao extends AbstractDao<MovimentoDebito> {
         pst.executeUpdate();
         return true;
     };
-
-    @Override
-    public ThrowingFunction<Connection, List<MovimentoDebito>> getLambdaGetAll()  {
-        return getAllLambda;
-    }
-
-    @Override
-    public ThrowingBiPredicate<Connection, MovimentoDebito> getLambdaUpdate()  {
-        return updateLambda;
-    }
-
-    @Override
-    public ThrowingBiPredicate<Connection, MovimentoDebito> getLambdaSave()  {
-        return saveLambda;
-    }
-
-    @Override
-    public ThrowingBiPredicate<Connection, MovimentoDebito> getLambdaDelete()  {
-        return deleteLambda;
-    }
 
 }

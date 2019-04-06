@@ -1,6 +1,5 @@
 package backend.dataAccessLayer.rowdatapkg.clientPkg;
 
-import backend.dataAccessLayer.gatewaysPkg.VisitatoreDao;
 import backend.dataAccessLayer.mementoPkg.Memento;
 import backend.dataAccessLayer.mementoPkg.MementoVisitatore;
 
@@ -11,11 +10,6 @@ public final class Visitatore extends Cliente {
     }
 
     public Visitatore(){}
-
-    @Override
-    public Class<VisitatoreDao> getCorrespondigDaoClass() {
-        return VisitatoreDao.class;
-    }
 
     @Override
     public String toString(){
