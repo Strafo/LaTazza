@@ -95,7 +95,7 @@ public class Euro {
      */
     public Euro aggiungiImporto(Euro euroDaAggiungere) throws OverflowEuroException,NullPointerException {
         try{
-            int newCent=this.centesimi+euroDaAggiungere.centesimi;
+            int newCent=Math.addExact(this.centesimi,euroDaAggiungere.centesimi);
             long riportoCent=Math.floorDiv(newCent,MODULONUM);
             newCent=newCent%MODULONUM;
 

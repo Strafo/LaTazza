@@ -1,7 +1,7 @@
 package testBackend;
 
 
-import backend.database.DataBase;
+import backend.database.DatabaseConnectionHandler;
 import backend.database.config.TriggerCheckNumCialde;
 import backend.database.config.ViewCassa;
 import backend.database.config.ViewDebito;
@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class TriggersTest {
 
     private Connection conn;
-    private DataBase database;
+    private DatabaseConnectionHandler database;
     private static final String URL="jdbc:h2:mem:databaseTest";
     private static final String userDir=System.getProperty("user.dir");
     private final String PATHConfig="\\src\\backend\\database\\config\\";
@@ -32,7 +32,7 @@ public class TriggersTest {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        database= new DataBase(URL);
+        database= new DatabaseConnectionHandler(URL);
         database.initDataBase();
         conn = database.getConnection();
     }
@@ -63,7 +63,7 @@ public class TriggersTest {
 
 
 
-    DataBase getDatabase(){return database;}
+    DatabaseConnectionHandler getDatabase(){return database;}
 
     public Connection getConn() {
         return conn;

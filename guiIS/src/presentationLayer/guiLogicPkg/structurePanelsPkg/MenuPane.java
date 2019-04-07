@@ -34,7 +34,7 @@ public class MenuPane extends KGradientPanel {
 
     //create the Menu Panel that contains five links
 	public MenuPane(LaTazzaFrame laTazzaFrame) {
-        int j=0;
+        int j=0,img=0;
 		this.laTazzaFrame = laTazzaFrame;
 
 		setBounds(MenuPaneProperties.DEFAULTX,MenuPaneProperties.DEFAULTY,MenuPaneProperties.DEFAULT_WIDTH,MenuPaneProperties.DEFAULT_HEIGHT);
@@ -64,8 +64,6 @@ public class MenuPane extends KGradientPanel {
         this.add(labelIconaTazza);
         this.add(labelTitolo2);
 
-
-        //int j=0;
         for(LaTazzaFrame.JPanelsNames i:LaTazzaFrame.JPanelsNames.values()){
             linkMap.put(i,//todo check return value
                     new RowPanelLink(

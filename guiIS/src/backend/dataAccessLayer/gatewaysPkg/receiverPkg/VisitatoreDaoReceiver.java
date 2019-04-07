@@ -1,7 +1,5 @@
 package backend.dataAccessLayer.gatewaysPkg.receiverPkg;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Visitatore;
-import utils.ThrowingBiPredicate;
-import utils.ThrowingFunction;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
