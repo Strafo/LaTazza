@@ -1,6 +1,5 @@
 package backend.dataAccessLayer.rowdatapkg.movimentoPkg;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Cliente;
-import backend.dataAccessLayer.gatewaysPkg.AbstractDao;
 import backend.dataAccessLayer.rowdatapkg.AbstractEntryDB;
 import backend.dataAccessLayer.mementoPkg.Memento;
 import java.sql.Timestamp;
@@ -34,7 +33,6 @@ public abstract class Movimento extends AbstractEntryDB {
         setMementoIfNotDef();
         this.cliente=cliente;}
 
-    public abstract Class<? extends AbstractDao> getCorrespondigDaoClass();
 
     @Override
     public String toString() {

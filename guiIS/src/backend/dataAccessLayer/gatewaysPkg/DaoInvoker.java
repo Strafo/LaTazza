@@ -1,36 +1,38 @@
 package backend.dataAccessLayer.gatewaysPkg;
+import backend.dataAccessLayer.gatewaysPkg.receiverPkg.AbstractDaoReceiver;
+import backend.dataAccessLayer.gatewaysPkg.receiverPkg.SimpleDaoReceiverFactory;
 import backend.dataAccessLayer.rowdatapkg.AbstractEntryDB;
+import javafx.util.Pair;
 import org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException;
 import utils.LaTazzaLogger;
-import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.Statement;
+import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 
-public class DaoManager implements DaoInterface {
+public class DaoInvoker implements IDaoFacade {
 
+    private SimpleDaoReceiverFactory factory;
     private Connection dataBaseConnection;
-    private AbstractDao subdao;//il dao corrente (vengono switchati i tipi di dao a run time)
+    private AbstractDaoReceiver concreteDaoReceiver;//il dao corrente (vengono switchati i tipi di dao a run time)
     private boolean transactionStatus=true;//stato di errore della transazione--> false da fare rollback ; true da committare
 
-    public DaoManager(Connection dataBaseConnection){
+    public DaoInvoker(Connection dataBaseConnection, Collection<Pair<Class<? extends AbstractEntryDB>,Class<? extends AbstractDaoReceiver>>> daoCollection){
         this.dataBaseConnection=dataBaseConnection;
+        this.factory=new SimpleDaoReceiverFactory(dataBaseConnection,daoCollection);
     }
 
-    public Connection getDataBaseConnection() {
-        return dataBaseConnection;
-    }
 
     @Override
     public <T extends AbstractEntryDB> List<T> getAll(Class<T> t) {
         List<T> result;
         try{
-            subdao=instantiateSpecificDao(t);
-            result=subdao.getAll();
+            concreteDaoReceiver=factory.createDao(t);
+            result=concreteDaoReceiver.getAll();
             handleTransactionStatus(result);
             return result;
         }catch(Exception exc){
@@ -44,8 +46,8 @@ public class DaoManager implements DaoInterface {
     public <T extends AbstractEntryDB> boolean save(T t) {
         boolean exitStatus;
         try{
-            subdao=instantiateSpecificDao(t);
-            exitStatus=subdao.save(t);
+            concreteDaoReceiver=factory.createDao(t.getClass());
+            exitStatus=concreteDaoReceiver.save(t);
             handleTransactionStatus(exitStatus);
             return exitStatus;
         }catch(Exception exc){
@@ -59,8 +61,8 @@ public class DaoManager implements DaoInterface {
     public <T extends AbstractEntryDB> boolean update(T t) {
         boolean exitStatus;
         try{
-             subdao=instantiateSpecificDao(t);
-             if(exitStatus=subdao.update(t)){
+             concreteDaoReceiver=factory.createDao(t.getClass());
+             if(exitStatus=concreteDaoReceiver.update(t)){
                 t.removeMemento();//todo il caretaker per mento è separato in due classi...(questa e la chiamante) si riesce a mettere tutto in posto (ad esempio risucendo a fare un passaggio per riferimento a update e chiamando t.undochage()
              }
              handleTransactionStatus(exitStatus);
@@ -75,8 +77,8 @@ public class DaoManager implements DaoInterface {
     public <T extends AbstractEntryDB> boolean delete(T t) {
         boolean exitStatus;
         try{
-            subdao=instantiateSpecificDao(t);
-            exitStatus=subdao.delete(t);
+            concreteDaoReceiver=factory.createDao(t.getClass());
+            exitStatus=concreteDaoReceiver.delete(t);
             handleTransactionStatus(exitStatus);
             return exitStatus;
         }catch(Exception exc){
@@ -90,7 +92,6 @@ public class DaoManager implements DaoInterface {
         try {
             dataBaseConnection.setAutoCommit(false);
             transactionStatus=true;
-            return;
         } catch (Exception e) {
             transactionStatus=false;
             handleException("START TRANSACTION",e);
@@ -138,8 +139,6 @@ public class DaoManager implements DaoInterface {
         return false;
     }
 
-
-
     public boolean getTransactionStatus() {
         return transactionStatus;
     }
@@ -167,14 +166,6 @@ public class DaoManager implements DaoInterface {
     }
 
 
-    private <T extends AbstractEntryDB> AbstractDao instantiateSpecificDao(T t) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-        return t.getCorrespondigDaoClass().getConstructor(Connection.class).newInstance(dataBaseConnection);
-    }
-
-    private <T extends AbstractEntryDB> AbstractDao instantiateSpecificDao(Class<T> t) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-        T obj=t.newInstance();
-        return obj.getCorrespondigDaoClass().getConstructor(Connection.class).newInstance(dataBaseConnection);
-    }
 
     private void handleException(String queryType,Exception exc){
         if(exc.getCause() instanceof JdbcSQLIntegrityConstraintViolationException){
@@ -186,6 +177,5 @@ public class DaoManager implements DaoInterface {
             LaTazzaLogger.getLOGGER().log(Level.SEVERE, "Errore esecuzione " + queryType + " query.\n", exc);
         }
     }
-
 
 }

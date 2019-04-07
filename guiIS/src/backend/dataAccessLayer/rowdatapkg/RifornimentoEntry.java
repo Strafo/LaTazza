@@ -1,5 +1,4 @@
 package backend.dataAccessLayer.rowdatapkg;
-import backend.dataAccessLayer.gatewaysPkg.RifornimentoDao;
 import backend.dataAccessLayer.mementoPkg.Memento;
 import backend.dataAccessLayer.mementoPkg.MementoRifornimento;
 
@@ -48,11 +47,6 @@ public class RifornimentoEntry extends AbstractEntryDB  {
     @Override
     public String toString() {
         return "RifornimentoEntry: data:"+data.toString()+" tipoCialda:"+tipoCialda+" qta:"+qta;
-    }
-
-    @Override
-    public Class<RifornimentoDao> getCorrespondigDaoClass() {
-        return RifornimentoDao.class;
     }
 
     @Override
