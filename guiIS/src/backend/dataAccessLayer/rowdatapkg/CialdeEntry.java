@@ -1,6 +1,5 @@
 package backend.dataAccessLayer.rowdatapkg;
 import utils.Euro;
-import backend.dataAccessLayer.gatewaysPkg.CialdeDao;
 import backend.dataAccessLayer.mementoPkg.Memento;
 import backend.dataAccessLayer.mementoPkg.MementoCialde;
 
@@ -41,12 +40,6 @@ public class CialdeEntry extends AbstractEntryDB   {
     @Override
     public String toString() {
         return "CialdeEntry: prezzo:" + prezzo + " tipo:" + tipo;
-    }
-
-
-    @Override
-    public Class<CialdeDao> getCorrespondigDaoClass() {
-        return CialdeDao.class;
     }
 
     @Override

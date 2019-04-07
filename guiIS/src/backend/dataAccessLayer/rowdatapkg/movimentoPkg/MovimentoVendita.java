@@ -1,7 +1,5 @@
 package backend.dataAccessLayer.rowdatapkg.movimentoPkg;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Cliente;
-import backend.dataAccessLayer.gatewaysPkg.AbstractDao;
-import backend.dataAccessLayer.gatewaysPkg.MovimentoVenditaDao;
 import backend.dataAccessLayer.rowdatapkg.CialdeEntry;
 import backend.dataAccessLayer.mementoPkg.Memento;
 import backend.dataAccessLayer.mementoPkg.MementoMovimentoVendita;
@@ -51,12 +49,6 @@ public final class MovimentoVendita extends Movimento {
     }
 
     public boolean isContanti() { return contanti;}
-
-
-    @Override
-    public Class<?extends AbstractDao> getCorrespondigDaoClass() {
-            return MovimentoVenditaDao.class;
-    }
 
     @Override
     public String toString() {

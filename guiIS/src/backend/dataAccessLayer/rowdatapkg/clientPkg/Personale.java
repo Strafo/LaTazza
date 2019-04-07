@@ -1,7 +1,6 @@
 package backend.dataAccessLayer.rowdatapkg.clientPkg;
 import backend.businessLogicLayer.Debito;
 import utils.Euro;
-import backend.dataAccessLayer.gatewaysPkg.PersonaleDao;
 import backend.dataAccessLayer.mementoPkg.Memento;
 import backend.dataAccessLayer.mementoPkg.MementoPersonale;
 
@@ -61,11 +60,6 @@ public final class Personale extends Cliente  {
     @Override
     public Memento createMemento() {
         return new MementoPersonale();
-    }
-
-    @Override
-    public Class<PersonaleDao> getCorrespondigDaoClass() {
-        return PersonaleDao.class;
     }
 
     @Override

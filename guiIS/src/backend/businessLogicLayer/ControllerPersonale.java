@@ -9,7 +9,7 @@ public class ControllerPersonale {
     private List<Personale> list;
 
     public ControllerPersonale(){
-        list=LaTazzaApplication.dao.getAll(Personale.class);//inizializza il campo list facendo query sul dataBase
+        list=LaTazzaApplication.dao.getAll(Personale.class);//inizializza il campo list facendo query sul databaseConnectionHandler
         List<Personale>toRemove=new ArrayList<>();
         if(list==null){//inizializzazione fallita...
             //todo cosa fare?
