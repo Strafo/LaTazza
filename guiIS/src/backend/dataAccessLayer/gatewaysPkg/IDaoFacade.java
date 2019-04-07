@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Questa interfaccia viene implementata( ed è pensata in coppia con) la classe DaoInvoker.
  * Questa interfaccia si pone, in una architettura multi-tier, come il confine tra il DataLayer e il BusinessLogicLayer
- * e cerca di fare Information Hiding rispetto alla gestione del backend.database e le sue eccezioni.
+ * e cerca di fare Information Hiding rispetto alla gestione del database e le sue eccezioni.
  * Implementa quindi insieme all'interfaccie Memento e AbstractEntry il DataAccessLayer.
  * Cerca di rendere semplice la gestione della coerenza tra oggetti in Ram e oggetti salvati nel DB.
  * I metodi (getAll,save...) hanno due possibili risultati: true quindi tutto ok, o false se qualcosa non va a buon fine.
@@ -23,7 +23,7 @@ import java.util.List;
  *               listaPersonale.add(newPers);
  *               //a questo punto abbiamo consistenza tra Db e oggetti in ram.
  *           }else{
- *               System.err.println("Impossibile aggiornare il backend.database!");
+ *               System.err.println("Impossibile aggiornare il database!");
  *           }
  *           //ora modifico il personale appena inserito "George Hotz" con "andrea straforini"
  *           //lo rimuovo dalla lista così non ho 2 riferimenti...
@@ -67,8 +67,8 @@ public interface IDaoFacade {
     <T extends AbstractEntryDB> List<T> getAll(Class<T> t);
 
     /**
-     * Questo metodo permette di ripristinare la coerenza tra oggetti salvati nel backend.database e oggetti in Ram.
-     * @param t l'oggetto da salvare nel backend.database.
+     * Questo metodo permette di ripristinare la coerenza tra oggetti salvati nel database e oggetti in Ram.
+     * @param t l'oggetto da salvare nel database.
      * @return true se operazione andata a buon fine, false altrimenti.
      */
     <T extends AbstractEntryDB> boolean save(T t);
@@ -84,7 +84,7 @@ public interface IDaoFacade {
     <T extends AbstractEntryDB> boolean update(T t);
 
     /**
-     * Questo metodo permette di eliminare dal backend.database l'oggetto "salvato" corrispondente all'oggetto passato.
+     * Questo metodo permette di eliminare dal database l'oggetto "salvato" corrispondente all'oggetto passato.
      * @param t l'oggetto da eliminare all'interno del DB.
      * @return true se operazione andata a buon fine, false altrimenti.
      */
