@@ -116,19 +116,11 @@ public class DaoTest{
             dao=new DaoInvoker(database.getConnection(),LaTazzaApplication.daoCollection);
             List<AbstractEntryDB> list=dao.getAll( cls);
             AbstractEntryDB entryDB=list.get(0);
-            if(! (entryDB instanceof CialdeEntry)) {
-                System.out.print("MODIFICO:" + entryDB.toString());
-                modifyInstance(entryDB);
-                System.out.println(" \nCON " + entryDB.toString());
-                assertTrue(dao.update(entryDB));
+            System.out.print("MODIFICO:" + entryDB.toString());
+            modifyInstance(entryDB);
+            System.out.println(" \nCON " + entryDB.toString());
+            assertTrue(dao.update(entryDB));
 
-            }else{//E normale che venga tirata eccezione per constraint(fatto apposta)<-----------------------------
-                System.out.print("PROVO MODIFICA MA NON VA PER CONSTRAINT:" + entryDB.toString());
-                modifyInstance(entryDB);
-                System.out.println(" \nCON " + entryDB.toString());
-                assertFalse(dao.update(entryDB));
-                entryDB.undoChanges();
-            }
             printList(list);
         }catch(Exception exc){
             exc.printStackTrace();
@@ -169,8 +161,8 @@ public class DaoTest{
                 assertTrue(dao.save(entryDB=createInstance(cls,true)));
                 assertTrue(dao.delete(entryDB));
                 list=dao.getAll(cls);
-                checkNEntry(Object.class,i,list.size());
                 dao.endTransaction();
+                checkNEntry(Object.class,i,list.size());
             }
             printList(list);
         }catch(Exception exc){
@@ -196,8 +188,8 @@ public class DaoTest{
                 dao.startTransaction();
                 assertTrue(dao.save(entryDB=createInstance(cls,true)));
                 assertFalse(dao.save(entryDB));
-                assertFalse(dao.getTransactionStatus());
                 dao.endTransaction();
+                assertFalse(dao.getTransactionStatus());
                 list=dao.getAll(cls);
                 checkNEntry(Object.class,0,list.size());//transazione fallita nessuna modifica
             }
@@ -366,7 +358,7 @@ public class DaoTest{
                     return;
                 }
                 if (cls instanceof CialdeEntry) {
-                    ((CialdeEntry)cls).setPrezzo(new Euro(1000,1000));
+                    ((CialdeEntry)cls).setPrezzo(new Euro(1000,10));
                     ((CialdeEntry)cls).setTipo("Gusto cipolla");
                     return;
                 }

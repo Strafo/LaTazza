@@ -9,8 +9,8 @@ public class CialdeDaoReceiver extends AbstractDaoReceiver<CialdeEntry> {
 
     public static final String TABLE_NAME="LATAZZASCHEMA.cialde";
     private static final String GET_ALL_STRING="SELECT * FROM "+TABLE_NAME;
-    private static final String INSERT_STATEMENT_STRING = "INSERT INTO " + TABLE_NAME + " (tipo,prezzo) VALUES (?,?)";
-    private static final String UPDATE_STATEMENT_STRING = "UPDATE  " + TABLE_NAME + " SET tipo = ? , prezzo = ? WHERE tipo = ?  ";
+    private static final String INSERT_STATEMENT_STRING = "INSERT INTO " + TABLE_NAME + " (tipo,PREZZO_EURO,PREZZO_CENTESIMI) VALUES (?,?,?)";
+    private static final String UPDATE_STATEMENT_STRING = "UPDATE  " + TABLE_NAME + " SET tipo = ? , PREZZO_EURO = ?,PREZZO_CENTESIMI = ? WHERE tipo = ?  ";
     private static final String DELETE_STATEMENT_STRING = "DELETE FROM " + TABLE_NAME + " WHERE tipo = ? ";
 
     public CialdeDaoReceiver(Connection dataBaseConnection){
@@ -27,8 +27,7 @@ public class CialdeDaoReceiver extends AbstractDaoReceiver<CialdeEntry> {
             lista.add(
                     new CialdeEntry(
                             rs.getString("tipo"),
-                            //rs.getDouble("prezzo")//TODO
-                            new Euro(0,0)
+                            new Euro(rs.getInt("prezzo_euro"),rs.getInt("prezzo_centesimi"))
                     )
             );
         }
@@ -41,7 +40,8 @@ public class CialdeDaoReceiver extends AbstractDaoReceiver<CialdeEntry> {
         PreparedStatement pst;
         pst=dataBaseConnection.prepareStatement(INSERT_STATEMENT_STRING);
         pst.setString(1, cialdeEntry.getTipo());
-        pst.setDouble(2, 3.3);//cialda.getPrezzo());//todo
+        pst.setInt(2,Math.toIntExact(cialdeEntry.getPrezzo().getEuro()));
+        pst.setInt(3,cialdeEntry.getPrezzo().getCentesimi());
         pst.executeUpdate();
         return true;
     }
@@ -52,11 +52,11 @@ public class CialdeDaoReceiver extends AbstractDaoReceiver<CialdeEntry> {
         pst=dataBaseConnection.prepareStatement(UPDATE_STATEMENT_STRING);
         //new entry
         pst.setString(1,cialdeEntry.getTipo());
-        //pst.setTimestamp(2,cialda.getPrezzo());
-        pst.setDouble(2,3.3);//todo
+        pst.setInt(2,Math.toIntExact(cialdeEntry.getPrezzo().getEuro()));
+        pst.setInt(3,cialdeEntry.getPrezzo().getCentesimi());
         //old entry
         CialdeEntry oldEntry=(CialdeEntry)cialdeEntry.getMemento().getMementoState();
-        pst.setString(3,oldEntry.getTipo());
+        pst.setString(4,oldEntry.getTipo());
         pst.executeUpdate();
         return true;
     }

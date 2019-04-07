@@ -10,8 +10,8 @@ import java.util.List;
 public class RifornimentoDaoReceiver extends AbstractDaoReceiver<RifornimentoEntry> {
 
     public static final String TABLE_NAME="LATAZZASCHEMA.rifornimento";
-    private static final String INSERT_STATEMENT_STRING = "INSERT INTO " + TABLE_NAME + " (tipo_cialda,dataR,qta) VALUES (?,?,?)";
-    private static final String UPDATE_STATEMENT_STRING = "UPDATE  " + TABLE_NAME + " SET tipo_cialda = ? , dataR = ? , qta = ? WHERE tipo_cialda = ? AND dataR = ? AND qta = ?";
+    private static final String INSERT_STATEMENT_STRING = "INSERT INTO " + TABLE_NAME + " (tipo_cialda,dataR,NUMERO_CIALDE) VALUES (?,?,?)";
+    private static final String UPDATE_STATEMENT_STRING = "UPDATE  " + TABLE_NAME + " SET tipo_cialda = ? , dataR = ? , NUMERO_CIALDE = ? WHERE tipo_cialda = ? AND dataR = ? AND NUMERO_CIALDE = ?";
     private static final String DELETE_STATEMENT_STRING = "DELETE FROM " + TABLE_NAME + " WHERE dataR = ? AND tipo_cialda = ?";
     private static final String GET_ALL_STRING="SELECT * FROM "+TABLE_NAME;
 
@@ -30,7 +30,7 @@ public class RifornimentoDaoReceiver extends AbstractDaoReceiver<RifornimentoEnt
             lista.add(
                     new RifornimentoEntry(
                             rs.getTimestamp("dataR"),
-                            rs.getInt("qta"),
+                            rs.getInt("numero_cialde"),
                             rs.getString("tipo_cialda")
                     )
             );
