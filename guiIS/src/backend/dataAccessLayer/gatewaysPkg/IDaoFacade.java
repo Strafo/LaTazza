@@ -75,7 +75,7 @@ public interface IDaoFacade {
 
     /**
      * Questo metodo permette di aggiornare l'oggetto passato. t infatti ( implementando AbstractEntry) implementa
-     * il pattern mementoPkg.
+     * il pattern Memento.
      * Il DaoInvoker quindi utilizza quest'ultimo per risalire allo stato originale dell'oggetto.
      * @param t l'oggetto modificato da rendere coerente con la sua "versione" salvata nel DB.
      * @return true se operazione andata a buon fine, false altrimenti.
