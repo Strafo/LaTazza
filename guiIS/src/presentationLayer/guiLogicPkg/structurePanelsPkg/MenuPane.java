@@ -1,15 +1,13 @@
 package presentationLayer.guiLogicPkg.structurePanelsPkg;
 
-import java.awt.Color;
-import javax.swing.*;
-
 import presentationLayer.guiConfig.KGradientPanel;
 import presentationLayer.guiConfig.ResourcesClassLoader;
 import presentationLayer.guiConfig.structurePanelsPropertiesPkg.MenuPaneProperties;
 import presentationLayer.guiLogicPkg.LaTazzaFrame;
 import utils.LaTazzaColors;
+import javax.swing.*;
+import java.awt.*;
 import utils.MyJLabel;
-
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
@@ -34,10 +32,9 @@ public class MenuPane extends KGradientPanel {
     public String titolo2 = "LA";
     public String titolo = "TAZZA";
 
-
     //create the Menu Panel that contains five links
 	public MenuPane(LaTazzaFrame laTazzaFrame) {
-        int j=0,img=0;
+        int j=0;
 		this.laTazzaFrame = laTazzaFrame;
 
 		setBounds(MenuPaneProperties.DEFAULTX,MenuPaneProperties.DEFAULTY,MenuPaneProperties.DEFAULT_WIDTH,MenuPaneProperties.DEFAULT_HEIGHT);
@@ -61,11 +58,14 @@ public class MenuPane extends KGradientPanel {
         System.out.println("Working Directory = " +
                 System.getProperty("user.dir"));//+" Class path:"+System.getProperty("java.class.path"));
 
+		//labelIconaTazza.setIcon(ResourcesClassLoader.getIconTazza());
         this.add(panelSeparator);
         this.add(labelTitolo);
         this.add(labelIconaTazza);
         this.add(labelTitolo2);
 
+
+        //int j=0;
         for(LaTazzaFrame.JPanelsNames i:LaTazzaFrame.JPanelsNames.values()){
             linkMap.put(i,//todo check return value
                     new RowPanelLink(
@@ -73,7 +73,6 @@ public class MenuPane extends KGradientPanel {
                             ROWPANEL_DEFAULTX_BUTTON, ROWPANEL_DEFAULTX_ICON, ROWPANEL_DEFAULTY + ROWPANEL_DEFAULT_GAP * j++, ResourcesClassLoader.getIconW(nomeIconaLink[img++]))
             );
         }
-
 
         RowPanelLink linkTemp;
 

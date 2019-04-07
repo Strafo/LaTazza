@@ -17,8 +17,8 @@ create table LATAZZASCHEMA.visitatore(
 
 create table LATAZZASCHEMA.rifornimento(
 
-  dataR date default CURRENT_TIMESTAMP not null,
-  tipoCialda varchar(64) not null references cialde(tipo),
+  dataR TIMESTAMP default CURRENT_TIMESTAMP not null,
+  tipo_cialda varchar(64) not null references LATAZZASCHEMA.cialde(tipo),
   qta integer not null, -- NUMERO DI SCATOLE COMPRATE
   primary key (dataR,tipoCialda)
 );
@@ -34,10 +34,10 @@ create table LATAZZASCHEMA.pagamento_debito(
 
   nome varchar(64) not null,
   cognome varchar(64) not null,
-  data date default CURRENT_TIMESTAMP not null,
-  importo double not null check( importo > 0),
+  data TIMESTAMP default CURRENT_TIMESTAMP not null,
+  importo double precision not null check( importo > 0),
   primary key (nome, cognome, data),
-  foreign key(nome, cognome) references personale(nome,cognome)
+  foreign key(nome, cognome) references LATAZZASCHEMA.personale(nome,cognome)
   on update cascade on delete restrict
 );
 
@@ -45,11 +45,11 @@ create table LATAZZASCHEMA.compra_visitatore(
 
   nome varchar(64) not null,
   cognome varchar(64) not null,
-  tipo_cialda varchar(64) not null references cialde(tipo),
+  tipo_cialda varchar(64) not null references LATAZZASCHEMA.cialde(tipo),
   numero_cialde integer not null check (numero_cialde > 0),
-  data date default CURRENT_TIMESTAMP not null,
+  data TIMESTAMP default CURRENT_TIMESTAMP not null,
   primary key(nome,cognome, data),
-  foreign key(nome, cognome) references visitatore(nome, cognome)
+  foreign key(nome, cognome) references LATAZZASCHEMA.visitatore(nome, cognome)
   on update cascade on delete restrict
 );
 
@@ -59,13 +59,30 @@ create table LATAZZASCHEMA.compra_dipendente(
   cognome varchar(64) not null,
   contanti boolean not null, -- se è false paga con credito, altrimenti in contanti
   numero_cialde integer not null check (numero_cialde > 0),
-  data date default CURRENT_TIMESTAMP not null,
-  tipo_cialda varchar(64) not null references cialde(tipo),
+  data TIMESTAMP default CURRENT_TIMESTAMP not null,
+  tipo_cialda varchar(64) not null references LATAZZASCHEMA.cialde(tipo),
   primary key (data, nome, cognome),
-  foreign key (nome, cognome) references personale(nome, cognome)
+  foreign key (nome, cognome) references LATAZZASCHEMA.personale(nome, cognome)
   on update cascade on delete restrict
 );
 
+
+create  view  Magazzino(tipoCialda, qta) as
+  select TIPO_CIALDA, sum(qta*50)
+  from  LATAZZASCHEMA.RIFORNIMENTO
+  group by TIPO_CIALDA
+
+    except
+
+  select tipo_cialda, sum(numero_cialde)
+  from LATAZZASCHEMA.COMPRA_VISITATORE
+  group by tipo_cialda
+
+    except
+
+  select tipo_cialda, sum(numero_cialde)
+  from LATAZZASCHEMA.COMPRA_DIPENDENTE
+  group by tipo_cialda;
 
 
 
