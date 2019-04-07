@@ -28,7 +28,7 @@ public  class LaTazzaApplication implements Runnable {
 
     /**
      * Mappa dove viene creata l'associazione tra le classi della businessLogic
-     * e le classi dao per il database(contengono il codice per l'interazione con le tabelle del db
+     * e le classi *DaoReceiver  per il database (contengono il codice per l'interazione con le tabelle del db)
      * La mappa viene usata dalla class SimpleDaoReceiverFactory
      */
     public static Collection<Pair<Class<? extends AbstractEntryDB>,Class<? extends AbstractDaoReceiver>>> daoCollection

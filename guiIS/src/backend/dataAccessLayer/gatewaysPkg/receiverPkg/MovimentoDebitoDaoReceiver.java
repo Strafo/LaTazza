@@ -10,8 +10,8 @@ public class MovimentoDebitoDaoReceiver extends AbstractDaoReceiver<MovimentoDeb
 
     public static final String TABLE_NAME="LATAZZASCHEMA.pagamento_debito";
     private static final String GET_ALL_STRING="SELECT * FROM "+TABLE_NAME;
-    private static final String INSERT_STATEMENT_STRING = "INSERT INTO " + TABLE_NAME + " (nome,cognome,data,importo) VALUES (?,?,?,?)";
-    private static final String UPDATE_STATEMENT_STRING = "UPDATE  " + TABLE_NAME + " SET nome = ? , cognome = ? ,data = ? ,importo = ? WHERE nome = ? AND cognome = ? AND data = ? ";
+    private static final String INSERT_STATEMENT_STRING = "INSERT INTO " + TABLE_NAME + " (nome,cognome,data,euro,centesimi) VALUES (?,?,?,?,?)";
+    private static final String UPDATE_STATEMENT_STRING = "UPDATE  " + TABLE_NAME + " SET nome = ? , cognome = ? ,data = ? ,euro = ?, centesimi = ? WHERE nome = ? AND cognome = ? AND data = ? ";
     private static final String DELETE_STATEMENT_STRING = "DELETE FROM " + TABLE_NAME + " WHERE nome = ? AND cognome = ? AND data = ?";
 
     public MovimentoDebitoDaoReceiver(Connection dataBaseConnection){
@@ -29,8 +29,7 @@ public class MovimentoDebitoDaoReceiver extends AbstractDaoReceiver<MovimentoDeb
                     new MovimentoDebito(
                             rs.getTimestamp("data"),
                             new Personale(rs.getString("nome"), rs.getString("cognome")),
-                            //rs.getDouble("importo")//todo non va bene i double per importo
-                            new Euro(1,0)
+                            new Euro(rs.getLong("euro"),rs.getInt("centesimi"))
                     )
             );
         }
@@ -44,7 +43,8 @@ public class MovimentoDebitoDaoReceiver extends AbstractDaoReceiver<MovimentoDeb
         pst.setString(1, movimentoDebito.getCliente().getNome());
         pst.setString(2, movimentoDebito.getCliente().getCognome());
         pst.setTimestamp(3,movimentoDebito.getData());
-        pst.setDouble(4,1.0);//todo set importo
+        pst.setLong(4,movimentoDebito.getImporto().getEuro());
+        pst.setInt(5,movimentoDebito.getImporto().getCentesimi());
         pst.executeUpdate();
         return true;
     }
@@ -58,11 +58,13 @@ public class MovimentoDebitoDaoReceiver extends AbstractDaoReceiver<MovimentoDeb
         pst.setString(1,movimentoDebito.getCliente().getNome());
         pst.setString(2,movimentoDebito.getCliente().getCognome());
         pst.setTimestamp(3,movimentoDebito.getData());
-        pst.setDouble(4,3.3);//todo euro
+        pst.setLong(4,movimentoDebito.getImporto().getEuro());
+        pst.setInt(5,movimentoDebito.getImporto().getCentesimi());
+
         //old movimentoDebito
-        pst.setString(5,oldEntry.getCliente().getNome());
-        pst.setString(6,oldEntry.getCliente().getCognome());
-        pst.setTimestamp(7,oldEntry.getData());
+        pst.setString(6,oldEntry.getCliente().getNome());
+        pst.setString(7,oldEntry.getCliente().getCognome());
+        pst.setTimestamp(8,oldEntry.getData());
         pst.executeUpdate();
         return true;
     }
