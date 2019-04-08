@@ -40,6 +40,9 @@ public class DaoTest{
     private DatabaseConnectionHandler database;
     private Integer[] nEntry={14,4,4,4,5,5};//numero di inserimetni del file DefaultSetEntry.sql per le tabelle(in ordine):personale,cialde,visitatore,rifornimento,MovimentoDEbito,MovimentoVendita
 
+    private String DATABASECONFIGFILE="/src/backend/database/config/databaseConfig.sql";
+    private String DEFAULTDATABASEENTRYSETFILE="/test/testBackend/DafualtEntrySet.sql";
+    private String CURRENTWORKINGDIRECTORY;
     /**
      * Inizializza il logger per il backend.database.
      * Tutti i log si trovano nel file ./LaTazza.log
@@ -61,8 +64,13 @@ public class DaoTest{
         } catch ( SQLException | ClassNotFoundException e) {
             fail(e.getMessage());
         }
-        updateTable("guiIS/src/backend/database/config/databaseConfig.sql");//DATABASE CONFIG SQL FILE
-        updateTable("guiIS/src/backend/database/config/DafualtEntrySet.sql");//inserisco un po di personale per il testing
+
+
+        CURRENTWORKINGDIRECTORY=System.getProperty("user.dir")+PathHandler.getSeparator();
+        System.out.println("Current dir using System:" +CURRENTWORKINGDIRECTORY);
+
+        updateTable(PathHandler.modifyPath(CURRENTWORKINGDIRECTORY+DATABASECONFIGFILE));//DATABASE CONFIG SQL FILE
+        updateTable(PathHandler.modifyPath(CURRENTWORKINGDIRECTORY+DEFAULTDATABASEENTRYSETFILE));//inserisco un po di personale per il testing
     }
 
     @AfterEach
@@ -210,9 +218,9 @@ public class DaoTest{
 
     private  void updateTable(String sqlFilePath) {
 
-        String currentDirPath = System.getProperty("user.dir");
+        /*String currentDirPath = System.getProperty("user.dir");
         String[] pathPart=currentDirPath.split("LaTazza/guiIS");//tapullata incredibile :D
-        String prjPath=pathPart[0]+"LaTazza/";
+        String prjPath=pathPart[0]+"LaTazza/";*/
 
         //PER IL DEBUGGING
         /*System.out.println("Current dir using System:" +currentDirPath);
@@ -222,7 +230,7 @@ public class DaoTest{
 
         try {
             //legge il file sql e lo suddivide in query
-            File file = new File(prjPath+sqlFilePath);
+            File file = new File(sqlFilePath);
             FileInputStream fis = new FileInputStream(file);
             byte[] data = new byte[(int) file.length()];
             fis.read(data);

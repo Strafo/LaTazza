@@ -24,7 +24,6 @@ public class TriggersTest {
     private static ResultSet rs;
     private static PreparedStatement stat;
 
-//ciao socio
 
     public TriggersTest() throws SQLException, ClassNotFoundException {
         try {
@@ -44,7 +43,7 @@ public class TriggersTest {
 
             StringBuilder file= new StringBuilder();
             //System.out.println("Path: "+System.getProperty("user.dir")+sqlFileName);
-            inFile= new Scanner(new FileReader(userDir+path+sqlFileName));
+            inFile= new Scanner(new FileReader(PathHandler.modifyPath(userDir+path+sqlFileName)));
             while(inFile.hasNext()) {
                 file.append(inFile.nextLine()).append("\n");
             }
