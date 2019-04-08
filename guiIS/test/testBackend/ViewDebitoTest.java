@@ -22,10 +22,9 @@ public class ViewDebitoTest {
     private static PreparedStatement stat;
     private static int debitoEuro=3;
     private static int debitoCentesimi=51;
-    private static Euro debitoAfterInsert= new Euro(debitoEuro,debitoCentesimi);
-    private static Euro debitoNullo= new Euro(0,0);
-    private static String dapueto="Dapueto";
-    private static String campisi="Campisi";
+    private static Euro debitoAfterInsert;
+    private static Euro debitoNullo;
+
 
     @AfterEach
     void tearDown(){
@@ -39,6 +38,8 @@ public class ViewDebitoTest {
 
     @BeforeEach
     void setUp(){
+        debitoNullo= new Euro(0,0);
+        debitoAfterInsert= new Euro(debitoEuro,debitoCentesimi);
         try {
             t= new TriggersTest();
             c=t.getConn();
@@ -68,6 +69,7 @@ public class ViewDebitoTest {
     @Test
     void testVenditaCredito(){
         try {
+
             int qta=2;
             Euro importo= new Euro(0,50);
             importo.moltiplicaImporto(qta);
@@ -76,21 +78,21 @@ public class ViewDebitoTest {
             debitoNullo.aggiungiImporto(importo);
             executeSelect();
             while(rs.next()) {
-                String cognome= rs.getString(2);
+                String cognome= rs.getString("cognome");
                 System.out.println(cognome);
                     if(cognome.equals("Dapueto")) {
-                        assertEquals(debitoAfterInsert.getEuro(), rs.getInt(2));
-                        assertEquals(debitoAfterInsert.getCentesimi(), rs.getInt(3));
+                        assertEquals(debitoAfterInsert.getEuro(), rs.getInt("euro"));
+                        assertEquals(debitoAfterInsert.getCentesimi(), rs.getInt("centesimi"));
                     }
                     else
                         if(cognome.equals("Campisi")) {
-                            assertEquals(debitoNullo.getEuro(), rs.getInt(2));
-                            assertEquals(debitoNullo.getCentesimi(), rs.getInt(3));
+                            assertEquals(debitoNullo.getEuro(), rs.getInt("euro"));
+                            assertEquals(debitoNullo.getCentesimi(), rs.getInt("centesimi"));
                         }
                         else {
 
-                            assertEquals(debitoNullo.getEuro(), rs.getInt(2));
-                            assertEquals(debitoNullo.getCentesimi(), rs.getInt(3));
+                            assertEquals(( new Euro(0,0)).getEuro(), rs.getInt("euro"));
+                            assertEquals(( new Euro(0,0)).getCentesimi(), rs.getInt("centesimi"));
                         }
 
             }
@@ -104,31 +106,33 @@ public class ViewDebitoTest {
     @Test
     void testPagamentoDebito(){
         try {
+
             Euro importo= new Euro(3,50);
-            stat=c.prepareStatement("insert into LATAZZASCHEMA.PAGAMENTO_DEBITO values ('Jacopo','Dapueto', '2019-03-11 14:00:00',"+importo.getEuro()+", "+importo.getCentesimi()+")" );
+            stat=c.prepareStatement("insert into LATAZZASCHEMA.PAGAMENTO_DEBITO (NOME, COGNOME, DATA, EURO, CENTESIMI) values ('Jacopo','Dapueto', '2019-03-11 14:00:00',"+importo.getEuro()+", "+importo.getCentesimi()+")" );
             stat.executeUpdate();
             debitoAfterInsert.sottraiImporto(importo);
             executeSelect();
             checkDebito();
         } catch (SQLException e) {
-            //e.printStackTrace();
+            e.printStackTrace();
             fail(e.getMessage());
         }
 
     }
 
     private void checkDebito() throws SQLException {
+
         while (rs.next()) {
-            String cognome=rs.getString(2);
+            String cognome=rs.getString("cognome");
 
             if(cognome.equals("Dapueto")) {
-                assertEquals(debitoAfterInsert.getEuro(), rs.getInt(2));
-                assertEquals(debitoAfterInsert.getCentesimi(),  rs.getInt(3));
+                assertEquals(debitoAfterInsert.getEuro(), rs.getInt("euro"));
+                assertEquals(debitoAfterInsert.getCentesimi(),  rs.getInt("centesimi"));
             }
             else {
 
-                assertEquals(debitoNullo.getEuro(), rs.getInt(2));
-                assertEquals(debitoNullo.getCentesimi(),rs.getInt(3));
+                assertEquals(debitoNullo.getEuro(), rs.getInt("euro"));
+                assertEquals(debitoNullo.getCentesimi(),rs.getInt("centesimi"));
             }
 
         }

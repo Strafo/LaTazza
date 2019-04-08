@@ -1,14 +1,12 @@
 package testBackend;
-/*
 import backend.businessLogicLayer.Magazzino;
-import backend.businessLogicLayer.TipoCialda;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collection;
 import java.util.EnumMap;
 import java.util.Iterator;
-
+/*
 import static org.junit.jupiter.api.Assertions.*;
 
 class MagazzinoTest {
@@ -21,7 +19,7 @@ class MagazzinoTest {
 
     @Test
     void testGetStato() {
-        Collection aux= m.getStato().values();
+        Collection aux= m.getCopyStato().values();
         Iterator<Integer> i= aux.iterator();
         while(i.hasNext()) assertEquals(i.next(), new Integer(0));
     }

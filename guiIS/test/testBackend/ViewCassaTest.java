@@ -56,6 +56,7 @@ public class ViewCassaTest {
     @Test
     void testView() {
         try {
+            Euro cassaAfterInsert= new Euro(cassaEuro,cassaCentesimi);
 
             assertTrue(rs.next());
             assertEquals(cassaAfterInsert.getEuro(), rs.getInt(1) );
@@ -69,6 +70,7 @@ public class ViewCassaTest {
     @Test
     void testRifornimento(){
         try {
+            Euro cassaAfterInsert= new Euro(cassaEuro,cassaCentesimi);
             int qta=40;
             Euro importo= new Euro(0,40);
             importo.moltiplicaImporto(qta);
@@ -89,6 +91,7 @@ public class ViewCassaTest {
     @Test
     void testPagamentoDebito(){
         try {
+            Euro cassaAfterInsert= new Euro(cassaEuro,cassaCentesimi);
             Euro importo= new Euro(3,50);
             stat=c.prepareStatement("insert into LATAZZASCHEMA.PAGAMENTO_DEBITO values ('Jacopo','Dapueto', '2019-03-11 14:00:00',"+importo.getEuro()+", "+importo.getCentesimi()+")" );
             stat.executeUpdate();
@@ -106,6 +109,7 @@ public class ViewCassaTest {
     @Test
     void testVendita(){
         try {
+            Euro cassaAfterInsert= new Euro(cassaEuro,cassaCentesimi);
             int qta=2;
             Euro importo= new Euro(0,50);
             importo.moltiplicaImporto(qta);
