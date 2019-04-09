@@ -65,8 +65,11 @@ public class DaoTest{
             fail(e.getMessage());
         }
 
-
-        CURRENTWORKINGDIRECTORY=System.getProperty("user.dir")+PathHandler.getSeparator();
+        CURRENTWORKINGDIRECTORY=System.getProperty("user.dir");
+        String normPath= String.valueOf(CURRENTWORKINGDIRECTORY.charAt(CURRENTWORKINGDIRECTORY.length() - 1));
+        if(normPath.equals(PathHandler.getSeparator())){
+            CURRENTWORKINGDIRECTORY+=PathHandler.getSeparator();
+        }
         System.out.println("Current dir using System:" +CURRENTWORKINGDIRECTORY);
 
         updateTable(PathHandler.modifyPath(CURRENTWORKINGDIRECTORY+DATABASECONFIGFILE));//DATABASE CONFIG SQL FILE
@@ -75,8 +78,6 @@ public class DaoTest{
 
     @AfterEach
     void tearDown(){
-
-
 
         try {
             database.closeDataBase();
@@ -217,17 +218,7 @@ public class DaoTest{
 
 
     private  void updateTable(String sqlFilePath) {
-
-        /*String currentDirPath = System.getProperty("user.dir");
-        String[] pathPart=currentDirPath.split("LaTazza/guiIS");//tapullata incredibile :D
-        String prjPath=pathPart[0]+"LaTazza/";*/
-
-        //PER IL DEBUGGING
-        /*System.out.println("Current dir using System:" +currentDirPath);
-        for(String i:pathPart) {
-            System.out.println("part:" +i);
-        }fail("END");*/
-
+        System.out.println(sqlFilePath);
         try {
             //legge il file sql e lo suddivide in query
             File file = new File(sqlFilePath);
@@ -238,13 +229,6 @@ public class DaoTest{
             String str = new String(data, "UTF-8");
             String[] parts=str.split(";");
 
-            //PER DEBUGGING
-            /*System.out.println("START:");int j=0;
-            for(String i:parts) {
-                System.out.println("part["+j+"]:" +i);
-                j++;
-            }
-            System.out.println("END");*/
 
             Connection conn = database.getConnection();
             Statement statement = conn.createStatement();
