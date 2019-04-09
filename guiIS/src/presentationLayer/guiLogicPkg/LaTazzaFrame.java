@@ -5,6 +5,7 @@ import java.util.EnumMap;
 import java.util.Map;
 import javax.swing.*;
 //import com.apple.eawt.Application;//todo qui non so se va bene è una lib di apple
+import presentationLayer.guiConfig.structurePanelsPropertiesPkg.ContentPaneProperties;
 import presentationLayer.guiConfig.structurePanelsPropertiesPkg.LaTazzaFrameProperties;
 import presentationLayer.guiConfig.structurePanelsPropertiesPkg.MenuPaneProperties;
 import presentationLayer.guiLogicPkg.contentsPanelsPkg.*;
@@ -17,7 +18,7 @@ public class LaTazzaFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
     private LaTazzaFrameProperties laTazzaFrameProperties=new LaTazzaFrameProperties();
 
-    private ContentPane contentPane=new ContentPane(this);
+    private ContentPane contentPane;
     private MenuPane menuPane;
     private TopBarPane topBarPanePane=new TopBarPane(this);
 
@@ -37,6 +38,8 @@ public class LaTazzaFrame extends JFrame {
 	 */
 	public LaTazzaFrame() {
 
+	    this.contentPane=new ContentPane(this);
+        ContentPaneProperties.initContentPane(contentPane);
 
         //Application.getApplication().setDockIconImage((ResourcesClassLoader.getIconTazzaBrown()).getImage());
 
