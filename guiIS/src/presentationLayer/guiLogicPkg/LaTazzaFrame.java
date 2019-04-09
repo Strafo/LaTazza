@@ -6,8 +6,8 @@ import java.util.Map;
 import javax.swing.*;
 //import com.apple.eawt.Application;//todo qui non so se va bene è una lib di apple
 import presentationLayer.guiConfig.structurePanelsPropertiesPkg.ContentPaneProperties;
-import presentationLayer.guiConfig.structurePanelsPropertiesPkg.LaTazzaFrameProperties;
 import presentationLayer.guiConfig.structurePanelsPropertiesPkg.MenuPaneProperties;
+import presentationLayer.guiConfig.structurePanelsPropertiesPkg.TopBarProperties;
 import presentationLayer.guiLogicPkg.contentsPanelsPkg.*;
 import presentationLayer.guiLogicPkg.structurePanelsPkg.MenuPane;
 import presentationLayer.guiLogicPkg.structurePanelsPkg.TopBarPane;
@@ -16,11 +16,10 @@ import presentationLayer.guiLogicPkg.structurePanelsPkg.TopBarPane;
 public class LaTazzaFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-    private LaTazzaFrameProperties laTazzaFrameProperties=new LaTazzaFrameProperties();
-
     private ContentPane contentPane;
     private MenuPane menuPane;
-    private TopBarPane topBarPanePane=new TopBarPane(this);
+    private TopBarPane topBarPane;
+    private Map<JPanelsNames,AbstractPanel> jPanelsMap =new EnumMap<>(JPanelsNames.class);
 
     public  enum JPanelsNames{
         STATOPANE,
@@ -31,22 +30,21 @@ public class LaTazzaFrame extends JFrame {
 
     }
 
-	private Map<JPanelsNames,AbstractPanel> jPanelsMap =new EnumMap<>(JPanelsNames.class);
 
 	/**
-	 * Create the frame.
+     * @brief Crea il frame principale.
 	 */
 	public LaTazzaFrame() {
 
 	    this.contentPane=new ContentPane(this);
         ContentPaneProperties.initContentPane(contentPane);
-
+        this.topBarPane=new TopBarPane(this);
+        TopBarProperties.initTopBarPane(topBarPane);
         //Application.getApplication().setDockIconImage((ResourcesClassLoader.getIconTazzaBrown()).getImage());
 
         this.setContentPane(contentPane);
-        this.add(topBarPanePane);
+        this.add(topBarPane);
 
-		//todo check return value
         //inizializza i pannelli e li aggiune alla jPanelsMap
 		jPanelsMap.put(JPanelsNames.STATOPANE,new StatoPane());
 		jPanelsMap.put(JPanelsNames.REGVENDITEPANE,new RegistraVendite());
