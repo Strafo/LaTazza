@@ -39,13 +39,8 @@ public class LaTazzaFrame extends JFrame {
 
         //Application.getApplication().setDockIconImage((ResourcesClassLoader.getIconTazzaBrown()).getImage());
 
-		this.setBounds(laTazzaFrameProperties.getX(), laTazzaFrameProperties.getY(), laTazzaFrameProperties.getWidth(), laTazzaFrameProperties.getHeight());
-		this.setDefaultCloseOperation(laTazzaFrameProperties.getCloseOp());//todo checksetBounds(100, 100, 800, 500);
-		this.setUndecorated(true);
-        this.setContentPane(contentPane);
         this.setContentPane(contentPane);
         this.add(topBarPanePane);
-        this.setTitle("LaTazza");
 
 		//todo check return value
         //inizializza i pannelli e li aggiune alla jPanelsMap

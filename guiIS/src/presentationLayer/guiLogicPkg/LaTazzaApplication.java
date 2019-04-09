@@ -14,6 +14,8 @@ import backend.dataAccessLayer.rowdatapkg.movimentoPkg.MovimentoDebito;
 import backend.dataAccessLayer.rowdatapkg.movimentoPkg.MovimentoVendita;
 import backend.database.DatabaseConnectionHandler;
 import javafx.util.Pair;
+import presentationLayer.guiConfig.structurePanelsPropertiesPkg.LaTazzaFrameProperties;
+
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -63,6 +65,7 @@ public  class LaTazzaApplication implements Runnable {
 
 	private void initFrame(){
         laTazzaFrame=new LaTazzaFrame();
+        (new LaTazzaFrameProperties()).initFrame(laTazzaFrame);
         laTazzaFrame.setVisible(true);
         laTazzaFrame.setLocationCenter();
 
