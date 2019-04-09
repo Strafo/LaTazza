@@ -28,21 +28,6 @@ public  class LaTazzaApplication implements Runnable {
     public static ControllerContabilita controllerContabilita;
     public static ControllerPersonale controllerPersonale;
 
-    /**
-     * Mappa dove viene creata l'associazione tra le classi della businessLogic
-     * e le classi *DaoReceiver  per il database (contengono il codice per l'interazione con le tabelle del db)
-     * La mappa viene usata dalla class SimpleDaoReceiverFactory
-     */
-    public static Collection<Pair<Class<? extends AbstractEntryDB>,Class<? extends AbstractDaoReceiver>>> daoCollection
-            =new LinkedList<Pair<Class<? extends AbstractEntryDB>, Class<? extends AbstractDaoReceiver>>>(){{
-        add(new Pair<>(RifornimentoEntry.class,RifornimentoDaoReceiver.class));
-        add(new Pair<>(CialdeEntry.class,CialdeDaoReceiver.class));
-        add(new Pair<>(MovimentoDebito.class,MovimentoDebitoDaoReceiver.class));
-        add(new Pair<>(MovimentoVendita.class,MovimentoVenditaDaoReceiver.class));
-        add(new Pair<>(Personale.class,PersonaleDaoReceiver.class));
-        add(new Pair<>(Visitatore.class,VisitatoreDaoReceiver.class));
-    }};
-
     public static void main(String[] args)  {
         java.awt.EventQueue.invokeLater(new LaTazzaApplication());
 
@@ -68,10 +53,24 @@ public  class LaTazzaApplication implements Runnable {
         (new LaTazzaFrameProperties()).initFrame(laTazzaFrame);
         laTazzaFrame.setVisible(true);
         laTazzaFrame.setLocationCenter();
-
     }
 
 
 
 
+
+    /**
+     * Mappa dove viene creata l'associazione tra le classi della businessLogic
+     * e le classi *DaoReceiver  per il database (contengono il codice per l'interazione con le tabelle del db)
+     * La mappa viene usata dalla class SimpleDaoReceiverFactory
+     */
+    public static Collection<Pair<Class<? extends AbstractEntryDB>,Class<? extends AbstractDaoReceiver>>> daoCollection
+            =new LinkedList<Pair<Class<? extends AbstractEntryDB>, Class<? extends AbstractDaoReceiver>>>(){{
+        add(new Pair<>(RifornimentoEntry.class,RifornimentoDaoReceiver.class));
+        add(new Pair<>(CialdeEntry.class,CialdeDaoReceiver.class));
+        add(new Pair<>(MovimentoDebito.class,MovimentoDebitoDaoReceiver.class));
+        add(new Pair<>(MovimentoVendita.class,MovimentoVenditaDaoReceiver.class));
+        add(new Pair<>(Personale.class,PersonaleDaoReceiver.class));
+        add(new Pair<>(Visitatore.class,VisitatoreDaoReceiver.class));
+    }};
 }

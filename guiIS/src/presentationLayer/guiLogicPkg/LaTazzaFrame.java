@@ -1,11 +1,12 @@
 package presentationLayer.guiLogicPkg;
 
 import java.awt.*;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 import javax.swing.*;
 //import com.apple.eawt.Application;//todo qui non so se va bene è una lib di apple
 import presentationLayer.guiConfig.structurePanelsPropertiesPkg.LaTazzaFrameProperties;
+import presentationLayer.guiConfig.structurePanelsPropertiesPkg.MenuPaneProperties;
 import presentationLayer.guiLogicPkg.contentsPanelsPkg.*;
 import presentationLayer.guiLogicPkg.structurePanelsPkg.MenuPane;
 import presentationLayer.guiLogicPkg.structurePanelsPkg.TopBarPane;
@@ -29,7 +30,7 @@ public class LaTazzaFrame extends JFrame {
 
     }
 
-	private Map<JPanelsNames,AbstractPanel> jPanelsMap =new HashMap<>();
+	private Map<JPanelsNames,AbstractPanel> jPanelsMap =new EnumMap<>(JPanelsNames.class);
 
 	/**
 	 * Create the frame.
@@ -53,6 +54,7 @@ public class LaTazzaFrame extends JFrame {
         jPanelsMap.forEach((k,v)->this.add(v));//aggiunge tutti i pannelli al frame
 
         menuPane=new MenuPane(this);//va lasciato per ultimo perchè devono essere init prima i contentpanes
+        MenuPaneProperties.initPanel(menuPane);
         this.add(menuPane);
 	}
 

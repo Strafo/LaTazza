@@ -1,12 +1,12 @@
 package presentationLayer.guiLogicPkg.structurePanelsPkg;
 
-
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.MatteBorder;
-
 import static presentationLayer.guiConfig.structurePanelsPropertiesPkg.RowPanelProperties.*;
 
 public class RowPanelLink{
@@ -14,12 +14,13 @@ public class RowPanelLink{
 	private JLabel icon=new JLabel();
 	private JPanel button=new JPanel();
 	private JLabel buttonLabel;
-	
+	private MouseListener mouseListener;
 	private ImageIcon iconWhite;
+
+
 
 	//Constructor
 	//create a panel that has got a label, that describes the link, and create another label to contain the imageIcon of link
-
 
 	public RowPanelLink(String buttonLabel,int button_x, int icon_x, int y, ImageIcon iconWhite) {
 		this.iconWhite=iconWhite;
@@ -37,9 +38,13 @@ public class RowPanelLink{
 		button.add(this.buttonLabel);
 		icon.setBounds(icon_x, y, DEFAULTWIDTH_ICON, DEFAULTHEIGHT_ICON);
 		icon.setIcon(iconWhite);
-		
 	}
-	
+
+
+	public void setMouseListener(MouseAdapter mouseAdapter){
+		this.mouseListener=mouseAdapter;
+	}
+
     /**
      *
      */
@@ -63,6 +68,7 @@ public class RowPanelLink{
 	public JLabel getIcon() {
 		return icon;
 	}
+
 
 
 	
