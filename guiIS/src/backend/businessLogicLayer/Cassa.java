@@ -15,15 +15,6 @@ public class Cassa extends AbstractEntryDB {
         saldo= new Euro(saldoIniziale);
     }
 
-    @Override
-    public Memento createMemento() {
-        return null;
-    }
-
-    @Override
-    public void undoChanges() {
-
-    }
 
     public Cassa(Euro s){
         saldo=requireNonNull(s);
@@ -45,6 +36,16 @@ public class Cassa extends AbstractEntryDB {
             saldo.sottraiImporto(euro);
     }
 
+
+    @Override
+    public Memento createMemento() {
+        throw  new UnsupportedOperationException();
+    }
+
+    @Override
+    public void undoChanges() {
+        throw  new UnsupportedOperationException();
+    }
 
 
 }

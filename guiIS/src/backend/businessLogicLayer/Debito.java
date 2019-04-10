@@ -47,11 +47,11 @@ public class Debito extends AbstractEntryDB {
 
     @Override
     public Memento createMemento() {
-        return null;
+        throw  new UnsupportedOperationException();
     }
 
     @Override
     public void undoChanges() {
-
+        throw  new UnsupportedOperationException();
     }
 }

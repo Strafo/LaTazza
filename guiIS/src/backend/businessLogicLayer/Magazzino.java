@@ -24,15 +24,7 @@ public class Magazzino  extends AbstractEntryDB {
         //todo inizializzazione della vista Magazzino
     }
 
-    @Override
-    public Memento createMemento() {
-        return null;
-    }
 
-    @Override
-    public void undoChanges() {
-
-    }
 
     //Copia lo stato del magazzino e lo ritorna
     public Map<CialdeEntry,Integer> getCopyStato(){
@@ -65,5 +57,14 @@ public class Magazzino  extends AbstractEntryDB {
     }
 
 
+    @Override
+    public Memento createMemento() {
+        throw  new UnsupportedOperationException();
+    }
+
+    @Override
+    public void undoChanges() {
+        throw  new UnsupportedOperationException();
+    }
 
 }
