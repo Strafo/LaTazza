@@ -6,7 +6,7 @@ import utils.Euro;
 
 import java.util.Objects;
 
-public class Debito extends AbstractEntryDB {
+public class Debito  {
     private Euro quantita;
 
     public Debito(Euro quantita){
@@ -45,13 +45,4 @@ public class Debito extends AbstractEntryDB {
         return sottraiDebito(importo);
     }
 
-    @Override
-    public Memento createMemento() {
-        throw  new UnsupportedOperationException();
-    }
-
-    @Override
-    public void undoChanges() {
-        throw  new UnsupportedOperationException();
-    }
 }

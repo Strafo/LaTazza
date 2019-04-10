@@ -39,7 +39,6 @@ public  class LaTazzaApplication implements Runnable {
         add(new Pair<>(MovimentoVendita.class,MovimentoVenditaDaoReceiver.class));
         add(new Pair<>(Personale.class,PersonaleDaoReceiver.class));
         add(new Pair<>(Visitatore.class,VisitatoreDaoReceiver.class));
-        add(new Pair<>(Debito.class,DebitoDaoReceiver.class));
         add(new Pair<>(Cassa.class,CassaDaoReceiver.class));
         add(new Pair<>(MagazzinoEntry.class,MagazzinoDaoReceiver.class));
 
