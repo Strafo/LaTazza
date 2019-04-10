@@ -1,4 +1,6 @@
 package backend.businessLogicLayer;
+import backend.dataAccessLayer.mementoPkg.Memento;
+import backend.dataAccessLayer.rowdatapkg.AbstractEntryDB;
 import backend.dataAccessLayer.rowdatapkg.CialdeEntry;
 import backend.dataAccessLayer.rowdatapkg.RifornimentoEntry;
 import presentationLayer.guiLogicPkg.LaTazzaApplication;
@@ -6,7 +8,7 @@ import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Magazzino {
+public class Magazzino  extends AbstractEntryDB {
 
     //Lista contente per ogni tipo di cialda il numero di cialde disponibili
     private Map<CialdeEntry,Integer> stato;
@@ -20,6 +22,16 @@ public class Magazzino {
     public Magazzino(){
         stato= new HashMap<>();
         //todo inizializzazione della vista Magazzino
+    }
+
+    @Override
+    public Memento createMemento() {
+        return null;
+    }
+
+    @Override
+    public void undoChanges() {
+
     }
 
     //Copia lo stato del magazzino e lo ritorna

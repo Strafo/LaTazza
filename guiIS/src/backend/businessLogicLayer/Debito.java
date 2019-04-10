@@ -1,10 +1,12 @@
 package backend.businessLogicLayer;
+import backend.dataAccessLayer.mementoPkg.Memento;
+import backend.dataAccessLayer.rowdatapkg.AbstractEntryDB;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import utils.Euro;
 
 import java.util.Objects;
 
-public class Debito {
+public class Debito extends AbstractEntryDB {
     private Euro quantita;
 
     public Debito(Euro quantita){
@@ -41,5 +43,15 @@ public class Debito {
 
     public Euro pagamentoDebito(Personale pers,Euro importo){
         return sottraiDebito(importo);
+    }
+
+    @Override
+    public Memento createMemento() {
+        return null;
+    }
+
+    @Override
+    public void undoChanges() {
+
     }
 }

@@ -1,7 +1,6 @@
 package presentationLayer.guiLogicPkg;
 
-import backend.businessLogicLayer.ControllerContabilita;
-import backend.businessLogicLayer.ControllerPersonale;
+import backend.businessLogicLayer.*;
 import backend.dataAccessLayer.gatewaysPkg.receiverPkg.*;
 import backend.dataAccessLayer.gatewaysPkg.IDaoFacade;
 import backend.dataAccessLayer.gatewaysPkg.DaoInvoker;
@@ -39,6 +38,10 @@ public  class LaTazzaApplication implements Runnable {
         add(new Pair<>(MovimentoVendita.class,MovimentoVenditaDaoReceiver.class));
         add(new Pair<>(Personale.class,PersonaleDaoReceiver.class));
         add(new Pair<>(Visitatore.class,VisitatoreDaoReceiver.class));
+        add(new Pair<>(Debito.class,DebitoDaoReceiver.class));
+        add(new Pair<>(Cassa.class,CassaDaoReceiver.class));
+        add(new Pair<>(Magazzino.class,MagazzinoDaoReceiver.class));
+
     }};
 
     public static void main(String[] args)  {
