@@ -1,11 +1,11 @@
 package presentationLayer.guiLogicPkg.contentsPanelsPkg;
 
-import presentationLayer.guiConfig.ResourcesClassLoader;
+import backend.dataAccessLayer.rowdatapkg.CialdeEntry;
+import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import presentationLayer.guiConfig.contentsPanelsPropertiesPkg.StatoPaneProperties;
 import utils.MyJLabel;
 import javax.swing.*;
-import javax.swing.border.MatteBorder;
-import java.awt.*;
+import java.util.List;
 import static presentationLayer.guiConfig.contentsPanelsPropertiesPkg.StatoPaneProperties.*;
 
 
@@ -16,60 +16,37 @@ public class StatoPane extends AbstractPanel {
     private MyJLabel labelTitolo;
     private MyJLabel labelMagazzino;
     private MyJLabel labelSaldo;
+    private JPanel panelMagazzino;
+    private JPanel panelCassa1;
+    private JPanel panelDebiti1;
+    private JTextArea debitiPersonaleTextArea;
+    private JScrollPane scrollPane;
 
+    /**TEMPORANEI**/
     private String[] tipoCialde = new String[]{"Arabica","Decaffeinato","Espresso","Thè","Thè limone","Cioccolata","Camomilla"};
     private String[] debitiPersonaleS = new String[]{"Gabriele Armanino 40","Jacopo Dapueto 80","Simone Campisi 30","Andrea Straforini 50"};
-
+    /**----------**/
 
     public StatoPane() {
 
 		super(1L,DEFAULT_LINKDESCRIPTION,DEFAULT_PANELNAME);
-
-        int i=0;
-
 		StatoPaneProperties.initStatoPanel(this);
-
-		labelTitolo = new MyJLabel(DEFAULT_LABELDESCRIPTION[0],DEFAULT_FONT_TITOLO,DEFAULTX_LABELTITOLO,
-                DEFAULTY_LABELTITOLO, DEFAULT_WIDTH_LABELTITOLO, DEFAULT_HEIGHT_LABELTITOLO,ResourcesClassLoader.getIconStatoB32());
         add(labelTitolo);
+        add(panelMagazzino=StatoPaneProperties.createAndInitPanelMagazzino());
+        panelMagazzino.add(labelMagazzino=StatoPaneProperties.createAndInitLabelMagazzino());
+		add(panelCassa1=StatoPaneProperties.createAndInitPanelCassa1());
+        panelCassa1.add(labelCassa=StatoPaneProperties.createAndInitLabelCassa());
+        add(labelSaldo=StatoPaneProperties.createAndInitLabelSaldo());
+        add(panelDebiti1=StatoPaneProperties.createAndInitPanelDebiti1());
+        panelDebiti1.add(labelDebitiPersonale=StatoPaneProperties.createAndInitLabelDebitiPersonale());
+        debitiPersonaleTextArea=StatoPaneProperties.createAndInitDebitiPersonaleTextArea();
+        add(scrollPane=createAndInitScrollPane(debitiPersonaleTextArea));
 
-        JPanel panelMagazzino1 = new JPanel();
-        panelMagazzino1.setBounds(DEFAULTX_COLONNA1,DEFAULTY_RIGA1,DEFAULT_WIDTH_PANEL1,DEFAULT_HEIGHT_SOTTOTITOTLO);
-        panelMagazzino1.setBorder(new MatteBorder(0,0,1,0,Color.BLACK));
-        panelMagazzino1.setBackground(Color.WHITE);
-        panelMagazzino1.setLayout(null);
-        add(panelMagazzino1);
 
-		labelMagazzino = new MyJLabel(DEFAULT_LABELDESCRIPTION[1],DEFAULT_FONT_DESCRIZIONI,SwingConstants.LEFT,
-                SwingConstants.CENTER,DEFAULT_WIDTH_SOTTOTITOLO,DEFAULT_HEIGHT_SOTTOTITOTLO,ResourcesClassLoader.getIconMagazzino());
-        panelMagazzino1.add(labelMagazzino);
-
-        JPanel panelCassa1 = new JPanel();
-        panelCassa1.setBounds(DEFAULTX_COLONNA1,DEFAULTY_RIGA3,DEFAULT_WIDTH_PANEL2,DEFAULT_HEIGHT_SOTTOTITOTLO);
-        panelCassa1.setBackground(Color.WHITE);
-        panelCassa1.setLayout(null);
-        panelCassa1.setBorder(new MatteBorder(0,0,1,0,Color.BLACK));
-        add(panelCassa1);
-
-        labelCassa = new MyJLabel(DEFAULT_LABELDESCRIPTION[2],DEFAULT_FONT_DESCRIZIONI,SwingConstants.LEFT,
-                SwingConstants.CENTER,DEFAULT_WIDTH_SOTTOTITOLO,DEFAULT_HEIGHT_SOTTOTITOTLO,ResourcesClassLoader.getIconCassa());
-        panelCassa1.add(labelCassa);
-
-        labelSaldo = new MyJLabel(DEFAULT_LABELDESCRIPTION[4],DEFAULT_FONT_DESCRIZIONI2,DEFAULTX_COLONNA1+DEFAULT_GAP_LABEL2,
-                DEFAULTY_RIGA3+DEFAULT_GAP_LABEL3,DEFAULT_WIDTH_LABELDESCRIZIONE,DEFAULT_HEIGHT_LABELDESCRIZIONE,null);
-        add(labelSaldo);
-
-        JPanel panelDebiti1 = new JPanel();
-        panelDebiti1.setBounds(DEFAULTX_COLONNA3,DEFAULTY_RIGA1,DEFAULT_WIDTH_PANEL,DEFAULT_HEIGHT_SOTTOTITOTLO);
-        panelDebiti1.setBackground(Color.WHITE);
-        panelDebiti1.setLayout(null);
-        panelDebiti1.setBorder(new MatteBorder(0,0,0,0,Color.BLACK));
-        add(panelDebiti1);
-
-        labelDebitiPersonale = new MyJLabel(DEFAULT_LABELDESCRIPTION[3], DEFAULT_FONT_DESCRIZIONI,SwingConstants.LEFT,
-                SwingConstants.CENTER,DEFAULT_WIDTH_SOTTOTITOLO,DEFAULT_HEIGHT_SOTTOTITOTLO,ResourcesClassLoader.getIconDebito());
-        panelDebiti1.add(labelDebitiPersonale);
-
+        //todo da eliminare
+        for (String s : debitiPersonaleS)
+            debitiPersonaleTextArea.append("\n "+s+"\n");
+        int i=0;
         for (String s : tipoCialde)
         {
             MyJLabel lb= new MyJLabel(s+": ",DEFAULT_FONT_DESCRIZIONI2,
@@ -77,21 +54,106 @@ public class StatoPane extends AbstractPanel {
             add(lb);
         }
 
-        JTextArea debitiPersonale = new JTextArea();
-        debitiPersonale.setEditable(false);
-        debitiPersonale.setLineWrap(true);
-        debitiPersonale.setFont(DEFAULT_FONT_DESCRIZIONI2);
-        debitiPersonale.setWrapStyleWord(true);
-
-        for (String s : debitiPersonaleS)
-            debitiPersonale.append("\n "+s+"\n");
-
-        JScrollPane scrollPane = new JScrollPane(debitiPersonale);
-        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPane.setBounds(DEFAULTX_COLONNA3,DEFAULTY_RIGA1+DEFAULT_HEIGHT_SOTTOTITOTLO,DEFAULT_WIDTH_PANEL,DEFAULT_HEIGHT_PANEL);
-        add(scrollPane);
-
+        //fino qui
 	}
 
+
+    public void setCialdeList(List<CialdeEntry> listaCialde){
+        int i=0;
+        for (CialdeEntry s : listaCialde)
+        {
+            add(StatoPaneProperties.createAndInitJLabelCialda(s.getTipo(),i++));
+        }
+    }
+
+    public void setDebitiPersonaleTextArea(List<Personale> listaPersonale){
+        for(Personale i:listaPersonale){
+            debitiPersonaleTextArea.append(
+                    i.getNome()+
+                            " "+
+                            i.getCognome()+
+                            " "+
+                            i.getImportoDebito().getEuro()+
+                                    ","+
+                            i.getImportoDebito().getCentesimi()
+            );
+        }
+    }
+
+
+    /**GETTER AND SETTER**/
+
+    public MyJLabel getLabelDebitiPersonale() {
+        return labelDebitiPersonale;
+    }
+
+    public void setLabelDebitiPersonale(MyJLabel labelDebitiPersonale) {
+        this.labelDebitiPersonale = labelDebitiPersonale;
+    }
+
+    public MyJLabel getLabelCassa() {
+        return labelCassa;
+    }
+
+    public void setLabelCassa(MyJLabel labelCassa) {
+        this.labelCassa = labelCassa;
+    }
+
+    public MyJLabel getLabelTitolo() {
+        return labelTitolo;
+    }
+
+    public void setLabelTitolo(MyJLabel labelTitolo) {
+        this.labelTitolo = labelTitolo;
+    }
+
+    public MyJLabel getLabelMagazzino() {
+        return labelMagazzino;
+    }
+
+    public void setLabelMagazzino(MyJLabel labelMagazzino) {
+        this.labelMagazzino = labelMagazzino;
+    }
+
+    public MyJLabel getLabelSaldo() {
+        return labelSaldo;
+    }
+
+    public void setLabelSaldo(MyJLabel labelSaldo) {
+        this.labelSaldo = labelSaldo;
+    }
+
+    public String[] getTipoCialde() {
+        return tipoCialde;
+    }
+
+    public void setTipoCialde(String[] tipoCialde) {
+        this.tipoCialde = tipoCialde;
+    }
+
+    public String[] getDebitiPersonaleS() {
+        return debitiPersonaleS;
+    }
+
+    public void setDebitiPersonaleS(String[] debitiPersonaleS) {
+        this.debitiPersonaleS = debitiPersonaleS;
+    }
+
+
+    public JPanel getPanelMagazzino() {
+        return panelMagazzino;
+    }
+
+    public void setPanelMagazzino(JPanel panelMagazzino) {
+        this.panelMagazzino = panelMagazzino;
+    }
+
+    public JPanel getPanelCassa1() {
+        return panelCassa1;
+    }
+
+    public void setPanelCassa1(JPanel panelCassa1) {
+        this.panelCassa1 = panelCassa1;
+    }
 
 }
