@@ -2,10 +2,13 @@ package backend.businessLogicLayer;
 import backend.dataAccessLayer.mementoPkg.Memento;
 import backend.dataAccessLayer.rowdatapkg.AbstractEntryDB;
 import backend.dataAccessLayer.rowdatapkg.CialdeEntry;
+import backend.dataAccessLayer.rowdatapkg.MagazzinoEntry;
 import backend.dataAccessLayer.rowdatapkg.RifornimentoEntry;
+import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import presentationLayer.guiLogicPkg.LaTazzaApplication;
 import java.sql.Timestamp;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Magazzino  {
@@ -20,8 +23,12 @@ public class Magazzino  {
     }
     //Inizializzazione del magazzino: quando il magazzino viene creato non sono presenti
     public Magazzino(){
+        List<MagazzinoEntry>list=LaTazzaApplication.dao.getAll(MagazzinoEntry.class);//inizializza il campo list facendo query sul databaseConnectionHandler
         stato= new HashMap<>();
-        //todo inizializzazione della vista Magazzino
+        for (MagazzinoEntry m: list ) {
+            stato.put(m.getTipoCialda(),m.getNumeroCialde());
+        }
+
     }
 
 
@@ -53,6 +60,7 @@ public class Magazzino  {
         int nuovaQta=stato.get(t) - qta;
         if(nuovaQta < 0) return false;
         stato.put(t, nuovaQta);
+
         return true;
     }
 
