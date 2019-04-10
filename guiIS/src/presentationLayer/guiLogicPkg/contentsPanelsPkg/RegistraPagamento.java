@@ -1,13 +1,13 @@
 package presentationLayer.guiLogicPkg.contentsPanelsPkg;
 
 import javax.swing.*;
-import javax.swing.text.NumberFormatter;
-import presentationLayer.guiConfig.ResourcesClassLoader;
+
+import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import presentationLayer.guiConfig.contentsPanelsPropertiesPkg.RegPagamentoProperties;
-import utils.MyJLabel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.text.NumberFormat;
+import java.util.List;
+
 import static presentationLayer.guiConfig.contentsPanelsPropertiesPkg.RegPagamentoProperties.*;
 
 
@@ -15,61 +15,26 @@ public class RegistraPagamento extends AbstractPanel {
 
     private JButton buttonConferma;
     private JButton buttonAnnulla;
-
+    private JComboBox<String> nomePersonaleMenu;
     private JFormattedTextField textFieldAmmontare;
-    private NumberFormatter formatterAmmontare;
-    private NumberFormat formatAmmontare;
+    private JLabel labelTitolo;
+    private JLabel labelNomePersonale;
+    private JLabel labelAmmontare;
 
-    private JLabel labelAmmontare= new JLabel();
-
-    private String[] nomePersonale = new String[]{"vuoto","Gianna","Pippo","Pluto"};
-
-	private final JComboBox<String> nomePersonaleMenu;
-
-	private JLabel labelTitolo;
-	private JLabel labelNomePersonale;
 
 	public RegistraPagamento() {
 
 		super(1L,DEFAULT_LINKDESCRIPTION,DEFAULT_PANELNAME);
 		RegPagamentoProperties.initRegistraPagamentoPanel(this);
+		add(labelTitolo=RegPagamentoProperties.createAndInitLabelTitolo());
+		add(labelNomePersonale=RegPagamentoProperties.createAndInitLabelNomePersonale());
+		add(nomePersonaleMenu=RegPagamentoProperties.createAndInitJComboBoxNomePersonaleMenu());
+		add(labelAmmontare=RegPagamentoProperties.createAndInitLabelAmmonatare());
+		add(textFieldAmmontare=RegPagamentoProperties.createAndInitJFormattedTextFieldAmmontare());
+		add(buttonConferma=RegPagamentoProperties.createAndInitJButtonConferma());
+		add(buttonAnnulla=RegPagamentoProperties.createAndInitJButtonAnnulla());
 
-		labelTitolo = new MyJLabel(DEFAULT_LABELDESCRIPTION[0],DEFAULT_FONT_TITOLO,DEFAULTX_LABELTITOLO,
-                DEFAULTY_LABELTITOLO,DEFAULT_WIDTH_LABELTITOLO,DEFAULT_HEIGHT_LABELTITOLO,ResourcesClassLoader.getIconPagamentoB32());
-		add(labelTitolo);
 
-		labelNomePersonale = new MyJLabel(DEFAULT_LABELDESCRIPTION[1],DEFAULT_FONT_DESCRIZIONI,DEFAULTX_COLONNA1,
-                DEFAULTY_RIGA1,DEFAULT_WIDTH_SOTTOTITOLO,DEFAULT_HEIGHT_SOTTOTITOTLO,null);
-		add(labelNomePersonale);
-
-		nomePersonaleMenu = new JComboBox<>();
-		addItems(nomePersonale,nomePersonaleMenu);
-		nomePersonaleMenu.setBounds(DEFAULTX_COLONNA1,DEFAULTY_RIGA2,DEFAULT_WIDTH_FIELD,DEFAULT_HEIGHT_FIELD);
-		add(nomePersonaleMenu);
-
-		labelAmmontare = new MyJLabel(DEFAULT_LABELDESCRIPTION[2],DEFAULT_FONT_DESCRIZIONI,DEFAULTX_COLONNA1,
-                DEFAULTY_RIGA1+DEFAULT_GAP_TXT,DEFAULT_WIDTH_SOTTOTITOLO,DEFAULT_HEIGHT_SOTTOTITOTLO,null);
-		add(labelAmmontare);
-
-		formatAmmontare = NumberFormat.getInstance();
-		formatterAmmontare = new NumberFormatter(formatAmmontare);
-		formatterAmmontare.setValueClass(Integer.class);
-		formatterAmmontare.setMinimum(0);
-		formatterAmmontare.setMaximum(Integer.MAX_VALUE);
-		formatterAmmontare.setAllowsInvalid(false);
-
-		textFieldAmmontare = new JFormattedTextField(formatterAmmontare);
-		textFieldAmmontare.setBounds(DEFAULTX_COLONNA1,DEFAULTY_RIGA2+DEFAULT_GAP_TXT,DEFAULT_WIDTH_FIELD,DEFAULT_HEIGHT_FIELD);
-		add(textFieldAmmontare);
-		textFieldAmmontare.setColumns(10);
-
-		buttonConferma = new JButton(DEFAULT_LABELDESCRIPTION[3]);
-		buttonConferma.setBounds(DEFAULTX_BUTTON1,DEFAULTY_RIGA1+DEFAULT_GAP_BUTTON,DEFAULT_WIDTH_BUTTON,DEFAULT_HEIGHT_BUTTON);
-		add(buttonConferma);
-
-		buttonAnnulla = new JButton(DEFAULT_LABELDESCRIPTION[4]);
-		buttonAnnulla.setBounds(DEFAULTX_BUTTON2,DEFAULTY_RIGA1+DEFAULT_GAP_BUTTON,DEFAULT_WIDTH_BUTTON,DEFAULT_HEIGHT_BUTTON);
-		add(buttonAnnulla);
 		buttonAnnulla.addMouseListener(
 				new MouseAdapter() {
 					@Override
@@ -78,7 +43,18 @@ public class RegistraPagamento extends AbstractPanel {
 					}
 				}
 		);
-	}
+
+
+    }
+
+    public void setComboBoxNomePersonale(List<Personale> lista){
+        for(Personale i:lista){
+            this.nomePersonaleMenu.addItem(
+                    i.getNome()+" "+i.getCognome()
+            );
+        }
+    }
+
 
 	public void annulla()
     {

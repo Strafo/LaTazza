@@ -22,7 +22,7 @@ public class StatoPane extends AbstractPanel {
     private JTextArea debitiPersonaleTextArea;
     private JScrollPane scrollPane;
 
-    /**TEMPORANEI**/
+    /**TEMPORANEI**///todo da eliminare
     private String[] tipoCialde = new String[]{"Arabica","Decaffeinato","Espresso","Thè","Thè limone","Cioccolata","Camomilla"};
     private String[] debitiPersonaleS = new String[]{"Gabriele Armanino 40","Jacopo Dapueto 80","Simone Campisi 30","Andrea Straforini 50"};
     /**----------**/
@@ -82,79 +82,10 @@ public class StatoPane extends AbstractPanel {
     }
 
 
-    /**GETTER AND SETTER**/
-
-    public MyJLabel getLabelDebitiPersonale() {
-        return labelDebitiPersonale;
-    }
-
-    public void setLabelDebitiPersonale(MyJLabel labelDebitiPersonale) {
-        this.labelDebitiPersonale = labelDebitiPersonale;
-    }
-
-    public MyJLabel getLabelCassa() {
-        return labelCassa;
-    }
-
-    public void setLabelCassa(MyJLabel labelCassa) {
-        this.labelCassa = labelCassa;
-    }
-
-    public MyJLabel getLabelTitolo() {
-        return labelTitolo;
-    }
-
     public void setLabelTitolo(MyJLabel labelTitolo) {
         this.labelTitolo = labelTitolo;
     }
 
-    public MyJLabel getLabelMagazzino() {
-        return labelMagazzino;
-    }
 
-    public void setLabelMagazzino(MyJLabel labelMagazzino) {
-        this.labelMagazzino = labelMagazzino;
-    }
-
-    public MyJLabel getLabelSaldo() {
-        return labelSaldo;
-    }
-
-    public void setLabelSaldo(MyJLabel labelSaldo) {
-        this.labelSaldo = labelSaldo;
-    }
-
-    public String[] getTipoCialde() {
-        return tipoCialde;
-    }
-
-    public void setTipoCialde(String[] tipoCialde) {
-        this.tipoCialde = tipoCialde;
-    }
-
-    public String[] getDebitiPersonaleS() {
-        return debitiPersonaleS;
-    }
-
-    public void setDebitiPersonaleS(String[] debitiPersonaleS) {
-        this.debitiPersonaleS = debitiPersonaleS;
-    }
-
-
-    public JPanel getPanelMagazzino() {
-        return panelMagazzino;
-    }
-
-    public void setPanelMagazzino(JPanel panelMagazzino) {
-        this.panelMagazzino = panelMagazzino;
-    }
-
-    public JPanel getPanelCassa1() {
-        return panelCassa1;
-    }
-
-    public void setPanelCassa1(JPanel panelCassa1) {
-        this.panelCassa1 = panelCassa1;
-    }
 
 }

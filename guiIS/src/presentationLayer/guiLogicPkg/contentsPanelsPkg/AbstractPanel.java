@@ -8,7 +8,7 @@ import javax.swing.*;
 
 public abstract class AbstractPanel extends JPanel {
 
-	private final long serialVersionUID;
+    private final long serialVersionUID;
     private final String LINKDESCRIPTION;
     private final LaTazzaFrame.JPanelsNames PANELNAME;
 
@@ -32,9 +32,4 @@ public abstract class AbstractPanel extends JPanel {
         return PANELNAME;
     }
 
-    void addItems(String[] stringa, JComboBox<String> cb) {
-        for (String s : stringa) {
-            cb.addItem(s);
-        }
-    }
 }
