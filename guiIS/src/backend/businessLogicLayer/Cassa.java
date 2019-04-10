@@ -12,16 +12,24 @@ public class Cassa extends AbstractEntryDB {
     private Euro saldo;
 
     public Cassa(){
-        saldo= new Euro(saldoIniziale);
+        this.saldo= new Euro(saldoIniziale);
     }
-
-
     public Cassa(Euro s){
         saldo=requireNonNull(s);
     }
 
+    @Override
+    public Memento createMemento() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void undoChanges() {
+        throw  new UnsupportedOperationException();
+    }
+
     public Euro getCopySaldo(){
-        return new Euro(saldo);
+        return new Euro(saldo.getEuro(),saldo.getCentesimi());
     }
 
     public void incrementaSaldo(Euro euro){
@@ -31,21 +39,10 @@ public class Cassa extends AbstractEntryDB {
             e.printStackTrace();
         }
     }
-
     public void decrementaSaldo(Euro euro) throws Euro.InsufficientFundsException {
             saldo.sottraiImporto(euro);
     }
 
-
-    @Override
-    public Memento createMemento() {
-        throw  new UnsupportedOperationException();
-    }
-
-    @Override
-    public void undoChanges() {
-        throw  new UnsupportedOperationException();
-    }
 
 
 }

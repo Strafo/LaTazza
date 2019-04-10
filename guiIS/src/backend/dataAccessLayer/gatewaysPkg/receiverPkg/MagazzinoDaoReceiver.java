@@ -13,7 +13,6 @@ public class MagazzinoDaoReceiver extends AbstractDaoReceiver<Personale>{
     }
 
 
-
     @Override
     public List<Personale> getAll() throws Exception {
         return null;
