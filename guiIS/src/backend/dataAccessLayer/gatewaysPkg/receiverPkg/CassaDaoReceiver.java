@@ -26,8 +26,11 @@ public class CassaDaoReceiver extends AbstractDaoReceiver<Cassa> {
         List<Cassa> list= new LinkedList<>();
         stat= dataBaseConnection.prepareStatement(GET_ALL_STRING);
         rs= stat.executeQuery();
-        while (rs.next())
-            list.add( new Cassa(new Euro(rs.getLong(1),rs.getInt(2))));
+        rs.next();
+        list.add(
+                new Cassa(
+                        new Euro(rs.getLong("euro"),rs.getInt("centesimi")))
+        );
         return list;
     }
 
