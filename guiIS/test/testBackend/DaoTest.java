@@ -1,4 +1,6 @@
 package testBackend;
+import backend.businessLogicLayer.Cassa;
+import backend.businessLogicLayer.Debito;
 import backend.dataAccessLayer.gatewaysPkg.DaoInvoker;
 import backend.dataAccessLayer.gatewaysPkg.IDaoFacade;
 import backend.database.DatabaseConnectionHandler;
@@ -23,6 +25,7 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Random;
 
+//import static com.sun.tools.internal.ws.wsdl.parser.Util.fail;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -87,7 +90,7 @@ public class DaoTest{
     }
 
     @ParameterizedTest
-    @ValueSource(classes={Personale.class,CialdeEntry.class,Visitatore.class,RifornimentoEntry.class,MovimentoDebito.class,MovimentoVendita.class})
+    @ValueSource(classes={Personale.class,CialdeEntry.class,Visitatore.class,RifornimentoEntry.class,MovimentoDebito.class,MovimentoVendita.class, MagazzinoEntry.class,Cassa.class, Debito.class})
     void getAllTest(Class<? extends AbstractEntryDB> cls) {
         try {
             dao=new DaoInvoker(database.getConnection(),LaTazzaApplication.daoCollection);

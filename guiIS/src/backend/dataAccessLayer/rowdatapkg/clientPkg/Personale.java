@@ -28,12 +28,23 @@ public final class Personale extends Cliente  {
         this.debito = debito;
     }
 
-    public void pagamentoDebito(Euro importo){
-        debito.pagamentoDebito(this,importo);
+    public void aumentaDebito(Euro importo) throws NullPointerException{
+        debito.sommaDebito(importo);
+    }
+
+    public boolean pagamentoDebito(Euro importo) throws NullPointerException{
+
+        return debito.pagamentoDebito(this,importo);
     }
 
     public Euro getImportoDebito(){
         return debito.getImporto();
+    }
+
+    public Personale(String nome, String cognome,boolean attivo, Euro debito) {
+        super(nome, cognome);
+        this.attivo=attivo;
+        this.debito= new Debito( debito);
     }
 
     public Personale(String nome, String cognome,boolean attivo) {

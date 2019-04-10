@@ -21,18 +21,27 @@ public  final class ControllerDebito {
         return LaTazzaApplication.dao.save(mp);
     }
 
-    public static boolean registrarePagamentoDebito(Euro importo , Personale p){
+    public static Personale getPersonale(Personale p){
         List<Personale> list=LaTazzaApplication.controllerPersonale.getCopyList();
         int index= list.indexOf(p);
-        if(index == -1) return false;
-        Personale cliente=list.get(index);
-        cliente.pagamentoDebito(importo);
+        if(index == -1)  return null;
+        return list.get(index);
+
+    }
+
+    public static boolean registrarePagamentoDebito(Euro importo , Personale p) throws NullPointerException{
+
+
+        Personale cliente= getPersonale(p);
+        if(!cliente.pagamentoDebito(importo)) return false;
         aggiornaMovimento(cliente, importo);
         return true;
     }
 
-
-
+    public static void registrareAumentoDebito(Euro importo , Personale p) throws NullPointerException{
+        Personale cliente= getPersonale(p);
+        cliente.aumentaDebito(importo);
+    }
 
     public static HashMap<Personale, Euro> esaminareDebitiPersonale(){
         HashMap<Personale, Euro> debiti= new HashMap<Personale,Euro>();

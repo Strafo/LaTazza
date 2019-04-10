@@ -1,12 +1,12 @@
 package presentationLayer.guiLogicPkg;
 
-import backend.businessLogicLayer.ControllerContabilita;
-import backend.businessLogicLayer.ControllerPersonale;
+import backend.businessLogicLayer.*;
 import backend.dataAccessLayer.gatewaysPkg.receiverPkg.*;
 import backend.dataAccessLayer.gatewaysPkg.IDaoFacade;
 import backend.dataAccessLayer.gatewaysPkg.DaoInvoker;
 import backend.dataAccessLayer.rowdatapkg.AbstractEntryDB;
 import backend.dataAccessLayer.rowdatapkg.CialdeEntry;
+import backend.dataAccessLayer.rowdatapkg.MagazzinoEntry;
 import backend.dataAccessLayer.rowdatapkg.RifornimentoEntry;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Visitatore;
@@ -25,6 +25,7 @@ public  class LaTazzaApplication implements Runnable {
     public static IDaoFacade dao;
     public static ControllerContabilita controllerContabilita;
     public static ControllerPersonale controllerPersonale;
+    public static ControllerDebito controllerDebito;
 
     /**
      * Mappa dove viene creata l'associazione tra le classi della businessLogic
@@ -39,6 +40,9 @@ public  class LaTazzaApplication implements Runnable {
         add(new Pair<>(MovimentoVendita.class,MovimentoVenditaDaoReceiver.class));
         add(new Pair<>(Personale.class,PersonaleDaoReceiver.class));
         add(new Pair<>(Visitatore.class,VisitatoreDaoReceiver.class));
+        add(new Pair<>(Cassa.class,CassaDaoReceiver.class));
+        add(new Pair<>(MagazzinoEntry.class,MagazzinoDaoReceiver.class));
+
     }};
 
     public static void main(String[] args)  {
