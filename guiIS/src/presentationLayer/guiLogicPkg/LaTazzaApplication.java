@@ -25,6 +25,7 @@ public  class LaTazzaApplication implements Runnable {
     public static IDaoFacade dao;
     public static ControllerContabilita controllerContabilita;
     public static ControllerPersonale controllerPersonale;
+    public static ControllerDebito controllerDebito;
 
     /**
      * Mappa dove viene creata l'associazione tra le classi della businessLogic
