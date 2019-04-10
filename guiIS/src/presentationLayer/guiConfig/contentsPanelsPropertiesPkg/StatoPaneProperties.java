@@ -14,7 +14,7 @@ public class StatoPaneProperties extends AbstractPanelProperties {
 
     public static final String DEFAULT_LINKDESCRIPTION="Stato";
     public static final LaTazzaFrame.JPanelsNames DEFAULT_PANELNAME=STATOPANE;
-    public static final String[] DEFAULT_LABELDESCRIPTION={"Stato magazzino, cassa e debiti personale","Magazzino","Saldo cassa:","Debiti personale","140'000"};
+    private static final String[] DEFAULT_LABELDESCRIPTION={"Stato magazzino, cassa e debiti personale","Magazzino","Saldo cassa:","Debiti personale","140'000"};
 
     private static final Color DEFAULT_BACKGROUNDCOLOR=Color.WHITE;
     private static final LayoutManager DEFAULT_LAYOUTMANAGER=null;
@@ -24,11 +24,11 @@ public class StatoPaneProperties extends AbstractPanelProperties {
     private static final int DEFAULTX_COLONNA3 = 320;
 
     public static final int DEFAULTY_RIGA1 = 100;
-    public static final int DEFAULTY_RIGA3 = 365;
+    private static final int DEFAULTY_RIGA3 = 365;
 
     public static final int DEFAULT_GAP_LABEL = 30;
-    public static final int DEFAULT_GAP_LABEL2 = 130;
-    public static final int DEFAULT_GAP_LABEL3 = 8;
+    private static final int DEFAULT_GAP_LABEL2 = 130;
+    private static final int DEFAULT_GAP_LABEL3 = 8;
 
     private static final int DEFAULT_HEIGHT_PANEL = 215;
     private static final int DEFAULT_WIDTH_PANEL = 250;
