@@ -21,7 +21,7 @@ public class CassaDaoReceiver extends AbstractDaoReceiver<Cassa> {
     public CassaDaoReceiver(Connection dataBaseConnection) {
         super(dataBaseConnection);
     }
-
+    //
     @Override
     public List<Cassa> getAll() throws Exception {
         List<Cassa> list= new LinkedList<>();
