@@ -36,6 +36,12 @@ public final class Personale extends Cliente  {
         return debito.getImporto();
     }
 
+    public Personale(String nome, String cognome,boolean attivo, Euro debito) {
+        super(nome, cognome);
+        this.attivo=attivo;
+        this.debito= new Debito( debito);
+    }
+
     public Personale(String nome, String cognome,boolean attivo) {
         super(nome, cognome);
         this.attivo=attivo;

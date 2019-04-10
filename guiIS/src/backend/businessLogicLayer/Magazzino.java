@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Magazzino  extends AbstractEntryDB {
+public class Magazzino  {
 
     //Lista contente per ogni tipo di cialda il numero di cialde disponibili
     private Map<CialdeEntry,Integer> stato;
@@ -57,14 +57,6 @@ public class Magazzino  extends AbstractEntryDB {
     }
 
 
-    @Override
-    public Memento createMemento() {
-        throw  new UnsupportedOperationException();
-    }
 
-    @Override
-    public void undoChanges() {
-        throw  new UnsupportedOperationException();
-    }
 
 }
