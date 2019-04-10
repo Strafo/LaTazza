@@ -21,16 +21,16 @@ public class MagazzinoDaoReceiver extends AbstractDaoReceiver<Personale>{
 
     @Override
     public boolean save(Personale personale) throws Exception {
-        return false;
+        throw  new UnsupportedOperationException();
     }
 
     @Override
     public boolean update(Personale personale) throws Exception {
-        return false;
+        throw  new UnsupportedOperationException();
     }
 
     @Override
     public boolean delete(Personale personale) throws Exception {
-        return false;
+        throw  new UnsupportedOperationException();
     }
 }
