@@ -6,6 +6,7 @@ import backend.dataAccessLayer.gatewaysPkg.IDaoFacade;
 import backend.dataAccessLayer.gatewaysPkg.DaoInvoker;
 import backend.dataAccessLayer.rowdatapkg.AbstractEntryDB;
 import backend.dataAccessLayer.rowdatapkg.CialdeEntry;
+import backend.dataAccessLayer.rowdatapkg.MagazzinoEntry;
 import backend.dataAccessLayer.rowdatapkg.RifornimentoEntry;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Visitatore;
@@ -40,7 +41,7 @@ public  class LaTazzaApplication implements Runnable {
         add(new Pair<>(Visitatore.class,VisitatoreDaoReceiver.class));
         add(new Pair<>(Debito.class,DebitoDaoReceiver.class));
         add(new Pair<>(Cassa.class,CassaDaoReceiver.class));
-        add(new Pair<>(Magazzino.class,MagazzinoDaoReceiver.class));
+        add(new Pair<>(MagazzinoEntry.class,MagazzinoDaoReceiver.class));
 
     }};
 
