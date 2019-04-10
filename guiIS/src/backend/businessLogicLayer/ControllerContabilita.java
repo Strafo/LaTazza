@@ -18,9 +18,8 @@ public  class ControllerContabilita {
 
     public ControllerContabilita(){
         magazzino= new Magazzino();
-        cassa= new Cassa();
+        cassa= LaTazzaApplication.dao.getAll(Cassa.class).get(0);
     }
-
 
     public boolean registraVendita(Cliente c, CialdeEntry tipo, int numeroCialde, boolean contanti){
         if( c instanceof Visitatore && !contanti) return false;

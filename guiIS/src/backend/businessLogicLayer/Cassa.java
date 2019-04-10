@@ -1,7 +1,10 @@
 package backend.businessLogicLayer;
 
+import backend.dataAccessLayer.gatewaysPkg.receiverPkg.CassaDaoReceiver;
 import backend.dataAccessLayer.mementoPkg.Memento;
 import backend.dataAccessLayer.rowdatapkg.AbstractEntryDB;
+import javafx.application.Application;
+import presentationLayer.guiLogicPkg.LaTazzaApplication;
 import utils.Euro;
 
 import static java.util.Objects.requireNonNull;
@@ -12,7 +15,7 @@ public class Cassa extends AbstractEntryDB {
     private Euro saldo;
 
     public Cassa(){
-        this.saldo= new Euro(saldoIniziale);
+        saldo= new Euro(saldoIniziale);
     }
     public Cassa(Euro s){
         saldo=requireNonNull(s);
