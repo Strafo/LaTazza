@@ -29,6 +29,7 @@ public class StatoPane extends AbstractPanel {
 
     public StatoPane() {
 
+        //inizializza tutti i campi necessari
 		super(1L,DEFAULT_LINKDESCRIPTION,DEFAULT_PANELNAME);
 		StatoPaneProperties.initStatoPanel(this);
         add(labelTitolo);
