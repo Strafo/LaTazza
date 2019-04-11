@@ -1,7 +1,5 @@
 package backend.database;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class DatabaseConnectionHandler {
 
@@ -10,6 +8,7 @@ public class DatabaseConnectionHandler {
     private static final String DB_CONNECTION_DEFAULT = "jdbc:h2:file:~/databaseLaTazza;";
     private static final String DB_USER = "";
     private static final String DB_PASSWORD = "";
+
 
     private Connection connection;
     private String path;
@@ -37,6 +36,8 @@ public class DatabaseConnectionHandler {
             connection.close();
         }
     }
+
+
 
     public Connection getConnection() {
         return connection;

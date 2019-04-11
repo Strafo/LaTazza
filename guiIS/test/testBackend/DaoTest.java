@@ -1,6 +1,5 @@
 package testBackend;
 import backend.businessLogicLayer.Cassa;
-import backend.businessLogicLayer.Debito;
 import backend.dataAccessLayer.gatewaysPkg.DaoInvoker;
 import backend.dataAccessLayer.gatewaysPkg.IDaoFacade;
 import backend.database.DatabaseConnectionHandler;
@@ -15,6 +14,8 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import utils.LaTazzaLogger;
+import utils.PathHandler;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -90,7 +91,7 @@ public class DaoTest{
     }
 
     @ParameterizedTest
-    @ValueSource(classes={Personale.class,CialdeEntry.class,Visitatore.class,RifornimentoEntry.class,MovimentoDebito.class,MovimentoVendita.class, MagazzinoEntry.class,Cassa.class, Debito.class})
+    @ValueSource(classes={Personale.class,CialdeEntry.class,Visitatore.class,RifornimentoEntry.class,MovimentoDebito.class,MovimentoVendita.class, MagazzinoEntry.class,Cassa.class})
     void getAllTest(Class<? extends AbstractEntryDB> cls) {
         try {
             dao=new DaoInvoker(database.getConnection(),LaTazzaApplication.daoCollection);
