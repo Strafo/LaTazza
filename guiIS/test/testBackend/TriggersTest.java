@@ -6,6 +6,7 @@ import backend.database.config.TriggerCheckNumCialde;
 import backend.database.config.ViewCassa;
 import backend.database.config.ViewDebito;
 import backend.database.config.ViewMagazzino;
+import utils.PathHandler;
 
 import java.io.FileReader;
 import java.sql.*;
@@ -62,6 +63,7 @@ public class TriggersTest {
 
 
 
+
     DatabaseConnectionHandler getDatabase(){return database;}
 
     public Connection getConn() {
@@ -70,17 +72,13 @@ public class TriggersTest {
 
     public void initDataBase() throws SQLException{
         updateTable(PATHConfig,"databaseConfig.sql");
+
         TriggerCheckNumCialde.initTrigger(conn);
         ViewMagazzino.initView(conn);
         ViewDebito.initView(conn);
         ViewCassa.initView(conn);
         updateTable(PATHInsert,"Insert.sql");
-        System.out.println("---DIPEND");
-        executeSelect("LATAZZASCHEMA.COMPRA_DIPENDENTE");
-        System.out.println("---VISIT");
-        executeSelect("LATAZZASCHEMA.COMPRA_VISITATORE");
-        System.out.println("---CASSA");
-        executeSelect("LATAZZASCHEMA.CASSA");
+
 
 
     }
