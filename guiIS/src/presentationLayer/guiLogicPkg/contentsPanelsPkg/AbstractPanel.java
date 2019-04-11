@@ -32,4 +32,6 @@ public abstract class AbstractPanel extends JPanel {
         return PANELNAME;
     }
 
+    public abstract void refreshContentPanel();
+
 }

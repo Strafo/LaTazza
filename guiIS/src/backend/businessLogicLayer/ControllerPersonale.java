@@ -22,8 +22,7 @@ public class ControllerPersonale {
     }
 
     public List<Personale> getCopyList(){
-        List<Personale> l= new ArrayList<>(list);
-        return l;
+        return new ArrayList<>(list);
     }
 
     public void aggiungiPersonale(String nome, String cognome){

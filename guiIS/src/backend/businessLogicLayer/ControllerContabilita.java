@@ -35,7 +35,7 @@ public  class ControllerContabilita {
         if(!LaTazzaApplication.dao.getTransactionStatus()) return false;
         if(!contanti){
 
-            LaTazzaApplication.controllerDebito.registrareAumentoDebito(importo,(Personale) c);
+            ControllerDebito.registrareAumentoDebito(importo,(Personale) c);
         }
         else cassa.incrementaSaldo(importo);
         return true;
