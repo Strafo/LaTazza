@@ -90,7 +90,7 @@ public class DaoTest{
     }
 
     @ParameterizedTest
-    @ValueSource(classes={Personale.class,CialdeEntry.class,Visitatore.class,RifornimentoEntry.class,MovimentoDebito.class,MovimentoVendita.class, MagazzinoEntry.class,Cassa.class, Debito.class})
+    @ValueSource(classes={Personale.class,CialdeEntry.class,Visitatore.class,RifornimentoEntry.class,MovimentoDebito.class,MovimentoVendita.class, MagazzinoEntry.class,Cassa.class})
     void getAllTest(Class<? extends AbstractEntryDB> cls) {
         try {
             dao=new DaoInvoker(database.getConnection(),LaTazzaApplication.daoCollection);
