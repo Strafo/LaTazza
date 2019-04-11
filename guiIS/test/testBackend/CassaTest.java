@@ -8,36 +8,34 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CassaTest {
 
-    private Euro e;
-    private Cassa c, c1;
+    private Euro importo;
+    private Cassa cassa, cassaEuro;
 
     @BeforeEach
     void setUp() throws Euro.OverflowEuroException {
-        c = new Cassa();
-        e = new Euro(200, 20);
-        c1 = new Cassa(e);
+        cassa = new Cassa();
+        importo = new Euro(200, 20);
+        cassaEuro= new Cassa(importo);
     }
 
     @Test
     void getSaldo() {
-        assertEquals(c.getCopySaldo().getEuro(), 500);
-        assertEquals(Euro.compare(c1.getCopySaldo(), e), 0);
+        assertEquals(Euro.compare(importo,cassaEuro.getCopySaldo()),0);
+        assertEquals(Euro.compare(cassa.getCopySaldo(),(new Euro(500,0))),0);
     }
 
     @Test
     void incrementaSaldo() throws Euro.OverflowEuroException {
-        Cassa c2 = new Cassa();
-        c2.incrementaSaldo(e);
-        Euro e1 = new Euro(700, 20);
-        assertEquals(Euro.compare(c2.getCopySaldo(), e1), 0);
+        Euro oldEuro= cassa.getCopySaldo();
+        cassa.incrementaSaldo(importo);
+        assertEquals(Euro.compare(cassa.getCopySaldo(),oldEuro.aggiungiImporto(importo)),0);
     }
 
     @Test
     void decrementaSaldo() throws Euro.InsufficientFundsException, Euro.OverflowEuroException {
-        Cassa c2 = new Cassa();
-        c2.decrementaSaldo(e);
-        Euro e1 = new Euro(299, 80);
-        assertEquals(Euro.compare(c2.getCopySaldo(), e1), 0);
+        Euro oldEuro= cassa.getCopySaldo();
+        cassa.decrementaSaldo(importo);
+        assertEquals(Euro.compare(cassa.getCopySaldo(),oldEuro.sottraiImporto(importo)),0);
     }
 
 }
