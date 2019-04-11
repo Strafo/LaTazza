@@ -1,17 +1,20 @@
 package backend.businessLogicLayer;
+import backend.dataAccessLayer.mementoPkg.Memento;
+import backend.dataAccessLayer.rowdatapkg.AbstractEntryDB;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import utils.Euro;
 
 import java.util.Objects;
 
-public class Debito {
+public class Debito  {
     private Euro quantita;
 
     public Debito(Euro quantita){
         this.quantita=Objects.requireNonNull(quantita);
     }
 
-    public void sommaDebito(Euro importo) throws Euro.OverflowEuroException {
+    public void sommaDebito(Euro importo) throws Euro.OverflowEuroException,NullPointerException {
+
         this.quantita.aggiungiImporto(importo);
     }
 
@@ -22,24 +25,19 @@ public class Debito {
     /**
      *
      * @param importo
-     * @return il resto importo-debito
+     * @return se importo>quantita l'operazione viene abortita e ritorna false, altrimenti true
      */
-    private Euro sottraiDebito(Euro importo){
-        Euro res;
-        if (Euro.compare(importo, quantita) >= 0) {
-            res=importo.sottraiImporto(quantita);//torna il resto
-            quantita=new Euro(0,0);
-            return res;
-        } else {
-            quantita.sottraiImporto(importo);
-            return new Euro(0, 0);
-        }
+    private boolean sottraiDebito(Euro importo) throws NullPointerException{
+        if (Euro.compare(importo, quantita) > 0) return false;
+        quantita.sottraiImporto(importo);
+        return true;
 
     }
 
 
 
-    public Euro pagamentoDebito(Personale pers,Euro importo){
+    public boolean pagamentoDebito(Personale pers,Euro importo) throws NullPointerException{
         return sottraiDebito(importo);
     }
+
 }

@@ -15,9 +15,7 @@ public class ControllerPersonale {
             //todo cosa fare?
         }else{
             for (Personale i:list) {//seleziono solo quelli attivi
-                if(!i.isAttivo()){
-                    toRemove.add(i);
-                }
+                if(!i.isAttivo()) toRemove.add(i);
             }
             list.removeAll(toRemove);
         }
