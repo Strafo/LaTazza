@@ -35,6 +35,8 @@ public class RegistraVendite extends AbstractPanel {
 	private JButton buttonAnnulla;
 
 
+	private Personale personale;
+
     public RegistraVendite() {
 
 		super(1L,DEFAULT_LINKDESCRIPTION,DEFAULT_PANELNAME);
@@ -75,7 +77,11 @@ public class RegistraVendite extends AbstractPanel {
                         if(!textFieldNomeCliente.getText().isEmpty())
                         {
                             radioButtACredito.setEnabled(false);
-                            nomePersonaleMenu.setSelectedIndex(0);
+                            radioButtACredito.setSelected(false);
+                            radioButtContanti.setSelected(true);
+                            if(nomePersonaleMenu.getItemCount()!=0) {
+                                nomePersonaleMenu.setSelectedIndex(0);
+                            }
                         }
                         else{
                             radioButtACredito.setEnabled(true);
@@ -83,6 +89,7 @@ public class RegistraVendite extends AbstractPanel {
                     }
                 }
         );
+
 
         radioButtContanti.addMouseListener(
                 new MouseAdapter() {
@@ -131,12 +138,12 @@ public class RegistraVendite extends AbstractPanel {
 
 	private void annulla()
     {
-        nomePersonaleMenu.setSelectedIndex(0);
         tipoCialdeMenu.setSelectedIndex(0);
         textFieldNomeCliente.setText(null);
         textFieldQuantita.setValue(null);
         radioButtContanti.setSelected(false);
         radioButtACredito.setSelected(false);
+        personale=null;
     }
 
     @Override
