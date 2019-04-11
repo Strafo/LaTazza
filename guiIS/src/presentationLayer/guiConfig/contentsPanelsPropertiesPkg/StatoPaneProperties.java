@@ -145,7 +145,7 @@ public class StatoPaneProperties extends AbstractPanelProperties {
         return new MyJLabel(nome,
                 DEFAULT_FONT_DESCRIZIONI2,
                 DEFAULTX_COLONNA1,
-                DEFAULTY_RIGA1+DEFAULT_HEIGHT_LABELTITOLO+DEFAULT_GAP_LABEL*i++,
+                DEFAULTY_RIGA1+DEFAULT_HEIGHT_LABELTITOLO+DEFAULT_GAP_LABEL*i,
                 DEFAULT_WIDTH_LABELDESCRIZIONE,
                 DEFAULT_HEIGHT_LABELDESCRIZIONE,
                 null);
