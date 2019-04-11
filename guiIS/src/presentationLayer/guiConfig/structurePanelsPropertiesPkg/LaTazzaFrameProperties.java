@@ -60,5 +60,4 @@ public class LaTazzaFrameProperties {
         frame.setTitle("LaTazza");
     }
 
-
 }

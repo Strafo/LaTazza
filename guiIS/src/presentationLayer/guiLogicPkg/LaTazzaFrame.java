@@ -1,11 +1,13 @@
 package presentationLayer.guiLogicPkg;
 
 import java.awt.*;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 import javax.swing.*;
 //import com.apple.eawt.Application;//todo qui non so se va bene è una lib di apple
-import presentationLayer.guiConfig.structurePanelsPropertiesPkg.LaTazzaFrameProperties;
+import presentationLayer.guiConfig.structurePanelsPropertiesPkg.ContentPaneProperties;
+import presentationLayer.guiConfig.structurePanelsPropertiesPkg.MenuPaneProperties;
+import presentationLayer.guiConfig.structurePanelsPropertiesPkg.TopBarProperties;
 import presentationLayer.guiLogicPkg.contentsPanelsPkg.*;
 import presentationLayer.guiLogicPkg.structurePanelsPkg.MenuPane;
 import presentationLayer.guiLogicPkg.structurePanelsPkg.TopBarPane;
@@ -14,11 +16,10 @@ import presentationLayer.guiLogicPkg.structurePanelsPkg.TopBarPane;
 public class LaTazzaFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-    private LaTazzaFrameProperties laTazzaFrameProperties=new LaTazzaFrameProperties();
-
-    private ContentPane contentPane=new ContentPane(this);
+    private ContentPane contentPane;
     private MenuPane menuPane;
-    private TopBarPane topBarPanePane=new TopBarPane(this);
+    private TopBarPane topBarPane;
+    private Map<JPanelsNames,AbstractPanel> jPanelsMap =new EnumMap<>(JPanelsNames.class);
 
     public  enum JPanelsNames{
         STATOPANE,
@@ -29,25 +30,21 @@ public class LaTazzaFrame extends JFrame {
 
     }
 
-	private Map<JPanelsNames,AbstractPanel> jPanelsMap =new HashMap<>();
 
 	/**
-	 * Create the frame.
+     * @brief Crea il frame principale.
 	 */
 	public LaTazzaFrame() {
 
-
+	    this.contentPane=new ContentPane(this);
+        ContentPaneProperties.initContentPane(contentPane);
+        this.topBarPane=new TopBarPane(this);
+        TopBarProperties.initTopBarPane(topBarPane);
         //Application.getApplication().setDockIconImage((ResourcesClassLoader.getIconTazzaBrown()).getImage());
 
-		this.setBounds(laTazzaFrameProperties.getX(), laTazzaFrameProperties.getY(), laTazzaFrameProperties.getWidth(), laTazzaFrameProperties.getHeight());
-		this.setDefaultCloseOperation(laTazzaFrameProperties.getCloseOp());//todo checksetBounds(100, 100, 800, 500);
-		this.setUndecorated(true);
         this.setContentPane(contentPane);
-        this.setContentPane(contentPane);
-        this.add(topBarPanePane);
-        this.setTitle("LaTazza");
+        this.add(topBarPane);
 
-		//todo check return value
         //inizializza i pannelli e li aggiune alla jPanelsMap
 		jPanelsMap.put(JPanelsNames.STATOPANE,new StatoPane());
 		jPanelsMap.put(JPanelsNames.REGVENDITEPANE,new RegistraVendite());
@@ -58,6 +55,7 @@ public class LaTazzaFrame extends JFrame {
         jPanelsMap.forEach((k,v)->this.add(v));//aggiunge tutti i pannelli al frame
 
         menuPane=new MenuPane(this);//va lasciato per ultimo perchè devono essere init prima i contentpanes
+        MenuPaneProperties.initPanel(menuPane);
         this.add(menuPane);
 	}
 
@@ -68,8 +66,8 @@ public class LaTazzaFrame extends JFrame {
      * @param panelVisibilityState lo stato (true/false) della visibilità del pannello
      */
 	public void setJPanelVisibleState(JPanelsNames panelName,boolean panelVisibilityState){
-	    jPanelsMap.get(panelName).setVisible(panelVisibilityState);
-	    
+        jPanelsMap.get(panelName).refreshContentPanel();
+        jPanelsMap.get(panelName).setVisible(panelVisibilityState);
     }
 
     public AbstractPanel getPanelByName(JPanelsNames name){

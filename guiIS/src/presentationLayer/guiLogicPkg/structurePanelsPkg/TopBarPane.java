@@ -5,18 +5,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import presentationLayer.guiConfig.KGradientPanel;
 import presentationLayer.guiConfig.ResourcesClassLoader;
-import presentationLayer.guiConfig.structurePanelsPropertiesPkg.TopBarProperties;
 import utils.MyJLabel;
-
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import static utils.LaTazzaColors.*;
 
 public class TopBarPane extends KGradientPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	
 	private JLabel labelClose;
 	private JLabel labelMin;
 
@@ -30,17 +26,9 @@ public class TopBarPane extends KGradientPanel {
 	//Constructor
 	//create the topbar that contains buttons for shutdown and minimize window
 	public TopBarPane(JFrame frame) {
-		
-		TopBarProperties toPBarProperties = new TopBarProperties();
-		setBounds(toPBarProperties.getX(),toPBarProperties.getY(),toPBarProperties.getWidth(), toPBarProperties.getHeight());
-        setLayout(null);
-        setkEndColor(CAFFE);
-        setkStartColor(CAPPUCCINO);
-        
+
         labelClose = new MyJLabel(null,null,DEFAULTX_LABELCLOSE,
 				DEFAULTY_LABEL, DEFAULT_WIDTH_LABEL, DEFAULT_HEIGHT_LABEL,ResourcesClassLoader.getIconCloseW());
-        add(labelClose);
-        
         labelClose.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mouseClicked(MouseEvent e) {
@@ -58,14 +46,15 @@ public class TopBarPane extends KGradientPanel {
         
         labelMin = new MyJLabel(null,null,DEFAULTX_LABELMIN,
 				DEFAULTY_LABEL, DEFAULT_WIDTH_LABEL, DEFAULT_HEIGHT_LABEL, ResourcesClassLoader.getIconMinW());
-        add(labelMin);
 
         labelMin.addMouseListener(new MouseAdapter() {
-        	@Override
-        	public void mouseClicked(MouseEvent e) {
-        		frame.setState(Frame.ICONIFIED);
-        	}
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                frame.setState(Frame.ICONIFIED);
+            }
         });
-		
+
+        add(labelMin);
+        add(labelClose);
 	}
 }
