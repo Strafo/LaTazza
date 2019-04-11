@@ -12,6 +12,7 @@ import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Visitatore;
 import backend.dataAccessLayer.rowdatapkg.movimentoPkg.MovimentoDebito;
 import backend.dataAccessLayer.rowdatapkg.movimentoPkg.MovimentoVendita;
+import backend.database.ConfigurationDataBase;
 import backend.database.DatabaseConnectionHandler;
 import backend.database.config.TriggerCheckNumCialde;
 import backend.database.config.ViewCassa;
@@ -61,7 +62,12 @@ public  class LaTazzaApplication implements Runnable {
         try {
             databaseConnectionHandler.initDataBase();
             dao=new DaoInvoker(databaseConnectionHandler.getConnection(),daoCollection);
-            //initTriggers();
+            ConfigurationDataBase db= new ConfigurationDataBase(databaseConnectionHandler);
+            if(!db.existsSchema()) {
+                db.createSchema();
+                db.initTriggers();
+                db.inserimentiIniziali();
+            }
         } catch ( SQLException| ClassNotFoundException e) {
             e.printStackTrace();//todo fare una migliore gestione degli errori
             System.exit(1);
