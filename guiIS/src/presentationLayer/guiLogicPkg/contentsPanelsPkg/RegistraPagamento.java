@@ -1,13 +1,11 @@
 package presentationLayer.guiLogicPkg.contentsPanelsPkg;
 
 import javax.swing.*;
-
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import presentationLayer.guiConfig.contentsPanelsPropertiesPkg.RegPagamentoProperties;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
-
 import static presentationLayer.guiConfig.contentsPanelsPropertiesPkg.RegPagamentoProperties.*;
 
 
@@ -56,7 +54,7 @@ public class RegistraPagamento extends AbstractPanel {
     }
 
 
-	public void annulla()
+	private void annulla()
     {
         nomePersonaleMenu.setSelectedIndex(0);
         textFieldAmmontare.setValue(null);
