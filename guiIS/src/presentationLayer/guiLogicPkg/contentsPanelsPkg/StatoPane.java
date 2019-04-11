@@ -1,10 +1,15 @@
 package presentationLayer.guiLogicPkg.contentsPanelsPkg;
 
+import backend.businessLogicLayer.ControllerCialde;
+import backend.businessLogicLayer.ControllerDebito;
 import backend.dataAccessLayer.rowdatapkg.CialdeEntry;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import presentationLayer.guiConfig.contentsPanelsPropertiesPkg.StatoPaneProperties;
+import utils.Euro;
 import utils.MyJLabel;
 import javax.swing.*;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import static presentationLayer.guiConfig.contentsPanelsPropertiesPkg.StatoPaneProperties.*;
 
@@ -22,11 +27,6 @@ public class StatoPane extends AbstractPanel {
     private JTextArea debitiPersonaleTextArea;
     private JScrollPane scrollPane;
 
-    /**TEMPORANEI**///todo da eliminare
-    private String[] tipoCialde = new String[]{"Arabica","Decaffeinato","Espresso","Thè","Thè limone","Cioccolata","Camomilla"};
-    private String[] debitiPersonaleS = new String[]{"Gabriele Armanino 40","Jacopo Dapueto 80","Simone Campisi 30","Andrea Straforini 50"};
-    /**----------**/
-
     public StatoPane() {
 
         //inizializza tutti i campi necessari
@@ -43,23 +43,12 @@ public class StatoPane extends AbstractPanel {
         debitiPersonaleTextArea=StatoPaneProperties.createAndInitDebitiPersonaleTextArea();
         add(scrollPane=createAndInitScrollPane(debitiPersonaleTextArea));
 
-
-        //todo da eliminare
-        for (String s : debitiPersonaleS)
-            debitiPersonaleTextArea.append("\n "+s+"\n");
-        int i=0;
-        for (String s : tipoCialde)
-        {
-            MyJLabel lb= new MyJLabel(s+": ",DEFAULT_FONT_DESCRIZIONI2,
-                    DEFAULTX_COLONNA1,DEFAULTY_RIGA1+DEFAULT_HEIGHT_LABELTITOLO+DEFAULT_GAP_LABEL*i++,DEFAULT_WIDTH_LABELDESCRIZIONE,DEFAULT_HEIGHT_LABELDESCRIZIONE,null);
-            add(lb);
-        }
-
-        //fino qui
+        refreshContentPanel();
 	}
 
 
     public void setCialdeList(List<CialdeEntry> listaCialde){
+
         int i=0;
         for (CialdeEntry s : listaCialde)
         {
@@ -68,6 +57,7 @@ public class StatoPane extends AbstractPanel {
     }
 
     public void setDebitiPersonaleTextArea(List<Personale> listaPersonale){
+        debitiPersonaleTextArea.setText(null);
         for(Personale i:listaPersonale){
             debitiPersonaleTextArea.append(
                     i.getNome()+
@@ -87,5 +77,10 @@ public class StatoPane extends AbstractPanel {
     }
 
 
-
+    @Override
+    public void refreshContentPanel() {
+        HashMap<Personale, Euro> map=ControllerDebito.esaminareDebitiPersonale();
+        this.setDebitiPersonaleTextArea(new LinkedList<>(map.keySet()));
+        this.setCialdeList(ControllerCialde.getCialdeEntryList());
+    }
 }

@@ -4,9 +4,14 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.*;
+
+import backend.businessLogicLayer.ControllerCialde;
+import backend.businessLogicLayer.ControllerPersonale;
 import backend.dataAccessLayer.rowdatapkg.CialdeEntry;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import presentationLayer.guiConfig.contentsPanelsPropertiesPkg.RegVenditeProperties;
+import presentationLayer.guiLogicPkg.LaTazzaApplication;
+
 import javax.swing.JRadioButton;
 import javax.swing.JButton;
 import static presentationLayer.guiConfig.contentsPanelsPropertiesPkg.RegVenditeProperties.*;
@@ -97,19 +102,25 @@ public class RegistraVendite extends AbstractPanel {
                 }
         );
 
+        refreshContentPanel();
     }
 
 
     public void setComboBoxNomePersonaleMenu(List<Personale> lista){
+        nomePersonaleMenu.removeAllItems();
+
         for(Personale i:lista){
+            System.out.println(i.toString());
             this.nomePersonaleMenu.addItem(
                     i.getNome()+" "+i.getCognome()
             );
         }
     }
     public void setComboBoxTipoCialdeMenu(List<CialdeEntry> lista){
+        tipoCialdeMenu.removeAllItems();
+
         for(CialdeEntry i:lista){
-            this.nomePersonaleMenu.addItem(
+            this.tipoCialdeMenu.addItem(
                     i.getTipo()
             );
         }
@@ -126,5 +137,11 @@ public class RegistraVendite extends AbstractPanel {
         textFieldQuantita.setValue(null);
         radioButtContanti.setSelected(false);
         radioButtACredito.setSelected(false);
+    }
+
+    @Override
+    public void refreshContentPanel() {
+        this.setComboBoxTipoCialdeMenu(ControllerCialde.getCialdeEntryList());
+        this.setComboBoxNomePersonaleMenu(LaTazzaApplication.controllerPersonale.getCopyList());
     }
 }

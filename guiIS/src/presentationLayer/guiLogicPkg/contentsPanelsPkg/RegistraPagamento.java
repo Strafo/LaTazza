@@ -3,6 +3,8 @@ package presentationLayer.guiLogicPkg.contentsPanelsPkg;
 import javax.swing.*;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import presentationLayer.guiConfig.contentsPanelsPropertiesPkg.RegPagamentoProperties;
+import presentationLayer.guiLogicPkg.LaTazzaApplication;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
@@ -42,11 +44,13 @@ public class RegistraPagamento extends AbstractPanel {
 				}
 		);
 
-
+		refreshContentPanel();
     }
 
     public void setComboBoxNomePersonale(List<Personale> lista){
-        for(Personale i:lista){
+		nomePersonaleMenu.removeAllItems();
+
+		for(Personale i:lista){
             this.nomePersonaleMenu.addItem(
                     i.getNome()+" "+i.getCognome()
             );
@@ -60,4 +64,8 @@ public class RegistraPagamento extends AbstractPanel {
         textFieldAmmontare.setValue(null);
     }
 
+	@Override
+	public void refreshContentPanel() {
+		this.setComboBoxNomePersonale(LaTazzaApplication.controllerPersonale.getCopyList());
+	}
 }

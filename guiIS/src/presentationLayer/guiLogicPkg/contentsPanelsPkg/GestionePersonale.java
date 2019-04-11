@@ -3,6 +3,7 @@ package presentationLayer.guiLogicPkg.contentsPanelsPkg;
 import javax.swing.JLabel;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import presentationLayer.guiConfig.contentsPanelsPropertiesPkg.GestPersonaleProperties;
+import presentationLayer.guiLogicPkg.LaTazzaApplication;
 import javax.swing.*;
 import java.util.List;
 import static presentationLayer.guiConfig.contentsPanelsPropertiesPkg.GestPersonaleProperties.*;
@@ -13,15 +14,11 @@ public class GestionePersonale extends AbstractPanel {
 	private JLabel labelTitolo;
 	private JLabel labelAggiungi;
 	private JLabel labelRimuovi;
-	private JTextField textFieldAggiungi= new JTextField();
+	private JTextField textFieldAggiungi;
 	private JComboBox<String> comboBoxNomePersonale;
 	private JButton buttonAggiugi;
 	private JButton buttonRimuovi;
 
-
-	/***TEMP DA RIMUOVERE**///todo da eliminare
-    private String[] nomePersonale = new String[]{"vuoto","Gianna","Pippo","Pluto"};
-    /**------------------**/
 
     public GestionePersonale() {
 		
@@ -35,10 +32,13 @@ public class GestionePersonale extends AbstractPanel {
         add(labelRimuovi=GestPersonaleProperties.createAndInitLabelRimuovi());
         add(comboBoxNomePersonale=GestPersonaleProperties.createAndInitJComboBoxNomePersonale());
         add(buttonRimuovi=GestPersonaleProperties.createAndInitButtonRimuovi());
+
+        refreshContentPanel();
     }
 
 
     public void setComboBoxNomePersonale(List<Personale> lista){
+        comboBoxNomePersonale.removeAllItems();
         for(Personale i:lista){
             this.comboBoxNomePersonale.addItem(
                     i.getNome()+" "+i.getCognome()
@@ -46,4 +46,8 @@ public class GestionePersonale extends AbstractPanel {
         }
     }
 
+    @Override
+    public void refreshContentPanel() {
+        this.setComboBoxNomePersonale(LaTazzaApplication.controllerPersonale.getCopyList());
+    }
 }
