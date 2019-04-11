@@ -74,5 +74,5 @@ public  class LaTazzaApplication implements Runnable {
         laTazzaFrame.setVisible(true);
         laTazzaFrame.setLocationCenter();
     }
-    
+
 }
