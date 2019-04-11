@@ -1,45 +1,24 @@
 package presentationLayer.guiConfig.structurePanelsPropertiesPkg;
 
+import presentationLayer.guiLogicPkg.structurePanelsPkg.TopBarPane;
+
+import static utils.LaTazzaColors.CAFFE;
+import static utils.LaTazzaColors.CAPPUCCINO;
+
 public class TopBarProperties {
-	 private int x;
-	 private int y;
-	 private int widith;
-	 private int height;
-	 
-	 private static final int DEFAULTX = 0;
-	 private static final int DEFAULTY = 0;
-	 private static final int DEFAULT_WIDTH = 810;
-	 private static final int DEFAULT_HEIGHT = 31;
-	 
+	private static final int DEFAULTX = 0;
+	private static final int DEFAULTY = 0;
+	private static final int DEFAULT_WIDTH = 810;
+	private static final int DEFAULT_HEIGHT = 31;
 
-	 public TopBarProperties(int x,int y,int widith,int height) throws IllegalArgumentException
-	 {
-		 if(x<0||y<0||widith<=0||height<=0) throw new IllegalArgumentException("Dimensioni per il menu inferiori a 0.");
-		 this.x=x;
-		 this.height=height;
-		 this.y=y;
-		 this.widith=widith;
-	 }
+	private TopBarProperties(){}
 
-	 /**DEFAULT CONSTRUCTOR***/
-	 public TopBarProperties(){
-		 this(DEFAULTX,DEFAULTY,DEFAULT_WIDTH,DEFAULT_HEIGHT);
-	 }
 
-	 /**PROPERTIES GETTER**/
-	 public int getX() {
-		 return x;
-	 }
+	public static void initTopBarPane(TopBarPane t){
+		 t.setBounds(DEFAULTX,DEFAULTY,DEFAULT_WIDTH,DEFAULT_HEIGHT);
+		 t.setLayout(null);
+		 t.setkEndColor(CAFFE);
+		 t.setkStartColor(CAPPUCCINO);
+	}
 
-	 public int getY() {
-		 return y;
-	 }
-
-	 public int getWidth() {
-		 return widith;
-	 }
-
-	 public int getHeight() {
-		 return height;
-	 }
 }

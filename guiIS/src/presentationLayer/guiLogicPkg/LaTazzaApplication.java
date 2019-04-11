@@ -14,6 +14,8 @@ import backend.dataAccessLayer.rowdatapkg.movimentoPkg.MovimentoDebito;
 import backend.dataAccessLayer.rowdatapkg.movimentoPkg.MovimentoVendita;
 import backend.database.DatabaseConnectionHandler;
 import javafx.util.Pair;
+import presentationLayer.guiConfig.structurePanelsPropertiesPkg.LaTazzaFrameProperties;
+
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -26,6 +28,7 @@ public  class LaTazzaApplication implements Runnable {
     public static ControllerContabilita controllerContabilita;
     public static ControllerPersonale controllerPersonale;
     public static ControllerDebito controllerDebito;
+
 
     /**
      * Mappa dove viene creata l'associazione tra le classi della businessLogic
@@ -67,12 +70,27 @@ public  class LaTazzaApplication implements Runnable {
 
 	private void initFrame(){
         laTazzaFrame=new LaTazzaFrame();
+        (new LaTazzaFrameProperties()).initFrame(laTazzaFrame);
         laTazzaFrame.setVisible(true);
         laTazzaFrame.setLocationCenter();
-
     }
 
 
 
 
+
+    /**
+     * Mappa dove viene creata l'associazione tra le classi della businessLogic
+     * e le classi *DaoReceiver  per il database (contengono il codice per l'interazione con le tabelle del db)
+     * La mappa viene usata dalla class SimpleDaoReceiverFactory
+     */
+    public static Collection<Pair<Class<? extends AbstractEntryDB>,Class<? extends AbstractDaoReceiver>>> daoCollection
+            =new LinkedList<Pair<Class<? extends AbstractEntryDB>, Class<? extends AbstractDaoReceiver>>>(){{
+        add(new Pair<>(RifornimentoEntry.class,RifornimentoDaoReceiver.class));
+        add(new Pair<>(CialdeEntry.class,CialdeDaoReceiver.class));
+        add(new Pair<>(MovimentoDebito.class,MovimentoDebitoDaoReceiver.class));
+        add(new Pair<>(MovimentoVendita.class,MovimentoVenditaDaoReceiver.class));
+        add(new Pair<>(Personale.class,PersonaleDaoReceiver.class));
+        add(new Pair<>(Visitatore.class,VisitatoreDaoReceiver.class));
+    }};
 }

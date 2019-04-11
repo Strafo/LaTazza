@@ -1,16 +1,10 @@
 package presentationLayer.guiLogicPkg;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
-
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import static presentationLayer.guiConfig.structurePanelsPropertiesPkg.ContentPaneProperties.*;
 
 public class ContentPane extends JPanel {
 
@@ -20,15 +14,7 @@ public class ContentPane extends JPanel {
 	private int xy;
 
 	public ContentPane(LaTazzaFrame frame) {
-		
-		setBounds(DEFAULTX,DEFAULTY,DEFAULT_WIDTH,DEFAULT_HEIGHT);
-		setBorder(new EmptyBorder(DEFAULT_BORDER,DEFAULT_BORDER,DEFAULT_BORDER, DEFAULT_BORDER));
-		setLayout(new BorderLayout(DEFAULT_BORDER, DEFAULT_BORDER));
-		setLayout(null);
-		setBackground(Color.WHITE);
-		
-		
-		
+
 		addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseDragged(MouseEvent arg0) {
