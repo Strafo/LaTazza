@@ -48,6 +48,7 @@ public class DatabaseConnectionHandler {
     }
 
 
+    //forza chiusura connessione db.
     protected void finalize(){
         try {
             connection.close();
