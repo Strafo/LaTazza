@@ -47,7 +47,6 @@ public  final class ControllerDebito {
         List<Personale> list= LaTazzaApplication.controllerPersonale.getCopyList();
         for (Personale p:list) {
             if(Euro.compare(p.getImportoDebito(),new Euro(0,0))!=0) {
-                //System.out.println(p.getImportoDebito());
                 debiti.put(p, p.getImportoDebito());
             }
         }
