@@ -1,10 +1,7 @@
 package backend.businessLogicLayer;
-import backend.dataAccessLayer.mementoPkg.Memento;
-import backend.dataAccessLayer.rowdatapkg.AbstractEntryDB;
 import backend.dataAccessLayer.rowdatapkg.CialdeEntry;
 import backend.dataAccessLayer.rowdatapkg.MagazzinoEntry;
 import backend.dataAccessLayer.rowdatapkg.RifornimentoEntry;
-import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import presentationLayer.guiLogicPkg.LaTazzaApplication;
 import java.sql.Timestamp;
 import java.util.HashMap;
@@ -57,6 +54,8 @@ public class Magazzino  {
 
     //Se non sono presenti abbastanza cialde il metodo ritorna false
     public boolean rimuoviCialde(CialdeEntry t, int qta){
+        Integer oldQta=stato.get(t);
+        if(oldQta==null){return false;}
         int nuovaQta=stato.get(t) - qta;
         if(nuovaQta < 0) return false;
         stato.put(t, nuovaQta);

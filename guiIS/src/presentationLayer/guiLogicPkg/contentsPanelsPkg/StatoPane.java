@@ -5,12 +5,15 @@ import backend.businessLogicLayer.ControllerDebito;
 import backend.dataAccessLayer.rowdatapkg.CialdeEntry;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import presentationLayer.guiConfig.contentsPanelsPropertiesPkg.StatoPaneProperties;
+import presentationLayer.guiLogicPkg.LaTazzaApplication;
 import utils.Euro;
 import utils.MyJLabel;
 import javax.swing.*;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+
 import static presentationLayer.guiConfig.contentsPanelsPropertiesPkg.StatoPaneProperties.*;
 
 
@@ -47,12 +50,12 @@ public class StatoPane extends AbstractPanel {
 	}
 
 
-    public void setCialdeList(List<CialdeEntry> listaCialde){
+    public void setCialdeList(Map<CialdeEntry,Integer> listaCialde){
 
         int i=0;
-        for (CialdeEntry s : listaCialde)
+        for (CialdeEntry s : listaCialde.keySet())
         {
-            add(StatoPaneProperties.createAndInitJLabelCialda(s.getTipo(),i++));
+            add(StatoPaneProperties.createAndInitJLabelCialda(s.getTipo()+" "+ listaCialde.get(s),i++));
         }
     }
 
@@ -81,6 +84,6 @@ public class StatoPane extends AbstractPanel {
     public void refreshContentPanel() {
         HashMap<Personale, Euro> map=ControllerDebito.esaminareDebitiPersonale();
         this.setDebitiPersonaleTextArea(new LinkedList<>(map.keySet()));
-        this.setCialdeList(ControllerCialde.getCialdeEntryList());
+        this.setCialdeList(LaTazzaApplication.controllerContabilita.statoMagazzino());
     }
 }
