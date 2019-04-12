@@ -12,7 +12,12 @@ import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Visitatore;
 import backend.dataAccessLayer.rowdatapkg.movimentoPkg.MovimentoDebito;
 import backend.dataAccessLayer.rowdatapkg.movimentoPkg.MovimentoVendita;
+import backend.database.ConfigurationDataBase;
 import backend.database.DatabaseConnectionHandler;
+import backend.database.config.TriggerCheckNumCialde;
+import backend.database.config.ViewCassa;
+import backend.database.config.ViewDebito;
+import backend.database.config.ViewMagazzino;
 import javafx.util.Pair;
 import presentationLayer.guiConfig.structurePanelsPropertiesPkg.LaTazzaFrameProperties;
 
@@ -27,7 +32,6 @@ public  class LaTazzaApplication implements Runnable {
     public static IDaoFacade dao;
     public static ControllerContabilita controllerContabilita;
     public static ControllerPersonale controllerPersonale;
-    public static ControllerDebito controllerDebito;
 
 
     /**
@@ -58,6 +62,12 @@ public  class LaTazzaApplication implements Runnable {
         try {
             databaseConnectionHandler.initDataBase();
             dao=new DaoInvoker(databaseConnectionHandler.getConnection(),daoCollection);
+            ConfigurationDataBase db= new ConfigurationDataBase(databaseConnectionHandler);
+            if(!db.existsSchema()) {
+                db.createSchema();
+                db.initTriggers();
+                db.inserimentiIniziali();
+            }
         } catch ( SQLException| ClassNotFoundException e) {
             e.printStackTrace();//todo fare una migliore gestione degli errori
             System.exit(1);
@@ -73,6 +83,15 @@ public  class LaTazzaApplication implements Runnable {
         (new LaTazzaFrameProperties()).initFrame(laTazzaFrame);
         laTazzaFrame.setVisible(true);
         laTazzaFrame.setLocationCenter();
+    }
+
+
+
+    private void initTriggers() throws SQLException {
+        ViewCassa.initView(databaseConnectionHandler.getConnection());
+        ViewDebito.initView(databaseConnectionHandler.getConnection());
+        ViewMagazzino.initView(databaseConnectionHandler.getConnection());
+        TriggerCheckNumCialde.initTrigger(databaseConnectionHandler.getConnection());
     }
 
 }

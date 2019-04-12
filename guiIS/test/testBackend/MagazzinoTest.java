@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import presentationLayer.guiLogicPkg.LaTazzaApplication;
 import utils.Euro;
+import utils.PathHandler;
 
 import java.io.File;
 import java.io.FileInputStream;

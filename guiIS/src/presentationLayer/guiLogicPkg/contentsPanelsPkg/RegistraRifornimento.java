@@ -4,6 +4,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.*;
+
+import backend.businessLogicLayer.ControllerCialde;
 import backend.dataAccessLayer.rowdatapkg.CialdeEntry;
 import presentationLayer.guiConfig.contentsPanelsPropertiesPkg.RegRifornimentoProperties;
 import static presentationLayer.guiConfig.contentsPanelsPropertiesPkg.RegRifornimentoProperties.*;
@@ -40,7 +42,7 @@ public class RegistraRifornimento extends AbstractPanel {
                 }
         );
 
-
+        refreshContentPanel();
     }
 
 	private void annulla()
@@ -50,11 +52,17 @@ public class RegistraRifornimento extends AbstractPanel {
     }
 
     public void setTipoCialdeMenu(List<CialdeEntry> lista){
+        tipoCialdeMenu.removeAllItems();
+
         for(CialdeEntry i:lista){
             this.tipoCialdeMenu.addItem(
                     i.getTipo()
             );
         }
     }
-	
+
+    @Override
+    public void refreshContentPanel() {
+        this.setTipoCialdeMenu(ControllerCialde.getCialdeEntryList());
+    }
 }
