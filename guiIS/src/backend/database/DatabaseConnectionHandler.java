@@ -47,4 +47,10 @@ public class DatabaseConnectionHandler {
     }
 
 
+    protected void finalize(){
+        try {
+            connection.close();
+        } catch (SQLException ignored) { }
+    }
+
 }
