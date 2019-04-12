@@ -14,9 +14,9 @@ public class TriggerMagazzinoUpdate extends ViewMagazzino implements Trigger {
     private static final String TRIGGER_NAME_DIPENDETE="Update_View_Magazzino_dipendente";
     private static final String TRIGGER_NAME_VISITATORE="Update_View_Magazzino_visitatore";
     private static final String TRIGGER_NAME_RIFORNIMENTO="Update_View_Magazzino_rifornimento";
-    private static final String CREATE_TRIGGER_STATEMENT_DIPENDENTE = "CREATE TRIGGER IF NOT EXISTS " + TRIGGER_NAME_DIPENDETE + " AFTER INSERT ON "+ TABLE_NAME_DIPENDENTE+" FOR EACH ROW CALL "+TRIGGER_PATH;
-    private static final String CREATE_TRIGGER_STATEMENT_VISITATORE = "CREATE TRIGGER IF NOT EXISTS " + TRIGGER_NAME_VISITATORE + " AFTER INSERT ON "+ TABLE_NAME_VISITATORE+" FOR EACH ROW CALL "+TRIGGER_PATH;
-    private static final String CREATE_TRIGGER_STATEMENT_RIFORNIMENTO = "CREATE TRIGGER IF NOT EXISTS " + TRIGGER_NAME_RIFORNIMENTO + " AFTER INSERT ON "+ TABLE_NAME_RIFORNIMENTO+" FOR EACH ROW CALL "+TRIGGER_PATH;
+    private static final String CREATE_TRIGGER_STATEMENT_DIPENDENTE = "CREATE TRIGGER " + TRIGGER_NAME_DIPENDETE + " AFTER INSERT ON "+ TABLE_NAME_DIPENDENTE+" FOR EACH ROW CALL "+TRIGGER_PATH;
+    private static final String CREATE_TRIGGER_STATEMENT_VISITATORE = "CREATE TRIGGER " + TRIGGER_NAME_VISITATORE + " AFTER INSERT ON "+ TABLE_NAME_VISITATORE+" FOR EACH ROW CALL "+TRIGGER_PATH;
+    private static final String CREATE_TRIGGER_STATEMENT_RIFORNIMENTO = "CREATE TRIGGER " + TRIGGER_NAME_RIFORNIMENTO + " AFTER INSERT ON "+ TABLE_NAME_RIFORNIMENTO+" FOR EACH ROW CALL "+TRIGGER_PATH;
     private static final int tipoCialda= 2;
 
 
@@ -28,13 +28,13 @@ public class TriggerMagazzinoUpdate extends ViewMagazzino implements Trigger {
         PreparedStatement stat;
         ResultSet resultSet;
         int numCialde;
-        stat =conn.prepareStatement("select sum(numero_cialde) " +
+        stat =conn.prepareStatement("select sum(numero_cialde) as num " +
                 "from "+ table +
                 " where tipo_cialda= '"+ tipoCialda +"' " );
 
         resultSet=stat.executeQuery();
         resultSet.next();
-        numCialde=resultSet.getInt(1);
+        numCialde=resultSet.getInt("num");
         return numCialde;
     }
 
@@ -49,7 +49,6 @@ public class TriggerMagazzinoUpdate extends ViewMagazzino implements Trigger {
         @Override
     public void init(Connection connection, String s, String s1, String s2, boolean b, int i) throws SQLException {
 
-
     }
 
     @Override
@@ -59,7 +58,8 @@ public class TriggerMagazzinoUpdate extends ViewMagazzino implements Trigger {
         PreparedStatement prepUpdate = conn.prepareStatement("UPDATE   "+ TABLE_NAME_MAGAZZINO  +
                                                                 " SET "+"qta= "+ numCialde +" where tipo=? ");
         prepUpdate.setNString(1, (String) newRow[tipoCialda]);
-        int n= prepUpdate.executeUpdate();
+        prepUpdate.executeUpdate();
+
 
     }
 

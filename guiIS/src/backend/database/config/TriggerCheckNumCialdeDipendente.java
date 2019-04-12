@@ -9,7 +9,7 @@ public class TriggerCheckNumCialdeDipendente extends TriggerCheckNumCialde imple
 
     private static final String TABLE_NAME_DIPENDENTE="LATAZZASCHEMA.COMPRA_DIPENDENTE";
     private static final String TRIGGER_NAME_DIPENDENTE="check_num_cialde_dipendente";
-    private static final String CREATE_TRIGGER_STATEMENT_DIPENDETE = "CREATE TRIGGER IF NOT EXISTS " + TRIGGER_NAME_DIPENDENTE + " AFTER INSERT ON "+ TABLE_NAME_DIPENDENTE+" FOR EACH ROW CALL "+TRIGGER_PATH;
+    private static final String CREATE_TRIGGER_STATEMENT_DIPENDETE = "CREATE TRIGGER " + TRIGGER_NAME_DIPENDENTE + " AFTER INSERT ON "+ TABLE_NAME_DIPENDENTE+" FOR EACH ROW CALL "+TRIGGER_PATH;
 
     @Override
     public void init(Connection connection, String s, String t1, String t2, boolean b, int i) {

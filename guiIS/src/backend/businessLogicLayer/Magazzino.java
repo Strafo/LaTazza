@@ -33,6 +33,7 @@ public class Magazzino  {
     //Copia lo stato del magazzino e lo ritorna
     public Map<CialdeEntry,Integer> getCopyStato(){
         return new HashMap<>(stato);
+
     }
 
     public boolean aggiungiScatole(CialdeEntry t, int qtaScatole) {

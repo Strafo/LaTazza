@@ -61,10 +61,11 @@ public class ConfigurationDataBase {//todo rimuovere le cose che non servono
 
 
     public void initTriggers() throws SQLException {
-        ViewCassa.initView(databaseConnectionHandler.getConnection());
-        ViewDebito.initView(databaseConnectionHandler.getConnection());
-        ViewMagazzino.initView(databaseConnectionHandler.getConnection());
+
         TriggerCheckNumCialde.initTrigger(databaseConnectionHandler.getConnection());
+        ViewMagazzino.initView(databaseConnectionHandler.getConnection());
+        ViewDebito.initView(databaseConnectionHandler.getConnection());
+        ViewCassa.initView(databaseConnectionHandler.getConnection());
     }
 
     private void updateTable(String sqlFileName)  {

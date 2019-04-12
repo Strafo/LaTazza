@@ -10,6 +10,7 @@ public class Debito  {
     private Euro quantita;
 
     public Debito(Euro quantita){
+
         this.quantita=Objects.requireNonNull(quantita);
     }
 
@@ -38,6 +39,11 @@ public class Debito  {
 
     public boolean pagamentoDebito(Personale pers,Euro importo) throws NullPointerException{
         return sottraiDebito(importo);
+    }
+
+    @Override
+    public String toString() {
+            return quantita.toString();
     }
 
 }

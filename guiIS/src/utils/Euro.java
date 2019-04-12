@@ -43,7 +43,7 @@ public class Euro {
     }
     public Euro(Euro e){
         euro= e.getEuro();
-        euro= e.getCentesimi();
+        centesimi= e.getCentesimi();
     }
 
     public Euro(int centesimi)throws IllegalArgumentException{
