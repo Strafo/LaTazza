@@ -143,10 +143,11 @@ public class RegistraVendite extends AbstractPanel {
 
     private void conferma(){
         String[] nomeCognome;
+        boolean res;
         CialdeEntry cialda=ControllerCialde.getCialda((String)(tipoCialdeMenu.getSelectedItem()));
          if(!textFieldNomeCliente.getText().isEmpty()){
             nomeCognome=textFieldNomeCliente.getText().split(" ");
-            LaTazzaApplication.controllerContabilita.registraVendita(
+            res=LaTazzaApplication.controllerContabilita.registraVendita(
                     new Visitatore(nomeCognome[0],nomeCognome[1])
                     ,cialda
                     ,Integer.valueOf(textFieldQuantita.getText())
@@ -154,12 +155,17 @@ public class RegistraVendite extends AbstractPanel {
             );
          }else{
              nomeCognome=((String)nomePersonaleMenu.getSelectedItem()).split(" ");
-             LaTazzaApplication.controllerContabilita.registraVendita(
+             res=LaTazzaApplication.controllerContabilita.registraVendita(
                      new Personale(nomeCognome[0],nomeCognome[1])
                      ,cialda
                      ,Integer.valueOf(textFieldQuantita.getText())
                      ,radioButtContanti.isSelected()
              );
+         }
+         if(res){
+             System.out.println(String.valueOf(res));
+         }else{
+             System.out.println(String.valueOf(res));
          }
     }
 
