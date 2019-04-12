@@ -12,5 +12,14 @@ public  final class ControllerCialde {
         return LaTazzaApplication.dao.getAll(CialdeEntry.class);
     }
 
+    public static  CialdeEntry getCialda(String tipo){
+        List<CialdeEntry> lista=getCialdeEntryList();
+        for (CialdeEntry i:lista) {
+            if(i.getTipo().equalsIgnoreCase(tipo))
+                return new CialdeEntry(i.getTipo(),i.getPrezzo());
+        }
+        return null;
+    }
+
 
 }

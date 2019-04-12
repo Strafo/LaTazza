@@ -6,9 +6,9 @@ import java.util.List;
 import javax.swing.*;
 
 import backend.businessLogicLayer.ControllerCialde;
-import backend.businessLogicLayer.ControllerPersonale;
 import backend.dataAccessLayer.rowdatapkg.CialdeEntry;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
+import backend.dataAccessLayer.rowdatapkg.clientPkg.Visitatore;
 import presentationLayer.guiConfig.contentsPanelsPropertiesPkg.RegVenditeProperties;
 import presentationLayer.guiLogicPkg.LaTazzaApplication;
 
@@ -109,6 +109,15 @@ public class RegistraVendite extends AbstractPanel {
                 }
         );
 
+        buttonConferma.addMouseListener(
+                new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        conferma();
+                    }
+                }
+        );
+
         refreshContentPanel();
     }
 
@@ -117,7 +126,6 @@ public class RegistraVendite extends AbstractPanel {
         nomePersonaleMenu.removeAllItems();
 
         for(Personale i:lista){
-            System.out.println(i.toString());
             this.nomePersonaleMenu.addItem(
                     i.getNome()+" "+i.getCognome()
             );
@@ -133,6 +141,27 @@ public class RegistraVendite extends AbstractPanel {
         }
     }
 
+    private void conferma(){
+        String[] nomeCognome;
+        CialdeEntry cialda=ControllerCialde.getCialda((String)(tipoCialdeMenu.getSelectedItem()));
+         if(!textFieldNomeCliente.getText().isEmpty()){
+            nomeCognome=textFieldNomeCliente.getText().split(" ");
+            LaTazzaApplication.controllerContabilita.registraVendita(
+                    new Visitatore(nomeCognome[0],nomeCognome[1])
+                    ,cialda
+                    ,Integer.valueOf(textFieldQuantita.getText())
+                    ,true
+            );
+         }else{
+             nomeCognome=((String)nomePersonaleMenu.getSelectedItem()).split(" ");
+             LaTazzaApplication.controllerContabilita.registraVendita(
+                     new Personale(nomeCognome[0],nomeCognome[1])
+                     ,cialda
+                     ,Integer.valueOf(textFieldQuantita.getText())
+                     ,radioButtContanti.isSelected()
+             );
+         }
+    }
 
 
 
