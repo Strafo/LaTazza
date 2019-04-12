@@ -4,7 +4,6 @@ import backend.dataAccessLayer.rowdatapkg.movimentoPkg.Movimento;
 import backend.dataAccessLayer.rowdatapkg.movimentoPkg.MovimentoDebito;
 import presentationLayer.guiLogicPkg.LaTazzaApplication;
 import utils.Euro;
-
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
@@ -47,8 +46,11 @@ public  final class ControllerDebito {
         HashMap<Personale, Euro> debiti= new HashMap<Personale,Euro>();
         List<Personale> list= LaTazzaApplication.controllerPersonale.getCopyList();
         for (Personale p:list) {
-            debiti.put(p,p.getImportoDebito());
+            if(Euro.compare(p.getImportoDebito(),new Euro(0,0))!=0) {
+                debiti.put(p, p.getImportoDebito());
+            }
         }
+
         return debiti;
     }
 

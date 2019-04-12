@@ -66,7 +66,7 @@ public class StatoPane extends AbstractPanel {
                             " "+
                             i.getImportoDebito().getEuro()+
                                     ","+
-                            i.getImportoDebito().getCentesimi()
+                            i.getImportoDebito().getCentesimi()+"\n"
             );
         }
     }
