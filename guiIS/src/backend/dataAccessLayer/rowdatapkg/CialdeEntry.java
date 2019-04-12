@@ -1,4 +1,5 @@
 package backend.dataAccessLayer.rowdatapkg;
+import backend.dataAccessLayer.rowdatapkg.clientPkg.Cliente;
 import utils.Euro;
 import backend.dataAccessLayer.mementoPkg.Memento;
 import backend.dataAccessLayer.mementoPkg.MementoCialde;
@@ -17,6 +18,14 @@ public class CialdeEntry extends AbstractEntryDB   {
     }
 
     public CialdeEntry(){}
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof CialdeEntry)) return false;
+        if(this == obj) return true;
+        CialdeEntry c= (CialdeEntry) obj;
+        return tipo.equals(c.getTipo()) && prezzo.equals(c.getPrezzo());
+    }
 
 
     public String getTipo() {

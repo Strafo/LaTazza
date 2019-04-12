@@ -33,8 +33,10 @@ public class Cassa extends AbstractEntryDB {
             e.printStackTrace();
         }
     }
-    public void decrementaSaldo(Euro euro) throws Euro.InsufficientFundsException {
+    public boolean decrementaSaldo(Euro euro) throws Euro.InsufficientFundsException {
+            if(Euro.compare(euro, saldo)==1) return false;
             saldo.sottraiImporto(euro);
+            return true;
     }
 
 

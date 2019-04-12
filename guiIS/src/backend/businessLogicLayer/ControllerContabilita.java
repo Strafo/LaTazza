@@ -41,12 +41,14 @@ public  class ControllerContabilita {
     }
 
 
-    public void registrareRifornimento(CialdeEntry tipo, int numeroScatole){
-        magazzino.aggiungiScatole(tipo,numeroScatole);
+    public boolean registrareRifornimento(CialdeEntry tipo, int numeroScatole){
         Euro importo= new Euro(tipo.getPrezzo());
         int numeroCialde=numeroScatole*magazzino.getQtaCialdeScatole();
         importo.moltiplicaImporto(numeroCialde);
-        cassa.decrementaSaldo(importo);
+        if(cassa.decrementaSaldo(importo)) return false;
+        magazzino.aggiungiScatole(tipo,numeroScatole);
+       return true;
+
     }
 
     public Euro statoCassa(){

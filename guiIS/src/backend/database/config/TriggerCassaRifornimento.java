@@ -10,7 +10,7 @@ public class TriggerCassaRifornimento extends ViewCassa implements Trigger {
     private static final String TRIGGER_PATH="\"backend.database.config.TriggerCassaRifornimento\"";
     private static final String TABLE_NAME_RIFORNIMENTO="LATAZZASCHEMA.Rifornimento";
     private static final String TRIGGER_NAME="Update_Table_Cassa_Rifornimento";
-    private static final String CREATE_TRIGGER_STATEMENT_RIFORNIMENTO = "CREATE TRIGGER IF NOT EXISTS " + TRIGGER_NAME+ " AFTER INSERT ON "+ TABLE_NAME_RIFORNIMENTO+" FOR EACH ROW CALL "+TRIGGER_PATH;
+    private static final String CREATE_TRIGGER_STATEMENT_RIFORNIMENTO = "CREATE TRIGGER " + TRIGGER_NAME+ " AFTER INSERT ON "+ TABLE_NAME_RIFORNIMENTO+" FOR EACH ROW CALL "+TRIGGER_PATH;
     private static final int costoCialdeEuro= 0;
     private static final int costoCialdeCentesimi=40;
     private static final int qtaCialde=1;

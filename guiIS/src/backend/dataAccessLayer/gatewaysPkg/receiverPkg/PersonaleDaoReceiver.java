@@ -25,14 +25,15 @@ public class PersonaleDaoReceiver extends AbstractDaoReceiver<Personale> {
         Statement st =dataBaseConnection.createStatement();
         rs=st.executeQuery(GET_ALL_STRING);
         while(rs.next()){
-            lista.add(
-                    new Personale(
-                            rs.getString("nome"),
-                            rs.getString("cognome"),
-                            rs.getBoolean("attivo"),
-                            new Euro(rs.getLong("euro"), rs.getInt("centesimi"))
-                    )
-            );
+            Euro debito= new Euro(rs.getLong("euro"), rs.getInt("centesimi"));
+            Personale p=new Personale(
+                    rs.getString("nome"),
+                    rs.getString("cognome"),
+                    rs.getBoolean("attivo"),
+                    debito
+                    );
+            lista.add(p);
+
         }
         return lista;    }
 

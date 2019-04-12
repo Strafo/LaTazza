@@ -73,10 +73,6 @@ public class TriggersTest {
     public void initDataBase() throws SQLException{
         updateTable(PATHConfig,"databaseConfig.sql");
 
-        TriggerCheckNumCialde.initTrigger(conn);
-        ViewMagazzino.initView(conn);
-        ViewDebito.initView(conn);
-        ViewCassa.initView(conn);
         updateTable(PATHInsert,"Insert.sql");
 
 

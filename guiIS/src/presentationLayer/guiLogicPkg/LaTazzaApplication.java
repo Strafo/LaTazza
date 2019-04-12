@@ -87,11 +87,6 @@ public  class LaTazzaApplication implements Runnable {
 
 
 
-    private void initTriggers() throws SQLException {
-        ViewCassa.initView(databaseConnectionHandler.getConnection());
-        ViewDebito.initView(databaseConnectionHandler.getConnection());
-        ViewMagazzino.initView(databaseConnectionHandler.getConnection());
-        TriggerCheckNumCialde.initTrigger(databaseConnectionHandler.getConnection());
-    }
+
 
 }
