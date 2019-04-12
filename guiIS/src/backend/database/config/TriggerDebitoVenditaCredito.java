@@ -11,7 +11,7 @@ public class TriggerDebitoVenditaCredito extends ViewDebito implements Trigger {
     private static final String TABLE_NAME_DIPENDENTE="LATAZZASCHEMA.COMPRA_DIPENDENTE";
     private static final String TABLE_NAME_CIALDE="LATAZZASCHEMA.CIALDE";
     private static final String TRIGGER_NAME="Update_Table_Debiti_Pagati";
-    private static final String CREATE_TRIGGER_STATEMENT_DEBITO = "CREATE TRIGGER IF NOT EXISTS " + TRIGGER_NAME+ " AFTER INSERT ON "+TABLE_NAME_DIPENDENTE+" FOR EACH ROW CALL "+TRIGGER_PATH;
+    private static final String CREATE_TRIGGER_STATEMENT_DEBITO = "CREATE TRIGGER " + TRIGGER_NAME+ " AFTER INSERT ON "+TABLE_NAME_DIPENDENTE+" FOR EACH ROW CALL "+TRIGGER_PATH;
     private static final int timestamp=4;
     private static final int contanti=5;
     private static final int tipoCialda=2;

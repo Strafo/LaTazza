@@ -13,8 +13,8 @@ public class TriggerCassaVendita extends ViewCassa implements Trigger {
     private static final String TABLE_NAME_COMPRA_DIPENDENTE = "LATAZZASCHEMA.Compra_Dipendente";
     private static final String TRIGGER_NAME_VISITATORE = "Update_Table_Cassa_Visitatore";
     private static final String TRIGGER_NAME_DIPENDENTE = "Update_Table_Cassa_Dipendente";
-    private static final String CREATE_TRIGGER_VISITATORE = "CREATE TRIGGER IF NOT EXISTS " + TRIGGER_NAME_VISITATORE+ " AFTER INSERT ON " + TABLE_NAME_COMPRA_VISITATORE + " FOR EACH ROW CALL " + TRIGGER_PATH;
-    private static final String CREATE_TRIGGER_DIPENDENTE = "CREATE TRIGGER IF NOT EXISTS " + TRIGGER_NAME_DIPENDENTE + " AFTER INSERT ON " + TABLE_NAME_COMPRA_DIPENDENTE + " FOR EACH ROW CALL " + TRIGGER_PATH;
+    private static final String CREATE_TRIGGER_VISITATORE = "CREATE TRIGGER " + TRIGGER_NAME_VISITATORE+ " AFTER INSERT ON " + TABLE_NAME_COMPRA_VISITATORE + " FOR EACH ROW CALL " + TRIGGER_PATH;
+    private static final String CREATE_TRIGGER_DIPENDENTE = "CREATE TRIGGER  " + TRIGGER_NAME_DIPENDENTE + " AFTER INSERT ON " + TABLE_NAME_COMPRA_DIPENDENTE + " FOR EACH ROW CALL " + TRIGGER_PATH;
     private static final int nome=0;
     private static final int cognome=1;
     private static final int contanti=5;

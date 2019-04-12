@@ -7,7 +7,7 @@ public class TriggerCheckNumCialdeVisitatore extends TriggerCheckNumCialde  impl
 
     private static final String TRIGGER_PATH="\"backend.database.config.TriggerCheckNumCialdeVisitatore\"";
     private static final String TRIGGER_NAME_VISITATORE="check_num_cialde_visitatore";
-    private static final String CREATE_TRIGGER_STATEMENT_VISITATORE = "CREATE TRIGGER IF NOT EXISTS " + TRIGGER_NAME_VISITATORE + " AFTER INSERT ON "+ TABLE_NAME_VISITATORE+" FOR EACH ROW CALL "+TRIGGER_PATH;
+    private static final String CREATE_TRIGGER_STATEMENT_VISITATORE = "CREATE TRIGGER " + TRIGGER_NAME_VISITATORE + " AFTER INSERT ON "+ TABLE_NAME_VISITATORE+" FOR EACH ROW CALL "+TRIGGER_PATH;
 
     @Override
     public void init(Connection connection, String s, String t1, String t2, boolean b, int i) {
