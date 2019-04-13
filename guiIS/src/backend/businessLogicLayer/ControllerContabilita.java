@@ -97,7 +97,7 @@ public  class ControllerContabilita extends Observable {
 
     private void handleMagazzinoConsistency(CialdeEntry tipo,int numeroCialde){
         try {
-            if (!magazzino.aggiungiScatole(tipo, numeroCialde)) {
+            if (!magazzino.aggiungiCialde(tipo, numeroCialde)) {
                 //se fallisce anche il tentativo di gestione dell'errore abortisco.L'user dovrà quindi riavviare
                 //l'applicazione restaurando così la consistenza DB, Ram
                 //teoricamente non dovrebbe mai accadere in quanto rimuoviCialde() non è fallita... però non si sa mai...
