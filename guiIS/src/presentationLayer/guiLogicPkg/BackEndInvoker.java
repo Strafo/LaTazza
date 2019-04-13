@@ -26,8 +26,8 @@ public class BackEndInvoker {
         CIALDELIST,
         PERSONALELIST,
         RIFORNIMENTOLIST,
-        CASSALIST,
-        DEBITOLIST
+        CONTABILITALIST,
+        DEBITOLIST,
 
     }
 
