@@ -33,11 +33,22 @@ public class RegistraRifornimento extends AbstractPanel {
         add(textFieldQuantita=RegRifornimentoProperties.createAndInitJTextFieldQuantita());
         add(buttonConferma=RegRifornimentoProperties.createAndInitJButtonConferma());
         add(buttonAnnulla=RegRifornimentoProperties.createAndInitJButtonAnnulla());
+
+        //LISTENER
         buttonAnnulla.addMouseListener(
                 new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
                         annulla();
+                    }
+                }
+        );
+
+        buttonConferma.addMouseListener(
+                new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        conferma();
                     }
                 }
         );
@@ -49,6 +60,11 @@ public class RegistraRifornimento extends AbstractPanel {
     {
         tipoCialdeMenu.setSelectedIndex(0);
         textFieldQuantita.setValue(null);
+    }
+
+    private void conferma()
+    {
+
     }
 
     public void setTipoCialdeMenu(List<CialdeEntry> lista){

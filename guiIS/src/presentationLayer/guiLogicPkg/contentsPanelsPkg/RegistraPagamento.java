@@ -34,12 +34,21 @@ public class RegistraPagamento extends AbstractPanel {
 		add(buttonConferma=RegPagamentoProperties.createAndInitJButtonConferma());
 		add(buttonAnnulla=RegPagamentoProperties.createAndInitJButtonAnnulla());
 
-
+		//LISTENER
 		buttonAnnulla.addMouseListener(
 				new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
 						annulla();
+					}
+				}
+		);
+
+		buttonConferma.addMouseListener(
+				new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						conferma();
 					}
 				}
 		);
@@ -63,6 +72,11 @@ public class RegistraPagamento extends AbstractPanel {
         nomePersonaleMenu.setSelectedIndex(0);
         textFieldAmmontare.setValue(null);
     }
+
+    private void conferma()
+	{
+
+	}
 
 	@Override
 	public void refreshContentPanel() {

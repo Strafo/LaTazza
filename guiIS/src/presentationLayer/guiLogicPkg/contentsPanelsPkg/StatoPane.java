@@ -55,7 +55,7 @@ public class StatoPane extends AbstractPanel {
         int i=0;
         for (CialdeEntry s : listaCialde.keySet())
         {
-            add(StatoPaneProperties.createAndInitJLabelCialda(s.getTipo()+" "+ listaCialde.get(s),i++));
+            add(StatoPaneProperties.createAndInitJLabelCialda(s.getTipo()+": "+ listaCialde.get(s),i++));
         }
     }
 
@@ -63,13 +63,13 @@ public class StatoPane extends AbstractPanel {
         debitiPersonaleTextArea.setText(null);
         for(Personale i:listaPersonale){
             debitiPersonaleTextArea.append(
-                    i.getNome()+
+                    "\n "+i.getNome()+
                             " "+
                             i.getCognome()+
-                            " "+
+                            ": "+
                             i.getImportoDebito().getEuro()+
                                     ","+
-                            i.getImportoDebito().getCentesimi()+"\n"
+                            i.getImportoDebito().getCentesimi()+"€\n"
             );
         }
     }
