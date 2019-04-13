@@ -5,8 +5,6 @@ import presentationLayer.guiLogicPkg.LaTazzaApplication;
 import java.util.List;
 import java.util.Observable;
 
-import static presentationLayer.guiLogicPkg.ObserverSubscriptionType.CIALDELIST;
-
 public  final class ControllerCialde extends Observable {
 
     public List<CialdeEntry> listaCialde;
@@ -15,7 +13,7 @@ public  final class ControllerCialde extends Observable {
         if((listaCialde=LaTazzaApplication.backEndInvoker.getDao().getAll(CialdeEntry.class))==null){
             throw new Error(new Throwable("Impossibile creare controllerCialde nell'applicazione."));
         }
-        this.notifyObservers(CIALDELIST);
+        this.setChanged();
     }
 
     public List<CialdeEntry> getCialdeEntryList(){
@@ -29,6 +27,5 @@ public  final class ControllerCialde extends Observable {
         }
         return null;
     }
-
 
 }

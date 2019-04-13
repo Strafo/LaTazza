@@ -18,6 +18,7 @@ public  final class ControllerDebito extends Observable {
     public   ControllerDebito(){
         dao=LaTazzaApplication.backEndInvoker.getDao();
         controllerPersonale=LaTazzaApplication.backEndInvoker.getControllerPersonale();
+        this.setChanged();
     }
 
 
@@ -31,6 +32,7 @@ public  final class ControllerDebito extends Observable {
     private  boolean aggiungiMovimentoDebito(Personale p, Euro importo) throws NullPointerException{
         Date date=new Date();
         Movimento mp=new MovimentoDebito(new Timestamp(date.getTime()),p,importo);
+        this.setChanged();
         return dao.save(mp);
     }
 
@@ -49,6 +51,7 @@ public  final class ControllerDebito extends Observable {
             aggiungiMovimentoDebito(cliente, importo);
             if(!cliente.pagamentoDebito(importo)) return false;
         //todo fino a qui
+        this.setChanged();
         return true;
     }
 
@@ -65,6 +68,7 @@ public  final class ControllerDebito extends Observable {
         Personale cliente = controllerPersonale.getPersonale(nome, cognome);
         if (cliente == null) return false;
         cliente.aumentaDebito(importo);
+        this.setChanged();
         return true;
     }
 
@@ -72,6 +76,7 @@ public  final class ControllerDebito extends Observable {
         Personale cliente = controllerPersonale.getPersonale(personale);
         if (cliente == null) return false;
         cliente.aumentaDebito(importo);
+        this.setChanged();
         return true;
     }
 

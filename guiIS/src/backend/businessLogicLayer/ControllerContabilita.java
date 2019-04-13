@@ -19,6 +19,7 @@ public  class ControllerContabilita extends Observable {
         magazzino= new Magazzino();
         cassa= LaTazzaApplication.backEndInvoker.getDao().getAll(Cassa.class).get(0);
         controllerDebito=LaTazzaApplication.backEndInvoker.getControllerDebito();
+        this.setChanged();
     }
 
 
@@ -61,6 +62,7 @@ public  class ControllerContabilita extends Observable {
             handleDebitoCassaConsistency(importo,c,contanti);
             return false;
         }
+        this.setChanged();
         return true;
     }
 
@@ -77,6 +79,7 @@ public  class ControllerContabilita extends Observable {
         importo.moltiplicaImporto(numeroCialde);
         if(cassa.decrementaSaldo(importo)) return false;
         magazzino.aggiungiScatole(tipo,numeroScatole);
+        this.setChanged();
         return true;
 
     }

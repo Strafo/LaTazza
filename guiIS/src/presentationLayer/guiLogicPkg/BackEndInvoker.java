@@ -21,10 +21,7 @@ public class BackEndInvoker {
     private IDaoFacade dao;
     private Map<ObserverSubscriptionType, Observable> subscriptions;
 
-    public BackEndInvoker(){
-
-    }
-
+    public BackEndInvoker(){ }
 
     public boolean executeCommand(Command command) {
         try{
@@ -41,6 +38,7 @@ public class BackEndInvoker {
         try {
             ob=subscriptions.get(subscriptionType);
             ob.addObserver(observer);
+            System.out.println("nuova iscrizione");
         }catch(Exception e){
             System.err.println(e);
             throw e;//todo remove

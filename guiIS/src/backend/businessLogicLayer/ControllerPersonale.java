@@ -27,6 +27,7 @@ public class ControllerPersonale extends Observable {
             }
             listaPersonaleAttivo.removeAll(listaPersonaleNonA);
         }
+        this.setChanged();
     }
 
     /**
@@ -80,6 +81,7 @@ public class ControllerPersonale extends Observable {
             return false;
         }
         listaPersonaleAttivo.add(p);
+        this.setChanged();
         return true;
     }
 
@@ -97,6 +99,7 @@ public class ControllerPersonale extends Observable {
         } else {
             listaPersonaleAttivo.remove(p);
         }
+        this.setChanged();
         return true;
     }
 
