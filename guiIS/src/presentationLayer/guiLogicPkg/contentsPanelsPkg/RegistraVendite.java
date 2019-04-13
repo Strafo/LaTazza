@@ -3,15 +3,19 @@ package presentationLayer.guiLogicPkg.contentsPanelsPkg;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
+import java.util.Observable;
 import javax.swing.*;
 import backend.dataAccessLayer.rowdatapkg.CialdeEntry;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import presentationLayer.guiConfig.contentsPanelsPropertiesPkg.RegVenditeProperties;
+import presentationLayer.guiLogicPkg.BackEndInvoker;
 import presentationLayer.guiLogicPkg.LaTazzaApplication;
-import presentationLayer.guiLogicPkg.commandPkg.RegistraRifornimentoCommand;
+import presentationLayer.guiLogicPkg.commandPkg.RegistraVenditaCommand;
 import javax.swing.JRadioButton;
 import javax.swing.JButton;
 import static presentationLayer.guiConfig.contentsPanelsPropertiesPkg.RegVenditeProperties.*;
+
+
 
 public class RegistraVendite extends AbstractPanel {
 
@@ -115,7 +119,9 @@ public class RegistraVendite extends AbstractPanel {
                 }
         );
 
-        refreshContentPanel();
+        LaTazzaApplication.backEndInvoker.addObserver(BackEndInvoker.ObserverSubscriptionType.CIALDELIST,this);
+        LaTazzaApplication.backEndInvoker.addObserver(BackEndInvoker.ObserverSubscriptionType.PERSONALELIST,this);
+
     }
 
 
@@ -151,7 +157,7 @@ public class RegistraVendite extends AbstractPanel {
         }
 
 
-        RegistraRifornimentoCommand command=new RegistraRifornimentoCommand(
+        RegistraVenditaCommand command=new RegistraVenditaCommand(
                 (String)(tipoCialdeMenu.getSelectedItem()),
                 radioButtContanti.isSelected(),
                 nomeCognome[0],
@@ -159,6 +165,8 @@ public class RegistraVendite extends AbstractPanel {
                 Integer.valueOf(textFieldQuantita.getText()),
                 isPersonale
         );
+        LaTazzaApplication.backEndInvoker.executeCommand(command);//todo check return value
+
 
 
     }
@@ -175,9 +183,12 @@ public class RegistraVendite extends AbstractPanel {
         personale=null;
     }
 
+
+
     @Override
-    public void refreshContentPanel() {
+    public void update(Observable o, Object arg) {
+/*
         this.setComboBoxTipoCialdeMenu(LaTazzaApplication.controllerCialde.getCialdeEntryList());
         this.setComboBoxNomePersonaleMenu(LaTazzaApplication.controllerPersonale.getCopyList());
-    }
+    */}
 }
