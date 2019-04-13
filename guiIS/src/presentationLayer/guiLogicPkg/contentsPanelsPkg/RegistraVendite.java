@@ -61,7 +61,6 @@ public class RegistraVendite extends AbstractPanel {
 		add(buttonConferma=RegVenditeProperties.createAndInitJButtonConferma());
 		add(buttonAnnulla=RegVenditeProperties.createAndInitJButtonAnnulla());
 
-
         //LISTENER
 		buttonAnnulla.addMouseListener(
 
@@ -139,7 +138,6 @@ public class RegistraVendite extends AbstractPanel {
     }
     public void setComboBoxTipoCialdeMenu(List<CialdeEntry> lista){
         tipoCialdeMenu.removeAllItems();
-
         for(CialdeEntry i:lista){
             this.tipoCialdeMenu.addItem(
                     i.getTipo()
@@ -193,7 +191,6 @@ public class RegistraVendite extends AbstractPanel {
 
         if(arg ==CIALDELIST){
             setComboBoxTipoCialdeMenu(((ControllerCialde)o).getCialdeEntryList());
-
         }else if(arg==PERSONALELIST){
             setComboBoxNomePersonaleMenu(((ControllerPersonale)o).getCopyList());
         }

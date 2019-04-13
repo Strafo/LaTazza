@@ -65,7 +65,6 @@ public class RegistraRifornimento extends AbstractPanel {
     public void update(Observable o, Object arg) {
         if(arg ==CIALDELIST){
             setTipoCialdeMenu(((ControllerCialde)o).getCialdeEntryList());
-
         }
     }
 }
