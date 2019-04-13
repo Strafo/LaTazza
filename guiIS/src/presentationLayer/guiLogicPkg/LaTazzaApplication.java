@@ -14,13 +14,8 @@ import backend.dataAccessLayer.rowdatapkg.movimentoPkg.MovimentoDebito;
 import backend.dataAccessLayer.rowdatapkg.movimentoPkg.MovimentoVendita;
 import backend.database.ConfigurationDataBase;
 import backend.database.DatabaseConnectionHandler;
-import backend.database.config.TriggerCheckNumCialde;
-import backend.database.config.ViewCassa;
-import backend.database.config.ViewDebito;
-import backend.database.config.ViewMagazzino;
 import javafx.util.Pair;
 import presentationLayer.guiConfig.structurePanelsPropertiesPkg.LaTazzaFrameProperties;
-
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -32,6 +27,7 @@ public  class LaTazzaApplication implements Runnable {
     public static IDaoFacade dao;
     public static ControllerContabilita controllerContabilita;
     public static ControllerPersonale controllerPersonale;
+    public static ControllerCialde controllerCialde;
 
 
     /**
