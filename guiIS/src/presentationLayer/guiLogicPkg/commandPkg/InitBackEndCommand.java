@@ -51,27 +51,25 @@ public class InitBackEndCommand implements  Command{
         //init subscriptions
 
 
-        Observable observable=null;
         for (ObserverSubscriptionType i :ObserverSubscriptionType.values()) {
             switch(i){
 
                 case CIALDELIST:
-                    backEndInvoker.getSubscriptions().put(CIALDELIST,observable=backEndInvoker.getControllerCialde());
+                    backEndInvoker.getSubscriptions().put(CIALDELIST,backEndInvoker.getControllerCialde());
                     break;
                 case PERSONALELIST:
-                    backEndInvoker.getSubscriptions().put(PERSONALELIST,observable=backEndInvoker.getControllerPersonale());
+                    backEndInvoker.getSubscriptions().put(PERSONALELIST,backEndInvoker.getControllerPersonale());
                     break;
                 case RIFORNIMENTOLIST:
-                    backEndInvoker.getSubscriptions().put(RIFORNIMENTOLIST,observable=backEndInvoker.getControllerContabilita());
+                    backEndInvoker.getSubscriptions().put(RIFORNIMENTOLIST,backEndInvoker.getControllerContabilita());
                     break;
                 case CONTABILITALIST:
-                    backEndInvoker.getSubscriptions().put(CONTABILITALIST,observable=backEndInvoker.getControllerContabilita());
+                    backEndInvoker.getSubscriptions().put(CONTABILITALIST,backEndInvoker.getControllerContabilita());
                     break;
                 case DEBITOLIST:
-                    backEndInvoker.getSubscriptions().put(DEBITOLIST,observable=backEndInvoker.getControllerDebito());
+                    backEndInvoker.getSubscriptions().put(DEBITOLIST,backEndInvoker.getControllerDebito());
                     break;
             }
-            observable.notifyObservers(i);
         }
 
         return true;

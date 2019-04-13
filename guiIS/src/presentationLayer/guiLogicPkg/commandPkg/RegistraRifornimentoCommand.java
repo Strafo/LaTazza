@@ -12,6 +12,6 @@ public class RegistraRifornimentoCommand implements  Command{
 
 
 
-        return false;
+        return true;
     }
 }
