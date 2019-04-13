@@ -53,7 +53,6 @@ public class StatoPane extends AbstractPanel {
         int i=0;
         for (CialdeEntry s : listaCialde.keySet())
         {
-            System.out.println(s.getTipo());
             add(StatoPaneProperties.createAndInitJLabelCialda(s.getTipo()+" "+ listaCialde.get(s),i++));
         }
     }
@@ -86,7 +85,6 @@ public class StatoPane extends AbstractPanel {
         if(arg ==DEBITOLIST){
             setDebitiPersonaleTextArea(((ControllerDebito)o).esaminareDebitiPersonale());
         }else if(arg==CONTABILITALIST){
-            System.out.println("ciao");//todo
             setCialdeList(((ControllerContabilita)o).statoMagazzino());
         }
     }
