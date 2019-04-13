@@ -6,20 +6,24 @@ import java.util.List;
 
 public  final class ControllerCialde {
 
-    private ControllerCialde(){}
+    public List<CialdeEntry> listaCialde;
 
-    public static  List<CialdeEntry> getCialdeEntryList(){
-        return LaTazzaApplication.dao.getAll(CialdeEntry.class);
+    public ControllerCialde(){
+        if((listaCialde=LaTazzaApplication.dao.getAll(CialdeEntry.class))==null){
+            throw new Error(new Throwable("Impossibile creare controllerCialde nell'applicazione."));
+        }
     }
 
-    public static  CialdeEntry getCialda(String tipo){
-        List<CialdeEntry> lista=getCialdeEntryList();
-        for (CialdeEntry i:lista) {
+    public List<CialdeEntry> getCialdeEntryList(){
+        return listaCialde;
+    }
+
+    public  CialdeEntry getCialda(String tipo){
+        for (CialdeEntry i:listaCialde) {
             if(i.getTipo().equalsIgnoreCase(tipo))
                 return new CialdeEntry(i.getTipo(),i.getPrezzo());
         }
         return null;
     }
-
 
 }

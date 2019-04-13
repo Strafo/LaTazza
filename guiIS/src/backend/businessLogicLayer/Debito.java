@@ -1,6 +1,4 @@
 package backend.businessLogicLayer;
-import backend.dataAccessLayer.mementoPkg.Memento;
-import backend.dataAccessLayer.rowdatapkg.AbstractEntryDB;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import utils.Euro;
 

@@ -1,9 +1,8 @@
 package utils;
 import org.apache.commons.io.FilenameUtils;
-
 import java.io.File;
 
-public class PathHandler {
+public final class PathHandler {
     private PathHandler(){}
 
     /**
@@ -18,10 +17,10 @@ public class PathHandler {
     public static String getSeparator(){
         return File.separator;
     }
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         String test=System.getProperty("user.dir")+"\\src\\backend\\database\\config\\";
         System.out.println(PathHandler.modifyPath(test));
-    }
+    }*/
 
 
 }

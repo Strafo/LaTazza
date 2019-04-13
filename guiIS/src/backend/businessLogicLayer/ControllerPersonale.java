@@ -2,53 +2,107 @@ package backend.businessLogicLayer;
 
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import presentationLayer.guiLogicPkg.LaTazzaApplication;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 
 public class ControllerPersonale {
-    private List<Personale> list;
+    private List<Personale> listaPersonaleAttivo;
 
     public ControllerPersonale(){
-        list=LaTazzaApplication.dao.getAll(Personale.class);//inizializza il campo list facendo query sul databaseConnectionHandler
-        List<Personale>toRemove=new ArrayList<>();
-        if(list==null){//inizializzazione fallita...
+        listaPersonaleAttivo=LaTazzaApplication.dao.getAll(Personale.class);
+        List<Personale> listaPersonaleNonA=new LinkedList<>();
+        if(listaPersonaleAttivo==null){//inizializzazione fallita...
             //todo cosa fare?
         }else{
-            for (Personale i:list) {//seleziono solo quelli attivi
-                if(!i.isAttivo()) toRemove.add(i);
+            for (Personale i:listaPersonaleAttivo) {//seleziono solo quelli attivi
+                if(!i.isAttivo()){
+                    listaPersonaleNonA.add(i);
+                }
             }
-            list.removeAll(toRemove);
+            listaPersonaleAttivo.removeAll(listaPersonaleNonA);
         }
-
     }
 
+    /**
+     * Cerca nella lista del personale attivo.
+     * Ritorna il riferimento alla classe personale cercata.
+     * @param nome
+     * @param cognome
+     * @return p se trovato, null altrimenti
+     * @throws NullPointerException se nome o cognome sono null.
+     */
+    public Personale getPersonale(String nome,String cognome) throws NullPointerException{
+        return getPersonale(new Personale(nome,cognome));
+    }
+
+
+    /**
+     *
+     * @param personale
+     * @return
+     * @throws NullPointerException
+     */
+    public Personale getPersonale(Personale personale)throws NullPointerException{
+        Personale p=null;
+        for(ListIterator<Personale>iter=listaPersonaleAttivo.listIterator();iter.hasNext();){
+            p=iter.next();
+            if(p.equals(personale))break;
+        }
+        return p;
+    }
+
+
+    /**
+     * Ritorna una copia della lista del personale correntemente attivo.
+     * @return la lista
+     */
     public List<Personale> getCopyList(){
-        return new ArrayList<>(list);
+        return  new LinkedList<>(listaPersonaleAttivo);
     }
 
-    public void aggiungiPersonale(String nome, String cognome){
+    /**
+     *
+     * @param nome
+     * @param cognome
+     * @return
+     * @throws NullPointerException
+     */
+    public boolean aggiungiPersonale(String nome, String cognome)throws NullPointerException{
         Personale p=new Personale(nome,cognome);//può lanciare null pointer exception!
-        if(list.contains(p)) return;
-        if(LaTazzaApplication.dao.save(p)){
-            list.add(p);
-        }else{
-            //todo cosa fare?
+        if(listaPersonaleAttivo.contains(p)) return false;
+        if(!LaTazzaApplication.dao.save(p)){
+            return false;
         }
-        return;
+        listaPersonaleAttivo.add(p);
+        return true;
     }
 
-
-    public void licenziaPersonale(Personale p) {
-        if (!list.contains(p)) return;
+    /**
+     *
+     * @param p
+     * @return
+     */
+    public boolean licenziaPersonale(Personale p) {
+        if (!listaPersonaleAttivo.contains(p)) return false;
         p.setAttivo(false);
         if (!LaTazzaApplication.dao.update(p)) {//se fallisce ripristino stato iniziale
             p.undoChanges();
+            return false;
         } else {
-            list.remove(p);
+            listaPersonaleAttivo.remove(p);
         }
+        return true;
     }
 
+    /**
+     *
+     * @param nome
+     * @param cognome
+     * @return
+     */
+    public boolean licenziaPersonale(String nome,String cognome) {
+        return licenziaPersonale(new Personale(nome,cognome));
 
-
-
+    }
 }

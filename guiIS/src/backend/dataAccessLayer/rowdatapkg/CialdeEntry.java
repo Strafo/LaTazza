@@ -1,5 +1,4 @@
 package backend.dataAccessLayer.rowdatapkg;
-import backend.dataAccessLayer.rowdatapkg.clientPkg.Cliente;
 import utils.Euro;
 import backend.dataAccessLayer.mementoPkg.Memento;
 import backend.dataAccessLayer.mementoPkg.MementoCialde;

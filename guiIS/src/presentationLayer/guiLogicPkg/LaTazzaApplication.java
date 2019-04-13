@@ -16,7 +16,6 @@ import backend.database.ConfigurationDataBase;
 import backend.database.DatabaseConnectionHandler;
 import javafx.util.Pair;
 import presentationLayer.guiConfig.structurePanelsPropertiesPkg.LaTazzaFrameProperties;
-
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -28,6 +27,7 @@ public  class LaTazzaApplication implements Runnable {
     public static IDaoFacade dao;
     public static ControllerContabilita controllerContabilita;
     public static ControllerPersonale controllerPersonale;
+    public static ControllerCialde controllerCialde;
 
 
     /**
