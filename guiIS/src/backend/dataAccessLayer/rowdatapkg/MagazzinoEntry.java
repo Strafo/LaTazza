@@ -9,7 +9,7 @@ public class MagazzinoEntry extends AbstractEntryDB {
 
 
     public MagazzinoEntry(String cialda, int qta){
-        tipoCialda=LaTazzaApplication.backEndInvoker.getControllerCialde().getCialda(cialda);
+        tipoCialda=LaTazzaApplication.controllerCialde.getCialda(cialda);
         numeroCialde=qta;
 
     }
