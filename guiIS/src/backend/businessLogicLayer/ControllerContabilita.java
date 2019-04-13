@@ -7,16 +7,18 @@ import backend.dataAccessLayer.rowdatapkg.clientPkg.Visitatore;
 import presentationLayer.guiLogicPkg.LaTazzaApplication;
 import utils.Euro;
 import java.util.Map;
+import java.util.Observable;
 
-public  class ControllerContabilita {
+public  class ControllerContabilita extends Observable {
 
     private Magazzino magazzino;
     private Cassa cassa;
-
+    private ControllerDebito controllerDebito;
 
     public ControllerContabilita(){
         magazzino= new Magazzino();
-        cassa= LaTazzaApplication.dao.getAll(Cassa.class).get(0);
+        cassa= LaTazzaApplication.backEndInvoker.getDao().getAll(Cassa.class).get(0);
+        controllerDebito=LaTazzaApplication.backEndInvoker.getControllerDebito();
     }
 
 
@@ -46,7 +48,7 @@ public  class ControllerContabilita {
         }
         try {
             if (!contanti) {
-                ControllerDebito.registrareAumentoDebito(importo, (Personale) c);//può lanciare OverflowEuroExc
+                controllerDebito.registrareAumentoDebito(importo, (Personale) c);//può lanciare OverflowEuroExc
             } else cassa.incrementaSaldo(importo);//può lanciare OverflowEuroExc
         }catch (Euro.OverflowEuroException e){
             //ripristino stato magazzino
@@ -108,7 +110,7 @@ public  class ControllerContabilita {
         try {
             boolean resState;
             if (!contanti) {
-                resState = ControllerDebito.registrarePagamentoDebito(importo, c.getNome(), c.getCognome());
+                resState = controllerDebito.registrarePagamentoDebito(importo, c.getNome(), c.getCognome());
             } else{
                 resState = cassa.decrementaSaldo(importo);
             }
