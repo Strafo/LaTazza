@@ -16,7 +16,6 @@ import backend.database.DatabaseConnectionHandler;
 import javafx.util.Pair;
 import presentationLayer.guiLogicPkg.BackEndInvoker;
 import presentationLayer.guiLogicPkg.ObserverSubscriptionType;
-
 import java.sql.SQLException;
 import java.util.*;
 import static presentationLayer.guiLogicPkg.ObserverSubscriptionType.*;
@@ -59,9 +58,6 @@ public class InitBackEndCommand implements  Command{
                     break;
                 case PERSONALELIST:
                     backEndInvoker.getSubscriptions().put(PERSONALELIST,backEndInvoker.getControllerPersonale());
-                    break;
-                case RIFORNIMENTOLIST:
-                    backEndInvoker.getSubscriptions().put(RIFORNIMENTOLIST,backEndInvoker.getControllerContabilita());
                     break;
                 case CONTABILITALIST:
                     backEndInvoker.getSubscriptions().put(CONTABILITALIST,backEndInvoker.getControllerContabilita());

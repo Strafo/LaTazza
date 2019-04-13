@@ -8,7 +8,7 @@ public class NotifyObserversCommand implements Command {
 
     private List<ObserverSubscriptionType> subscriptionTypes;
     private BackEndInvoker backEndInvoker;
-    
+
     public NotifyObserversCommand(List<ObserverSubscriptionType> subTypes, BackEndInvoker backEndInvoker){
         subscriptionTypes=subTypes;
         this.backEndInvoker=backEndInvoker;
