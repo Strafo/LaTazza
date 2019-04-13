@@ -1,6 +1,8 @@
 package presentationLayer.guiLogicPkg.contentsPanelsPkg;
 
 import javax.swing.*;
+
+import backend.businessLogicLayer.ControllerPersonale;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import presentationLayer.guiConfig.contentsPanelsPropertiesPkg.RegPagamentoProperties;
 import presentationLayer.guiLogicPkg.LaTazzaApplication;
@@ -9,7 +11,7 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.Observable;
 import static presentationLayer.guiConfig.contentsPanelsPropertiesPkg.RegPagamentoProperties.*;
-import static presentationLayer.guiLogicPkg.BackEndInvoker.ObserverSubscriptionType.PERSONALELIST;
+import static presentationLayer.guiLogicPkg.ObserverSubscriptionType.PERSONALELIST;
 
 
 public class RegistraPagamento extends AbstractPanel {
@@ -47,7 +49,7 @@ public class RegistraPagamento extends AbstractPanel {
 		LaTazzaApplication.backEndInvoker.addObserver(PERSONALELIST,this);
 	}
 
-    public void setComboBoxNomePersonale(List<Personale> lista){
+    private void setComboBoxNomePersonale(List<Personale> lista){
 		nomePersonaleMenu.removeAllItems();
 
 		for(Personale i:lista){
@@ -66,6 +68,8 @@ public class RegistraPagamento extends AbstractPanel {
 
     @Override
     public void update(Observable o, Object arg) {
-        //		this.setComboBoxNomePersonale(LaTazzaApplication.controllerPersonale.getCopyList());
+        if(arg ==PERSONALELIST){
+            setComboBoxNomePersonale(((ControllerPersonale)o).getCopyList());
+        }
     }
 }
