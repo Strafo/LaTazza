@@ -1,6 +1,9 @@
 package presentationLayer.guiLogicPkg.commandPkg;
 
-import backend.businessLogicLayer.*;
+import backend.businessLogicLayer.Cassa;
+import backend.businessLogicLayer.ControllerCialde;
+import backend.businessLogicLayer.ControllerContabilita;
+import backend.businessLogicLayer.ControllerPersonale;
 import backend.dataAccessLayer.gatewaysPkg.DaoInvoker;
 import backend.dataAccessLayer.gatewaysPkg.receiverPkg.*;
 import backend.dataAccessLayer.rowdatapkg.AbstractEntryDB;
@@ -15,11 +18,9 @@ import backend.database.ConfigurationDataBase;
 import backend.database.DatabaseConnectionHandler;
 import javafx.util.Pair;
 import presentationLayer.guiLogicPkg.BackEndInvoker;
-import presentationLayer.guiLogicPkg.ObserverSubscriptionType;
 import java.sql.SQLException;
-import java.util.*;
-import static presentationLayer.guiLogicPkg.ObserverSubscriptionType.*;
-
+import java.util.Collection;
+import java.util.LinkedList;
 
 public class InitBackEndCommand implements  Command{
     private BackEndInvoker backEndInvoker;
@@ -44,30 +45,6 @@ public class InitBackEndCommand implements  Command{
         backEndInvoker.setControllerCialde(new ControllerCialde());
         backEndInvoker.setControllerContabilita(new ControllerContabilita());
         backEndInvoker.setControllerPersonale(new ControllerPersonale());
-        backEndInvoker.setControllerDebito(new ControllerDebito());
-        backEndInvoker.setSubscriptions(new EnumMap<>(ObserverSubscriptionType.class));
-
-        //init subscriptions
-
-
-        for (ObserverSubscriptionType i :ObserverSubscriptionType.values()) {
-            switch(i){
-
-                case CIALDELIST:
-                    backEndInvoker.getSubscriptions().put(CIALDELIST,backEndInvoker.getControllerCialde());
-                    break;
-                case PERSONALELIST:
-                    backEndInvoker.getSubscriptions().put(PERSONALELIST,backEndInvoker.getControllerPersonale());
-                    break;
-                case CONTABILITALIST:
-                    backEndInvoker.getSubscriptions().put(CONTABILITALIST,backEndInvoker.getControllerContabilita());
-                    break;
-                case DEBITOLIST:
-                    backEndInvoker.getSubscriptions().put(DEBITOLIST,backEndInvoker.getControllerDebito());
-                    break;
-            }
-        }
-
         return true;
     }
 

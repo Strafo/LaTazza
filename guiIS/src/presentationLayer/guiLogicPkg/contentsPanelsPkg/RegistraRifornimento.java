@@ -5,13 +5,12 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.Observable;
 import javax.swing.*;
-
-import backend.businessLogicLayer.ControllerCialde;
-import backend.dataAccessLayer.rowdatapkg.CialdeEntry;
 import presentationLayer.guiConfig.contentsPanelsPropertiesPkg.RegRifornimentoProperties;
+import presentationLayer.guiLogicPkg.BackEndInvoker;
 import presentationLayer.guiLogicPkg.LaTazzaApplication;
+import presentationLayer.guiLogicPkg.commandPkg.GetCialdeListCommand;
+
 import static presentationLayer.guiConfig.contentsPanelsPropertiesPkg.RegRifornimentoProperties.*;
-import static presentationLayer.guiLogicPkg.ObserverSubscriptionType.CIALDELIST;
 
 public class RegistraRifornimento extends AbstractPanel {
 
@@ -44,8 +43,7 @@ public class RegistraRifornimento extends AbstractPanel {
                     }
                 }
         );
-        LaTazzaApplication.backEndInvoker.addObserver(CIALDELIST,this);
-
+        this.update();
     }
 
 	private void annulla()
@@ -54,17 +52,19 @@ public class RegistraRifornimento extends AbstractPanel {
         textFieldQuantita.setValue(null);
     }
 
-    public void setTipoCialdeMenu(List<CialdeEntry> lista){
+    public void setTipoCialdeMenu(List<String> lista){
         tipoCialdeMenu.removeAllItems();
-        for(CialdeEntry i:lista){
-            this.tipoCialdeMenu.addItem(i.getTipo());
+        for(String i:lista){
+            this.tipoCialdeMenu.addItem(i);
         }
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        if(arg ==CIALDELIST){
-            setTipoCialdeMenu(((ControllerCialde)o).getCialdeEntryList());
-        }
+        BackEndInvoker.ObserverSubscription sub=(BackEndInvoker.ObserverSubscription)arg;
+        if(sub==)
+        GetCialdeListCommand c= new GetCialdeListCommand(LaTazzaApplication.backEndInvoker);
+        if(LaTazzaApplication.backEndInvoker.executeCommand(c))
+            this.setTipoCialdeMenu(c.getCialdeList());
     }
 }

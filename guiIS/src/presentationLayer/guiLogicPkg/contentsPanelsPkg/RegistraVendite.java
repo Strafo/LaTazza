@@ -3,22 +3,15 @@ package presentationLayer.guiLogicPkg.contentsPanelsPkg;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
-import java.util.Observable;
 import javax.swing.*;
-
-import backend.businessLogicLayer.ControllerCialde;
-import backend.businessLogicLayer.ControllerPersonale;
 import backend.dataAccessLayer.rowdatapkg.CialdeEntry;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import presentationLayer.guiConfig.contentsPanelsPropertiesPkg.RegVenditeProperties;
 import presentationLayer.guiLogicPkg.LaTazzaApplication;
-import presentationLayer.guiLogicPkg.commandPkg.RegistraVenditaCommand;
+import presentationLayer.guiLogicPkg.commandPkg.RegistraRifornimentoCommand;
 import javax.swing.JRadioButton;
 import javax.swing.JButton;
 import static presentationLayer.guiConfig.contentsPanelsPropertiesPkg.RegVenditeProperties.*;
-import static presentationLayer.guiLogicPkg.ObserverSubscriptionType.CIALDELIST;
-import static presentationLayer.guiLogicPkg.ObserverSubscriptionType.PERSONALELIST;
-
 
 public class RegistraVendite extends AbstractPanel {
 
@@ -60,6 +53,7 @@ public class RegistraVendite extends AbstractPanel {
 		add(radioButtACredito=RegVenditeProperties.createAndInitJRadioButtonACreadito());
 		add(buttonConferma=RegVenditeProperties.createAndInitJButtonConferma());
 		add(buttonAnnulla=RegVenditeProperties.createAndInitJButtonAnnulla());
+
 
         //LISTENER
 		buttonAnnulla.addMouseListener(
@@ -121,9 +115,7 @@ public class RegistraVendite extends AbstractPanel {
                 }
         );
 
-        LaTazzaApplication.backEndInvoker.addObserver(CIALDELIST,this);
-        LaTazzaApplication.backEndInvoker.addObserver(PERSONALELIST,this);
-
+        refreshContentPanel();
     }
 
 
@@ -138,6 +130,7 @@ public class RegistraVendite extends AbstractPanel {
     }
     public void setComboBoxTipoCialdeMenu(List<CialdeEntry> lista){
         tipoCialdeMenu.removeAllItems();
+
         for(CialdeEntry i:lista){
             this.tipoCialdeMenu.addItem(
                     i.getTipo()
@@ -158,20 +151,14 @@ public class RegistraVendite extends AbstractPanel {
         }
 
 
-        RegistraVenditaCommand command=new RegistraVenditaCommand(
+        RegistraRifornimentoCommand command=new RegistraRifornimentoCommand(
                 (String)(tipoCialdeMenu.getSelectedItem()),
                 radioButtContanti.isSelected(),
                 nomeCognome[0],
                 nomeCognome[1],
                 Integer.valueOf(textFieldQuantita.getText()),
-                isPersonale,
-                LaTazzaApplication.backEndInvoker
+                isPersonale
         );
-        if(!LaTazzaApplication.backEndInvoker.executeCommand(command))//todo check return value
-            System.err.println("Impossibile registrare vednita");
-        else
-            System.err.println("Vendita avvenuta con successo");
-
 
 
     }
@@ -188,15 +175,9 @@ public class RegistraVendite extends AbstractPanel {
         personale=null;
     }
 
-
-
     @Override
-    public void update(Observable o, Object arg) {
-
-        if(arg ==CIALDELIST){
-            setComboBoxTipoCialdeMenu(((ControllerCialde)o).getCialdeEntryList());
-        }else if(arg==PERSONALELIST){
-            setComboBoxNomePersonaleMenu(((ControllerPersonale)o).getCopyList());
-        }
+    public void refreshContentPanel() {
+        this.setComboBoxTipoCialdeMenu(LaTazzaApplication.controllerCialde.getCialdeEntryList());
+        this.setComboBoxNomePersonaleMenu(LaTazzaApplication.controllerPersonale.getCopyList());
     }
 }
