@@ -5,12 +5,9 @@ import backend.dataAccessLayer.rowdatapkg.MagazzinoEntry;
 import backend.dataAccessLayer.rowdatapkg.RifornimentoEntry;
 import presentationLayer.guiLogicPkg.LaTazzaApplication;
 import java.sql.Timestamp;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public class Magazzino  {
+public class Magazzino {
 
     //Lista contente per ogni tipo di cialda il numero di cialde disponibili
     private Map<CialdeEntry,Integer> stato;

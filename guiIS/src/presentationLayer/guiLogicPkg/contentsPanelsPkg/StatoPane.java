@@ -1,11 +1,10 @@
 package presentationLayer.guiLogicPkg.contentsPanelsPkg;
 
-import backend.businessLogicLayer.ControllerDebito;
 import backend.dataAccessLayer.rowdatapkg.CialdeEntry;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import presentationLayer.guiConfig.contentsPanelsPropertiesPkg.StatoPaneProperties;
+import presentationLayer.guiLogicPkg.BackEndInvoker;
 import presentationLayer.guiLogicPkg.LaTazzaApplication;
-import utils.Euro;
 import utils.MyJLabel;
 import javax.swing.*;
 import java.util.*;
@@ -42,7 +41,8 @@ public class StatoPane extends AbstractPanel {
         debitiPersonaleTextArea=StatoPaneProperties.createAndInitDebitiPersonaleTextArea();
         add(scrollPane=createAndInitScrollPane(debitiPersonaleTextArea));
 
-        refreshContentPanel();
+        LaTazzaApplication.backEndInvoker.addObserver(BackEndInvoker.ObserverSubscriptionType.DEBITOLIST,this);
+        LaTazzaApplication.backEndInvoker.addObserver(BackEndInvoker.ObserverSubscriptionType.CONTABILITALIST,this);
 	}
 
 
@@ -76,15 +76,13 @@ public class StatoPane extends AbstractPanel {
     }
 
 
-    @Override
-    public void refreshContentPanel() {
-        HashMap<Personale, Euro> map=ControllerDebito.esaminareDebitiPersonale();
-        this.setDebitiPersonaleTextArea(new LinkedList<>(map.keySet()));
-        this.setCialdeList(LaTazzaApplication.controllerContabilita.statoMagazzino());
-    }
+
 
     @Override
     public void update(Observable o, Object arg) {
-
+        /*HashMap<Personale, Euro> map=ControllerDebito.esaminareDebitiPersonale();
+        this.setDebitiPersonaleTextArea(new LinkedList<>(map.keySet()));
+        this.setCialdeList(LaTazzaApplication.controllerContabilita.statoMagazzino());
+*/
     }
 }
