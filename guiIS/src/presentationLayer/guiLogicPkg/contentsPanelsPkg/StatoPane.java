@@ -1,6 +1,5 @@
 package presentationLayer.guiLogicPkg.contentsPanelsPkg;
 
-import backend.businessLogicLayer.ControllerCialde;
 import backend.businessLogicLayer.ControllerDebito;
 import backend.dataAccessLayer.rowdatapkg.CialdeEntry;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
@@ -9,10 +8,7 @@ import presentationLayer.guiLogicPkg.LaTazzaApplication;
 import utils.Euro;
 import utils.MyJLabel;
 import javax.swing.*;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static presentationLayer.guiConfig.contentsPanelsPropertiesPkg.StatoPaneProperties.*;
 
@@ -85,5 +81,10 @@ public class StatoPane extends AbstractPanel {
         HashMap<Personale, Euro> map=ControllerDebito.esaminareDebitiPersonale();
         this.setDebitiPersonaleTextArea(new LinkedList<>(map.keySet()));
         this.setCialdeList(LaTazzaApplication.controllerContabilita.statoMagazzino());
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+
     }
 }
