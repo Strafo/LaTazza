@@ -31,12 +31,20 @@ public class BackEndInvoker {
             return command.execute();
         }catch (Exception e ){
             //todo handle exception
+            System.err.println(e);
             return false;
         }
     }
 
     public void addObserver(ObserverSubscriptionType subscriptionType, Observer observer){
-        subscriptions.get(subscriptionType).addObserver(observer);
+        Observable ob;
+        try {
+            ob=subscriptions.get(subscriptionType);
+            ob.addObserver(observer);
+        }catch(Exception e){
+            System.err.println(e);
+            throw e;//todo remove
+        }
     }
 
 

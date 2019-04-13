@@ -15,10 +15,15 @@ public  class LaTazzaApplication implements Runnable {
     }
 
     public void run(){
-        backEndInvoker=new BackEndInvoker();
-        backEndInvoker.executeCommand(new InitBackEndCommand(backEndInvoker));
+        this.initBackEnd();
         this.initFrame();
+    }
 
+    private void initBackEnd(){
+        backEndInvoker=new BackEndInvoker();
+        if(!backEndInvoker.executeCommand(new InitBackEndCommand(backEndInvoker))){
+            throw  new Error("Impossibile avviare applicazione");
+        }
     }
 
 	private void initFrame(){
