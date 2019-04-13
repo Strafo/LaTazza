@@ -49,8 +49,6 @@ public class LaTazzaFrameInitProperties extends AbstractFrameProperties {
         this(DEFAULTX,DEFAULTY,DEFAULTWIDITH,DEFAULTHEIGHT);
     }
 
-
-
     public static MyJLabel createAndInitLabelTitolo2(){
         MyJLabel labelTitolo2=new MyJLabel(titolo[0],
                 DEFAULT_FONT_TITOLO_2,
