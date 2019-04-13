@@ -1,16 +1,7 @@
 package presentationLayer.guiConfig.structurePanelsPropertiesPkg;
 
-import javax.swing.*;
+public class LaTazzaFrameProperties extends AbstractFrameProperties {
 
-public class LaTazzaFrameProperties {
-
-    private int x;
-    private int y;
-    private int width;
-    private int height;
-    private int closeOp;
-
-    static private final int DEFAULTCLOSEOP= JFrame.EXIT_ON_CLOSE;
     static private final int DEFAULTX=100;
     static private final int DEFAULTY=100;
     static private final int DEFAULTWIDITH=810;
@@ -29,35 +20,6 @@ public class LaTazzaFrameProperties {
     /**DEFAULT CONSTRUCTOR***/
     public LaTazzaFrameProperties(){
         this(DEFAULTX,DEFAULTY,DEFAULTWIDITH,DEFAULTHEIGHT,DEFAULTCLOSEOP);
-    }
-
-    /**PROPERTIES GETTER**/
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public int getCloseOp() {
-        return closeOp;
-    }
-
-    public void initFrame(JFrame frame){
-
-        frame.setBounds(x,y,width, height);
-        frame.setDefaultCloseOperation(closeOp);//todo checksetBounds(100, 100, 800, 500);
-        frame.setUndecorated(true);
-        frame.setTitle("LaTazza");
     }
 
 }

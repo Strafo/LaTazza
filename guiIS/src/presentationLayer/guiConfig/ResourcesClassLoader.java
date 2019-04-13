@@ -1,7 +1,7 @@
 package presentationLayer.guiConfig;
 
+import javax.swing.*;
 import java.util.Objects;
-import javax.swing.ImageIcon;
 
 //class to load imageIcon
 public class ResourcesClassLoader{
@@ -34,6 +34,7 @@ public class ResourcesClassLoader{
     private static ImageIcon iconaDebiti= retriveIcon("debiti.png");
     private static ImageIcon iconaAggPersonale= retriveIcon("iconAggiuntaUtente.png");
     private static ImageIcon iconaRimPersonale= retriveIcon("iconRimozioneUtente.png");
+    private static ImageIcon iconaInit= retriveIcon("iconaInit.png");
 
     public static ImageIcon retriveIcon(String iconAddress) {
         String path=System.getProperty("user.dir")+"/guiIS/src/presentationLayer/iconeGui/"+iconAddress;
@@ -149,5 +150,7 @@ public class ResourcesClassLoader{
     public static ImageIcon getIconaRimPersonale() {
         return iconaRimPersonale;
     }
+
+    public static ImageIcon getIconaInit() { return iconaInit; }
 
 }

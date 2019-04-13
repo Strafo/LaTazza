@@ -79,10 +79,13 @@ public  class LaTazzaApplication implements Runnable {
     }
 
 	private void initFrame(){
+        laTazzaFrameInit=new LaTazzaFrameInit();
+        (new LaTazzaFrameInitProperties()).initFrame(laTazzaFrameInit,LaTazzaColors.TRASPARENT);
+        laTazzaFrameInit.setVisible(true);
+
         laTazzaFrame=new LaTazzaFrame();
-        (new LaTazzaFrameProperties()).initFrame(laTazzaFrame);
-        laTazzaFrame.setVisible(true);
-        laTazzaFrame.setLocationCenter();
+        (new LaTazzaFrameProperties()).initFrame(laTazzaFrame,null);
+        (new LaTazzaFrameProperties()).postPonedDisplay(laTazzaFrame);
     }
 
 
