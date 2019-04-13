@@ -3,10 +3,14 @@ package presentationLayer.guiLogicPkg.contentsPanelsPkg;
 import javax.swing.JLabel;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import presentationLayer.guiConfig.contentsPanelsPropertiesPkg.GestPersonaleProperties;
+import presentationLayer.guiLogicPkg.BackEndInvoker;
 import presentationLayer.guiLogicPkg.LaTazzaApplication;
 import javax.swing.*;
 import java.util.List;
+import java.util.Observable;
+
 import static presentationLayer.guiConfig.contentsPanelsPropertiesPkg.GestPersonaleProperties.*;
+import static presentationLayer.guiLogicPkg.BackEndInvoker.ObserverSubscriptionType.PERSONALELIST;
 
 public class GestionePersonale extends AbstractPanel {
 
@@ -33,7 +37,7 @@ public class GestionePersonale extends AbstractPanel {
         add(comboBoxNomePersonale=GestPersonaleProperties.createAndInitJComboBoxNomePersonale());
         add(buttonRimuovi=GestPersonaleProperties.createAndInitButtonRimuovi());
 
-        refreshContentPanel();
+        LaTazzaApplication.backEndInvoker.addObserver(PERSONALELIST,this);
     }
 
 
@@ -47,7 +51,7 @@ public class GestionePersonale extends AbstractPanel {
     }
 
     @Override
-    public void refreshContentPanel() {
-        this.setComboBoxNomePersonale(LaTazzaApplication.controllerPersonale.getCopyList());
+    public void update(Observable o, Object arg) {
+        //this.setComboBoxNomePersonale(LaTazzaApplication.controllerPersonale.getCopyList());
     }
 }

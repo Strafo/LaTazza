@@ -60,8 +60,8 @@ public class InitBackEndCommand implements  Command{
                 case RIFORNIMENTOLIST:
                     backEndInvoker.getSubscriptions().put(RIFORNIMENTOLIST,backEndInvoker.getControllerContabilita());
                     break;
-                case CASSALIST:
-                    backEndInvoker.getSubscriptions().put(CASSALIST,backEndInvoker.getControllerContabilita());
+                case CONTABILITALIST:
+                    backEndInvoker.getSubscriptions().put(CONTABILITALIST,backEndInvoker.getControllerContabilita());
                     break;
                 case DEBITOLIST:
                     backEndInvoker.getSubscriptions().put(DEBITOLIST,backEndInvoker.getControllerDebito());
