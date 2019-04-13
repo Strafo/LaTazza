@@ -7,16 +7,19 @@ import backend.dataAccessLayer.rowdatapkg.clientPkg.Visitatore;
 import presentationLayer.guiLogicPkg.LaTazzaApplication;
 import utils.Euro;
 import java.util.Map;
+import java.util.Observable;
 
-public  class ControllerContabilita {
+public  class ControllerContabilita extends Observable {
 
     private Magazzino magazzino;
     private Cassa cassa;
-
+    private ControllerDebito controllerDebito;
 
     public ControllerContabilita(){
         magazzino= new Magazzino();
-        cassa= LaTazzaApplication.dao.getAll(Cassa.class).get(0);
+        cassa= LaTazzaApplication.backEndInvoker.getDao().getAll(Cassa.class).get(0);
+        controllerDebito=LaTazzaApplication.backEndInvoker.getControllerDebito();
+        this.setChanged();
     }
 
 
@@ -46,7 +49,7 @@ public  class ControllerContabilita {
         }
         try {
             if (!contanti) {
-                ControllerDebito.registrareAumentoDebito(importo, (Personale) c);//può lanciare OverflowEuroExc
+                controllerDebito.registrareAumentoDebito(importo, (Personale) c);//può lanciare OverflowEuroExc
             } else cassa.incrementaSaldo(importo);//può lanciare OverflowEuroExc
         }catch (Euro.OverflowEuroException e){
             //ripristino stato magazzino
@@ -59,7 +62,7 @@ public  class ControllerContabilita {
             handleDebitoCassaConsistency(importo,c,contanti);
             return false;
         }
-
+        this.setChanged();
         return true;
     }
 
@@ -76,7 +79,8 @@ public  class ControllerContabilita {
         importo.moltiplicaImporto(numeroCialde);
         if(cassa.decrementaSaldo(importo)) return false;
         magazzino.aggiungiScatole(tipo,numeroScatole);
-       return true;
+        this.setChanged();
+        return true;
 
     }
 
@@ -93,7 +97,7 @@ public  class ControllerContabilita {
 
     private void handleMagazzinoConsistency(CialdeEntry tipo,int numeroCialde){
         try {
-            if (!magazzino.aggiungiScatole(tipo, numeroCialde)) {
+            if (!magazzino.aggiungiCialde(tipo, numeroCialde)) {
                 //se fallisce anche il tentativo di gestione dell'errore abortisco.L'user dovrà quindi riavviare
                 //l'applicazione restaurando così la consistenza DB, Ram
                 //teoricamente non dovrebbe mai accadere in quanto rimuoviCialde() non è fallita... però non si sa mai...
@@ -108,7 +112,7 @@ public  class ControllerContabilita {
         try {
             boolean resState;
             if (!contanti) {
-                resState = ControllerDebito.registrarePagamentoDebito(importo, c.getNome(), c.getCognome());
+                resState = controllerDebito.registrarePagamentoDebito(importo, c.getNome(), c.getCognome());
             } else{
                 resState = cassa.decrementaSaldo(importo);
             }

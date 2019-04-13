@@ -3,10 +3,10 @@ package presentationLayer.guiLogicPkg.contentsPanelsPkg;
 
 import presentationLayer.guiLogicPkg.LaTazzaFrame;
 import javax.swing.*;
+import java.util.Observer;
 
 
-
-public abstract class AbstractPanel extends JPanel {
+public abstract class AbstractPanel extends JPanel implements Observer {
 
     private final long serialVersionUID;
     private final String LINKDESCRIPTION;
@@ -32,6 +32,6 @@ public abstract class AbstractPanel extends JPanel {
         return PANELNAME;
     }
 
-    public abstract void refreshContentPanel();
+
 
 }

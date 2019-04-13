@@ -1,20 +1,17 @@
 package presentationLayer.guiLogicPkg.contentsPanelsPkg;
 
-import backend.businessLogicLayer.ControllerCialde;
+import backend.businessLogicLayer.ControllerContabilita;
 import backend.businessLogicLayer.ControllerDebito;
 import backend.dataAccessLayer.rowdatapkg.CialdeEntry;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import presentationLayer.guiConfig.contentsPanelsPropertiesPkg.StatoPaneProperties;
 import presentationLayer.guiLogicPkg.LaTazzaApplication;
-import utils.Euro;
 import utils.MyJLabel;
 import javax.swing.*;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
+import java.util.*;
 import static presentationLayer.guiConfig.contentsPanelsPropertiesPkg.StatoPaneProperties.*;
+import static presentationLayer.guiLogicPkg.ObserverSubscriptionType.CONTABILITALIST;
+import static presentationLayer.guiLogicPkg.ObserverSubscriptionType.DEBITOLIST;
 
 
 public class StatoPane extends AbstractPanel {
@@ -46,7 +43,8 @@ public class StatoPane extends AbstractPanel {
         debitiPersonaleTextArea=StatoPaneProperties.createAndInitDebitiPersonaleTextArea();
         add(scrollPane=createAndInitScrollPane(debitiPersonaleTextArea));
 
-        refreshContentPanel();
+        LaTazzaApplication.backEndInvoker.addObserver(DEBITOLIST,this);
+        LaTazzaApplication.backEndInvoker.addObserver(CONTABILITALIST,this);
 	}
 
 
@@ -55,6 +53,7 @@ public class StatoPane extends AbstractPanel {
         int i=0;
         for (CialdeEntry s : listaCialde.keySet())
         {
+            System.out.println(s.getTipo());
             add(StatoPaneProperties.createAndInitJLabelCialda(s.getTipo()+" "+ listaCialde.get(s),i++));
         }
     }
@@ -80,10 +79,15 @@ public class StatoPane extends AbstractPanel {
     }
 
 
+
+
     @Override
-    public void refreshContentPanel() {
-        HashMap<Personale, Euro> map=ControllerDebito.esaminareDebitiPersonale();
-        this.setDebitiPersonaleTextArea(new LinkedList<>(map.keySet()));
-        this.setCialdeList(LaTazzaApplication.controllerContabilita.statoMagazzino());
+    public void update(Observable o, Object arg) {
+        if(arg ==DEBITOLIST){
+            setDebitiPersonaleTextArea(((ControllerDebito)o).esaminareDebitiPersonale());
+        }else if(arg==CONTABILITALIST){
+            System.out.println("ciao");//todo
+            setCialdeList(((ControllerContabilita)o).statoMagazzino());
+        }
     }
 }
