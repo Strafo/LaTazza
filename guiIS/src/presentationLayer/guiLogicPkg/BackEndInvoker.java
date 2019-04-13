@@ -21,16 +21,6 @@ public class BackEndInvoker {
     private IDaoFacade dao;
     private Map<ObserverSubscriptionType, Observable> subscriptions;
 
-
-    public enum ObserverSubscriptionType{
-        CIALDELIST,
-        PERSONALELIST,
-        RIFORNIMENTOLIST,
-        CONTABILITALIST,
-        DEBITOLIST,
-
-    }
-
     public BackEndInvoker(){
 
     }
@@ -48,8 +38,6 @@ public class BackEndInvoker {
     public void addObserver(ObserverSubscriptionType subscriptionType, Observer observer){
         subscriptions.get(subscriptionType).addObserver(observer);
     }
-
-
 
 
 
@@ -111,5 +99,6 @@ public class BackEndInvoker {
     public void setControllerDebito(ControllerDebito controllerDebito) {
         this.controllerDebito = controllerDebito;
     }
+
 
 }
