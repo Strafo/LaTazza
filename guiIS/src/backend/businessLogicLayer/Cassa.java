@@ -10,7 +10,7 @@ public class Cassa extends AbstractEntryDB {
     private final static long saldoIniziale= 500;
     private Euro saldo;
 
-    public Cassa(){
+    Cassa(){
         saldo= new Euro(saldoIniziale);
     }//todo dove viene utilizzato?
     public Cassa(Euro s){

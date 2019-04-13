@@ -7,21 +7,16 @@ import backend.dataAccessLayer.rowdatapkg.clientPkg.Visitatore;
 import presentationLayer.guiLogicPkg.LaTazzaApplication;
 import utils.Euro;
 import java.util.Map;
-import java.util.Observable;
 
-import static presentationLayer.guiLogicPkg.ObserverSubscriptionType.CONTABILITALIST;
-
-public  class ControllerContabilita extends Observable {
+public  class ControllerContabilita {
 
     private Magazzino magazzino;
     private Cassa cassa;
-    private ControllerDebito controllerDebito;
+
 
     public ControllerContabilita(){
         magazzino= new Magazzino();
-        cassa= LaTazzaApplication.backEndInvoker.getDao().getAll(Cassa.class).get(0);
-        controllerDebito=LaTazzaApplication.backEndInvoker.getControllerDebito();
-        this.setChanged();
+        cassa= LaTazzaApplication.dao.getAll(Cassa.class).get(0);
     }
 
 
@@ -47,13 +42,11 @@ public  class ControllerContabilita extends Observable {
 
 
         if(!magazzino.rimuoviCialde(tipo,numeroCialde)){
-            System.err.println("regVenditafalse");
-
             return false;
         }
         try {
             if (!contanti) {
-                controllerDebito.registrareAumentoDebito(importo, (Personale) c);//può lanciare OverflowEuroExc
+                ControllerDebito.registrareAumentoDebito(importo, (Personale) c);//può lanciare OverflowEuroExc
             } else cassa.incrementaSaldo(importo);//può lanciare OverflowEuroExc
         }catch (Euro.OverflowEuroException e){
             //ripristino stato magazzino
@@ -66,7 +59,7 @@ public  class ControllerContabilita extends Observable {
             handleDebitoCassaConsistency(importo,c,contanti);
             return false;
         }
-        this.setChanged();this.notifyObservers(CONTABILITALIST);
+
         return true;
     }
 
@@ -83,8 +76,7 @@ public  class ControllerContabilita extends Observable {
         importo.moltiplicaImporto(numeroCialde);
         if(cassa.decrementaSaldo(importo)) return false;
         magazzino.aggiungiScatole(tipo,numeroScatole);
-        this.setChanged();this.notifyObservers(CONTABILITALIST);
-        return true;
+       return true;
 
     }
 
@@ -101,7 +93,7 @@ public  class ControllerContabilita extends Observable {
 
     private void handleMagazzinoConsistency(CialdeEntry tipo,int numeroCialde){
         try {
-            if (!magazzino.aggiungiCialde(tipo, numeroCialde)) {
+            if (!magazzino.aggiungiScatole(tipo, numeroCialde)) {
                 //se fallisce anche il tentativo di gestione dell'errore abortisco.L'user dovrà quindi riavviare
                 //l'applicazione restaurando così la consistenza DB, Ram
                 //teoricamente non dovrebbe mai accadere in quanto rimuoviCialde() non è fallita... però non si sa mai...
@@ -116,7 +108,7 @@ public  class ControllerContabilita extends Observable {
         try {
             boolean resState;
             if (!contanti) {
-                resState = controllerDebito.registrarePagamentoDebito(importo, c.getNome(), c.getCognome());
+                resState = ControllerDebito.registrarePagamentoDebito(importo, c.getNome(), c.getCognome());
             } else{
                 resState = cassa.decrementaSaldo(importo);
             }

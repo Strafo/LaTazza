@@ -1,20 +1,20 @@
 package backend.businessLogicLayer;
-import backend.dataAccessLayer.gatewaysPkg.IDaoFacade;
 import backend.dataAccessLayer.rowdatapkg.CialdeEntry;
 import backend.dataAccessLayer.rowdatapkg.MagazzinoEntry;
 import backend.dataAccessLayer.rowdatapkg.RifornimentoEntry;
 import presentationLayer.guiLogicPkg.LaTazzaApplication;
 import java.sql.Timestamp;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public class Magazzino {
+public class Magazzino  {
 
     //Lista contente per ogni tipo di cialda il numero di cialde disponibili
     private Map<CialdeEntry,Integer> stato;
     //Il numero di cialde contenute in una scatola
     private static final int qtaCialdeScatole=50;
-    private IDaoFacade dao;
-
 
     int getQtaCialdeScatole(){
         return qtaCialdeScatole;
@@ -24,8 +24,7 @@ public class Magazzino {
      *
      */
     Magazzino(){
-        this.dao=LaTazzaApplication.backEndInvoker.getDao();
-        List<MagazzinoEntry>list=dao.getAll(MagazzinoEntry.class);//inizializza il campo list facendo query sul databaseConnectionHandler
+        List<MagazzinoEntry>list=LaTazzaApplication.dao.getAll(MagazzinoEntry.class);//inizializza il campo list facendo query sul databaseConnectionHandler
         if(list==null){
             throw new Error(new Throwable("Impossibile creare Magazzino nell'applicazione."));
         }
@@ -56,7 +55,7 @@ public class Magazzino {
         Integer qta=qtaScatole*qtaCialdeScatole;
         RifornimentoEntry entry=new RifornimentoEntry(new Timestamp((new Date()).getTime()),qta,t.getTipo());//nullp
         Integer oldQta;
-        if(dao.save(entry)){
+        if(LaTazzaApplication.dao.save(entry)){
             if((oldQta=stato.getOrDefault(t,null))!=null){//se contiene già un entry per il tipo faccio somma del numero cialde
                 stato.put(t,qta+oldQta);
             }else{
@@ -75,8 +74,6 @@ public class Magazzino {
      * @return true se il tipo di cialda passata esiste e se qta<=riserveMagazzino  ,false altrimenti
      */
     boolean rimuoviCialde(CialdeEntry t, int qta){
-        System.out.println("t:"+t);
-        printMap();
         Integer oldQta=stato.get(t);
         if(oldQta==null){return false;}
         int nuovaQta=oldQta - qta;
@@ -97,9 +94,5 @@ public class Magazzino {
 
 
 
-    private void printMap(){
-        for (CialdeEntry i:stato.keySet()) {
-            System.out.println(i+":"+stato.get(i));
-        }
-    }
+
 }

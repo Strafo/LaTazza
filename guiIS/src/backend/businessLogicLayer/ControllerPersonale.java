@@ -1,31 +1,27 @@
 package backend.businessLogicLayer;
 
-import backend.dataAccessLayer.gatewaysPkg.IDaoFacade;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import presentationLayer.guiLogicPkg.LaTazzaApplication;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ListIterator;
 
-import java.util.*;
-
-import static presentationLayer.guiLogicPkg.ObserverSubscriptionType.PERSONALELIST;
-
-public class ControllerPersonale extends Observable {
-
+public class ControllerPersonale {
     private List<Personale> listaPersonaleAttivo;
-    private IDaoFacade dao;
 
     public ControllerPersonale(){
-        dao=LaTazzaApplication.backEndInvoker.getDao();
-        listaPersonaleAttivo=dao.getAll(Personale.class);
+        listaPersonaleAttivo=LaTazzaApplication.dao.getAll(Personale.class);
         List<Personale> listaPersonaleNonA=new LinkedList<>();
         if(listaPersonaleAttivo==null){//inizializzazione fallita...
             //todo cosa fare?
         }else{
             for (Personale i:listaPersonaleAttivo) {//seleziono solo quelli attivi
-                if(!i.isAttivo()) listaPersonaleNonA.add(i);
+                if(!i.isAttivo()){
+                    listaPersonaleNonA.add(i);
+                }
             }
             listaPersonaleAttivo.removeAll(listaPersonaleNonA);
         }
-        this.setChanged();
     }
 
     /**
@@ -62,7 +58,7 @@ public class ControllerPersonale extends Observable {
      * @return la lista
      */
     public List<Personale> getCopyList(){
-        return new ArrayList<>(listaPersonaleAttivo);
+        return  new LinkedList<>(listaPersonaleAttivo);
     }
 
     /**
@@ -75,11 +71,10 @@ public class ControllerPersonale extends Observable {
     public boolean aggiungiPersonale(String nome, String cognome)throws NullPointerException{
         Personale p=new Personale(nome,cognome);//può lanciare null pointer exception!
         if(listaPersonaleAttivo.contains(p)) return false;
-        if(!dao.save(p)){
+        if(!LaTazzaApplication.dao.save(p)){
             return false;
         }
         listaPersonaleAttivo.add(p);
-        this.setChanged();this.notifyObservers(PERSONALELIST);
         return true;
     }
 
@@ -91,13 +86,12 @@ public class ControllerPersonale extends Observable {
     public boolean licenziaPersonale(Personale p) {
         if (!listaPersonaleAttivo.contains(p)) return false;
         p.setAttivo(false);
-        if (!dao.update(p)) {//se fallisce ripristino stato iniziale
+        if (!LaTazzaApplication.dao.update(p)) {//se fallisce ripristino stato iniziale
             p.undoChanges();
             return false;
         } else {
             listaPersonaleAttivo.remove(p);
         }
-        this.setChanged();this.notifyObservers(PERSONALELIST);
         return true;
     }
 

@@ -6,52 +6,78 @@ import presentationLayer.guiLogicPkg.LaTazzaApplication;
 import utils.Euro;
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 public  final class ControllerDebito {
 
-    private  ControllerDebito(){}
+    private  ControllerDebito(){
+    }
 
 
-    private static boolean aggiornaMovimento(Personale p, Euro importo){
+    /**
+     *
+     * @param p
+     * @param importo
+     * @return
+     * @throws NullPointerException
+     */
+    private static boolean aggiungiMovimentoDebito(Personale p, Euro importo) throws NullPointerException{
         Date date=new Date();
         Movimento mp=new MovimentoDebito(new Timestamp(date.getTime()),p,importo);
         return LaTazzaApplication.dao.save(mp);
     }
 
-    public static Personale getPersonale(Personale p){
-        List<Personale> list=LaTazzaApplication.controllerPersonale.getCopyList();
-        int index= list.indexOf(p);
-        if(index == -1)  return null;
-        return list.get(index);
-    }
 
-    public static boolean registrarePagamentoDebito(Euro importo , Personale p) throws NullPointerException{
-
-
-        Personale cliente= getPersonale(p);
-        if(!cliente.pagamentoDebito(importo)) return false;
-        aggiornaMovimento(cliente, importo);
+    /**
+     *
+     * @param importo
+     * @param nome
+     * @param cognome
+     * @return
+     * @throws NullPointerException
+     */
+    public static boolean registrarePagamentoDebito(Euro importo , String nome,String cognome )throws NullPointerException{
+        Personale cliente= LaTazzaApplication.controllerPersonale.getPersonale(nome, cognome);
+        //todo deve essere un transazione
+            aggiungiMovimentoDebito(cliente, importo);
+            if(!cliente.pagamentoDebito(importo)) return false;
+        //todo fino a qui
         return true;
     }
 
-    public static void registrareAumentoDebito(Euro importo , Personale p) throws NullPointerException{
-        Personale cliente= getPersonale(p);
+
+    /**
+     *
+     * @param importo
+     * @param nome
+     * @param cognome
+     * @return
+     * @throws NullPointerException
+     */
+    public static boolean registrareAumentoDebito(Euro importo ,String nome,String cognome)throws NullPointerException{
+        Personale cliente = LaTazzaApplication.controllerPersonale.getPersonale(nome, cognome);
+        if (cliente == null) return false;
         cliente.aumentaDebito(importo);
+        return true;
     }
 
-    public static HashMap<Personale, Euro> esaminareDebitiPersonale(){
-        HashMap<Personale, Euro> debiti= new HashMap<Personale,Euro>();
+    public static boolean registrareAumentoDebito(Euro importo ,Personale personale)throws Euro.OverflowEuroException,NullPointerException{
+        Personale cliente = LaTazzaApplication.controllerPersonale.getPersonale(personale);
+        if (cliente == null) return false;
+        cliente.aumentaDebito(importo);
+        return true;
+    }
+
+
+
+    /**
+     * Ritorna la lista del personale attivo con un debito >0.
+     * @return la lista
+     */
+    public static List<Personale> esaminareDebitiPersonale(){
         List<Personale> list= LaTazzaApplication.controllerPersonale.getCopyList();
-        for (Personale p:list) {
-            if(Euro.compare(p.getImportoDebito(),new Euro(0,0))!=0) {
-
-                debiti.put(p, p.getImportoDebito());
-            }
-        }
-
-        return debiti;
+        list.removeIf(p -> Euro.compare(p.getImportoDebito(), new Euro(0, 0)) == 0);
+        return list;
     }
 
 
