@@ -1,16 +1,21 @@
 package backend.businessLogicLayer;
 
+import backend.dataAccessLayer.gatewaysPkg.IDaoFacade;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import presentationLayer.guiLogicPkg.LaTazzaApplication;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Observable;
 
-public class ControllerPersonale {
+public class ControllerPersonale extends Observable {
+
     private List<Personale> listaPersonaleAttivo;
+    private IDaoFacade dao;
 
     public ControllerPersonale(){
-        listaPersonaleAttivo=LaTazzaApplication.dao.getAll(Personale.class);
+        dao=LaTazzaApplication.backEndInvoker.getDao();
+        listaPersonaleAttivo=dao.getAll(Personale.class);
         List<Personale> listaPersonaleNonA=new LinkedList<>();
         if(listaPersonaleAttivo==null){//inizializzazione fallita...
             //todo cosa fare?
@@ -71,7 +76,7 @@ public class ControllerPersonale {
     public boolean aggiungiPersonale(String nome, String cognome)throws NullPointerException{
         Personale p=new Personale(nome,cognome);//può lanciare null pointer exception!
         if(listaPersonaleAttivo.contains(p)) return false;
-        if(!LaTazzaApplication.dao.save(p)){
+        if(!dao.save(p)){
             return false;
         }
         listaPersonaleAttivo.add(p);
@@ -86,7 +91,7 @@ public class ControllerPersonale {
     public boolean licenziaPersonale(Personale p) {
         if (!listaPersonaleAttivo.contains(p)) return false;
         p.setAttivo(false);
-        if (!LaTazzaApplication.dao.update(p)) {//se fallisce ripristino stato iniziale
+        if (!dao.update(p)) {//se fallisce ripristino stato iniziale
             p.undoChanges();
             return false;
         } else {

@@ -9,6 +9,7 @@ import java.util.Date;
 
 public final class Vendita {
 
+
     private Vendita(){}
 
     /**
@@ -23,7 +24,7 @@ public final class Vendita {
      */
     public static boolean aggiungiMovimentoVendita(Timestamp data, Cliente cliente, CialdeEntry tipoCialda, int qta, boolean modalita)
             throws NullPointerException{
-        return LaTazzaApplication.dao.save(new MovimentoVendita(data,cliente,qta,tipoCialda,modalita));
+        return LaTazzaApplication.backEndInvoker.getDao().save(new MovimentoVendita(data,cliente,qta,tipoCialda,modalita));
     }
 
     /**
