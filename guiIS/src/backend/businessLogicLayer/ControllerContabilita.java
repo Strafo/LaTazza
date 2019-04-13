@@ -61,7 +61,6 @@ public  class ControllerContabilita extends Observable {
             handleDebitoCassaConsistency(importo,c,contanti);
             return false;
         }
-
         return true;
     }
 
@@ -78,7 +77,7 @@ public  class ControllerContabilita extends Observable {
         importo.moltiplicaImporto(numeroCialde);
         if(cassa.decrementaSaldo(importo)) return false;
         magazzino.aggiungiScatole(tipo,numeroScatole);
-       return true;
+        return true;
 
     }
 
