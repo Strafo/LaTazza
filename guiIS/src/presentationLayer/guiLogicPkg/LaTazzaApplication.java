@@ -1,12 +1,14 @@
 package presentationLayer.guiLogicPkg;
 import presentationLayer.guiConfig.structurePanelsPropertiesPkg.LaTazzaFrameProperties;
 import presentationLayer.guiLogicPkg.commandPkg.InitBackEndCommand;
+import presentationLayer.guiLogicPkg.commandPkg.NotifyObserversCommand;
+import java.util.Arrays;
+import java.util.List;
 
 public  class LaTazzaApplication implements Runnable {
 
-	private LaTazzaFrame laTazzaFrame;//Finestra dell'applicazione
+    private LaTazzaFrame laTazzaFrame;//Finestra dell'applicazione
     public static BackEndInvoker backEndInvoker;
-
 
 
     public static void main(String[] args)  {
@@ -16,6 +18,8 @@ public  class LaTazzaApplication implements Runnable {
     public void run(){
         this.initBackEnd();
         this.initFrame();
+        List<ObserverSubscriptionType> subList=Arrays.asList(ObserverSubscriptionType.values());
+        backEndInvoker.executeCommand(new NotifyObserversCommand(subList,backEndInvoker));
     }
 
     private void initBackEnd(){
