@@ -2,25 +2,32 @@ package presentationLayer.guiLogicPkg;
 
 import backend.businessLogicLayer.ControllerCialde;
 import backend.businessLogicLayer.ControllerContabilita;
+import backend.businessLogicLayer.ControllerDebito;
 import backend.businessLogicLayer.ControllerPersonale;
 import backend.dataAccessLayer.gatewaysPkg.IDaoFacade;
 import backend.database.DatabaseConnectionHandler;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import presentationLayer.guiLogicPkg.commandPkg.Command;
+import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 
-public class BackEndInvoker implements Observable {
+public class BackEndInvoker {
 
     private ControllerContabilita controllerContabilita;
     private ControllerPersonale controllerPersonale;
     private ControllerCialde controllerCialde;
+    private ControllerDebito controllerDebito;
     private DatabaseConnectionHandler databaseConnectionHandler;
     private IDaoFacade dao;
+    private Map<ObserverSubscriptionType, Observable> subscriptions;
 
-    public enum ObserverSubscription{
+
+    public enum ObserverSubscriptionType{
         CIALDELIST,
         PERSONALELIST,
         RIFORNIMENTOLIST,
+        CASSALIST,
+        DEBITOLIST
 
     }
 
@@ -38,15 +45,12 @@ public class BackEndInvoker implements Observable {
         }
     }
 
-    @Override
-    public void addListener(InvalidationListener listener) {
-
+    public void addObserver(ObserverSubscriptionType subscriptionType, Observer observer){
+        subscriptions.get(subscriptionType).addObserver(observer);
     }
 
-    @Override
-    public void removeListener(InvalidationListener listener) {
 
-    }
+
 
 
 
@@ -91,4 +95,21 @@ public class BackEndInvoker implements Observable {
     public void setDao(IDaoFacade dao) {
         this.dao = dao;
     }
+
+    public Map<ObserverSubscriptionType, Observable> getSubscriptions() {
+        return subscriptions;
+    }
+
+    public void setSubscriptions(Map<ObserverSubscriptionType, Observable> subscriptions) {
+        this.subscriptions = subscriptions;
+    }
+
+    public ControllerDebito getControllerDebito() {
+        return controllerDebito;
+    }
+
+    public void setControllerDebito(ControllerDebito controllerDebito) {
+        this.controllerDebito = controllerDebito;
+    }
+
 }

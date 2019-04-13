@@ -1,9 +1,6 @@
 package presentationLayer.guiLogicPkg.commandPkg;
 
-import backend.businessLogicLayer.Cassa;
-import backend.businessLogicLayer.ControllerCialde;
-import backend.businessLogicLayer.ControllerContabilita;
-import backend.businessLogicLayer.ControllerPersonale;
+import backend.businessLogicLayer.*;
 import backend.dataAccessLayer.gatewaysPkg.DaoInvoker;
 import backend.dataAccessLayer.gatewaysPkg.receiverPkg.*;
 import backend.dataAccessLayer.rowdatapkg.AbstractEntryDB;
@@ -19,8 +16,9 @@ import backend.database.DatabaseConnectionHandler;
 import javafx.util.Pair;
 import presentationLayer.guiLogicPkg.BackEndInvoker;
 import java.sql.SQLException;
-import java.util.Collection;
-import java.util.LinkedList;
+import java.util.*;
+import static presentationLayer.guiLogicPkg.BackEndInvoker.ObserverSubscriptionType.*;
+
 
 public class InitBackEndCommand implements  Command{
     private BackEndInvoker backEndInvoker;
@@ -45,6 +43,31 @@ public class InitBackEndCommand implements  Command{
         backEndInvoker.setControllerCialde(new ControllerCialde());
         backEndInvoker.setControllerContabilita(new ControllerContabilita());
         backEndInvoker.setControllerPersonale(new ControllerPersonale());
+        backEndInvoker.setControllerDebito(new ControllerDebito());
+        backEndInvoker.setSubscriptions(new EnumMap<>(BackEndInvoker.ObserverSubscriptionType.class));
+
+        //init subscriptions
+        for (Map.Entry<BackEndInvoker.ObserverSubscriptionType, Observable> entry
+                : backEndInvoker.getSubscriptions().entrySet()) {
+            switch(entry.getKey()){
+
+                case CIALDELIST:
+                    backEndInvoker.getSubscriptions().put(CIALDELIST,backEndInvoker.getControllerCialde());
+                    break;
+                case PERSONALELIST:
+                    backEndInvoker.getSubscriptions().put(PERSONALELIST,backEndInvoker.getControllerPersonale());
+                    break;
+                case RIFORNIMENTOLIST:
+                    backEndInvoker.getSubscriptions().put(RIFORNIMENTOLIST,backEndInvoker.getControllerContabilita());
+                    break;
+                case CASSALIST:
+                    backEndInvoker.getSubscriptions().put(CASSALIST,backEndInvoker.getControllerContabilita());
+                    break;
+                case DEBITOLIST:
+                    backEndInvoker.getSubscriptions().put(DEBITOLIST,backEndInvoker.getControllerDebito());
+                    break;
+            }
+        }
         return true;
     }
 
