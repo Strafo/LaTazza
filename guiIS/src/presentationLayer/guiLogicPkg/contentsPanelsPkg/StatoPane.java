@@ -3,13 +3,15 @@ package presentationLayer.guiLogicPkg.contentsPanelsPkg;
 import backend.dataAccessLayer.rowdatapkg.CialdeEntry;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import presentationLayer.guiConfig.contentsPanelsPropertiesPkg.StatoPaneProperties;
-import presentationLayer.guiLogicPkg.BackEndInvoker;
 import presentationLayer.guiLogicPkg.LaTazzaApplication;
+import presentationLayer.guiLogicPkg.ObserverSubscriptionType;
 import utils.MyJLabel;
 import javax.swing.*;
 import java.util.*;
 
 import static presentationLayer.guiConfig.contentsPanelsPropertiesPkg.StatoPaneProperties.*;
+import static presentationLayer.guiLogicPkg.ObserverSubscriptionType.CONTABILITALIST;
+import static presentationLayer.guiLogicPkg.ObserverSubscriptionType.DEBITOLIST;
 
 
 public class StatoPane extends AbstractPanel {
@@ -41,8 +43,8 @@ public class StatoPane extends AbstractPanel {
         debitiPersonaleTextArea=StatoPaneProperties.createAndInitDebitiPersonaleTextArea();
         add(scrollPane=createAndInitScrollPane(debitiPersonaleTextArea));
 
-        LaTazzaApplication.backEndInvoker.addObserver(BackEndInvoker.ObserverSubscriptionType.DEBITOLIST,this);
-        LaTazzaApplication.backEndInvoker.addObserver(BackEndInvoker.ObserverSubscriptionType.CONTABILITALIST,this);
+        LaTazzaApplication.backEndInvoker.addObserver(DEBITOLIST,this);
+        LaTazzaApplication.backEndInvoker.addObserver(ObserverSubscriptionType.CONTABILITALIST,this);
 	}
 
 
@@ -80,6 +82,10 @@ public class StatoPane extends AbstractPanel {
 
     @Override
     public void update(Observable o, Object arg) {
+        if(arg ==DEBITOLIST){
+
+        }else if(arg==CONTABILITALIST){
+        }
         /*HashMap<Personale, Euro> map=ControllerDebito.esaminareDebitiPersonale();
         this.setDebitiPersonaleTextArea(new LinkedList<>(map.keySet()));
         this.setCialdeList(LaTazzaApplication.controllerContabilita.statoMagazzino());

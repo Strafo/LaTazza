@@ -5,16 +5,19 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.Observable;
 import javax.swing.*;
+
+import backend.businessLogicLayer.ControllerCialde;
+import backend.businessLogicLayer.ControllerPersonale;
 import backend.dataAccessLayer.rowdatapkg.CialdeEntry;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import presentationLayer.guiConfig.contentsPanelsPropertiesPkg.RegVenditeProperties;
-import presentationLayer.guiLogicPkg.BackEndInvoker;
 import presentationLayer.guiLogicPkg.LaTazzaApplication;
 import presentationLayer.guiLogicPkg.commandPkg.RegistraVenditaCommand;
 import javax.swing.JRadioButton;
 import javax.swing.JButton;
 import static presentationLayer.guiConfig.contentsPanelsPropertiesPkg.RegVenditeProperties.*;
-
+import static presentationLayer.guiLogicPkg.ObserverSubscriptionType.CIALDELIST;
+import static presentationLayer.guiLogicPkg.ObserverSubscriptionType.PERSONALELIST;
 
 
 public class RegistraVendite extends AbstractPanel {
@@ -119,8 +122,8 @@ public class RegistraVendite extends AbstractPanel {
                 }
         );
 
-        LaTazzaApplication.backEndInvoker.addObserver(BackEndInvoker.ObserverSubscriptionType.CIALDELIST,this);
-        LaTazzaApplication.backEndInvoker.addObserver(BackEndInvoker.ObserverSubscriptionType.PERSONALELIST,this);
+        LaTazzaApplication.backEndInvoker.addObserver(CIALDELIST,this);
+        LaTazzaApplication.backEndInvoker.addObserver(PERSONALELIST,this);
 
     }
 
@@ -187,8 +190,12 @@ public class RegistraVendite extends AbstractPanel {
 
     @Override
     public void update(Observable o, Object arg) {
-/*
-        this.setComboBoxTipoCialdeMenu(LaTazzaApplication.controllerCialde.getCialdeEntryList());
-        this.setComboBoxNomePersonaleMenu(LaTazzaApplication.controllerPersonale.getCopyList());
-    */}
+
+        if(arg ==CIALDELIST){
+            setComboBoxTipoCialdeMenu(((ControllerCialde)o).getCialdeEntryList());
+
+        }else if(arg==PERSONALELIST){
+            setComboBoxNomePersonaleMenu(((ControllerPersonale)o).getCopyList());
+        }
+    }
 }
