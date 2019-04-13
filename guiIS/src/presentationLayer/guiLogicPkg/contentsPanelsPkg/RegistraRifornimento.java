@@ -5,11 +5,13 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.Observable;
 import javax.swing.*;
+
+import backend.businessLogicLayer.ControllerCialde;
+import backend.dataAccessLayer.rowdatapkg.CialdeEntry;
 import presentationLayer.guiConfig.contentsPanelsPropertiesPkg.RegRifornimentoProperties;
-import presentationLayer.guiLogicPkg.BackEndInvoker;
 import presentationLayer.guiLogicPkg.LaTazzaApplication;
-import presentationLayer.guiLogicPkg.commandPkg.GetCialdeListCommand;
 import static presentationLayer.guiConfig.contentsPanelsPropertiesPkg.RegRifornimentoProperties.*;
+import static presentationLayer.guiLogicPkg.ObserverSubscriptionType.CIALDELIST;
 
 public class RegistraRifornimento extends AbstractPanel {
 
@@ -42,7 +44,8 @@ public class RegistraRifornimento extends AbstractPanel {
                     }
                 }
         );
-        this.update();
+        LaTazzaApplication.backEndInvoker.addObserver(CIALDELIST,this);
+
     }
 
 	private void annulla()
@@ -51,21 +54,18 @@ public class RegistraRifornimento extends AbstractPanel {
         textFieldQuantita.setValue(null);
     }
 
-    public void setTipoCialdeMenu(List<String> lista){
+    public void setTipoCialdeMenu(List<CialdeEntry> lista){
         tipoCialdeMenu.removeAllItems();
-        for(String i:lista){
-            this.tipoCialdeMenu.addItem(i);
+        for(CialdeEntry i:lista){
+            this.tipoCialdeMenu.addItem(i.getTipo());
         }
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        GetCialdeListCommand c;
-        BackEndInvoker.ObserverSubscription sub=(BackEndInvoker.ObserverSubscription)arg;
-        if(sub==BackEndInvoker.ObserverSubscription.CIALDELIST) {
-            c = new GetCialdeListCommand(LaTazzaApplication.backEndInvoker);
-            if (LaTazzaApplication.backEndInvoker.executeCommand(c))
-                this.setTipoCialdeMenu(c.getCialdeList());
+        if(arg ==CIALDELIST){
+            setTipoCialdeMenu(((ControllerCialde)o).getCialdeEntryList());
+
         }
     }
 }

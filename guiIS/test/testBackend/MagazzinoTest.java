@@ -9,6 +9,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import presentationLayer.guiLogicPkg.LaTazzaApplication;
+import presentationLayer.guiLogicPkg.commandPkg.InitBackEndCommand;
 import utils.Euro;
 import utils.PathHandler;
 
@@ -54,7 +55,7 @@ class MagazzinoTest {
 
         updateTable(PathHandler.modifyPath(CURRENTWORKINGDIRECTORY+DATABASECONFIGFILE));//DATABASE CONFIG SQL FILE
         updateTable(PathHandler.modifyPath(CURRENTWORKINGDIRECTORY+DEFAULTDATABASEENTRYSETFILE));//inserisco un po di personale per il testing
-        dao=new DaoInvoker(database.getConnection(), LaTazzaApplication.daoCollection);
+        dao=new DaoInvoker(database.getConnection(), InitBackEndCommand.);
     }
 
 

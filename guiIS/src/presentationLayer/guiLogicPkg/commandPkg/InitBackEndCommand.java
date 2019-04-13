@@ -15,9 +15,11 @@ import backend.database.ConfigurationDataBase;
 import backend.database.DatabaseConnectionHandler;
 import javafx.util.Pair;
 import presentationLayer.guiLogicPkg.BackEndInvoker;
+import presentationLayer.guiLogicPkg.ObserverSubscriptionType;
+
 import java.sql.SQLException;
 import java.util.*;
-import static presentationLayer.guiLogicPkg.BackEndInvoker.ObserverSubscriptionType.*;
+import static presentationLayer.guiLogicPkg.ObserverSubscriptionType.*;
 
 
 public class InitBackEndCommand implements  Command{
@@ -44,10 +46,10 @@ public class InitBackEndCommand implements  Command{
         backEndInvoker.setControllerContabilita(new ControllerContabilita());
         backEndInvoker.setControllerPersonale(new ControllerPersonale());
         backEndInvoker.setControllerDebito(new ControllerDebito());
-        backEndInvoker.setSubscriptions(new EnumMap<>(BackEndInvoker.ObserverSubscriptionType.class));
+        backEndInvoker.setSubscriptions(new EnumMap<>(ObserverSubscriptionType.class));
 
         //init subscriptions
-        for (Map.Entry<BackEndInvoker.ObserverSubscriptionType, Observable> entry
+        for (Map.Entry<ObserverSubscriptionType, Observable> entry
                 : backEndInvoker.getSubscriptions().entrySet()) {
             switch(entry.getKey()){
 
