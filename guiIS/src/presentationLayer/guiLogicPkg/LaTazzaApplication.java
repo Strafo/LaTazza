@@ -14,10 +14,6 @@ import backend.dataAccessLayer.rowdatapkg.movimentoPkg.MovimentoDebito;
 import backend.dataAccessLayer.rowdatapkg.movimentoPkg.MovimentoVendita;
 import backend.database.ConfigurationDataBase;
 import backend.database.DatabaseConnectionHandler;
-import backend.database.config.TriggerCheckNumCialde;
-import backend.database.config.ViewCassa;
-import backend.database.config.ViewDebito;
-import backend.database.config.ViewMagazzino;
 import javafx.util.Pair;
 import presentationLayer.guiConfig.structurePanelsPropertiesPkg.LaTazzaFrameProperties;
 

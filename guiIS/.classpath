@@ -5,10 +5,9 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="var" path="MAVEN_REPOSITORY/org/junit/jupiter/junit-jupiter-api/5.0.0/junit-jupiter-api-5.0.0.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/h2-1.4.198"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/org.junit.jupiter:junit-jupiter-engine:5.0.0"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/org.junit.jupiter:junit-jupiter-params:5.4.1"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/com.h2database:h2:1.4.199"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/org.apache.directory.studio:org.apache.commons.io:2.4"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/org.junit.jupiter:junit-jupiter-engine:5.0.0"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/org.junit.jupiter:junit-jupiter-params:5.4.1"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
