@@ -77,7 +77,7 @@ public class InitBackEndCommand implements  Command{
      * e le classi *DaoReceiver  per il database (contengono il codice per l'interazione con le tabelle del db)
      * La mappa viene usata dalla class SimpleDaoReceiverFactory
      */
-    private static Collection<Pair<Class<? extends AbstractEntryDB>,Class<? extends AbstractDaoReceiver>>> daoCollection
+    public static Collection<Pair<Class<? extends AbstractEntryDB>,Class<? extends AbstractDaoReceiver>>> daoCollection
             =new LinkedList<Pair<Class<? extends AbstractEntryDB>, Class<? extends AbstractDaoReceiver>>>(){{
         add(new Pair<>(RifornimentoEntry.class,RifornimentoDaoReceiver.class));
         add(new Pair<>(CialdeEntry.class,CialdeDaoReceiver.class));

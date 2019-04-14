@@ -174,11 +174,8 @@ public class RegistraVendite extends AbstractPanel {
             System.err.println("Impossibile registrare vednita");
         else
             System.err.println("Vendita avvenuta con successo");
-
-
         annulla();//refresha il campo contanti e il campo nomeutente
     }
-
 
 
 	private void annulla()
