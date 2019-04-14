@@ -3,10 +3,8 @@ package backend.businessLogicLayer;
 import backend.dataAccessLayer.gatewaysPkg.IDaoFacade;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import presentationLayer.guiLogicPkg.LaTazzaApplication;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Observable;
+
+import java.util.*;
 
 import static presentationLayer.guiLogicPkg.ObserverSubscriptionType.PERSONALELIST;
 
@@ -18,11 +16,12 @@ public class ControllerPersonale extends Observable {
     public ControllerPersonale(){
         dao=LaTazzaApplication.backEndInvoker.getDao();
         listaPersonaleAttivo=dao.getAll(Personale.class);
+        List<Personale> listaPersonaleNonA=new LinkedList<>();
         if(listaPersonaleAttivo==null){//inizializzazione fallita...
             //todo cosa fare?
         }else{
-            for (Personale i:list) {//seleziono solo quelli attivi
-                if(!i.isAttivo()) toRemove.add(i);
+            for (Personale i:listaPersonaleAttivo) {//seleziono solo quelli attivi
+                if(!i.isAttivo()) listaPersonaleNonA.add(i);
             }
             listaPersonaleAttivo.removeAll(listaPersonaleNonA);
         }
@@ -63,7 +62,7 @@ public class ControllerPersonale extends Observable {
      * @return la lista
      */
     public List<Personale> getCopyList(){
-        return new ArrayList<>(list);
+        return new ArrayList<>(listaPersonaleAttivo);
     }
 
     /**
