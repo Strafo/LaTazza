@@ -25,7 +25,10 @@ public class Magazzino  {
         for (MagazzinoEntry m: list ) {
             stato.put(m.getTipoCialda(),m.getNumeroCialde());
         }
+    }
 
+    public Magazzino(Map<CialdeEntry,Integer> magazzino){
+        stato=magazzino;
     }
 
 
