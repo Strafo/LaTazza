@@ -5,18 +5,14 @@ import backend.dataAccessLayer.rowdatapkg.CialdeEntry;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import utils.Euro;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-
-import static org.junit.jupiter.api.Assertions.fail;
+import static junit.framework.Assert.*;
 
 class MagazzinoTest {
     private Magazzino magazzino;
@@ -24,7 +20,6 @@ class MagazzinoTest {
     private Connection conn;
     private ResultSet rs;
     private PreparedStatement stat;
-    private Map<CialdeEntry,Integer> stato;
     private CialdeEntry caffe;
     private int qtaScatole;
 
@@ -37,10 +32,9 @@ class MagazzinoTest {
             t=new TriggersTest();
             conn=t.getConn();
             t.initDataBase();
-            stato= new HashMap<>();
-            stato.put(new CialdeEntry("caffe", new Euro(0,50)), 300);
-            stato.put(new CialdeEntry("LaPastaAlSaleConIPomodoriniDiMelanzane", new Euro(0,50)), 20);
-            magazzino=new Magazzino(stato);
+            magazzino=null;
+            qtaScatole=magazzino.getQtaCialdeScatole();
+            caffe= new CialdeEntry("caffe");
 
         }catch (Exception e){
             e.printStackTrace();
@@ -53,11 +47,20 @@ class MagazzinoTest {
     @Test
     void aggiungiScatole() {
 
-
+        Integer oldQta= magazzino.getCopyStato().get(caffe);
+        assertTrue(magazzino.aggiungiScatole(caffe,3));
+        int newQta=oldQta+(qtaScatole*3);
+        int getNewQta= magazzino.getCopyStato().get(caffe);
+        assertEquals(getNewQta, newQta );
     }
 
     @Test
     void rimuoviCialde() {
+        Integer oldQta= magazzino.getCopyStato().get(caffe);
+        assertTrue(magazzino.rimuoviCialde (caffe,1));
+        int newQta=oldQta-qtaScatole;
+        int getNewQta= magazzino.getCopyStato().get(caffe);
+        assertEquals(getNewQta, newQta );
     }
 
 
