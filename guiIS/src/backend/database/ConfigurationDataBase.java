@@ -7,10 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import backend.database.config.TriggerCheckNumCialde;
-import backend.database.config.ViewCassa;
-import backend.database.config.ViewDebito;
-import backend.database.config.ViewMagazzino;
+import backend.database.config.*;
 import utils.PathHandler;
 
 
@@ -63,6 +60,7 @@ public class ConfigurationDataBase {//todo rimuovere le cose che non servono
     public void initTriggers() throws SQLException {
 
         TriggerCheckNumCialde.initTrigger(databaseConnectionHandler.getConnection());
+        TriggerCompraVisitatore.initTrigger(databaseConnectionHandler.getConnection());
         ViewMagazzino.initView(databaseConnectionHandler.getConnection());
         ViewDebito.initView(databaseConnectionHandler.getConnection());
         ViewCassa.initView(databaseConnectionHandler.getConnection());
