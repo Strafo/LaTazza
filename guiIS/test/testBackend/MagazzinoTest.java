@@ -29,7 +29,7 @@ class MagazzinoTest {
             t=new TriggersTest();
             conn=t.getConn();
             t.initDataBase();
-            magazzino=new Magazzino();
+            //magazzino=new Magazzino();
 
         }catch (Exception e){
             e.printStackTrace();
