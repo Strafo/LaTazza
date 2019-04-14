@@ -75,8 +75,6 @@ public class Magazzino {
      * @return true se il tipo di cialda passata esiste e se qta<=riserveMagazzino  ,false altrimenti
      */
     boolean rimuoviCialde(CialdeEntry t, int qta){
-        System.out.println("t:"+t);
-        printMap();
         Integer oldQta=stato.get(t);
         if(oldQta==null){return false;}
         int nuovaQta=oldQta - qta;
@@ -99,7 +97,7 @@ public class Magazzino {
 
     private void printMap(){
         for (CialdeEntry i:stato.keySet()) {
-            System.out.println(i+":"+stato.get(i));
+            System.out.println("chiave"+i+" ::: valore:"+stato.get(i));
         }
     }
 }
