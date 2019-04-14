@@ -10,6 +10,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import presentationLayer.guiLogicPkg.LaTazzaApplication;
+import presentationLayer.guiLogicPkg.commandPkg.InitBackEndCommand;
 import utils.Euro;
 
 import java.sql.Connection;
@@ -28,6 +29,7 @@ class MagazzinoTest {
     private int qtaScatole;
     private TriggersTest t;
     private Connection conn;
+    private IDaoFacade dao;
     private LaTazzaApplication app;
     private Map<CialdeEntry,Integer> stato;
 
@@ -36,12 +38,11 @@ class MagazzinoTest {
 
 
         try {
-
             t=new TriggersTest();
             t.initDataBase();
             conn=t.getConn();
-            //dao= new DaoInvoker(conn, LaTazzaApplication.daoCollection);
-            magazzino=new Magazzino(LaTazzaApplication.dao);
+            dao= new DaoInvoker(conn, InitBackEndCommand.daoCollection);
+            magazzino=new Magazzino(dao);
             qtaScatole=magazzino.getQtaCialdeScatole();
 
         }catch (Exception e){

@@ -16,7 +16,7 @@ public class Magazzino {
     private IDaoFacade dao;
 
 
-    int getQtaCialdeScatole(){
+    public int getQtaCialdeScatole(){
         return qtaCialdeScatole;
     }
 
@@ -35,12 +35,23 @@ public class Magazzino {
         }
     }
 
+    public Magazzino(IDaoFacade dao){
+
+        List<MagazzinoEntry>list=dao.getAll(MagazzinoEntry.class);//inizializza il campo list facendo query sul databaseConnectionHandler
+        if(list==null){
+            throw new Error(new Throwable("Impossibile creare Magazzino nell'applicazione."));
+        }
+        stato= new HashMap<>();//todo settare load factor
+        for (MagazzinoEntry m: list ) {
+            stato.put(m.getTipoCialda(),m.getNumeroCialde());
+        }
+    }
 
     /**
      * Copia lo stato del magazzino e lo ritorna
      * @return la mappa contente associazione tipocialda-Quantità
      */
-    Map<CialdeEntry,Integer> getCopyStato(){
+    public Map<CialdeEntry,Integer> getCopyStato(){
         return new HashMap<>(stato);
 
     }
@@ -52,7 +63,7 @@ public class Magazzino {
      * @return
      * @throws NullPointerException
      */
-    boolean aggiungiScatole(CialdeEntry t, int qtaScatole)throws NullPointerException{
+    public boolean aggiungiScatole(CialdeEntry t, int qtaScatole)throws NullPointerException{
         Integer qta=qtaScatole*qtaCialdeScatole;
         RifornimentoEntry entry=new RifornimentoEntry(new Timestamp((new Date()).getTime()),qta,t.getTipo());//nullp
         Integer oldQta;
@@ -74,7 +85,7 @@ public class Magazzino {
      * @param qta
      * @return true se il tipo di cialda passata esiste e se qta<=riserveMagazzino  ,false altrimenti
      */
-    boolean rimuoviCialde(CialdeEntry t, int qta){
+    public boolean rimuoviCialde(CialdeEntry t, int qta){
         System.out.println("t:"+t);
         printMap();
         Integer oldQta=stato.get(t);

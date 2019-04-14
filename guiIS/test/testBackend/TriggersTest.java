@@ -6,14 +6,11 @@ import backend.database.config.TriggerCheckNumCialde;
 import backend.database.config.ViewCassa;
 import backend.database.config.ViewDebito;
 import backend.database.config.ViewMagazzino;
-import presentationLayer.guiLogicPkg.LaTazzaApplication;
 import utils.PathHandler;
 
 import java.io.FileReader;
 import java.sql.*;
 import java.util.Scanner;
-
-import static presentationLayer.guiLogicPkg.LaTazzaApplication.databaseConnectionHandler;
 
 
 public class TriggersTest {

@@ -11,7 +11,7 @@ import java.util.List;
 
 public  final class ControllerDebito {
 
-    private  ControllerDebito(){}
+    public ControllerDebito(){}
 
 
     private static boolean aggiornaMovimento(Personale p, Euro importo){
