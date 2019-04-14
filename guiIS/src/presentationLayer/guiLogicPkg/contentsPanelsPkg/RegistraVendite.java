@@ -164,9 +164,13 @@ public class RegistraVendite extends AbstractPanel {
                 nomeCognome[0],
                 nomeCognome[1],
                 Integer.valueOf(textFieldQuantita.getText()),
-                isPersonale
+                isPersonale,
+                LaTazzaApplication.backEndInvoker
         );
-        LaTazzaApplication.backEndInvoker.executeCommand(command);//todo check return value
+        if(!LaTazzaApplication.backEndInvoker.executeCommand(command))//todo check return value
+            System.err.println("Impossibile registrare vednita");
+        else
+            System.err.println("Vendita avvenuta con successo");
 
 
 

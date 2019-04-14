@@ -29,14 +29,16 @@ public class RegistraVenditaCommand implements Command {
     @Override
     public boolean execute() {
         Cliente cliente= personale?new Personale(nome,cognome):new Visitatore(nome,cognome);
-        CialdeEntry cialda=new CialdeEntry(tipoCialda);
-        backEndInvoker.getControllerContabilita().registraVendita(
+        CialdeEntry cialda=backEndInvoker.getControllerCialde().getCialda(tipoCialda);
+        boolean result= backEndInvoker.getControllerContabilita().registraVendita(
                 cliente,
                 cialda,
                 qta,
                 contanti
         );
-        return true;
+        System.err.println(result);
+        return result;
+
     }
 }
 
