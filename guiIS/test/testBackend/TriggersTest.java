@@ -2,10 +2,7 @@ package testBackend;
 
 
 import backend.database.DatabaseConnectionHandler;
-import backend.database.config.TriggerCheckNumCialde;
-import backend.database.config.ViewCassa;
-import backend.database.config.ViewDebito;
-import backend.database.config.ViewMagazzino;
+import backend.database.config.*;
 import utils.PathHandler;
 
 import java.io.FileReader;
@@ -74,6 +71,7 @@ public class TriggersTest {
     public void initDataBase() throws SQLException {
         updateTable(PATHConfig, "databaseConfig.sql");
         TriggerCheckNumCialde.initTrigger(conn);
+        TriggerCompraVisitatore.initTrigger(conn);
         ViewMagazzino.initView(conn);
         ViewDebito.initView(conn);
         ViewCassa.initView(conn);

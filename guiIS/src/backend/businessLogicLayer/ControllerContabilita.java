@@ -20,7 +20,7 @@ public  class ControllerContabilita extends Observable {
     public ControllerContabilita(){
         magazzino= new Magazzino();
         cassa= LaTazzaApplication.backEndInvoker.getDao().getAll(Cassa.class).get(0);
-        controllerDebito=LaTazzaApplication.backEndInvoker.getControllerDebito();
+        setControllerDebito();
         this.setChanged();
     }
 
@@ -44,8 +44,6 @@ public  class ControllerContabilita extends Observable {
 
         Euro importo= new Euro(tipo.getPrezzo());
         importo.moltiplicaImporto(numeroCialde);// throws Overflow, illegal
-
-
         if(!magazzino.rimuoviCialde(tipo,numeroCialde)){
             System.err.println("regVenditafalse");
 
@@ -53,6 +51,9 @@ public  class ControllerContabilita extends Observable {
         }
         try {
             if (!contanti) {
+                if(controllerDebito==null){
+                    setControllerDebito();
+                }
                 controllerDebito.registrareAumentoDebito(importo, (Personale) c);//può lanciare OverflowEuroExc
             } else cassa.incrementaSaldo(importo);//può lanciare OverflowEuroExc
         }catch (Euro.OverflowEuroException e){
@@ -82,7 +83,6 @@ public  class ControllerContabilita extends Observable {
         int numeroCialde=numeroScatole*magazzino.getQtaCialdeScatole();
         importo.moltiplicaImporto(numeroCialde);
         if(!cassa.decrementaSaldo(importo)) return false;
-        System.out.println("Dop");
         magazzino.aggiungiScatole(tipo,numeroScatole);
         this.setChanged();this.notifyObservers(CONTABILITALIST);
         return true;
@@ -128,6 +128,10 @@ public  class ControllerContabilita extends Observable {
         }catch(Exception e){
             throw new Error("Inconsistenza nell'applicazione.",e);
         }
+    }
+
+    private void setControllerDebito(){
+        this.controllerDebito=LaTazzaApplication.backEndInvoker.getControllerDebito();
     }
 
 
