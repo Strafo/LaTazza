@@ -1,9 +1,11 @@
 package testBackend;
 
 import backend.businessLogicLayer.Magazzino;
+import backend.dataAccessLayer.rowdatapkg.CialdeEntry;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import utils.Euro;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
