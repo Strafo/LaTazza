@@ -9,6 +9,8 @@ import utils.Euro;
 import java.util.Map;
 import java.util.Observable;
 
+import static presentationLayer.guiLogicPkg.ObserverSubscriptionType.CONTABILITALIST;
+
 public  class ControllerContabilita extends Observable {
 
     private Magazzino magazzino;
@@ -45,6 +47,8 @@ public  class ControllerContabilita extends Observable {
 
 
         if(!magazzino.rimuoviCialde(tipo,numeroCialde)){
+            System.err.println("regVenditafalse");
+
             return false;
         }
         try {
@@ -62,7 +66,7 @@ public  class ControllerContabilita extends Observable {
             handleDebitoCassaConsistency(importo,c,contanti);
             return false;
         }
-        this.setChanged();
+        this.setChanged();this.notifyObservers(CONTABILITALIST);
         return true;
     }
 
@@ -79,7 +83,7 @@ public  class ControllerContabilita extends Observable {
         importo.moltiplicaImporto(numeroCialde);
         if(cassa.decrementaSaldo(importo)) return false;
         magazzino.aggiungiScatole(tipo,numeroScatole);
-        this.setChanged();
+        this.setChanged();this.notifyObservers(CONTABILITALIST);
         return true;
 
     }
