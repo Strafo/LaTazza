@@ -1,11 +1,9 @@
 package testBackend;
 
 import backend.businessLogicLayer.Magazzino;
-import backend.dataAccessLayer.rowdatapkg.CialdeEntry;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import utils.Euro;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -25,6 +23,8 @@ class MagazzinoTest {
     private ResultSet rs;
     private PreparedStatement stat;
     private Map<CialdeEntry,Integer> stato;
+    private CialdeEntry caffe;
+    private int qtaScatole;
 
     @BeforeEach
     void setUp() {
