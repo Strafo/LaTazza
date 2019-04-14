@@ -83,7 +83,6 @@ public  final class ControllerDebito extends Observable {
     }
 
 
-
     /**
      * Ritorna la lista del personale attivo con un debito >0.
      * @return la lista

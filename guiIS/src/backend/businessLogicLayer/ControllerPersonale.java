@@ -18,14 +18,11 @@ public class ControllerPersonale extends Observable {
     public ControllerPersonale(){
         dao=LaTazzaApplication.backEndInvoker.getDao();
         listaPersonaleAttivo=dao.getAll(Personale.class);
-        List<Personale> listaPersonaleNonA=new LinkedList<>();
         if(listaPersonaleAttivo==null){//inizializzazione fallita...
             //todo cosa fare?
         }else{
-            for (Personale i:listaPersonaleAttivo) {//seleziono solo quelli attivi
-                if(!i.isAttivo()){
-                    listaPersonaleNonA.add(i);
-                }
+            for (Personale i:list) {//seleziono solo quelli attivi
+                if(!i.isAttivo()) toRemove.add(i);
             }
             listaPersonaleAttivo.removeAll(listaPersonaleNonA);
         }
@@ -66,7 +63,7 @@ public class ControllerPersonale extends Observable {
      * @return la lista
      */
     public List<Personale> getCopyList(){
-        return  new LinkedList<>(listaPersonaleAttivo);
+        return new ArrayList<>(list);
     }
 
     /**
