@@ -1,9 +1,7 @@
 package backend.dataAccessLayer.gatewaysPkg.receiverPkg;
 
 import backend.businessLogicLayer.Cassa;
-import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import utils.Euro;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

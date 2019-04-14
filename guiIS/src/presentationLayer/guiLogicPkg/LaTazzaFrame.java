@@ -66,7 +66,6 @@ public class LaTazzaFrame extends JFrame {
      * @param panelVisibilityState lo stato (true/false) della visibilità del pannello
      */
 	public void setJPanelVisibleState(JPanelsNames panelName,boolean panelVisibilityState){
-        jPanelsMap.get(panelName).refreshContentPanel();
         jPanelsMap.get(panelName).setVisible(panelVisibilityState);
     }
 

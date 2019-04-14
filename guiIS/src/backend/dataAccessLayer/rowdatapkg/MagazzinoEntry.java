@@ -1,9 +1,6 @@
 package backend.dataAccessLayer.rowdatapkg;
-
-import backend.businessLogicLayer.ControllerCialde;
-import backend.businessLogicLayer.Magazzino;
 import backend.dataAccessLayer.mementoPkg.Memento;
-import backend.dataAccessLayer.rowdatapkg.clientPkg.Cliente;
+import presentationLayer.guiLogicPkg.LaTazzaApplication;
 
 public class MagazzinoEntry extends AbstractEntryDB {
 
@@ -12,7 +9,7 @@ public class MagazzinoEntry extends AbstractEntryDB {
 
 
     public MagazzinoEntry(String cialda, int qta){
-        tipoCialda=ControllerCialde.getCialda(cialda);
+        tipoCialda=LaTazzaApplication.backEndInvoker.getControllerCialde().getCialda(cialda);
         numeroCialde=qta;
 
     }

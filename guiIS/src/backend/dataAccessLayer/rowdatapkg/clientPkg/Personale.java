@@ -28,7 +28,7 @@ public final class Personale extends Cliente  {
         this.debito = debito;
     }
 
-    public void aumentaDebito(Euro importo) throws NullPointerException{
+    public void aumentaDebito(Euro importo) throws Euro.OverflowEuroException,NullPointerException{
         debito.sommaDebito(importo);
     }
 

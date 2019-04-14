@@ -1,4 +1,5 @@
 package backend.businessLogicLayer;
+import backend.dataAccessLayer.gatewaysPkg.IDaoFacade;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import backend.dataAccessLayer.rowdatapkg.movimentoPkg.Movimento;
 import backend.dataAccessLayer.rowdatapkg.movimentoPkg.MovimentoDebito;
@@ -6,52 +7,90 @@ import presentationLayer.guiLogicPkg.LaTazzaApplication;
 import utils.Euro;
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Observable;
 
-public  final class ControllerDebito {
-
-    private  ControllerDebito(){}
+import static presentationLayer.guiLogicPkg.ObserverSubscriptionType.DEBITOLIST;
 
 
-    private static boolean aggiornaMovimento(Personale p, Euro importo){
+public  final class ControllerDebito extends Observable {
+
+    private IDaoFacade dao;
+    private ControllerPersonale controllerPersonale;
+    public   ControllerDebito(){
+        dao=LaTazzaApplication.backEndInvoker.getDao();
+        controllerPersonale=LaTazzaApplication.backEndInvoker.getControllerPersonale();
+        this.setChanged();
+    }
+
+
+    /**
+     *
+     * @param p
+     * @param importo
+     * @return
+     * @throws NullPointerException
+     */
+    private  boolean aggiungiMovimentoDebito(Personale p, Euro importo) throws NullPointerException{
         Date date=new Date();
         Movimento mp=new MovimentoDebito(new Timestamp(date.getTime()),p,importo);
-        return LaTazzaApplication.dao.save(mp);
+        this.setChanged();this.notifyObservers(DEBITOLIST);
+        return dao.save(mp);
     }
 
-    public static Personale getPersonale(Personale p){
-        List<Personale> list=LaTazzaApplication.controllerPersonale.getCopyList();
-        int index= list.indexOf(p);
-        if(index == -1)  return null;
-        return list.get(index);
-    }
 
-    public static boolean registrarePagamentoDebito(Euro importo , Personale p) throws NullPointerException{
-
-
-        Personale cliente= getPersonale(p);
-        if(!cliente.pagamentoDebito(importo)) return false;
-        aggiornaMovimento(cliente, importo);
+    /**
+     *
+     * @param importo
+     * @param nome
+     * @param cognome
+     * @return
+     * @throws NullPointerException
+     */
+    public  boolean registrarePagamentoDebito(Euro importo , String nome,String cognome )throws NullPointerException{
+        Personale cliente= controllerPersonale.getPersonale(nome, cognome);
+        //todo deve essere un transazione
+            aggiungiMovimentoDebito(cliente, importo);
+            if(!cliente.pagamentoDebito(importo)) return false;
+        //todo fino a qui
+        this.setChanged();this.notifyObservers(DEBITOLIST);
         return true;
     }
 
-    public static void registrareAumentoDebito(Euro importo , Personale p) throws NullPointerException{
-        Personale cliente= getPersonale(p);
+
+    /**
+     *
+     * @param importo
+     * @param nome
+     * @param cognome
+     * @return
+     * @throws NullPointerException
+     */
+    public  boolean registrareAumentoDebito(Euro importo ,String nome,String cognome)throws NullPointerException{
+        Personale cliente = controllerPersonale.getPersonale(nome, cognome);
+        if (cliente == null) return false;
         cliente.aumentaDebito(importo);
+        this.setChanged();this.notifyObservers(DEBITOLIST);
+        return true;
     }
 
-    public static HashMap<Personale, Euro> esaminareDebitiPersonale(){
-        HashMap<Personale, Euro> debiti= new HashMap<Personale,Euro>();
-        List<Personale> list= LaTazzaApplication.controllerPersonale.getCopyList();
-        for (Personale p:list) {
-            if(Euro.compare(p.getImportoDebito(),new Euro(0,0))!=0) {
+    public  boolean registrareAumentoDebito(Euro importo ,Personale personale)throws Euro.OverflowEuroException,NullPointerException{
+        Personale cliente = controllerPersonale.getPersonale(personale);
+        if (cliente == null) return false;
+        cliente.aumentaDebito(importo);
+        this.setChanged();this.notifyObservers(DEBITOLIST);
+        return true;
+    }
 
-                debiti.put(p, p.getImportoDebito());
-            }
-        }
 
-        return debiti;
+    /**
+     * Ritorna la lista del personale attivo con un debito >0.
+     * @return la lista
+     */
+    public  List<Personale> esaminareDebitiPersonale(){
+        List<Personale> list= controllerPersonale.getCopyList();
+        list.removeIf(p -> Euro.compare(p.getImportoDebito(), new Euro(0, 0)) == 0);
+        return list;
     }
 
 
