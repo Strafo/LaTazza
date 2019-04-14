@@ -172,10 +172,7 @@ public class RegistraVendite extends AbstractPanel {
         else
             System.err.println("Vendita avvenuta con successo");
 
-
-
     }
-
 
 
 	private void annulla()

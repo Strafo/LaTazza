@@ -5,6 +5,7 @@ import backend.dataAccessLayer.gatewaysPkg.DaoInvoker;
 import backend.dataAccessLayer.gatewaysPkg.IDaoFacade;
 import backend.database.DatabaseConnectionHandler;
 import presentationLayer.guiLogicPkg.LaTazzaApplication;
+import presentationLayer.guiLogicPkg.commandPkg.InitBackEndCommand;
 import utils.Euro;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Visitatore;
@@ -95,7 +96,7 @@ public class DaoTest{
     @ValueSource(classes={Personale.class,CialdeEntry.class,Visitatore.class,RifornimentoEntry.class,MovimentoDebito.class,MovimentoVendita.class, MagazzinoEntry.class,Cassa.class, Debito.class})
     void getAllTest(Class<? extends AbstractEntryDB> cls) {
         try {
-            dao=new DaoInvoker(database.getConnection(),LaTazzaApplication.daoCollection);
+            dao=new DaoInvoker(database.getConnection(), InitBackEndCommand.daoCollection);
             List list=dao.getAll(cls);
             checkNEntry(Object.class,0,list.size());
             printList(list);
@@ -109,7 +110,7 @@ public class DaoTest{
     @ValueSource(classes={Personale.class,CialdeEntry.class,Visitatore.class,RifornimentoEntry.class,MovimentoDebito.class,MovimentoVendita.class,MovimentoVendita.class})
     void saveTest(Class<? extends AbstractEntryDB>  cls)  {
         try {
-            dao=new DaoInvoker(database.getConnection(),LaTazzaApplication.daoCollection);
+            dao=new DaoInvoker(database.getConnection(),InitBackEndCommand.daoCollection);
             assertTrue(dao.save(createInstance(cls,true)));
             assertTrue(dao.save(createInstance(cls,true)));
             List list=dao.getAll(cls);
@@ -127,7 +128,7 @@ public class DaoTest{
     @ValueSource(classes={Personale.class,CialdeEntry.class,Visitatore.class,RifornimentoEntry.class,MovimentoDebito.class,MovimentoVendita.class})
     void updateTest(Class< AbstractEntryDB>  cls) {
         try {
-            dao=new DaoInvoker(database.getConnection(),LaTazzaApplication.daoCollection);
+            dao=new DaoInvoker(database.getConnection(),InitBackEndCommand.daoCollection);
             List<AbstractEntryDB> list=dao.getAll( cls);
             AbstractEntryDB entryDB=list.get(0);
             System.out.print("MODIFICO:" + entryDB.toString());
@@ -148,7 +149,7 @@ public class DaoTest{
 
 
         try {
-            dao=new DaoInvoker(database.getConnection(),LaTazzaApplication.daoCollection);
+            dao=new DaoInvoker(database.getConnection(),InitBackEndCommand.daoCollection);
             assertTrue(dao.delete(createInstance(cls,false)));
             List list=dao.getAll(cls);
             checkNEntry(Object.class,-1,list.size());
@@ -168,7 +169,7 @@ public class DaoTest{
         try {
             List list = null;
             AbstractEntryDB entryDB;
-            dao=new DaoInvoker(database.getConnection(),LaTazzaApplication.daoCollection);
+            dao=new DaoInvoker(database.getConnection(),InitBackEndCommand.daoCollection);
             for(int i=1;i<=5;i++) {
                 dao.startTransaction();
                 assertTrue(dao.save(createInstance(cls,true)));
@@ -197,7 +198,7 @@ public class DaoTest{
 
             List list ;
             AbstractEntryDB entryDB;
-            dao=new DaoInvoker(database.getConnection(),LaTazzaApplication.daoCollection);
+            dao=new DaoInvoker(database.getConnection(),InitBackEndCommand.daoCollection);
             for(int i=1;i<=5;i++) {
                 dao.startTransaction();
                 assertTrue(dao.save(entryDB=createInstance(cls,true)));
