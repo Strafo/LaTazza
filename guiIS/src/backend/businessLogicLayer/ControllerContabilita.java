@@ -81,7 +81,7 @@ public  class ControllerContabilita extends Observable {
         Euro importo= new Euro(tipo.getPrezzo());
         int numeroCialde=numeroScatole*magazzino.getQtaCialdeScatole();
         importo.moltiplicaImporto(numeroCialde);
-        if(cassa.decrementaSaldo(importo)) return false;
+        if(!cassa.decrementaSaldo(importo)) return false;
         magazzino.aggiungiScatole(tipo,numeroScatole);
         this.setChanged();this.notifyObservers(CONTABILITALIST);
         return true;
