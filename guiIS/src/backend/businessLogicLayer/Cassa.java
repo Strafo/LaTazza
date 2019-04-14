@@ -18,15 +18,15 @@ public class Cassa extends AbstractEntryDB {
     }
 
 
-    Euro getCopySaldo(){
+    public Euro getCopySaldo(){
         return new Euro(saldo.getEuro(),saldo.getCentesimi());
     }
 
-    void incrementaSaldo(Euro euro)throws Euro.OverflowEuroException,NullPointerException {
+    public void incrementaSaldo(Euro euro)throws Euro.OverflowEuroException,NullPointerException {
         saldo.aggiungiImporto(euro);
     }
 
-    boolean decrementaSaldo(Euro euro) throws NullPointerException {
+    public boolean decrementaSaldo(Euro euro) throws NullPointerException {
         try{
             saldo.sottraiImporto(euro);
         }catch (Euro.InsufficientFundsException e){

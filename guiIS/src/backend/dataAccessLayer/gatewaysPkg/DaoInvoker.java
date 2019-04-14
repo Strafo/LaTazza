@@ -32,10 +32,12 @@ public class DaoInvoker implements IDaoFacade {
         List<T> result;
         try{
             concreteDaoReceiver=factory.createDao(t);
+
             result=concreteDaoReceiver.getAll();
             handleTransactionStatus(result);
             return result;
         }catch(Exception exc){
+            exc.printStackTrace();
             handleException("GETALL",exc);
             handleTransactionStatus(null);
             return null;

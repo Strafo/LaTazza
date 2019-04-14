@@ -26,6 +26,7 @@ public class TriggersTest {
     private static PreparedStatement stat;
 
 
+
     public TriggersTest() throws SQLException, ClassNotFoundException {
         try {
             Class.forName("org.h2.Driver");
@@ -70,14 +71,15 @@ public class TriggersTest {
         return conn;
     }
 
-    public void initDataBase() throws SQLException{
-        updateTable(PATHConfig,"databaseConfig.sql");
-
-        updateTable(PATHInsert,"Insert.sql");
-
-
-
+    public void initDataBase() throws SQLException {
+        updateTable(PATHConfig, "databaseConfig.sql");
+        TriggerCheckNumCialde.initTrigger(conn);
+        ViewMagazzino.initView(conn);
+        ViewDebito.initView(conn);
+        ViewCassa.initView(conn);
+        updateTable(PATHInsert, "Insert.sql");
     }
+
     public void closeConnection() throws SQLException {
         database.closeDataBase();
     }
