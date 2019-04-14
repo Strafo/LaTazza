@@ -6,11 +6,14 @@ import backend.database.config.TriggerCheckNumCialde;
 import backend.database.config.ViewCassa;
 import backend.database.config.ViewDebito;
 import backend.database.config.ViewMagazzino;
+import presentationLayer.guiLogicPkg.LaTazzaApplication;
 import utils.PathHandler;
 
 import java.io.FileReader;
 import java.sql.*;
 import java.util.Scanner;
+
+import static presentationLayer.guiLogicPkg.LaTazzaApplication.databaseConnectionHandler;
 
 
 public class TriggersTest {
@@ -24,6 +27,7 @@ public class TriggersTest {
     private Scanner inFile;
     private static ResultSet rs;
     private static PreparedStatement stat;
+
 
 
     public TriggersTest() throws SQLException, ClassNotFoundException {
@@ -70,14 +74,15 @@ public class TriggersTest {
         return conn;
     }
 
-    public void initDataBase() throws SQLException{
-        updateTable(PATHConfig,"databaseConfig.sql");
-
-        updateTable(PATHInsert,"Insert.sql");
-
-
-
+    public void initDataBase() throws SQLException {
+        updateTable(PATHConfig, "databaseConfig.sql");
+        TriggerCheckNumCialde.initTrigger(conn);
+        ViewMagazzino.initView(conn);
+        ViewDebito.initView(conn);
+        ViewCassa.initView(conn);
+        updateTable(PATHInsert, "Insert.sql");
     }
+
     public void closeConnection() throws SQLException {
         database.closeDataBase();
     }

@@ -1,4 +1,5 @@
 package backend.businessLogicLayer;
+import backend.dataAccessLayer.gatewaysPkg.IDaoFacade;
 import backend.dataAccessLayer.rowdatapkg.CialdeEntry;
 import backend.dataAccessLayer.rowdatapkg.MagazzinoEntry;
 import backend.dataAccessLayer.rowdatapkg.RifornimentoEntry;
@@ -28,9 +29,12 @@ public class Magazzino  {
     }
 
 
-
-    public Magazzino(Map<CialdeEntry,Integer> magazzino){
-        stato=magazzino;
+    public Magazzino(IDaoFacade dao){
+        List<MagazzinoEntry>list=dao.getAll(MagazzinoEntry.class);//inizializza il campo list facendo query sul databaseConnectionHandler
+        stato= new HashMap<>();
+        for (MagazzinoEntry m: list ) {
+            stato.put(m.getTipoCialda(),m.getNumeroCialde());
+        }
     }
 
 
