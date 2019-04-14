@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Observable;
 
+import static presentationLayer.guiLogicPkg.ObserverSubscriptionType.PERSONALELIST;
+
 public class ControllerPersonale extends Observable {
 
     private List<Personale> listaPersonaleAttivo;
@@ -81,7 +83,7 @@ public class ControllerPersonale extends Observable {
             return false;
         }
         listaPersonaleAttivo.add(p);
-        this.setChanged();
+        this.setChanged();this.notifyObservers(PERSONALELIST);
         return true;
     }
 
@@ -99,7 +101,7 @@ public class ControllerPersonale extends Observable {
         } else {
             listaPersonaleAttivo.remove(p);
         }
-        this.setChanged();
+        this.setChanged();this.notifyObservers(PERSONALELIST);
         return true;
     }
 

@@ -28,7 +28,7 @@ public class BackEndInvoker {
             return command.execute();
         }catch (Exception e ){
             //todo handle exception
-            System.err.println(e);
+            e.printStackTrace();
             return false;
         }
     }
