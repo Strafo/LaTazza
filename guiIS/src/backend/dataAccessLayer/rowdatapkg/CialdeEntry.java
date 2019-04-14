@@ -20,9 +20,11 @@ public class CialdeEntry extends AbstractEntryDB   {
 
     @Override
     public boolean equals(Object obj) {
+        System.err.println("bao");
         if(!(obj instanceof CialdeEntry)) return false;
         if(this == obj) return true;
         CialdeEntry c= (CialdeEntry) obj;
+        System.err.println("bao");
         return tipo.equals(c.getTipo()) && prezzo.equals(c.getPrezzo());
     }
 

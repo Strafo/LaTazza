@@ -10,6 +10,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Observable;
 
+import static presentationLayer.guiLogicPkg.ObserverSubscriptionType.DEBITOLIST;
+
 
 public  final class ControllerDebito extends Observable {
 
@@ -32,7 +34,7 @@ public  final class ControllerDebito extends Observable {
     private  boolean aggiungiMovimentoDebito(Personale p, Euro importo) throws NullPointerException{
         Date date=new Date();
         Movimento mp=new MovimentoDebito(new Timestamp(date.getTime()),p,importo);
-        this.setChanged();
+        this.setChanged();this.notifyObservers(DEBITOLIST);
         return dao.save(mp);
     }
 
@@ -51,7 +53,7 @@ public  final class ControllerDebito extends Observable {
             aggiungiMovimentoDebito(cliente, importo);
             if(!cliente.pagamentoDebito(importo)) return false;
         //todo fino a qui
-        this.setChanged();
+        this.setChanged();this.notifyObservers(DEBITOLIST);
         return true;
     }
 
@@ -68,7 +70,7 @@ public  final class ControllerDebito extends Observable {
         Personale cliente = controllerPersonale.getPersonale(nome, cognome);
         if (cliente == null) return false;
         cliente.aumentaDebito(importo);
-        this.setChanged();
+        this.setChanged();this.notifyObservers(DEBITOLIST);
         return true;
     }
 
@@ -76,7 +78,7 @@ public  final class ControllerDebito extends Observable {
         Personale cliente = controllerPersonale.getPersonale(personale);
         if (cliente == null) return false;
         cliente.aumentaDebito(importo);
-        this.setChanged();
+        this.setChanged();this.notifyObservers(DEBITOLIST);
         return true;
     }
 
