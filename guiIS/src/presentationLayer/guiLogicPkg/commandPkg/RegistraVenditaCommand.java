@@ -36,7 +36,6 @@ public class RegistraVenditaCommand implements Command {
                 qta,
                 contanti
         );
-        System.err.println(result);
         return result;
 
     }

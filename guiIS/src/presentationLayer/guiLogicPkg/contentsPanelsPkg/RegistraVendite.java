@@ -147,6 +147,9 @@ public class RegistraVendite extends AbstractPanel {
 
     private void conferma(){
 
+        //almeno uno dei duebottoni deve essere selezionato
+        if(!radioButtContanti.isSelected()&&!radioButtACredito.isSelected())return;
+
         String[] nomeCognome;
         boolean isPersonale;
         if(!textFieldNomeCliente.getText().isEmpty()){
@@ -173,7 +176,7 @@ public class RegistraVendite extends AbstractPanel {
             System.err.println("Vendita avvenuta con successo");
 
 
-
+        annulla();//refresha il campo contanti e il campo nomeutente
     }
 
 
