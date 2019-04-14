@@ -29,7 +29,6 @@ public class Magazzino  {
 
 
 
-
     public Magazzino(Map<CialdeEntry,Integer> magazzino){
         stato=magazzino;
     }

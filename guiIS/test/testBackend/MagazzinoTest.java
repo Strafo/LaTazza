@@ -31,6 +31,7 @@ class MagazzinoTest {
     @BeforeEach
     void setUp() {
 
+
         try {
 
             t=new TriggersTest();
