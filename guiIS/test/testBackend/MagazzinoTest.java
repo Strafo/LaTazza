@@ -4,7 +4,6 @@ import backend.businessLogicLayer.Magazzino;
 import backend.dataAccessLayer.gatewaysPkg.DaoInvoker;
 import backend.dataAccessLayer.gatewaysPkg.IDaoFacade;
 import backend.dataAccessLayer.rowdatapkg.CialdeEntry;
-import backend.dataAccessLayer.rowdatapkg.MagazzinoEntry;
 import backend.database.DatabaseConnectionHandler;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,72 +11,104 @@ import org.junit.jupiter.api.Test;
 import presentationLayer.guiLogicPkg.LaTazzaApplication;
 import presentationLayer.guiLogicPkg.commandPkg.InitBackEndCommand;
 import utils.Euro;
+import utils.PathHandler;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.sql.Statement;
 
-import static junit.framework.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 class MagazzinoTest {
     private Magazzino magazzino;
-    private CialdeEntry caffe;
-    private int qtaScatole;
-    private TriggersTest t;
-    private Connection conn;
+    private DatabaseConnectionHandler database;
+    private String DATABASECONFIGFILE="/src/backend/database/config/databaseConfig.sql";
+    private String DEFAULTDATABASEENTRYSETFILE="/test/testBackend/Insert.sql";
+    private String CURRENTWORKINGDIRECTORY;
+    private CialdeEntry cialde;
     private IDaoFacade dao;
-    private LaTazzaApplication app;
-    private Map<CialdeEntry,Integer> stato;
+    private LaTazzaApplication application;
+
+
+
 
     @BeforeEach
     void setUp() {
-
+        application= new LaTazzaApplication();
+        database=new DatabaseConnectionHandler("jdbc:h2:mem:MagazzinoTest");//backend.database per il testing :mem (in memory)
 
         try {
-            t=new TriggersTest();
-            t.initDataBase();
-            conn=t.getConn();
-            dao= new DaoInvoker(conn, InitBackEndCommand.daoCollection);
-            magazzino=new Magazzino(dao);
-            qtaScatole=magazzino.getQtaCialdeScatole();
-
-        }catch (Exception e){
-            e.printStackTrace();
+            database.initDataBase();
+        } catch ( SQLException | ClassNotFoundException e) {
             fail(e.getMessage());
         }
 
+        CURRENTWORKINGDIRECTORY=System.getProperty("user.dir");
+        String normPath= String.valueOf(CURRENTWORKINGDIRECTORY.charAt(CURRENTWORKINGDIRECTORY.length() - 1));
+        if(normPath.equals(PathHandler.getSeparator())){
+            CURRENTWORKINGDIRECTORY+=PathHandler.getSeparator();
+        }
+        System.out.println("Current dir using System:" +CURRENTWORKINGDIRECTORY);
+
+        updateTable(PathHandler.modifyPath(CURRENTWORKINGDIRECTORY+DATABASECONFIGFILE));//DATABASE CONFIG SQL FILE
+        updateTable(PathHandler.modifyPath(CURRENTWORKINGDIRECTORY+DEFAULTDATABASEENTRYSETFILE));//inserisco un po di personale per il testing
+        dao=new DaoInvoker(database.getConnection(), InitBackEndCommand.);
     }
 
 
     @Test
     void aggiungiScatole() {
+        cialde= new CialdeEntry("caffe", new Euro(0,50));
+        if(magazzino.aggiungiScatole(cialde, 20)){
+            System.out.println("ciao "+magazzino.getCopyStato().get(cialde));
+            //assertTrue(magazzino.getCopyStato().get(cialde) == qta+magazzino.getCopyStato() );
+        }
 
-        Integer oldQta= magazzino.getCopyStato().get(caffe);
-        assertTrue(magazzino.aggiungiScatole(caffe,3));
-        int newQta=oldQta+(qtaScatole*3);
-        int getNewQta= magazzino.getCopyStato().get(caffe);
-        assertEquals(getNewQta, newQta );
+        fail("Errore Aggiunta Scatole");
+
     }
 
     @Test
     void rimuoviCialde() {
-        Integer oldQta= magazzino.getCopyStato().get(caffe);
-        assertTrue(magazzino.rimuoviCialde (caffe,1));
-        int newQta=oldQta-qtaScatole;
-        int getNewQta= magazzino.getCopyStato().get(caffe);
-        assertEquals(getNewQta, newQta );
+    }
+
+
+
+
+    private  void updateTable(String sqlFilePath) {
+        System.out.println(sqlFilePath);
+        try {
+            //legge il file sql e lo suddivide in query
+            File file = new File(sqlFilePath);
+            FileInputStream fis = new FileInputStream(file);
+            byte[] data = new byte[(int) file.length()];
+            fis.read(data);
+            fis.close();
+            String str = new String(data, "UTF-8");
+            String[] parts=str.split(";");
+
+
+            Connection conn = database.getConnection();
+            Statement statement = conn.createStatement();
+            //esegue le query
+            for(String i:parts) {
+                statement.execute(i);
+            }
+
+        } catch (IOException | SQLException e) {
+            fail(e.getMessage());
+        }
     }
 
     @AfterEach
     void tearDown(){
         try {
-            t.closeConnection();
+            database.closeDataBase();
         } catch (SQLException e) {
-            e.printStackTrace();
+            fail(e.getMessage());
         }
     }
 
