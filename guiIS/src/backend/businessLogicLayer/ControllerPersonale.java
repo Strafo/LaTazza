@@ -15,7 +15,6 @@ public class ControllerPersonale {
             //todo cosa fare?
         }else{
             for (Personale i:list) {//seleziono solo quelli attivi
-                System.out.println(i.getImportoDebito());
                 if(!i.isAttivo()) toRemove.add(i);
             }
             list.removeAll(toRemove);
@@ -24,8 +23,7 @@ public class ControllerPersonale {
     }
 
     public List<Personale> getCopyList(){
-        //return new ArrayList<>(list);
-        return list;
+        return new ArrayList<>(list);
     }
 
     public void aggiungiPersonale(String nome, String cognome){

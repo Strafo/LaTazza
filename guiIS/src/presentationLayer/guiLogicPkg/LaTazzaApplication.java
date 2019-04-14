@@ -50,7 +50,6 @@ public  class LaTazzaApplication implements Runnable {
 
     public static void main(String[] args)  {
         java.awt.EventQueue.invokeLater(new LaTazzaApplication());
-
     }
 
     public void run(){
