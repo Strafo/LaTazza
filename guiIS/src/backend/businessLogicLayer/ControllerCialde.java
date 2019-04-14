@@ -22,7 +22,7 @@ public  final class ControllerCialde extends Observable {
 
     public  CialdeEntry getCialda(String tipo){
         for (CialdeEntry i:listaCialde) {
-            if(i.getTipo().equals(tipo))
+            if(i.getTipo().equalsIgnoreCase(tipo))
                 return new CialdeEntry(i.getTipo(),i.getPrezzo());
         }
         return null;
