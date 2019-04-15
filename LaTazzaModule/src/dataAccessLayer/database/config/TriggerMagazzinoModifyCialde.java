@@ -6,7 +6,7 @@ import java.sql.*;
 
 public class TriggerMagazzinoModifyCialde extends ViewMagazzino implements Trigger {
 
-    protected static final String TRIGGER_PATH="\"backend.database.config.TriggerMagazzinoModifyCialde\"";
+    protected static final String TRIGGER_PATH="\"dataAccessLayer.database.config.TriggerMagazzinoModifyCialde\"";
 
     private static final String TABLE_NAME_CIALDE="LATAZZASCHEMA.CIALDE";
     private static final String TRIGGER_NAME_INSERT_CIALDE="Insert_View_Magazzino_cialde";

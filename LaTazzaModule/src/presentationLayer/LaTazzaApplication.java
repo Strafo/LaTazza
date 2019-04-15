@@ -2,6 +2,7 @@ package presentationLayer;
 
 import businessLogicLayer.BackEndInvoker;
 import businessLogicLayer.ObserverSubscriptionType;
+import dataAccessLayer.database.config.ConfigurationDataBase;
 import presentationLayer.guiConfig.structurePanelsPropertiesPkg.LaTazzaFrameProperties;
 import businessLogicLayer.commandPkg.InitBackEndCommand;
 import businessLogicLayer.commandPkg.NotifyObserversCommand;
@@ -12,15 +13,21 @@ import java.util.List;
 
 public  class LaTazzaApplication implements Runnable {
 
+    public static boolean MODALITAPRESENTAZIONE=false;
     private LaTazzaFrame laTazzaFrame;//Finestra dell'applicazione
     public static BackEndInvoker backEndInvoker;
 
 
     public static void main(String[] args)  {
-        java.awt.EventQueue.invokeLater(new LaTazzaApplication());
+            java.awt.EventQueue.invokeLater(new LaTazzaApplication(args.length==0?null:args[0]));
+    }
+
+    public LaTazzaApplication(String modalita){
+        MODALITAPRESENTAZIONE="presentazione".equalsIgnoreCase(modalita);
     }
 
     public void run(){
+
         this.initLaTazzaLogger();
         this.initBackEnd();
         this.initFrame();
@@ -33,7 +40,7 @@ public  class LaTazzaApplication implements Runnable {
      */
     private void initBackEnd(){
         backEndInvoker=new BackEndInvoker();
-        if(!backEndInvoker.executeCommand(new InitBackEndCommand(backEndInvoker))){
+        if(!backEndInvoker.executeCommand(new InitBackEndCommand(backEndInvoker,MODALITAPRESENTAZIONE))){
             throw  new Error("Impossibile avviare applicazione");
         }
     }
@@ -54,6 +61,7 @@ public  class LaTazzaApplication implements Runnable {
     private void initLaTazzaLogger(){
         LaTazzaLogger.initLogger(true);
     }
+
 
 
 

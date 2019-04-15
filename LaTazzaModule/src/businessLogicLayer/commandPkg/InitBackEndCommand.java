@@ -8,7 +8,7 @@ import dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import dataAccessLayer.rowdatapkg.clientPkg.Visitatore;
 import dataAccessLayer.rowdatapkg.movimentoPkg.MovimentoDebito;
 import dataAccessLayer.rowdatapkg.movimentoPkg.MovimentoVendita;
-import dataAccessLayer.database.ConfigurationDataBase;
+import dataAccessLayer.database.config.ConfigurationDataBase;
 import dataAccessLayer.database.DatabaseConnectionHandler;
 import javafx.util.Pair;
 import businessLogicLayer.BackEndInvoker;
@@ -20,10 +20,17 @@ import static businessLogicLayer.ObserverSubscriptionType.*;
 
 public class InitBackEndCommand implements  Command{
     private BackEndInvoker backEndInvoker;
+    private boolean modalitaPresentazione=false;
+
+    public InitBackEndCommand(BackEndInvoker backEndInvoker,boolean modalitaPresentazione){
+        this.backEndInvoker = backEndInvoker;
+        this.modalitaPresentazione=modalitaPresentazione;
+    }
 
     public InitBackEndCommand(BackEndInvoker backEndInvoker){
         this.backEndInvoker = backEndInvoker;
     }
+
 
     @Override
     public boolean execute() throws SQLException, ClassNotFoundException {
@@ -36,7 +43,7 @@ public class InitBackEndCommand implements  Command{
         if(!db.existsSchema()) {
             db.createSchema();
             db.initTriggers();
-            db.inserimentiIniziali();
+            db.inserimentiTabellePresentazione(modalitaPresentazione);
         }
         backEndInvoker.setControllerCialde(new ControllerCialde());
         backEndInvoker.setControllerContabilita(new ControllerContabilita());

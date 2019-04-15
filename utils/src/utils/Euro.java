@@ -118,7 +118,7 @@ public class Euro {
      */
     public Euro sottraiImporto(Euro euroDaSottrarre) throws NullPointerException, InsufficientFundsException {
         if(compare(this,euroDaSottrarre)<0)
-            throw new InsufficientFundsException("Impossibile sottrarre euroDaSottrare;fondi insufficenti");
+            throw new InsufficientFundsException("Impossibile sottrarre "+euroDaSottrarre.toString()+";fondi insufficenti");
         this.euro-=euroDaSottrarre.euro;
         if(this.centesimi>=euroDaSottrarre.centesimi){
             this.centesimi-=euroDaSottrarre.centesimi;

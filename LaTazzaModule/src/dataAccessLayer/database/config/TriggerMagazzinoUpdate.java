@@ -6,7 +6,7 @@ import java.sql.*;
 
 public class TriggerMagazzinoUpdate extends ViewMagazzino implements Trigger {
 
-    protected static final String TRIGGER_PATH="\"backend.database.config.TriggerMagazzinoUpdate\"";
+    protected static final String TRIGGER_PATH="\"dataAccessLayer.database.config.TriggerMagazzinoUpdate\"";
 
     private static final String TABLE_NAME_VISITATORE="LATAZZASCHEMA.COMPRA_VISITATORE";
     private static final String TABLE_NAME_DIPENDENTE="LATAZZASCHEMA.COMPRA_DIPENDENTE";

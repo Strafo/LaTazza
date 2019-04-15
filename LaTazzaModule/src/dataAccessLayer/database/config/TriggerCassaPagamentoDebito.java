@@ -1,15 +1,12 @@
 package dataAccessLayer.database.config;
-
-
 import org.h2.api.Trigger;
 import utils.Euro;
-
 import java.sql.*;
 
 
 public class TriggerCassaPagamentoDebito extends ViewCassa implements Trigger {
 
-    private static final String TRIGGER_PATH = "\"backend.database.config.TriggerCassaPagamentoDebito\"";
+    private static final String TRIGGER_PATH = "\"dataAccessLayer.database.config.TriggerCassaPagamentoDebito\"";
     private static final String TABLE_NAME = "LATAZZASCHEMA.PAGAMENTO_DEBITO";
     private static final String TRIGGER_NAME = "Update_Cassa_Pagamento_Debito";
     private static final String CREATE_TRIGGER = "CREATE TRIGGER " + TRIGGER_NAME + " AFTER INSERT ON " + TABLE_NAME + " FOR EACH ROW CALL " + TRIGGER_PATH;
@@ -31,12 +28,12 @@ public class TriggerCassaPagamentoDebito extends ViewCassa implements Trigger {
     }
 
     @Override
-    public void close() throws SQLException {
+    public void close()  {
 
     }
 
     @Override
-    public void remove() throws SQLException {
+    public void remove() {
 
     }
 

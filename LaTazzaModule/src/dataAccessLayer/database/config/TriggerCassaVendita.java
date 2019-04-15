@@ -8,7 +8,7 @@ import java.sql.*;
 
 public class TriggerCassaVendita extends ViewCassa implements Trigger {
 
-    private static final String TRIGGER_PATH = "\"backend.database.config.TriggerCassaVendita\"";
+    private static final String TRIGGER_PATH = "\"dataAccessLayer.database.config.TriggerCassaVendita\"";
     private static final String TABLE_NAME_COMPRA_VISITATORE = "LATAZZASCHEMA.Compra_Visitatore";
     private static final String TABLE_NAME_COMPRA_DIPENDENTE = "LATAZZASCHEMA.Compra_Dipendente";
     private static final String TRIGGER_NAME_VISITATORE = "Update_Table_Cassa_Visitatore";
@@ -71,12 +71,12 @@ public class TriggerCassaVendita extends ViewCassa implements Trigger {
     }
 
     @Override
-    public void close() throws SQLException {
+    public void close()  {
 
     }
 
     @Override
-    public void remove() throws SQLException {
+    public void remove()  {
 
     }
 

@@ -8,7 +8,7 @@ import java.sql.*;
 
 public class TriggerDebitoPagamentoDebito extends ViewDebito implements Trigger {
 
-    private static final String TRIGGER_PATH = "\"backend.database.config.TriggerDebitoPagamentoDebito\"";
+    private static final String TRIGGER_PATH = "\"dataAccessLayer.database.config.TriggerDebitoPagamentoDebito\"";
     private static final String TABLE_NAME = "LATAZZASCHEMA.PAGAMENTO_DEBITO";
     private static final String TRIGGER_NAME = "Update_Table_Pagamento_Debito";
     private static final String CREATE_TRIGGER = "CREATE TRIGGER " + TRIGGER_NAME + " AFTER INSERT ON " + TABLE_NAME + " FOR EACH ROW CALL " + TRIGGER_PATH;

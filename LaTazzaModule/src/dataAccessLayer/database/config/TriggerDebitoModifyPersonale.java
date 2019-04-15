@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class TriggerDebitoModifyPersonale extends ViewDebito implements Trigger {
-    protected static final String TRIGGER_PATH="\"backend.database.config.TriggerDebitoModifyPersonale\"";
+    protected static final String TRIGGER_PATH="\"dataAccessLayer.database.config.TriggerDebitoModifyPersonale\"";
 
     private static final String TABLE_NAME_PERSONALE="LATAZZASCHEMA.PERSONALE";
     private static final String TRIGGER_NAME_INSERT_PERSONALE="Insert_View_Debito_personale";

@@ -5,7 +5,7 @@ import java.sql.*;
 
 public class TriggerCheckNumCialdeVisitatore extends TriggerCheckNumCialde  implements Trigger {
 
-    private static final String TRIGGER_PATH="\"backend.database.config.TriggerCheckNumCialdeVisitatore\"";
+    private static final String TRIGGER_PATH="\"dataAccessLayer.database.config.TriggerCheckNumCialdeVisitatore\"";
     private static final String TRIGGER_NAME_VISITATORE="check_num_cialde_visitatore";
     private static final String CREATE_TRIGGER_STATEMENT_VISITATORE = "CREATE TRIGGER " + TRIGGER_NAME_VISITATORE + " AFTER INSERT ON "+ TABLE_NAME_VISITATORE+" FOR EACH ROW CALL "+TRIGGER_PATH;
 

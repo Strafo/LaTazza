@@ -7,7 +7,7 @@ import java.sql.*;
 
 public class TriggerDebitoVenditaCredito extends ViewDebito implements Trigger {
 
-    private static final String TRIGGER_PATH="\"backend.database.config.TriggerDebitoVenditaCredito\"";
+    private static final String TRIGGER_PATH="\"dataAccessLayer.database.config.TriggerDebitoVenditaCredito\"";
     private static final String TABLE_NAME_DIPENDENTE="LATAZZASCHEMA.COMPRA_DIPENDENTE";
     private static final String TABLE_NAME_CIALDE="LATAZZASCHEMA.CIALDE";
     private static final String TRIGGER_NAME="Update_Table_Debiti_Pagati";

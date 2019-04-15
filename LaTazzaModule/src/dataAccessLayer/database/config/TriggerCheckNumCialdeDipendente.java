@@ -5,7 +5,7 @@ import java.sql.*;
 
 public class TriggerCheckNumCialdeDipendente extends TriggerCheckNumCialde implements Trigger  {
 
-    private static final String TRIGGER_PATH="\"backend.database.config.TriggerCheckNumCialdeDipendente\"";
+    private static final String TRIGGER_PATH="\"dataAccessLayer.database.config.TriggerCheckNumCialdeDipendente\"";
 
     private static final String TABLE_NAME_DIPENDENTE="LATAZZASCHEMA.COMPRA_DIPENDENTE";
     private static final String TRIGGER_NAME_DIPENDENTE="check_num_cialde_dipendente";
