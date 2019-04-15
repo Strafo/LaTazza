@@ -17,10 +17,7 @@ public final class PathHandler {
     public static String getSeparator(){
         return File.separator;
     }
-    /*public static void main(String[] args) {
-        String test=System.getProperty("user.dir")+"\\src\\backend\\database\\config\\";
-        System.out.println(PathHandler.modifyPath(test));
-    }*/
+
 
 
 }

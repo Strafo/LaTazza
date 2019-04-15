@@ -1,5 +1,7 @@
 package presentationLayer.guiConfig;
 
+import utils.PathHandler;
+
 import java.util.Objects;
 import javax.swing.ImageIcon;
 
@@ -9,7 +11,6 @@ import javax.swing.ImageIcon;
  */
 public class ResourcesClassLoader{
 
-    private static ClassLoader classLoader = ClassLoader.getSystemClassLoader();
 
     private static ImageIcon iconaTazza= retriveIcon("iconaTazza.png");
     private static ImageIcon iconaTazza2= retriveIcon("iconaTazza2.png");
@@ -39,18 +40,18 @@ public class ResourcesClassLoader{
     private static ImageIcon iconaRimPersonale= retriveIcon("iconRimozioneUtente.png");
 
     public static ImageIcon retriveIcon(String iconAddress) {
-        String path=System.getProperty("user.dir")+"/utils/src/iconeGui/"+iconAddress;
+        String path=System.getProperty("user.dir")+PathHandler.modifyPath("/iconeGui/"+iconAddress);
         return new ImageIcon(Objects.requireNonNull(path));
     }
 
     public static ImageIcon getIconW(String nomeIcona)
     {
-        return new ImageIcon(System.getProperty("user.dir")+"/utils/src/iconeGui/"+nomeIcona+"W25.png");
+        return new ImageIcon(System.getProperty("user.dir")+PathHandler.modifyPath("/iconeGui/"+nomeIcona+"W25.png"));
     }
 
     public static ImageIcon getIconB(String nomeIcona)
     {
-        return new ImageIcon(System.getProperty("user.dir")+"/utils/src/iconeGui/"+nomeIcona+"B25.png");
+        return new ImageIcon(System.getProperty("user.dir")+PathHandler.modifyPath("/iconeGui/"+nomeIcona+"B25.png"));
     }
 
     public static ImageIcon getIconTazza() {

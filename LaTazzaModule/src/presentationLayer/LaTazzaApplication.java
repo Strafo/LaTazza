@@ -2,7 +2,6 @@ package presentationLayer;
 
 import businessLogicLayer.BackEndInvoker;
 import businessLogicLayer.ObserverSubscriptionType;
-import dataAccessLayer.database.config.ConfigurationDataBase;
 import presentationLayer.guiConfig.structurePanelsPropertiesPkg.LaTazzaFrameProperties;
 import businessLogicLayer.commandPkg.InitBackEndCommand;
 import businessLogicLayer.commandPkg.NotifyObserversCommand;
