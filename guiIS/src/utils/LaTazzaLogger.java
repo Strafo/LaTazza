@@ -26,8 +26,16 @@ public final class LaTazzaLogger  {
         }
     }
 
-    public static Logger getLOGGER() {
+    private static Logger getLOGGER() {
         return LOGGER;
+    }
+
+    public static void log(LogRecord logRecord){
+        getLOGGER().log(logRecord);
+    }
+
+    public static void log(Level level, String msg, Throwable thrown){
+        getLOGGER().log(level,msg,thrown);
     }
 
 }

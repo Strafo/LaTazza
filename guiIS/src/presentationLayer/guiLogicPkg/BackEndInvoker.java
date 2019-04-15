@@ -7,9 +7,12 @@ import backend.businessLogicLayer.ControllerPersonale;
 import backend.dataAccessLayer.gatewaysPkg.IDaoFacade;
 import backend.database.DatabaseConnectionHandler;
 import presentationLayer.guiLogicPkg.commandPkg.Command;
+import utils.LaTazzaLogger;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
 
 public class BackEndInvoker {
 
@@ -27,8 +30,7 @@ public class BackEndInvoker {
         try{
             return command.execute();
         }catch (Exception e ){
-            //todo handle exception
-            e.printStackTrace();
+            handleException(command,e);
             return false;
         }
     }
@@ -38,13 +40,32 @@ public class BackEndInvoker {
         try {
             ob=subscriptions.get(subscriptionType);
             ob.addObserver(observer);
-            System.out.println("nuova iscrizione");
         }catch(Exception e){
-            System.err.println(e);
-            throw e;//todo remove
+            handleException(observer,subscriptionType,e);
+            throw new Error("Inizializzazione falita");
         }
     }
 
+    private void handleException(Command c,Exception e){
+        if(c!=null) {
+            LaTazzaLogger.log(
+                    Level.WARNING, "Errore esecuzione " +c.getClass().getSimpleName()+"\n\n",e
+            );
+        }else{
+            LaTazzaLogger.log(new LogRecord(Level.WARNING, "Errore esecuzione  comando==null\n\n"));
+        }
+    }
+
+    private void handleException(Observer ob,ObserverSubscriptionType type,Exception e) {
+        if(ob!=null&&type!=null) {
+            LaTazzaLogger.log(
+                    Level.SEVERE, "Errore addObserver:" + ob.getClass().getSimpleName()+" type:"+
+                    type.name()+"\n\n",e);
+        }else{
+            LaTazzaLogger.log(
+                    new LogRecord(Level.SEVERE, "Errore addObserver || type==(null)\n\n"));
+        }
+    }
 
 
 

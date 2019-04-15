@@ -171,12 +171,12 @@ public class DaoInvoker implements IDaoFacade {
 
     private void handleException(String queryType,Exception exc){
         if(exc.getCause() instanceof JdbcSQLIntegrityConstraintViolationException){
-            LaTazzaLogger.getLOGGER().log(
+            LaTazzaLogger.log(
                     new LogRecord(
                             Level.INFO,
                             "ConstraintViolation esecuzione "+ queryType +" query.\n"+ exc.toString()+" "+((JdbcSQLIntegrityConstraintViolationException) exc.getCause()).getSQL()+"\n\n"));
         }else {
-            LaTazzaLogger.getLOGGER().log(Level.SEVERE, "Errore esecuzione " + queryType + " query.\n", exc);
+            LaTazzaLogger.log(Level.SEVERE, "Errore esecuzione " + queryType + " query.\n", exc);
         }
     }
 
