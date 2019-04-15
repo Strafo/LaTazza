@@ -6,7 +6,11 @@ import backend.businessLogicLayer.ControllerPersonale;
 import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import presentationLayer.guiConfig.contentsPanelsPropertiesPkg.GestPersonaleProperties;
 import presentationLayer.guiLogicPkg.LaTazzaApplication;
+import presentationLayer.guiLogicPkg.commandPkg.AggiungiPersonaleCommand;
+
 import javax.swing.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.Observable;
 import static presentationLayer.guiConfig.contentsPanelsPropertiesPkg.GestPersonaleProperties.*;
@@ -37,6 +41,15 @@ public class GestionePersonale extends AbstractPanel {
         add(comboBoxNomePersonale=GestPersonaleProperties.createAndInitJComboBoxNomePersonale());
         add(buttonRimuovi=GestPersonaleProperties.createAndInitButtonRimuovi());
 
+        buttonAggiugi.addMouseListener(
+                new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        confermaAggiungiPersonale();
+                    }
+                }
+        );
+
         LaTazzaApplication.backEndInvoker.addObserver(PERSONALELIST,this);
     }
 
@@ -55,5 +68,13 @@ public class GestionePersonale extends AbstractPanel {
         if(arg==PERSONALELIST){
             setComboBoxNomePersonale(((ControllerPersonale)o).getCopyList());
         }
+    }
+
+    public void confermaAggiungiPersonale() {
+        String[] nomeCognome= textFieldAggiungi.getText().split(" ");
+        AggiungiPersonaleCommand command= new AggiungiPersonaleCommand(nomeCognome[0],nomeCognome[1], LaTazzaApplication.backEndInvoker);
+        if(!LaTazzaApplication.backEndInvoker.executeCommand(command))
+            System.err.println("Errore nell'aggiunta del personale");
+        System.err.println("Personale aggiunto con successo");
     }
 }
