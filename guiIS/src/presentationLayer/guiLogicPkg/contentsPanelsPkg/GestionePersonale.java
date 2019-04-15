@@ -7,6 +7,7 @@ import backend.dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import presentationLayer.guiConfig.contentsPanelsPropertiesPkg.GestPersonaleProperties;
 import presentationLayer.guiLogicPkg.LaTazzaApplication;
 import presentationLayer.guiLogicPkg.commandPkg.AggiungiPersonaleCommand;
+import presentationLayer.guiLogicPkg.commandPkg.LicenziaPersonaleCommand;
 
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
@@ -50,6 +51,15 @@ public class GestionePersonale extends AbstractPanel {
                 }
         );
 
+        buttonRimuovi.addMouseListener(
+                new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        confermaLicenziaPersonale();;
+                    }
+                }
+        );
+
         LaTazzaApplication.backEndInvoker.addObserver(PERSONALELIST,this);
     }
 
@@ -75,6 +85,18 @@ public class GestionePersonale extends AbstractPanel {
         AggiungiPersonaleCommand command= new AggiungiPersonaleCommand(nomeCognome[0],nomeCognome[1], LaTazzaApplication.backEndInvoker);
         if(!LaTazzaApplication.backEndInvoker.executeCommand(command))
             System.err.println("Errore nell'aggiunta del personale");
+            else
         System.err.println("Personale aggiunto con successo");
+    }
+
+    public  void confermaLicenziaPersonale(){
+        String personale= (String) comboBoxNomePersonale.getSelectedItem();
+        String[] nomeCognome= personale.split(" ");
+        LicenziaPersonaleCommand command= new LicenziaPersonaleCommand(nomeCognome[0],nomeCognome[1], LaTazzaApplication.backEndInvoker);
+        if(!LaTazzaApplication.backEndInvoker.executeCommand(command))
+            System.err.println("Errore nel Licenziamento del Personale");
+        else
+        System.err.println("Personale Licenziato");
+
     }
 }
