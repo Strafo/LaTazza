@@ -46,8 +46,6 @@ public  class ControllerContabilita extends Observable {
         Euro importo= new Euro(tipo.getPrezzo());
         importo.moltiplicaImporto(numeroCialde);// throws Overflow, illegal
         if(!magazzino.rimuoviCialde(tipo,numeroCialde)){
-            System.err.println("regVenditafalse");
-
             return false;
         }
         try {

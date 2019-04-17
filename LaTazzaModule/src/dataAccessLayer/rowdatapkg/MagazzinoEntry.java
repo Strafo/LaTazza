@@ -1,6 +1,5 @@
 package dataAccessLayer.rowdatapkg;
 import dataAccessLayer.mementoPkg.Memento;
-import presentationLayer.LaTazzaApplication;
 
 public class MagazzinoEntry extends AbstractEntryDB {
 
@@ -9,7 +8,7 @@ public class MagazzinoEntry extends AbstractEntryDB {
 
 
     public MagazzinoEntry(String cialda, int qta){
-        tipoCialda=LaTazzaApplication.backEndInvoker.getControllerCialde().getCialda(cialda);
+        tipoCialda=new CialdeEntry(cialda);
         numeroCialde=qta;
 
     }

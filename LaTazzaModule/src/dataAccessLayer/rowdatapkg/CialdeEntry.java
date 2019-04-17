@@ -23,7 +23,7 @@ public class CialdeEntry extends AbstractEntryDB   {
         if(!(obj instanceof CialdeEntry)) return false;
         if(this == obj) return true;
         CialdeEntry c= (CialdeEntry) obj;
-        return tipo.equals(c.getTipo()) && prezzo.equals(c.getPrezzo());
+        return tipo.equals(c.getTipo());
     }
 
     @Override
