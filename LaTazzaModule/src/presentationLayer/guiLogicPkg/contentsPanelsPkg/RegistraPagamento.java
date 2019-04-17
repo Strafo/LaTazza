@@ -80,12 +80,27 @@ public class RegistraPagamento extends AbstractPanel {
     }
 
     private void conferma(){
+
+		Euro importo;
+		long euro;
+		int cent;
+		String value= textFieldAmmontare.getText(), strCent=null;
 		String personale= (String) nomePersonaleMenu.getSelectedItem();
 		String[] nomeCognome= personale.split(" ");
-		String[] euroCent=  textFieldAmmontare.getText().split("\\.");
-		long euro= Long.valueOf(euroCent[0]);
-		int  cent= Integer.valueOf(euroCent[1]);
-		Euro importo=new Euro(euro, cent);
+
+
+		if(value.contains(".")){
+			String[] euroCent= value.split("\\.");
+			euro= Long.valueOf(euroCent[0]);
+			strCent=euroCent[1];
+			if(euroCent[1].length()==1) strCent=strCent.concat("0");
+			cent= Integer.valueOf(strCent);
+			importo=new Euro(euro, cent);
+		}
+		else {
+			euro= Long.valueOf(value);
+			importo= new Euro(euro);
+		}
 		PagamentoDebitoCommand command= new PagamentoDebitoCommand(nomeCognome[0],nomeCognome[1],importo,LaTazzaApplication.backEndInvoker);
 		if(!LaTazzaApplication.backEndInvoker.executeCommand(command))
 			System.err.println("Errore nel pagamento del Debito");
