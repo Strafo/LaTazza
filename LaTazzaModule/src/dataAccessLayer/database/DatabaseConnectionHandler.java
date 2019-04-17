@@ -1,6 +1,5 @@
 package dataAccessLayer.database;
 import utils.PathHandler;
-
 import java.sql.*;
 
 public class DatabaseConnectionHandler {
@@ -30,7 +29,7 @@ public class DatabaseConnectionHandler {
 
         if(connection==null||connection.isClosed()){
             Class.forName(DB_DRIVER);
-            System.out.println(path+";"+DEFAULT_OPT);
+            System.out.println("Apro connessione con:"+path+";"+DEFAULT_OPT);
             connection = DriverManager.getConnection(path+";"+DEFAULT_OPT, DB_USER, DB_PASSWORD);
         }
 
