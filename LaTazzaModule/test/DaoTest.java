@@ -1,4 +1,4 @@
-import businessLogicLayer.Cassa;
+import dataAccessLayer.rowdatapkg.Cassa;
 import businessLogicLayer.Debito;
 import dataAccessLayer.gatewaysPkg.DaoInvoker;
 import dataAccessLayer.gatewaysPkg.IDaoFacade;

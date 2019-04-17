@@ -1,4 +1,4 @@
-import businessLogicLayer.Cassa;
+import dataAccessLayer.rowdatapkg.Cassa;
 import utils.Euro;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
