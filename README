@@ -1,3 +1,21 @@
+                  ,--,                               ,----,
+               ,---.'|                             ,/   .`|
+               |   | :                           ,`   .'  :
+               :   : |                         ;    ;     /
+               |   ' :                       .'___,/    ,'                  ,----,       ,----,
+               ;   ; '                       |    :     |                 .'   .`|     .'   .`|
+               '   | |__   ,--.--.           ;    |.';  ;  ,--.--.     .'   .'  .'  .'   .'  .' ,--.--.
+               |   | :.'| /       \          `----'  |  | /       \  ,---, '   ./ ,---, '   ./ /       \
+               '   :    ;.--.  .-. |             '   :  ;.--.  .-. | ;   | .'  /  ;   | .'  / .--.  .-. |
+               |   |  ./  \__\/: . .             |   |  ' \__\/: . . `---' /  ;--,`---' /  ;--,\__\/: . .
+               ;   : ;    ," .--.; |             '   :  | ," .--.; |   /  /  / .`|  /  /  / .`|," .--.; |
+               |   ,/    /  /  ,.  |             ;   |.' /  /  ,.  | ./__;     .' ./__;     .'/  /  ,.  |
+               '---'    ;  :   .'   \            '---'  ;  :   .'   \;   |  .'    ;   |  .'  ;  :   .'   \
+                        |  ,     .-./                   |  ,     .-./`---'        `---'      |  ,     .-./
+                         `--`---'                        `--`---'                             `--`---'
+
+
+
 Powered by
     _   _                _____                     ____       _ _        
    | \ | |              / ____|                   |  _ \     | | |       
@@ -19,3 +37,35 @@ Powered by
                                                                          
                                                                          
 
+Progetto per il corso di Ingegneria del Software 2018/2019.
+
+Autori:
+    Simone Campisi
+    Jacopo Dapueto
+    Gabriele Armanino
+    Andrea Straforini
+
+GitRepository:
+    https://github.com/Strafo/LaTazza
+
+Nella repo ci sono due jar:
+    1-LaTazza.jar  è il software gestionale richiesto dal corso
+    2-LaTazzaDbAdmin.jar semplice shell pre interazione con i db di tipo hibernate
+
+
+LaTazza.jar può essere avvita in due modi:
+    1-Versione per la presentazione
+    2-Versione release
+
+Per avviare l'applicazione in modalità presentazione è sufficiente eseguire il comando
+    java -jar LaTazza.jar presentazione
+
+Per avviare l'applicazione nella versione release è sufficiente eseguire il comando
+    java -jar LaTazza.jar
+
+
+Dopo l'avvio dell'applicazione LaTazza vengono creati 2 file (nella working directory corrente):
+    1- databaseLaTazza.mv.db
+    2- databaseLaTazza.trace.db
+Questi 2 file sono il database.
+Se si vuole cambiare modalità(ad esempio da release a presentazione) è quindi necessario eliminare i 2 file *.db
