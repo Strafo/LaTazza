@@ -6,8 +6,7 @@ import dataAccessLayer.gatewaysPkg.receiverPkg.*;
 import dataAccessLayer.rowdatapkg.*;
 import javafx.util.Pair;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
@@ -28,6 +27,7 @@ public class DatabaseAdministrationTool {
         GETTRANSACTIONSTATUS,
         QUERY,
         REFRESH,
+        TERMINALCOMMAND,
         EXIT,
         UNKNOWNCOMMAND,
         HELP
@@ -38,9 +38,10 @@ public class DatabaseAdministrationTool {
             "\nCOMANDI:\n\t" +
                     DbATCommands.STARTTRANSACTION+":Inizia Transazione\n\t"+
                     DbATCommands.ENDTRANSACTION+":Termina Transazione\n\t"+
-                    DbATCommands.GETTRANSACTIONSTATUS+"Ottiene stato Transazione\n\t"+
+                    DbATCommands.GETTRANSACTIONSTATUS+":Ottiene stato Transazione\n\t"+
                     DbATCommands.QUERY+":Scrivi query o comandi\n\t" +
                     DbATCommands.REFRESH+":Pulisci scheramata\n\t"+
+                    DbATCommands.TERMINALCOMMAND+":(tc)Esegui un comando del terminale(Unix-like only)\n\t"+
                     DbATCommands.HELP+":lista comandi\n\t"+
                     DbATCommands.EXIT+":termina sessione\n";
 
@@ -110,11 +111,14 @@ public class DatabaseAdministrationTool {
         if(inputString.equalsIgnoreCase(String.valueOf(DbATCommands.HELP))){
             return DbATCommands.HELP;
         }
+        if(inputString.equalsIgnoreCase(String.valueOf(DbATCommands.TERMINALCOMMAND))||inputString.equalsIgnoreCase("tc")){
+            return DbATCommands.TERMINALCOMMAND;
+        }
         return DbATCommands.UNKNOWNCOMMAND;
     }
 
 
-    public void executeCommand(DbATCommands c)  {
+    public void executeCommand(DbATCommands c) {
         switch (c){
             case STARTTRANSACTION:
                 dao.startTransaction();
@@ -139,12 +143,32 @@ public class DatabaseAdministrationTool {
             case UNKNOWNCOMMAND:
                 System.out.println("Comando non riconosciuto...");
                 break;
+            case TERMINALCOMMAND:
+                try {
+                    ProcessBuilder pb = new ProcessBuilder("bash","-c",getString());
+                    pb.inheritIO();
+                    Process process = pb.start();
+                    process.waitFor();
+                    printInputStream(process.getInputStream());
+                    printInputStream(process.getErrorStream());
+                } catch (Exception e){e.printStackTrace();}
+                break;
             case EXIT:
                 break;
             case HELP:
                 printMenu();
                 break;
         }
+    }
+
+    public void printInputStream(InputStream stream) throws IOException {
+        String s;
+        BufferedReader reader = new BufferedReader(new
+                InputStreamReader(stream));
+        while ((s = reader.readLine()) != null) {
+            System.out.println(s);
+        }
+        System.out.flush();
     }
 
     public String getString(){
@@ -159,9 +183,16 @@ public class DatabaseAdministrationTool {
     }
 
     private String buildTitle() throws UnknownHostException {
+        String path=System.getProperty("user.dir");
+        String homeDirectory=System.getProperty("user.home");
+        if(path.startsWith(homeDirectory)){
+            path=path.replace(homeDirectory,"~");
+        }
+
         return ANSI_GREEN+System.getProperty("user.name")+"@"+ANSI_CYAN+InetAddress.getLocalHost().getHostName()
-        +" "+System.getProperty("user.dir")+" $"+ANSI_RESET;
+        +" "+path+" $"+ANSI_RESET;
     }
+
 
     public static void main(String[] args) {
         DatabaseAdministrationTool dbat;
