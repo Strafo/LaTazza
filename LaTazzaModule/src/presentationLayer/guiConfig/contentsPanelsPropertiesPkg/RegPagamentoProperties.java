@@ -8,6 +8,8 @@ import utils.MyJLabel;
 import javax.swing.*;
 import javax.swing.text.NumberFormatter;
 import java.awt.*;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 
 import static presentationLayer.guiLogicPkg.LaTazzaFrame.JPanelsNames.REGPAGAMENTOPANE;
@@ -68,13 +70,21 @@ public  class RegPagamentoProperties extends AbstractPanelProperties {
     }
 
     public static JFormattedTextField createAndInitJFormattedTextFieldAmmontare(){
-        NumberFormat formatAmmontare = NumberFormat.getInstance();
+        /*NumberFormat formatAmmontare = NumberFormat.getInstance();
         NumberFormatter formatterAmmontare = new NumberFormatter(formatAmmontare);
         formatterAmmontare.setValueClass(Integer.class);
         formatterAmmontare.setMinimum(0);
         formatterAmmontare.setMaximum(Integer.MAX_VALUE);
         formatterAmmontare.setAllowsInvalid(false);
-        JFormattedTextField textFieldAmmontare = new JFormattedTextField(formatterAmmontare);
+         */
+        DecimalFormat decimalFormatAmmontare;
+        DecimalFormatSymbols formatAmmontare= new DecimalFormatSymbols();
+        formatAmmontare.setDecimalSeparator('.');
+        formatAmmontare.setGroupingSeparator(',');
+        decimalFormatAmmontare= new DecimalFormat("#.##",formatAmmontare);
+        decimalFormatAmmontare.setMaximumIntegerDigits(Integer.MAX_VALUE);
+        decimalFormatAmmontare.setMinimumIntegerDigits(Integer.MIN_VALUE);
+        JFormattedTextField textFieldAmmontare = new JFormattedTextField(decimalFormatAmmontare);
         textFieldAmmontare.setBounds(DEFAULTX_COLONNA1,DEFAULTY_RIGA2+DEFAULT_GAP_TXT,DEFAULT_WIDTH_FIELD,DEFAULT_HEIGHT_FIELD);
         textFieldAmmontare.setColumns(10);
         return textFieldAmmontare;
