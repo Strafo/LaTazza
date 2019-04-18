@@ -50,7 +50,7 @@ GitRepository:
 
 Nella repo ci sono due jar:
     1-LaTazza.jar  è il software gestionale richiesto dal corso
-    2-LaTazzaDbAdmin.jar semplice shell pre interazione con i db di tipo hibernate
+    2-LaTazzaDbAdmin.jar semplice shell per l'interazione con i db di tipo hibernate
 
 
 LaTazza.jar può essere avvita in due modi:
