@@ -80,8 +80,6 @@ public class StatoPane extends AbstractPanel {
 
 
     public void setCassa(Euro euroCassa) {
-
-        return;
     }
 
 
