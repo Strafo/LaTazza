@@ -118,7 +118,7 @@ public class ConfigurationDataBase {
             "  nome varchar(64) not null," +
             "  cognome varchar(64) not null," +
             "  data TIMESTAMP default CURRENT_TIMESTAMP not null," +
-            "  euro bigint not null check( euro > 0)," +
+            "  euro bigint not null check( euro >= 0)," +
             "  centesimi int not null check(centesimi>=0 and centesimi < 100)," +
             "  primary key (nome, cognome, data)," +
             "  foreign key(nome, cognome) references LATAZZASCHEMA.personale(nome,cognome) on update cascade on delete restrict" +
