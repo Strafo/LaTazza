@@ -102,10 +102,12 @@ public class RegistraPagamento extends AbstractPanel {
 			importo= new Euro(euro);
 		}
 		PagamentoDebitoCommand command= new PagamentoDebitoCommand(nomeCognome[0],nomeCognome[1],importo,LaTazzaApplication.backEndInvoker);
-		if(!LaTazzaApplication.backEndInvoker.executeCommand(command))
+		if(!LaTazzaApplication.backEndInvoker.executeCommand(command)) {
 			System.err.println("Errore nel pagamento del Debito");
-		else
-			System.err.println("Debito Pagato Correttamente");
+			JOptionPane.showMessageDialog(null,
+					"Impossibile registrare pagamanento", "alert", JOptionPane.ERROR_MESSAGE);
+		}else
+			System.out.println("Debito Pagato Correttamente");
 
 	}
 
