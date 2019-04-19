@@ -13,7 +13,7 @@ public class StatoPaneProperties extends AbstractPanelProperties {
 
     public static final String DEFAULT_LINKDESCRIPTION="Stato";
     public static final LaTazzaFrame.JPanelsNames DEFAULT_PANELNAME=STATOPANE;
-    private static final String[] DEFAULT_LABELDESCRIPTION={"Stato magazzino, cassa e debiti personale","Magazzino","Saldo cassa:","Debiti personale","140'000"};
+    private static final String[] DEFAULT_LABELDESCRIPTION={"Stato magazzino, cassa e debiti personale","Magazzino","Saldo cassa:","Debiti personale","0.0"};
 
     private static final Color DEFAULT_BACKGROUNDCOLOR=Color.WHITE;
     private static final LayoutManager DEFAULT_LAYOUTMANAGER=null;
