@@ -59,10 +59,15 @@ public class RegistraRifornimento extends AbstractPanel {
     }
 
     private void conferma(){
+        String[] quantità=null;
+        String tot="";
+        if(textFieldQuantita.getText().contains("\'")) quantità=textFieldQuantita.getText().split("[:punct:]");
+        for(int i=0; i<quantità.length; i++) tot=tot.concat(quantità[i]);
 
+        System.out.println(tot);
         RegistraRifornimentoCommand command=new RegistraRifornimentoCommand(
                 (String)(tipoCialdeMenu.getSelectedItem()),
-                Integer.valueOf(textFieldQuantita.getText()),
+                Integer.valueOf(tot),
                 LaTazzaApplication.backEndInvoker
         );
         if(!LaTazzaApplication.backEndInvoker.executeCommand(command)) {
@@ -71,6 +76,7 @@ public class RegistraRifornimento extends AbstractPanel {
                     "Impossibile registrare rifornimento", "alert", JOptionPane.ERROR_MESSAGE);
         }else
             System.out.println("Rifornimento avvenuto con successo");
+        annulla();
 
     }
 

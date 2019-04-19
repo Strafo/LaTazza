@@ -74,9 +74,8 @@ public  class RegPagamentoProperties extends AbstractPanelProperties {
         DecimalFormat decimalFormatAmmontare;
         DecimalFormatSymbols formatAmmontare= new DecimalFormatSymbols();
         formatAmmontare.setDecimalSeparator('.');
-        formatAmmontare.setGroupingSeparator(',');
-        decimalFormatAmmontare= new DecimalFormat("#0.##",formatAmmontare);
-
+        formatAmmontare.setGroupingSeparator('\'');
+        decimalFormatAmmontare= new DecimalFormat("###,##0.##",formatAmmontare);
         JFormattedTextField textFieldAmmontare = new JFormattedTextField(decimalFormatAmmontare);
         textFieldAmmontare.setBounds(DEFAULTX_COLONNA1,DEFAULTY_RIGA2+DEFAULT_GAP_TXT,DEFAULT_WIDTH_FIELD,DEFAULT_HEIGHT_FIELD);
         textFieldAmmontare.setColumns(10);

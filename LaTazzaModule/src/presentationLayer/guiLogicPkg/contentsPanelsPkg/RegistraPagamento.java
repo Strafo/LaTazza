@@ -108,6 +108,7 @@ public class RegistraPagamento extends AbstractPanel {
 					"Impossibile registrare pagamanento", "alert", JOptionPane.ERROR_MESSAGE);
 		}else
 			System.out.println("Debito Pagato Correttamente");
+		annulla();
 
 	}
 

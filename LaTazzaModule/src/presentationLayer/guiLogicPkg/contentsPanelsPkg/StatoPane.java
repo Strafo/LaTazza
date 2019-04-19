@@ -50,7 +50,6 @@ public class StatoPane extends AbstractPanel {
 
 
     public void setCialdeList(Map<CialdeEntry,Integer> listaCialde){
-
         int i=0;
         for (CialdeEntry s : listaCialde.keySet())
         {
