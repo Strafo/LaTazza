@@ -6,6 +6,7 @@ import dataAccessLayer.rowdatapkg.CialdeEntry;
 import dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import presentationLayer.guiConfig.contentsPanelsPropertiesPkg.StatoPaneProperties;
 import presentationLayer.LaTazzaApplication;
+import utils.Euro;
 import utils.MyJLabel;
 import javax.swing.*;
 import java.util.*;
@@ -78,6 +79,10 @@ public class StatoPane extends AbstractPanel {
     }
 
 
+    public void setCassa(Euro euroCassa) {
+
+        return;
+    }
 
 
     @Override
@@ -86,6 +91,7 @@ public class StatoPane extends AbstractPanel {
             setDebitiPersonaleTextArea(((ControllerDebito)o).esaminareDebitiPersonale());
         }else if(arg==CONTABILITALIST){
             setCialdeList(((ControllerContabilita)o).statoMagazzino());
+            setCassa(((ControllerContabilita)o).statoCassa());
         }
     }
 }

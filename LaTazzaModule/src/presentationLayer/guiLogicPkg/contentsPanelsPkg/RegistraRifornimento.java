@@ -65,10 +65,12 @@ public class RegistraRifornimento extends AbstractPanel {
                 Integer.valueOf(textFieldQuantita.getText()),
                 LaTazzaApplication.backEndInvoker
         );
-        if(!LaTazzaApplication.backEndInvoker.executeCommand(command))//todo check return value
+        if(!LaTazzaApplication.backEndInvoker.executeCommand(command)) {
             System.err.println("Impossibile registrare il rifornimento");
-        else
-            System.err.println("Rifornimento avvenuto con successo");
+            JOptionPane.showMessageDialog(null,
+                    "Impossibile registrare rifornimento", "alert", JOptionPane.ERROR_MESSAGE);
+        }else
+            System.out.println("Rifornimento avvenuto con successo");
 
     }
 
