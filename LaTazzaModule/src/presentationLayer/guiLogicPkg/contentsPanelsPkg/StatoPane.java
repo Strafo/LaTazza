@@ -80,7 +80,13 @@ public class StatoPane extends AbstractPanel {
 
 
     public void setCassa(Euro euroCassa) {
-       labelSaldo.setText(euroCassa.getEuro()+"."+euroCassa.getCentesimi()/100);
+        int citti=euroCassa.getCentesimi();
+        if(citti<10){
+            labelSaldo.setText(euroCassa.getEuro() + ".0" + euroCassa.getCentesimi());
+
+        }else {
+            labelSaldo.setText(euroCassa.getEuro() + "." + euroCassa.getCentesimi());
+        }
     }
 
 
