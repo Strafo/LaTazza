@@ -84,7 +84,7 @@ public class RegistraPagamento extends AbstractPanel {
 		Euro importo;
 		long euro;
 		int cent;
-		String value= textFieldAmmontare.getText(), strCent=null;
+		String value= textFieldAmmontare.getText().replaceAll("\\'",""), strCent=null;
 		String personale= (String) nomePersonaleMenu.getSelectedItem();
 		String[] nomeCognome= personale.split(" ");
 

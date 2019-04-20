@@ -51,6 +51,7 @@ public class StatoPane extends AbstractPanel {
 
     public void setCialdeList(Map<CialdeEntry,Integer> listaCialde){
         int i=0;
+        //MyJLabel labelCialde= StatoPaneProperties.createAndInitJLabelCialda()
         for (CialdeEntry s : listaCialde.keySet())
         {
             add(StatoPaneProperties.createAndInitJLabelCialda(s.getTipo()+" "+ listaCialde.get(s),i++));

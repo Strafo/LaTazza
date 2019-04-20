@@ -141,6 +141,7 @@ public class StatoPaneProperties extends AbstractPanelProperties {
     }
 
     public static MyJLabel createAndInitJLabelCialda(String nome,int i) {
+
         return new MyJLabel(nome,
                 DEFAULT_FONT_DESCRIZIONI2,
                 DEFAULTX_COLONNA1,
