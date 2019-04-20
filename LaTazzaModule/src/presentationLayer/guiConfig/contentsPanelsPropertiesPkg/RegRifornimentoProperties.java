@@ -7,6 +7,8 @@ import utils.MyJLabel;
 import javax.swing.*;
 import javax.swing.text.NumberFormatter;
 import java.awt.*;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 
 public class RegRifornimentoProperties extends AbstractPanelProperties {
@@ -70,13 +72,11 @@ public class RegRifornimentoProperties extends AbstractPanelProperties {
 
     public static JFormattedTextField createAndInitJTextFieldQuantita(){
 
-        NumberFormat formatQuantita = NumberFormat.getInstance();
-        NumberFormatter formatterQuantita = new NumberFormatter(formatQuantita);
-        formatterQuantita.setValueClass(Integer.class);
-        formatterQuantita.setMinimum(0);
-        formatterQuantita.setMaximum(Integer.MAX_VALUE);
-        formatterQuantita.setAllowsInvalid(false);
-
+        DecimalFormat formatterQuantita;
+        DecimalFormatSymbols formatQuantita= new DecimalFormatSymbols();
+        formatQuantita.setGroupingSeparator('\'');
+        formatQuantita.setDecimalSeparator('.');
+        formatterQuantita= new DecimalFormat("###,##0.##",formatQuantita);
         JFormattedTextField textFieldQuantita = new JFormattedTextField(formatterQuantita);
         textFieldQuantita.setBounds(DEFAULTX_COLONNA1,DEFAULTY_RIGA2+DEFAULT_GAP_TXT,DEFAULT_WIDTH_FIELD,DEFAULT_HEIGHT_FIELD);
         textFieldQuantita.setColumns(10);

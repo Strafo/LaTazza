@@ -145,35 +145,49 @@ public class RegistraVendite extends AbstractPanel {
         }
     }
 
-    private void conferma(){
+    private void conferma() {
 
         //almeno uno dei duebottoni deve essere selezionato
-        if(!radioButtContanti.isSelected()&&!radioButtACredito.isSelected())return;
+        if (!radioButtContanti.isSelected() && !radioButtACredito.isSelected()){
+            JOptionPane.showMessageDialog(null,
+                    "Selezionare la modalità di pagamento", "alert", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
         String[] nomeCognome;
         boolean isPersonale;
-        if(!textFieldNomeCliente.getText().isEmpty()){
-            nomeCognome=textFieldNomeCliente.getText().split(" ");
-            isPersonale=false;
-        }else{
-            nomeCognome=((String)nomePersonaleMenu.getSelectedItem()).split(" ");//todo handle nullp
-            isPersonale=true;
+        String qta=textFieldQuantita.getText().replaceAll("\\'","");
+        if (!textFieldNomeCliente.getText().isEmpty()) {
+            nomeCognome = textFieldNomeCliente.getText().split(" ");
+            isPersonale = false;
+        } else {
+            nomeCognome = ((String) nomePersonaleMenu.getSelectedItem()).split(" ");//todo handle nullp
+            isPersonale = true;
+        }
+        if(qta.contains(".")){
+            JOptionPane.showMessageDialog(null,
+                    "Inserire una quantià intera", "alert", JOptionPane.ERROR_MESSAGE);
+            textFieldQuantita.setValue(null);
+            return;
         }
 
 
-        RegistraVenditaCommand command=new RegistraVenditaCommand(
-                (String)(tipoCialdeMenu.getSelectedItem()),
+        RegistraVenditaCommand command = new RegistraVenditaCommand(
+                (String) (tipoCialdeMenu.getSelectedItem()),
                 radioButtContanti.isSelected(),
                 nomeCognome[0],
                 nomeCognome[1],
-                Integer.valueOf(textFieldQuantita.getText()),
+                Integer.valueOf(qta),
                 isPersonale,
                 LaTazzaApplication.backEndInvoker
         );
-        if(!LaTazzaApplication.backEndInvoker.executeCommand(command))//todo check return value
+        if (!LaTazzaApplication.backEndInvoker.executeCommand(command)) {
             System.err.println("Impossibile registrare vednita");
-        else
+            JOptionPane.showMessageDialog(null,
+                    "Impossibile registare vendita", "alert", JOptionPane.ERROR_MESSAGE);
+        } else{
             System.err.println("Vendita avvenuta con successo");
+        }
         annulla();//refresha il campo contanti e il campo nomeutente
     }
 

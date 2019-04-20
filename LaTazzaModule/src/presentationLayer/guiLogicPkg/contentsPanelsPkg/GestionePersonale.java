@@ -83,20 +83,26 @@ public class GestionePersonale extends AbstractPanel {
     public void confermaAggiungiPersonale() {
         String[] nomeCognome= textFieldAggiungi.getText().split(" ");
         AggiungiPersonaleCommand command= new AggiungiPersonaleCommand(nomeCognome[0],nomeCognome[1], LaTazzaApplication.backEndInvoker);
-        if(!LaTazzaApplication.backEndInvoker.executeCommand(command))
+        if(!LaTazzaApplication.backEndInvoker.executeCommand(command)) {
             System.err.println("Errore nell'aggiunta del personale");
-            else
-        System.err.println("Personale aggiunto con successo");
+            JOptionPane.showMessageDialog(null,
+                    "Impossibile aggiungere personale", "alert", JOptionPane.ERROR_MESSAGE);
+        }
+        else {
+            System.out.println("Personale aggiunto con successo");
+        }
     }
 
-    public  void confermaLicenziaPersonale(){
-        String personale= (String) comboBoxNomePersonale.getSelectedItem();
-        String[] nomeCognome= personale.split(" ");
-        LicenziaPersonaleCommand command= new LicenziaPersonaleCommand(nomeCognome[0],nomeCognome[1], LaTazzaApplication.backEndInvoker);
-        if(!LaTazzaApplication.backEndInvoker.executeCommand(command))
+    public  void confermaLicenziaPersonale() {
+        String personale = (String) comboBoxNomePersonale.getSelectedItem();
+        String[] nomeCognome = personale.split(" ");
+        LicenziaPersonaleCommand command = new LicenziaPersonaleCommand(nomeCognome[0], nomeCognome[1], LaTazzaApplication.backEndInvoker);
+        if (!LaTazzaApplication.backEndInvoker.executeCommand(command)){
             System.err.println("Errore nel Licenziamento del Personale");
-        else
-        System.err.println("Personale Licenziato");
+            JOptionPane.showMessageDialog(null,
+                "Impossibile licenziare personale", "alert", JOptionPane.ERROR_MESSAGE);
+        }else
+        System.out.println("Personale Licenziato");
 
     }
 }

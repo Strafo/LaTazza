@@ -6,6 +6,7 @@ import dataAccessLayer.rowdatapkg.CialdeEntry;
 import dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import presentationLayer.guiConfig.contentsPanelsPropertiesPkg.StatoPaneProperties;
 import presentationLayer.LaTazzaApplication;
+import utils.Euro;
 import utils.MyJLabel;
 import javax.swing.*;
 import java.util.*;
@@ -49,8 +50,8 @@ public class StatoPane extends AbstractPanel {
 
 
     public void setCialdeList(Map<CialdeEntry,Integer> listaCialde){
-
         int i=0;
+        //MyJLabel labelCialde= StatoPaneProperties.createAndInitJLabelCialda()
         for (CialdeEntry s : listaCialde.keySet())
         {
             add(StatoPaneProperties.createAndInitJLabelCialda(s.getTipo()+" "+ listaCialde.get(s),i++));
@@ -78,6 +79,15 @@ public class StatoPane extends AbstractPanel {
     }
 
 
+    public void setCassa(Euro euroCassa) {
+        int citti=euroCassa.getCentesimi();
+        if(citti<10){
+            labelSaldo.setText(euroCassa.getEuro() + ".0" + euroCassa.getCentesimi());
+
+        }else {
+            labelSaldo.setText(euroCassa.getEuro() + "." + euroCassa.getCentesimi());
+        }
+    }
 
 
     @Override
@@ -86,6 +96,7 @@ public class StatoPane extends AbstractPanel {
             setDebitiPersonaleTextArea(((ControllerDebito)o).esaminareDebitiPersonale());
         }else if(arg==CONTABILITALIST){
             setCialdeList(((ControllerContabilita)o).statoMagazzino());
+            setCassa(((ControllerContabilita)o).statoCassa());
         }
     }
 }
