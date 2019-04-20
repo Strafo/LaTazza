@@ -54,7 +54,7 @@ public class StatoPaneProperties extends AbstractPanelProperties {
         JPanel p=new JPanel();
 
         p.setBounds(DEFAULTX_COLONNA1,DEFAULTY_RIGA1,DEFAULT_WIDTH_PANEL1,DEFAULT_HEIGHT_SOTTOTITOTLO);
-        p.setBorder(new MatteBorder(0,0,1,0,Color.BLACK));
+       // p.setBorder(new MatteBorder(0,0,1,0,Color.BLACK));
         p.setBackground(Color.WHITE);
         p.setLayout(null);
         return p;
