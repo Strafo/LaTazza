@@ -34,3 +34,18 @@ insert into LATAZZASCHEMA.COMPRA_VISITATORE("NOME", "COGNOME", "TIPO_CIALDA", "N
 insert into LATAZZASCHEMA.COMPRA_VISITATORE("DATA","NOME", "COGNOME", "TIPO_CIALDA", "NUMERO_CIALDE") VALUES ('2019-01-01 00:00:00','salmo','lebon','cioccolata',6);
 insert into LATAZZASCHEMA.COMPRA_DIPENDENTE("NOME", "COGNOME", "CONTANTI", "NUMERO_CIALDE", "TIPO_CIALDA") VALUES ('andrea','straforini',true,10,'caffè');
 insert into LATAZZASCHEMA.COMPRA_DIPENDENTE("DATA","NOME", "COGNOME", "CONTANTI", "NUMERO_CIALDE", "TIPO_CIALDA") VALUES ('2019-01-01 00:00:00','andrea','oneto',false,9,'caffè');
+
+insert into LATAZZASCHEMA.DEBITO (NOME,COGNOME,EURO,CENTESIMI,ATTIVO) values ('andrea','straforini',0,0,true);
+insert into LATAZZASCHEMA.DEBITO (NOME,COGNOME,EURO,CENTESIMI,ATTIVO) values ('gabriele','armanino',0,0,true);
+insert into LATAZZASCHEMA.DEBITO (NOME,COGNOME,EURO,CENTESIMI,ATTIVO) values ('jacopo','dapueto',0,0,true);
+insert into LATAZZASCHEMA.DEBITO (NOME,COGNOME,EURO,CENTESIMI,ATTIVO) values ('simone','campisi',0,0,true);
+insert into LATAZZASCHEMA.DEBITO (NOME,COGNOME,EURO,CENTESIMI,ATTIVO) values ('alessandro','caroti',0,0,false);
+insert into LATAZZASCHEMA.DEBITO (NOME,COGNOME,EURO,CENTESIMI,ATTIVO) values ('andrea','storace',0,0,false);
+insert into LATAZZASCHEMA.DEBITO (NOME,COGNOME,EURO,CENTESIMI,ATTIVO) values ('elisa','zazzera',0,0,false);
+insert into LATAZZASCHEMA.DEBITO (NOME,COGNOME,EURO,CENTESIMI,ATTIVO) values ('andrea','oneto',3,6,true);
+insert into LATAZZASCHEMA.DEBITO (NOME,COGNOME,EURO,CENTESIMI,ATTIVO) values ('gabriele','gianluigino',0,0,true);
+insert into LATAZZASCHEMA.DEBITO (NOME,COGNOME,EURO,CENTESIMI,ATTIVO) values ('jacopo','sivori',0,0,true);
+insert into LATAZZASCHEMA.DEBITO (NOME,COGNOME,EURO,CENTESIMI,ATTIVO) values ('simone','mirto',0,0,true);
+insert into LATAZZASCHEMA.DEBITO (NOME,COGNOME,EURO,CENTESIMI,ATTIVO) values ('alessandro','sabatini',0,0,false);
+insert into LATAZZASCHEMA.DEBITO (NOME,COGNOME,EURO,CENTESIMI,ATTIVO) values ('andrea','squillante',0,0,false);
+insert into LATAZZASCHEMA.DEBITO (NOME,COGNOME,EURO,CENTESIMI,ATTIVO) values ('elisa','montezemolo',0,0,true);

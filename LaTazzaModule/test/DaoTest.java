@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * @brief Questo tester crea un backend.database h2 di tipo in memory.
  * Quindi è necessario configurarlo con le tabelle necessarie e i valori per il testing.
- * Successivamente si può eseguire il testing con il backend.database temporaneo appena creato.
+ * Successivamente si può eseguire il testing con il database temporaneo appena creato.
  * Essendo di tipo in memory quando l'ultima connessione viene chiusa il backend.database viene "pulito"
  * ATTENZIONE: se cambia il file DefaultSetEntry.sql deve cambiare anche nEntry                     <----------------------------------------------------------------------------------
  * Nota: il test del metodo  multipleIncorrectQueriesTransaction ci mette tanto perchè viene chiamato Thread.sleep
@@ -41,8 +41,8 @@ public class DaoTest{
     private DatabaseConnectionHandler database;
     private Integer[] nEntry={14,4,4,4,5,5};//numero di inserimetni del file DefaultSetEntry.sql per le tabelle(in ordine):personale,cialde,visitatore,rifornimento,MovimentoDEbito,MovimentoVendita
 
-    private String DATABASECONFIGFILE="/src/backend/database/config/databaseConfig.sql";
-    private String DEFAULTDATABASEENTRYSETFILE="/test/testBackend/DafualtEntrySet.sql";
+    private String DATABASECONFIGFILE="/test/databaseConfig.sql";
+    private String DEFAULTDATABASEENTRYSETFILE="/test/DafualtEntrySet.sql";
     private String CURRENTWORKINGDIRECTORY;
     /**
      * Inizializza il logger per il backend.database.
@@ -59,7 +59,7 @@ public class DaoTest{
      */
     @BeforeEach
     void setUp() {
-        database=new DatabaseConnectionHandler("jdbc:h2:mem:databaseTest");//backend.database per il testing :mem (in memory)
+        database=new DatabaseConnectionHandler("databaseTest","jdbc:h2:mem:","");//backend.database per il testing :mem (in memory)
         try {
             database.initDataBase();
         } catch ( SQLException | ClassNotFoundException e) {
@@ -88,7 +88,7 @@ public class DaoTest{
     }
 
     @ParameterizedTest
-    @ValueSource(classes={Personale.class,CialdeEntry.class,Visitatore.class,RifornimentoEntry.class,MovimentoDebito.class,MovimentoVendita.class, MagazzinoEntry.class,Cassa.class, Debito.class})
+    @ValueSource(classes={Personale.class,CialdeEntry.class,Visitatore.class,RifornimentoEntry.class,MovimentoDebito.class,MovimentoVendita.class, MagazzinoEntry.class,Cassa.class})
     void getAllTest(Class<? extends AbstractEntryDB> cls) {
         try {
             dao=new DaoInvoker(database.getConnection(), InitBackEndCommand.daoCollection);

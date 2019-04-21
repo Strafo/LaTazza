@@ -59,7 +59,7 @@ create table LATAZZASCHEMA.compra_dipendente(
   tipo_cialda varchar(64) not null references LATAZZASCHEMA.cialde(tipo) on update cascade on delete restrict,
   numero_cialde integer not null check (numero_cialde > 0),
   data TIMESTAMP default CURRENT_TIMESTAMP not null,
-  contanti boolean not null, -- se � false paga con credito, altrimenti in contanti
+  contanti boolean not null, -- se  false paga con credito, altrimenti in contanti
   primary key (data, nome, cognome),
   foreign key (nome, cognome) references LATAZZASCHEMA.personale(nome, cognome)on update cascade on delete restrict
 
@@ -87,8 +87,8 @@ create table LATAZZASCHEMA.Cassa(
   euro bigint not null default (500)check( euro >= 0),
   centesimi int not null default (0) check(centesimi>=0 and centesimi < 100)
 );
-SET LOCK_MODE 1;
-insert into LATAZZASCHEMA.Cassa values ();--insert con valore di default
+SET LOCK_MODE TO 1;
+insert into LATAZZASCHEMA.Cassa values (default,default );--insert con valore di default
 
 
 
