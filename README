@@ -69,3 +69,14 @@ Dopo l'avvio dell'applicazione LaTazza vengono creati 2 file (nella working dire
     2- databaseLaTazza.trace.db
 Questi 2 file sono il database.
 Se si vuole cambiare modalità(ad esempio da release a presentazione) è quindi necessario eliminare i 2 file *.db
+
+Note:il jar deve essere posizionato nella stessa cartella "parent" di iconeGui per una corretta visualizzazione delle
+    immagini
+
+        parent
+            |
+            |
+            L_____LaTazza.jar
+            |
+            |
+            L_____iconeGui
