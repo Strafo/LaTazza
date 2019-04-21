@@ -59,9 +59,14 @@ public class RegistraRifornimento extends AbstractPanel {
     }
 
     private void conferma(){
-
-
         String quantità= textFieldQuantita.getText().replaceAll("\\'","");
+
+        if(quantità.isEmpty()){
+            JOptionPane.showMessageDialog(null,
+                    "Inserire una quantità per il rifornimento", "warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
         if(quantità.contains(".")){
             JOptionPane.showMessageDialog(null,
                     "Inserire una quantià intera", "alert", JOptionPane.ERROR_MESSAGE);

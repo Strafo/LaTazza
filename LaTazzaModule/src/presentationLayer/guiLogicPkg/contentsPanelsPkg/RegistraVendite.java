@@ -146,30 +146,42 @@ public class RegistraVendite extends AbstractPanel {
     }
 
     private void conferma() {
+        String[] nomeCognome;
+        boolean isPersonale;
+        String qta=textFieldQuantita.getText().replaceAll("\\'","");
+        String input;
 
         //almeno uno dei duebottoni deve essere selezionato
         if (!radioButtContanti.isSelected() && !radioButtACredito.isSelected()){
             JOptionPane.showMessageDialog(null,
-                    "Selezionare la modalità di pagamento", "alert", JOptionPane.ERROR_MESSAGE);
+                    "Selezionare la modalità di pagamento", "warning", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        String[] nomeCognome;
-        boolean isPersonale;
-        String qta=textFieldQuantita.getText().replaceAll("\\'","");
+
         if (!textFieldNomeCliente.getText().isEmpty()) {
-            nomeCognome = textFieldNomeCliente.getText().split(" ");
+            input=textFieldNomeCliente.getText();
+            if(!input.matches("([a-zA-Z])* ([a-zA-Z])*")){
+                System.err.println("Errore formattazione cliente");
+                JOptionPane.showMessageDialog(null,
+                        "Inserire nome e cognome del cliente separato da spazio", "warning", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            nomeCognome = input.split(" ");
             isPersonale = false;
         } else {
-            nomeCognome = ((String) nomePersonaleMenu.getSelectedItem()).split(" ");//todo handle nullp
+            nomeCognome = ((String) nomePersonaleMenu.getSelectedItem()).split(" ");
             isPersonale = true;
         }
         if(qta.contains(".")){
             JOptionPane.showMessageDialog(null,
-                    "Inserire una quantià intera", "alert", JOptionPane.ERROR_MESSAGE);
+                    "Inserire una quantità intera di cialde", "warning", JOptionPane.WARNING_MESSAGE);
             textFieldQuantita.setValue(null);
             return;
         }
+
+
 
 
         RegistraVenditaCommand command = new RegistraVenditaCommand(

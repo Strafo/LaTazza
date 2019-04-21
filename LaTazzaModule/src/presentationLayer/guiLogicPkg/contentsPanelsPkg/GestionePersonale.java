@@ -81,7 +81,18 @@ public class GestionePersonale extends AbstractPanel {
     }
 
     public void confermaAggiungiPersonale() {
-        String[] nomeCognome= textFieldAggiungi.getText().split(" ");
+        String input=textFieldAggiungi.getText();
+        String[] nomeCognome;
+
+        if(input.isEmpty()||!input.matches("([a-zA-Z])* ([a-zA-Z])*")){
+            System.err.println("Errore formattazione nell'aggiunta del personale");
+            JOptionPane.showMessageDialog(null,
+                    "Inserire nome e cognome del personale separato da spazio", "warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+
+        nomeCognome= textFieldAggiungi.getText().split(" ");
         AggiungiPersonaleCommand command= new AggiungiPersonaleCommand(nomeCognome[0],nomeCognome[1], LaTazzaApplication.backEndInvoker);
         if(!LaTazzaApplication.backEndInvoker.executeCommand(command)) {
             System.err.println("Errore nell'aggiunta del personale");
