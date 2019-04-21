@@ -11,10 +11,9 @@ public class TriggersTest {
 
     private Connection conn;
     private DatabaseConnectionHandler database;
-    private static final String URL="jdbc:h2:mem:databaseTest";
     private static final String userDir=System.getProperty("user.dir");
-    private final String PATHConfig="\\src\\backend\\database\\config\\";
-    private final String PATHInsert="\\test\\testBackend\\";
+    private final String PATHConfig="\\test\\";
+    private final String PATHInsert="\\test\\";
     private Scanner inFile;
     private static ResultSet rs;
     private static PreparedStatement stat;
@@ -27,7 +26,7 @@ public class TriggersTest {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        database= new DatabaseConnectionHandler(URL);
+        database= new DatabaseConnectionHandler("databaseTest","jdbc:h2:mem:","");
         database.initDataBase();
         conn = database.getConnection();
     }

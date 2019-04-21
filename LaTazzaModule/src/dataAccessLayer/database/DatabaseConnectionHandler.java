@@ -14,6 +14,7 @@ public class DatabaseConnectionHandler {
 
     private Connection connection;
     private String path;
+    private String options;
 
     public DatabaseConnectionHandler(){
         this(DB_PATH);
@@ -22,15 +23,22 @@ public class DatabaseConnectionHandler {
     public DatabaseConnectionHandler(String databasePath){
         PathHandler.modifyPath(databasePath);
         this.path=DB_CONNECTION_DEFAULT+databasePath;
+        options=DEFAULT_OPT;
 
+    }
+
+    public DatabaseConnectionHandler(String databasePath,String jdbcH2Mode,String options){
+        PathHandler.modifyPath(databasePath);
+        this.path=jdbcH2Mode+databasePath;
+        this.options=options;
     }
 
     public void initDataBase() throws SQLException, ClassNotFoundException {
 
         if(connection==null||connection.isClosed()){
             Class.forName(DB_DRIVER);
-            System.out.println("Apro connessione con:"+path+";"+DEFAULT_OPT);
-            connection = DriverManager.getConnection(path+";"+DEFAULT_OPT, DB_USER, DB_PASSWORD);
+            System.out.println("Apro connessione con:"+path+";"+options);
+            connection = DriverManager.getConnection(path+";"+options, DB_USER, DB_PASSWORD);
         }
 
     }

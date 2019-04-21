@@ -1,8 +1,6 @@
 import org.junit.jupiter.api.AfterEach;
-import utils.Euro;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -50,7 +48,7 @@ public class TriggerCompraVisitatoreTest {
     @Test
     void testTrigger() {
         try {
-            stat =c.prepareStatement("insert into LATAZZASCHEMA.COMPRA_VISITATORE values ('Maria','giongiangela', 'caffe',1,'2018-07-10 9:00:00');\n");
+            stat =c.prepareStatement("insert into LATAZZASCHEMA.COMPRA_VISITATORE values ('Maria','giongiangela', 'caffe',1,'2018-07-10 9:00:00');");
             stat.executeUpdate();
             assertTrue(executeSelect());
 
