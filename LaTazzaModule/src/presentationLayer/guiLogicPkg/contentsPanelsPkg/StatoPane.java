@@ -26,7 +26,9 @@ public class StatoPane extends AbstractPanel {
     private JPanel panelCassa1;
     private JPanel panelDebiti1;
     private JTextArea debitiPersonaleTextArea;
-    private JScrollPane scrollPane;
+    private JScrollPane scrollPane, scrollPaneMagazzino;
+    private  JTextArea statoMagazzino;
+    private MyJLabel labelCialde;
 
     public StatoPane() {
 
@@ -44,17 +46,20 @@ public class StatoPane extends AbstractPanel {
         debitiPersonaleTextArea=StatoPaneProperties.createAndInitDebitiPersonaleTextArea();
         add(scrollPane=createAndInitScrollPane(debitiPersonaleTextArea));
 
+        statoMagazzino=StatoPaneProperties.createAndInitStatoMagazzinoTextArea();
+        add(scrollPaneMagazzino=createAndInitScrollPaneStatoMagazzino(statoMagazzino));
+
         LaTazzaApplication.backEndInvoker.addObserver(DEBITOLIST,this);
         LaTazzaApplication.backEndInvoker.addObserver(CONTABILITALIST,this);
 	}
 
 
     public void setCialdeList(Map<CialdeEntry,Integer> listaCialde){
-        int i=0;
-        //MyJLabel labelCialde= StatoPaneProperties.createAndInitJLabelCialda()
+
+        statoMagazzino.setText(null);
         for (CialdeEntry s : listaCialde.keySet())
         {
-            add(StatoPaneProperties.createAndInitJLabelCialda(s.getTipo()+" "+ listaCialde.get(s),i++));
+            statoMagazzino.append(s.getTipo()+" "+ listaCialde.get(s)+"\n");
         }
     }
 

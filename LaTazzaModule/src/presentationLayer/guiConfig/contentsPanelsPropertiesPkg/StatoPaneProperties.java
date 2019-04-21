@@ -54,11 +54,12 @@ public class StatoPaneProperties extends AbstractPanelProperties {
         JPanel p=new JPanel();
 
         p.setBounds(DEFAULTX_COLONNA1,DEFAULTY_RIGA1,DEFAULT_WIDTH_PANEL1,DEFAULT_HEIGHT_SOTTOTITOTLO);
-        p.setBorder(new MatteBorder(0,0,1,0,Color.BLACK));
+       // p.setBorder(new MatteBorder(0,0,1,0,Color.BLACK));
         p.setBackground(Color.WHITE);
         p.setLayout(null);
         return p;
     }
+
 
 
     public static   JPanel createAndInitPanelCassa1(){
@@ -79,6 +80,7 @@ public class StatoPaneProperties extends AbstractPanelProperties {
         return panelDebiti1;
     }
 
+
     public static JTextArea createAndInitDebitiPersonaleTextArea(){
         JTextArea debitiPersonale = new JTextArea();
         debitiPersonale.setEditable(false);
@@ -87,6 +89,23 @@ public class StatoPaneProperties extends AbstractPanelProperties {
         debitiPersonale.setWrapStyleWord(true);
         return debitiPersonale;
 
+    }
+
+    //da provare
+    public  static JTextArea createAndInitStatoMagazzinoTextArea(){
+        JTextArea statoMagazzino= new JTextArea();
+        statoMagazzino.setEditable(false);
+        statoMagazzino.setLineWrap(true);
+        statoMagazzino.setFont(DEFAULT_FONT_DESCRIZIONI2);
+        statoMagazzino.setWrapStyleWord(true);
+        return statoMagazzino;
+    }
+
+    public  static JScrollPane createAndInitScrollPaneStatoMagazzino(JTextArea textArea){
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setBounds(DEFAULTX_COLONNA1,DEFAULTY_RIGA1+DEFAULT_HEIGHT_SOTTOTITOTLO,DEFAULT_WIDTH_PANEL,DEFAULT_HEIGHT_PANEL);
+        return scrollPane;
     }
 
     public static JScrollPane createAndInitScrollPane(JTextArea textArea){
