@@ -149,7 +149,7 @@ public class RegistraVendite extends AbstractPanel {
         String[] nomeCognome;
         boolean isPersonale;
         String qta=textFieldQuantita.getText().replaceAll("\\'","");
-        String input;
+        String input,tipocialda=(String) (tipoCialdeMenu.getSelectedItem());
 
         //almeno uno dei duebottoni deve essere selezionato
         if (!radioButtContanti.isSelected() && !radioButtACredito.isSelected()){
@@ -171,9 +171,17 @@ public class RegistraVendite extends AbstractPanel {
             nomeCognome = input.split(" ");
             isPersonale = false;
         } else {
+            if( nomePersonaleMenu.getSelectedItem()==null){
+                System.err.println("Errore :nessun personale");
+                JOptionPane.showMessageDialog(null,
+                        "Personale selezionato non valido", "warning", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
             nomeCognome = ((String) nomePersonaleMenu.getSelectedItem()).split(" ");
             isPersonale = true;
         }
+
+
         if(qta.contains(".")){
             JOptionPane.showMessageDialog(null,
                     "Inserire una quantità intera di cialde", "warning", JOptionPane.WARNING_MESSAGE);
@@ -181,11 +189,16 @@ public class RegistraVendite extends AbstractPanel {
             return;
         }
 
-
+        if( tipocialda==null){
+            System.err.println("Errore :nessuna cialda");
+            JOptionPane.showMessageDialog(null,
+                    "Cialda selezionata non valida", "warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
 
 
         RegistraVenditaCommand command = new RegistraVenditaCommand(
-                (String) (tipoCialdeMenu.getSelectedItem()),
+                tipocialda,
                 radioButtContanti.isSelected(),
                 nomeCognome[0],
                 nomeCognome[1],

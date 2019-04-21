@@ -60,6 +60,7 @@ public class RegistraRifornimento extends AbstractPanel {
 
     private void conferma(){
         String quantità= textFieldQuantita.getText().replaceAll("\\'","");
+        String tipocialda=(String)(tipoCialdeMenu.getSelectedItem());
 
         if(quantità.isEmpty()){
             JOptionPane.showMessageDialog(null,
@@ -73,8 +74,15 @@ public class RegistraRifornimento extends AbstractPanel {
             textFieldQuantita.setValue(null);
             return;
         }
+
+        if( tipocialda==null){
+            System.err.println("Errore :nessuna cialda");
+            JOptionPane.showMessageDialog(null,
+                    "Cialda selezionata non valida", "warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         RegistraRifornimentoCommand command=new RegistraRifornimentoCommand(
-                (String)(tipoCialdeMenu.getSelectedItem()),
+                tipocialda,
                 Integer.valueOf(quantità),
                 LaTazzaApplication.backEndInvoker
         );

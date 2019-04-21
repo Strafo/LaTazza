@@ -86,13 +86,21 @@ public class RegistraPagamento extends AbstractPanel {
 		int cent;
 		String value= textFieldAmmontare.getText().replaceAll("\\'",""), strCent=null;
 		String personale= (String) nomePersonaleMenu.getSelectedItem();
-		String[] nomeCognome= personale.split(" ");
+		String[] nomeCognome;
 
         if(value.isEmpty()){
             JOptionPane.showMessageDialog(null,
                     "Inserire un valore per il pagamento", "warning", JOptionPane.WARNING_MESSAGE);
             return;
         }
+
+        if( personale==null){
+            System.err.println("Errore :nessun personale");
+            JOptionPane.showMessageDialog(null,
+                    "Personale selezionato non valido", "warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        nomeCognome= personale.split(" ");
 
 		if(value.contains(".")){
 			String[] euroCent= value.split("\\.");
