@@ -83,10 +83,10 @@ public class GestionePersonale extends AbstractPanel {
     public void confermaAggiungiPersonale() {
         String input=textFieldAggiungi.getText();
         String[] nomeCognome=textFieldAggiungi.getText().split(" ");
-        Personale p1= LaTazzaApplication.backEndInvoker.getControllerPersonale().getPersonale(nomeCognome[0],nomeCognome[1]);
-        Personale p2= new Personale(nomeCognome[0],nomeCognome[1]);
+        Personale toCompare= LaTazzaApplication.backEndInvoker.getControllerPersonale().getPersonale(nomeCognome[0],nomeCognome[1]);
+        Personale daAggiungere= new Personale(nomeCognome[0],nomeCognome[1]);
 
-        if(!p1.equals(p2)) {
+        if(toCompare.equals(daAggiungere)) {
             JOptionPane.showMessageDialog(null,
                     "Il personale che si vuole aggiungere è già presente", "warning", JOptionPane.ERROR_MESSAGE);
             return;
