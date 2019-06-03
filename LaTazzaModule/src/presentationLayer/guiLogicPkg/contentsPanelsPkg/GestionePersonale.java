@@ -83,12 +83,23 @@ public class GestionePersonale extends AbstractPanel {
     public void confermaAggiungiPersonale() {
         String input=textFieldAggiungi.getText();
         String[] nomeCognome=textFieldAggiungi.getText().split(" ");
+        Personale p1= LaTazzaApplication.backEndInvoker.getControllerPersonale().getPersonale(nomeCognome[0],nomeCognome[1]);
+        Personale p2= new Personale(nomeCognome[0],nomeCognome[1]);
+
+        if(!p1.equals(p2)) {
+            JOptionPane.showMessageDialog(null,
+                    "Il personale che si vuole aggiungere è già presente", "warning", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         if(input.isEmpty()||!input.matches("([a-zA-Z])* ([a-zA-Z])*")){
             System.err.println("Errore formattazione nell'aggiunta del personale");
             JOptionPane.showMessageDialog(null,
                     "Inserire nome e cognome del personale separato da spazio", "warning", JOptionPane.WARNING_MESSAGE);
             return;
         }
+
+
 
         AggiungiPersonaleCommand command= new AggiungiPersonaleCommand(nomeCognome[0],nomeCognome[1], LaTazzaApplication.backEndInvoker);
         if(!LaTazzaApplication.backEndInvoker.executeCommand(command)) {
@@ -97,14 +108,14 @@ public class GestionePersonale extends AbstractPanel {
                     "Impossibile aggiungere personale", "alert", JOptionPane.ERROR_MESSAGE);
         }
         else {
-            System.out.println("Personale aggiunto con successo");
+            JOptionPane.showMessageDialog(null,
+                    "Personale Aggiunto Correttamente.", "success", JOptionPane.INFORMATION_MESSAGE);;
         }
     }
 
     public  void confermaLicenziaPersonale() {
         String personale = (String) comboBoxNomePersonale.getSelectedItem();
         String[] nomeCognome;
-
         if( personale==null){
             System.err.println("Errore :nessun personale");
             JOptionPane.showMessageDialog(null,
