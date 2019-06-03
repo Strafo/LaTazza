@@ -24,13 +24,6 @@ public  final class ControllerDebito extends Observable {
     }
 
 
-    /**
-     *
-     * @param p
-     * @param importo
-     * @return
-     * @throws NullPointerException
-     */
     private  boolean aggiungiMovimentoDebito(Personale p, Euro importo) throws NullPointerException{
         Date date=new Date();
         Movimento mp=new MovimentoDebito(new Timestamp(date.getTime()),p,importo);
@@ -39,33 +32,27 @@ public  final class ControllerDebito extends Observable {
     }
 
 
-    /**
-     *
-     * @param importo
-     * @param nome
-     * @param cognome
-     * @return
-     * @throws NullPointerException
-     */
+
     public  boolean registrarePagamentoDebito(Euro importo , String nome,String cognome )throws NullPointerException{
         Personale cliente= controllerPersonale.getPersonale(nome, cognome);
-        //todo deve essere un transazione
+        boolean exitStat;
+        //Questa parte di codice è una "sezione critica" tra la consistenza
+        // tra db e objs in ram
+        //Utilizzo quindi una transazione
+        dao.startTransaction();
             aggiungiMovimentoDebito(cliente, importo);
-            if(!cliente.pagamentoDebito(importo)) return false;
-        //todo fino a qui
+            if(!cliente.pagamentoDebito(importo)){//se non andato a buon fine devo fare rollback del db
+                dao.setTransactionStatus(false);//verrà eseguito quindi il rollback...
+                exitStat=false;
+            }else
+                exitStat=true;
+        dao.endTransaction();
+         //fine transazione
         this.setChanged();this.notifyObservers(DEBITOLIST);
-        return true;
+        return exitStat;
     }
 
 
-    /**
-     *
-     * @param importo
-     * @param nome
-     * @param cognome
-     * @return
-     * @throws NullPointerException
-     */
     public  boolean registrareAumentoDebito(Euro importo ,String nome,String cognome)throws NullPointerException{
         Personale cliente = controllerPersonale.getPersonale(nome, cognome);
         if (cliente == null) return false;
@@ -83,10 +70,6 @@ public  final class ControllerDebito extends Observable {
     }
 
 
-    /**
-     * Ritorna la lista del personale attivo con un debito >0.
-     * @return la lista
-     */
     public  List<Personale> esaminareDebitiPersonale(){
         List<Personale> list= controllerPersonale.getCopyList();
         list.removeIf(p -> Euro.compare(p.getImportoDebito(), new Euro(0, 0)) == 0);

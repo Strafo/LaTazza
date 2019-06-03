@@ -11,7 +11,7 @@ public class Cassa extends AbstractEntryDB {
 
     public Cassa(){
         saldo= new Euro(saldoIniziale);
-    }//todo dove viene utilizzato?
+    }
     public Cassa(Euro s){
         saldo=requireNonNull(s);
     }

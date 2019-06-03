@@ -4,7 +4,6 @@ import java.awt.*;
 import java.util.EnumMap;
 import java.util.Map;
 import javax.swing.*;
-//import com.apple.eawt.Application;//todo qui non so se va bene è una lib di apple
 import presentationLayer.guiConfig.structurePanelsPropertiesPkg.ContentPaneProperties;
 import presentationLayer.guiConfig.structurePanelsPropertiesPkg.MenuPaneProperties;
 import presentationLayer.guiConfig.structurePanelsPropertiesPkg.TopBarProperties;
@@ -40,7 +39,6 @@ public class LaTazzaFrame extends JFrame {
         ContentPaneProperties.initContentPane(contentPane);
         this.topBarPane=new TopBarPane(this);
         TopBarProperties.initTopBarPane(topBarPane);
-        //Application.getApplication().setDockIconImage((ResourcesClassLoader.getIconTazzaBrown()).getImage());
 
         this.setContentPane(contentPane);
         this.add(topBarPane);

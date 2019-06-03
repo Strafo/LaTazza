@@ -77,7 +77,7 @@ public class InitBackEndCommand implements  Command{
 
 
     /**
-     * Mappa dove viene creata l'associazione tra le classi della businessLogic
+     * Mappa dove viene creata l'associazione tra le classi del pkg rowdata
      * e le classi *DaoReceiver  per il database (contengono il codice per l'interazione con le tabelle del db)
      * La mappa viene usata dalla class SimpleDaoReceiverFactory
      */

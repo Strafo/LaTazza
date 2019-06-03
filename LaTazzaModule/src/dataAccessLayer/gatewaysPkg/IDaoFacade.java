@@ -90,7 +90,7 @@ public interface IDaoFacade {
     <T extends AbstractEntryDB> boolean delete(T t);
 
     /**
-     * Il seguente metodo permette di iniziare una transazione per il database.Leggere doxygen endTransaction.
+     * Il seguente metodo permette di iniziare una transazione per il database.Leggere commento endTransaction.
      */
     void startTransaction();
 
@@ -109,6 +109,9 @@ public interface IDaoFacade {
      */
     boolean getTransactionStatus();
 
-
+    /**
+     * Setta lo status della transazione corrente.
+     */
+    void setTransactionStatus(boolean newStat);
 }
 

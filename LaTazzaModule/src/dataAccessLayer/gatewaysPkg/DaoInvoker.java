@@ -65,7 +65,7 @@ public class DaoInvoker implements IDaoFacade {
         try{
              concreteDaoReceiver=factory.createDao(t.getClass());
              if(exitStatus=concreteDaoReceiver.update(t)){
-                t.removeMemento();//todo il caretaker per mento è separato in due classi...(questa e la chiamante) si riesce a mettere tutto in posto (ad esempio risucendo a fare un passaggio per riferimento a update e chiamando t.undochage()
+                t.removeMemento();//se update andato a buon fine lo stato precedente della classe può essere eliminato(lo stato prec. è salvato grazie al pattern memento)
              }
              handleTransactionStatus(exitStatus);
              return exitStatus;
@@ -143,6 +143,10 @@ public class DaoInvoker implements IDaoFacade {
 
     public boolean getTransactionStatus() {
         return transactionStatus;
+    }
+
+    public void setTransactionStatus(boolean newStat){
+        transactionStatus=newStat;
     }
 
     private void handleTransactionStatus(boolean newState){

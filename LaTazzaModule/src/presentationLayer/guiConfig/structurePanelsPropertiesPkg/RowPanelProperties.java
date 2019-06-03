@@ -17,7 +17,6 @@ public class RowPanelProperties {
     private static final int ROWPANEL_DEFAULTY = 160;
     private static final int ROWPANEL_DEFAULT_GAP = 60;
 
-    //todo public final static
     static public final int DEFAULTWIDTH_BUTTON = 140;
     static public final int DEFAULTHEIGHT_BUTTON = 28;
     static public final int DEFAULTWIDTH_ICON = 30;

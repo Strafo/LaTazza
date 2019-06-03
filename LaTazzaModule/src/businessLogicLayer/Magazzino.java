@@ -20,16 +20,14 @@ public class Magazzino {
         return qtaCialdeScatole;
     }
 
-    /**
-     *
-     */
+
     Magazzino(){
         this.dao=LaTazzaApplication.backEndInvoker.getDao();
         List<MagazzinoEntry>list=dao.getAll(MagazzinoEntry.class);//inizializza il campo list facendo query sul databaseConnectionHandler
         if(list==null){
             throw new Error(new Throwable("Impossibile creare Magazzino nell'applicazione."));
         }
-        stato= new HashMap<>();//todo settare load factor
+        stato= new HashMap<>();
         for (MagazzinoEntry m: list ) {
             stato.put(m.getTipoCialda(),m.getNumeroCialde());
         }
@@ -45,13 +43,7 @@ public class Magazzino {
 
     }
 
-    /**
-     *
-     * @param t
-     * @param qtaScatole
-     * @return
-     * @throws NullPointerException
-     */
+
     boolean aggiungiScatole(CialdeEntry t, int qtaScatole)throws NullPointerException{
         Integer qta=qtaScatole*qtaCialdeScatole;
         RifornimentoEntry entry=new RifornimentoEntry(new Timestamp((new Date()).getTime()),qta,t.getTipo());//nullp

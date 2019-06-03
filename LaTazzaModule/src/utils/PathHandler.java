@@ -8,7 +8,6 @@ public final class PathHandler {
     /**
      * @brief
      * Adatta il path(assoluto) passato al sistema operativo corrente
-     * Non funziona se almeno un
      */
     public static  String modifyPath(String originalAbsolutePath){
         return FilenameUtils.separatorsToSystem(originalAbsolutePath);
