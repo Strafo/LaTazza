@@ -2,6 +2,7 @@ package presentationLayer;
 
 import businessLogicLayer.BackEndInvoker;
 import businessLogicLayer.ObserverSubscriptionType;
+import businessLogicLayer.commandPkg.Command;
 import presentationLayer.guiConfig.structurePanelsPropertiesPkg.LaTazzaFrameProperties;
 import businessLogicLayer.commandPkg.InitBackEndCommand;
 import businessLogicLayer.commandPkg.NotifyObserversCommand;
@@ -39,7 +40,7 @@ public  class LaTazzaApplication implements Runnable {
      */
     private void initBackEnd(){
         backEndInvoker=new BackEndInvoker();
-        if(!backEndInvoker.executeCommand(new InitBackEndCommand(backEndInvoker,MODALITAPRESENTAZIONE))){
+        if(backEndInvoker.executeCommand(new InitBackEndCommand(backEndInvoker,MODALITAPRESENTAZIONE))!=Command.LaTazzaErrno.NOERROR){
             throw  new Error("Impossibile avviare applicazione");
         }
     }

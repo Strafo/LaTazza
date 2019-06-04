@@ -86,18 +86,28 @@ public class RegistraRifornimento extends AbstractPanel {
                 Integer.valueOf(quantità),
                 LaTazzaApplication.backEndInvoker
         );
-        if(!LaTazzaApplication.backEndInvoker.executeCommand(command)) {
-            System.err.println("Impossibile registrare il rifornimento");
-            JOptionPane.showMessageDialog(null,
-                    "Impossibile registrare rifornimento", "alert", JOptionPane.ERROR_MESSAGE);
-        }else
-            System.out.println("Rifornimento avvenuto con successo");
-        annulla();
 
+
+        switch (LaTazzaApplication.backEndInvoker.executeCommand(command)){
+            case FONDIINSUFFICIENTI:
+                JOptionPane.showMessageDialog(null,
+                        "Impossibile aggiungere rifornimento, fondi insufficienti.", "alert", JOptionPane.WARNING_MESSAGE);
+                break;
+            case NOERROR:
+                JOptionPane.showMessageDialog(null,
+                        "Rifornimento eseguito correttamente.", "success", JOptionPane.INFORMATION_MESSAGE);
+                break;
+            default:
+                JOptionPane.showMessageDialog(null,
+                        "Impossibile eseguire rifornimento.", "alert", JOptionPane.ERROR_MESSAGE);
+                break;
+
+        }
+        annulla();
     }
 
 
-    private void annulla()
+    private void annulla()//pulisce i campi
     {
         tipoCialdeMenu.setSelectedIndex(0);
         textFieldQuantita.setValue(null);

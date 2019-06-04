@@ -10,6 +10,8 @@ import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 
+import static businessLogicLayer.commandPkg.Command.LaTazzaErrno.ERROREGENERICO;
+
 public class BackEndInvoker {
 
     private ControllerContabilita controllerContabilita;
@@ -22,12 +24,12 @@ public class BackEndInvoker {
 
     public BackEndInvoker(){ }
 
-    public boolean executeCommand(Command command) {
+    public Command.LaTazzaErrno executeCommand(Command command) {
         try{
             return command.execute();
         }catch (Exception e ){
             handleException(command,e);
-            return false;
+            return ERROREGENERICO;
         }
     }
 

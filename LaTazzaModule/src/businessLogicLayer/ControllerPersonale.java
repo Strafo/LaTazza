@@ -1,5 +1,6 @@
 package businessLogicLayer;
 
+import businessLogicLayer.commandPkg.Command;
 import dataAccessLayer.gatewaysPkg.IDao;
 import dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import presentationLayer.LaTazzaApplication;
@@ -10,6 +11,9 @@ import java.util.logging.Level;
 import java.util.logging.LogRecord;
 
 import static businessLogicLayer.ObserverSubscriptionType.PERSONALELIST;
+import static businessLogicLayer.commandPkg.Command.LaTazzaErrno.ERROREDATABASE;
+import static businessLogicLayer.commandPkg.Command.LaTazzaErrno.NOERROR;
+import static businessLogicLayer.commandPkg.Command.LaTazzaErrno.PERSONALEINESISTENTE;
 
 public class ControllerPersonale extends Observable {
 
@@ -65,31 +69,33 @@ public class ControllerPersonale extends Observable {
     }
 
 
-    public boolean aggiungiPersonale(String nome, String cognome)throws NullPointerException{
+    public Command.LaTazzaErrno aggiungiPersonale(String nome, String cognome)throws NullPointerException{
         Personale p=new Personale(nome,cognome);//può lanciare null pointer exception!
-        if(listaPersonaleAttivo.contains(p)) return false;
+        if(listaPersonaleAttivo.contains(p)){
+            return Command.LaTazzaErrno.PERSONALEGIAESISTENTE;
+        }
         if(!dao.save(p)){
-            return false;
+            return ERROREDATABASE;
         }
         listaPersonaleAttivo.add(p);
         this.setChanged();this.notifyObservers(PERSONALELIST);
-        return true;
+        return NOERROR;
     }
 
-    public boolean licenziaPersonale(Personale p) {
-        if (!listaPersonaleAttivo.contains(p)) return false;
+    public Command.LaTazzaErrno licenziaPersonale(Personale p) {
+        if (!listaPersonaleAttivo.contains(p)) return PERSONALEINESISTENTE;
         p.setAttivo(false);
         if (!dao.update(p)) {//se fallisce ripristino stato iniziale
             p.undoChanges();
-            return false;
+            return ERROREDATABASE;
         } else {
             listaPersonaleAttivo.remove(p);
         }
         this.setChanged();this.notifyObservers(PERSONALELIST);
-        return true;
+        return NOERROR;
     }
 
-    public boolean licenziaPersonale(String nome,String cognome) {
+    public Command.LaTazzaErrno licenziaPersonale(String nome, String cognome) {
         return licenziaPersonale(new Personale(nome,cognome));
 
     }

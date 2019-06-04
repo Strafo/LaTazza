@@ -27,10 +27,10 @@ public class RegistraVenditaCommand implements Command {
     }
 
     @Override
-    public boolean execute() {
+    public LaTazzaErrno execute() {
         Cliente cliente= personale?new Personale(nome,cognome):new Visitatore(nome,cognome);
         CialdeEntry cialda=backEndInvoker.getControllerCialde().getCialda(tipoCialda);
-        boolean result= backEndInvoker.getControllerContabilita().registraVendita(
+        LaTazzaErrno result= backEndInvoker.getControllerContabilita().registraVendita(
                 cliente,
                 cialda,
                 qta,

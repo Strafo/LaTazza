@@ -14,8 +14,7 @@ public class AggiungiPersonaleCommand implements Command {
     }
 
     @Override
-    public boolean execute() throws Exception {
-        boolean result= backEndInvoker.getControllerPersonale().aggiungiPersonale(nome,cognome);
-        return result;
+    public LaTazzaErrno execute() {
+        return backEndInvoker.getControllerPersonale().aggiungiPersonale(nome,cognome);
     }
 }

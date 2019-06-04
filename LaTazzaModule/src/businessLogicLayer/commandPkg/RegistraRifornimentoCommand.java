@@ -17,12 +17,8 @@ public class RegistraRifornimentoCommand implements  Command{
    }
 
     @Override
-    public boolean execute() {
-        System.out.println(tipoCialda);
-
+    public LaTazzaErrno execute() {
         CialdeEntry cialda= backEndInvoker.getControllerCialde().getCialda(tipoCialda);
-        System.out.println(cialda.getTipo());
-        boolean result= backEndInvoker.getControllerContabilita().registrareRifornimento(cialda,qta);
-        return result;
+        return backEndInvoker.getControllerContabilita().registrareRifornimento(cialda,qta);
     }
 }
