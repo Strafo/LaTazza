@@ -16,7 +16,7 @@ import java.util.List;
  * ESEMPIO:
  *  public static void main(String[] args) {
  *           Connection conn=.... in qualche modo definita;
- *           IDaoFacade dao=new DaoInvoker(conn);
+ *           IDao dao=new DaoInvoker(conn);
  *           List<Personale> listaPersonale=dao.getAll(Personale.class);//ottengo la lista del personale nel DB.
  *           Personale newPers=new Personale("George","Hotz",true);
  *           if(dao.save(newPers)){//se va tutto ok
@@ -55,7 +55,7 @@ import java.util.List;
  *           }
  *     }
  */
-public interface IDaoFacade {
+public interface IDao {
 
 
     /**
@@ -90,7 +90,7 @@ public interface IDaoFacade {
     <T extends AbstractEntryDB> boolean delete(T t);
 
     /**
-     * Il seguente metodo permette di iniziare una transazione per il database.Leggere doxygen endTransaction.
+     * Il seguente metodo permette di iniziare una transazione per il database.Leggere commento endTransaction.
      */
     void startTransaction();
 
@@ -109,6 +109,8 @@ public interface IDaoFacade {
      */
     boolean getTransactionStatus();
 
-
+    /**
+     * Setta lo status della transazione corrente.
+     */
+    void setTransactionStatus(boolean newStat);
 }
-

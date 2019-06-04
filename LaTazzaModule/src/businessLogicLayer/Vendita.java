@@ -12,30 +12,13 @@ public final class Vendita {
 
     private Vendita(){}
 
-    /**
-     *
-     * @param data
-     * @param cliente
-     * @param tipoCialda
-     * @param qta
-     * @param modalita
-     * @return
-     * @throws NullPointerException
-     */
+
     public static boolean aggiungiMovimentoVendita(Timestamp data, Cliente cliente, CialdeEntry tipoCialda, int qta, boolean modalita)
             throws NullPointerException{
         return LaTazzaApplication.backEndInvoker.getDao().save(new MovimentoVendita(data,cliente,qta,tipoCialda,modalita));
     }
 
-    /**
-     *
-     * @param cliente
-     * @param tipoCialda
-     * @param qta
-     * @param modalita
-     * @return
-     * @throws NullPointerException
-     */
+
     public static boolean aggiungiMovimentoVendita(Cliente cliente, CialdeEntry tipoCialda, int qta, boolean modalita)
             throws NullPointerException{
         Date date=new Date();

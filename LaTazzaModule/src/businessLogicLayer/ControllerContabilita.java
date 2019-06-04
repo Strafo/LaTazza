@@ -25,17 +25,6 @@ public  class ControllerContabilita extends Observable {
         this.setChanged();
     }
 
-
-    /**
-     *
-     * @param c
-     * @param tipo
-     * @param numeroCialde
-     * @param contanti
-     * @return
-     * @throws Euro.OverflowEuroException
-     * @throws IllegalArgumentException
-     */
     public boolean registraVendita(Cliente c, CialdeEntry tipo, int numeroCialde, boolean contanti)
             throws Euro.OverflowEuroException,IllegalArgumentException
     {
@@ -70,13 +59,6 @@ public  class ControllerContabilita extends Observable {
         return true;
     }
 
-
-    /**
-     *
-     * @param tipo
-     * @param numeroScatole
-     * @return
-     */
     public boolean registrareRifornimento(CialdeEntry tipo, int numeroScatole){
         Euro importo= new Euro(tipo.getPrezzo());
         int numeroCialde=numeroScatole*magazzino.getQtaCialdeScatole();
@@ -102,7 +84,7 @@ public  class ControllerContabilita extends Observable {
     private void handleMagazzinoConsistency(CialdeEntry tipo,int numeroCialde){
         try {
             if (!magazzino.aggiungiCialde(tipo, numeroCialde)) {
-                //se fallisce anche il tentativo di gestione dell'errore abortisco.L'user dovrà quindi riavviare
+                //se fallisce anche il tentativo di gestione dell'errore termino esec.L'utente dovrà quindi riavviare
                 //l'applicazione restaurando così la consistenza DB, Ram
                 //teoricamente non dovrebbe mai accadere in quanto rimuoviCialde() non è fallita... però non si sa mai...
                 throw new Error(new Throwable("Inconsistenza nell'applicazione."));

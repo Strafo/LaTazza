@@ -1,24 +1,30 @@
 package businessLogicLayer;
 
-import dataAccessLayer.gatewaysPkg.IDaoFacade;
+import dataAccessLayer.gatewaysPkg.IDao;
 import dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import presentationLayer.LaTazzaApplication;
+import utils.LaTazzaLogger;
 
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
 
 import static businessLogicLayer.ObserverSubscriptionType.PERSONALELIST;
 
 public class ControllerPersonale extends Observable {
 
     private List<Personale> listaPersonaleAttivo;
-    private IDaoFacade dao;
+    private IDao dao;
 
     public ControllerPersonale(){
         dao=LaTazzaApplication.backEndInvoker.getDao();
         listaPersonaleAttivo=dao.getAll(Personale.class);
         List<Personale> listaPersonaleNonA=new LinkedList<>();
-        if(listaPersonaleAttivo==null){//inizializzazione fallita...
-            //todo cosa fare?
+        if(listaPersonaleAttivo==null){//inizializzazione fallita... impossibile gestire l'errore->termino esecuzione
+            LaTazzaLogger.log(new LogRecord(
+                    Level.INFO,
+                    "Impossibile inizializzare listaPersonaleAttivo (Controller personale).\n"));
+            throw new Error("Impossibile inizializzare listaPersonaleAttivo (Controller personale).\n");
         }else{
             for (Personale i:listaPersonaleAttivo) {//seleziono solo quelli attivi
                 if(!i.isAttivo()) listaPersonaleNonA.add(i);
@@ -40,13 +46,6 @@ public class ControllerPersonale extends Observable {
         return getPersonale(new Personale(nome,cognome));
     }
 
-
-    /**
-     *
-     * @param personale
-     * @return
-     * @throws NullPointerException
-     */
     public Personale getPersonale(Personale personale)throws NullPointerException{
         Personale p=null;
         for(ListIterator<Personale>iter=listaPersonaleAttivo.listIterator();iter.hasNext();){
@@ -65,13 +64,7 @@ public class ControllerPersonale extends Observable {
         return new ArrayList<>(listaPersonaleAttivo);
     }
 
-    /**
-     *
-     * @param nome
-     * @param cognome
-     * @return
-     * @throws NullPointerException
-     */
+
     public boolean aggiungiPersonale(String nome, String cognome)throws NullPointerException{
         Personale p=new Personale(nome,cognome);//può lanciare null pointer exception!
         if(listaPersonaleAttivo.contains(p)) return false;
@@ -83,11 +76,6 @@ public class ControllerPersonale extends Observable {
         return true;
     }
 
-    /**
-     *
-     * @param p
-     * @return
-     */
     public boolean licenziaPersonale(Personale p) {
         if (!listaPersonaleAttivo.contains(p)) return false;
         p.setAttivo(false);
@@ -101,12 +89,6 @@ public class ControllerPersonale extends Observable {
         return true;
     }
 
-    /**
-     *
-     * @param nome
-     * @param cognome
-     * @return
-     */
     public boolean licenziaPersonale(String nome,String cognome) {
         return licenziaPersonale(new Personale(nome,cognome));
 

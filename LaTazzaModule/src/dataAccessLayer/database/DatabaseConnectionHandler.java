@@ -21,15 +21,13 @@ public class DatabaseConnectionHandler {
     }
 
     public DatabaseConnectionHandler(String databasePath){
-        PathHandler.modifyPath(databasePath);
-        this.path=DB_CONNECTION_DEFAULT+databasePath;
+        this.path=DB_CONNECTION_DEFAULT+PathHandler.modifyPath(databasePath);;
         options=DEFAULT_OPT;
 
     }
 
     public DatabaseConnectionHandler(String databasePath,String jdbcH2Mode,String options){
-        PathHandler.modifyPath(databasePath);
-        this.path=jdbcH2Mode+databasePath;
+        this.path=jdbcH2Mode+PathHandler.modifyPath(databasePath);;
         this.options=options;
     }
 

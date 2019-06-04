@@ -54,7 +54,7 @@ public class MovimentoVenditaDaoReceiver extends AbstractDaoReceiver<MovimentoVe
                             new Visitatore(rs.getString("nome"), rs.getString("cognome")),
                             rs.getInt("numero_cialde"),
                             new CialdeEntry(rs.getString("tipo_cialda")),
-                            true//todo non è detto
+                            true
                     )
             );
         }

@@ -1,7 +1,6 @@
 import dataAccessLayer.rowdatapkg.Cassa;
-import businessLogicLayer.Debito;
 import dataAccessLayer.gatewaysPkg.DaoInvoker;
-import dataAccessLayer.gatewaysPkg.IDaoFacade;
+import dataAccessLayer.gatewaysPkg.IDao;
 import dataAccessLayer.database.DatabaseConnectionHandler;
 import businessLogicLayer.commandPkg.InitBackEndCommand;
 import utils.Euro;
@@ -37,7 +36,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DaoTest{
 
     private boolean PRINT_LIST=true;
-    private IDaoFacade dao;
+    private IDao dao;
     private DatabaseConnectionHandler database;
     private Integer[] nEntry={14,4,4,4,5,5};//numero di inserimetni del file DefaultSetEntry.sql per le tabelle(in ordine):personale,cialde,visitatore,rifornimento,MovimentoDEbito,MovimentoVendita
 

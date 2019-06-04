@@ -55,7 +55,7 @@ public class LaTazzaFrameProperties {
     public void initFrame(JFrame frame){
 
         frame.setBounds(x,y,width, height);
-        frame.setDefaultCloseOperation(closeOp);//todo checksetBounds(100, 100, 800, 500);
+        frame.setDefaultCloseOperation(closeOp);//checksetBounds(100, 100, 800, 500);
         frame.setUndecorated(true);
         frame.setTitle("LaTazza");
     }
