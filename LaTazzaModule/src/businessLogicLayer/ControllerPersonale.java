@@ -24,6 +24,7 @@ public class ControllerPersonale extends Observable {
             LaTazzaLogger.log(new LogRecord(
                     Level.INFO,
                     "Impossibile inizializzare listaPersonaleAttivo (Controller personale).\n"));
+            throw new Error("Impossibile inizializzare listaPersonaleAttivo (Controller personale).\n");
         }else{
             for (Personale i:listaPersonaleAttivo) {//seleziono solo quelli attivi
                 if(!i.isAttivo()) listaPersonaleNonA.add(i);
