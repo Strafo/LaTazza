@@ -1,6 +1,6 @@
 package businessLogicLayer;
 
-import dataAccessLayer.gatewaysPkg.IDaoFacade;
+import dataAccessLayer.gatewaysPkg.IDao;
 import dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import presentationLayer.LaTazzaApplication;
 import utils.LaTazzaLogger;
@@ -14,7 +14,7 @@ import static businessLogicLayer.ObserverSubscriptionType.PERSONALELIST;
 public class ControllerPersonale extends Observable {
 
     private List<Personale> listaPersonaleAttivo;
-    private IDaoFacade dao;
+    private IDao dao;
 
     public ControllerPersonale(){
         dao=LaTazzaApplication.backEndInvoker.getDao();

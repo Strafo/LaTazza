@@ -1,5 +1,5 @@
 package businessLogicLayer;
-import dataAccessLayer.gatewaysPkg.IDaoFacade;
+import dataAccessLayer.gatewaysPkg.IDao;
 import dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import dataAccessLayer.rowdatapkg.movimentoPkg.Movimento;
 import dataAccessLayer.rowdatapkg.movimentoPkg.MovimentoDebito;
@@ -15,7 +15,7 @@ import static businessLogicLayer.ObserverSubscriptionType.DEBITOLIST;
 
 public  final class ControllerDebito extends Observable {
 
-    private IDaoFacade dao;
+    private IDao dao;
     private ControllerPersonale controllerPersonale;
     public   ControllerDebito(){
         dao=LaTazzaApplication.backEndInvoker.getDao();

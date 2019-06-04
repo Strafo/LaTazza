@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 
-public class DaoInvoker implements IDaoFacade {
+public class DaoInvoker implements IDao {
 
     private SimpleDaoReceiverFactory factory;
     private Connection dataBaseConnection;

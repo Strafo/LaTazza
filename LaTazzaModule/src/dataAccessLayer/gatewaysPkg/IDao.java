@@ -16,7 +16,7 @@ import java.util.List;
  * ESEMPIO:
  *  public static void main(String[] args) {
  *           Connection conn=.... in qualche modo definita;
- *           IDaoFacade dao=new DaoInvoker(conn);
+ *           IDao dao=new DaoInvoker(conn);
  *           List<Personale> listaPersonale=dao.getAll(Personale.class);//ottengo la lista del personale nel DB.
  *           Personale newPers=new Personale("George","Hotz",true);
  *           if(dao.save(newPers)){//se va tutto ok
@@ -55,7 +55,7 @@ import java.util.List;
  *           }
  *     }
  */
-public interface IDaoFacade {
+public interface IDao {
 
 
     /**
@@ -114,4 +114,3 @@ public interface IDaoFacade {
      */
     void setTransactionStatus(boolean newStat);
 }
-

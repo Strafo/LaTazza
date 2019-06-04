@@ -1,5 +1,5 @@
 package businessLogicLayer;
-import dataAccessLayer.gatewaysPkg.IDaoFacade;
+import dataAccessLayer.gatewaysPkg.IDao;
 import dataAccessLayer.rowdatapkg.CialdeEntry;
 import dataAccessLayer.rowdatapkg.MagazzinoEntry;
 import dataAccessLayer.rowdatapkg.RifornimentoEntry;
@@ -13,7 +13,7 @@ public class Magazzino {
     private Map<CialdeEntry,Integer> stato;
     //Il numero di cialde contenute in una scatola
     private static final int qtaCialdeScatole=50;
-    private IDaoFacade dao;
+    private IDao dao;
 
 
     int getQtaCialdeScatole(){

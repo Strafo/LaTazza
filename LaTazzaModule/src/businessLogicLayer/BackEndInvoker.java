@@ -1,6 +1,6 @@
 package businessLogicLayer;
 
-import dataAccessLayer.gatewaysPkg.IDaoFacade;
+import dataAccessLayer.gatewaysPkg.IDao;
 import dataAccessLayer.database.DatabaseConnectionHandler;
 import businessLogicLayer.commandPkg.Command;
 import utils.LaTazzaLogger;
@@ -17,7 +17,7 @@ public class BackEndInvoker {
     private ControllerCialde controllerCialde;
     private ControllerDebito controllerDebito;
     private DatabaseConnectionHandler databaseConnectionHandler;
-    private IDaoFacade dao;
+    private IDao dao;
     private Map<ObserverSubscriptionType, Observable> subscriptions;
 
     public BackEndInvoker(){ }
@@ -99,11 +99,11 @@ public class BackEndInvoker {
         this.databaseConnectionHandler = databaseConnectionHandler;
     }
 
-    public IDaoFacade getDao() {
+    public IDao getDao() {
         return dao;
     }
 
-    public void setDao(IDaoFacade dao) {
+    public void setDao(IDao dao) {
         this.dao = dao;
     }
 
