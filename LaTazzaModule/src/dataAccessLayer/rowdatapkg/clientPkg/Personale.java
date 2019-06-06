@@ -1,8 +1,9 @@
 package dataAccessLayer.rowdatapkg.clientPkg;
-import businessLogicLayer.Debito;
 import utils.Euro;
 import dataAccessLayer.mementoPkg.Memento;
 import dataAccessLayer.mementoPkg.MementoPersonale;
+
+import java.util.Objects;
 
 
 public final class Personale extends Cliente  {
@@ -18,14 +19,6 @@ public final class Personale extends Cliente  {
     public void setAttivo(boolean attivo) {
         setMementoIfNotDef();
         this.attivo = attivo;
-    }
-
-    public Debito getDebito() {
-        return debito;
-    }
-
-    public void setDebito(Debito debito) {
-        this.debito = debito;
     }
 
     public void aumentaDebito(Euro importo) throws Euro.OverflowEuroException,NullPointerException{
@@ -80,5 +73,47 @@ public final class Personale extends Cliente  {
         this.attivo=oldState.isAttivo();
         //debito non viene toccato perchè non fa parte di memento
         removeMemento();
+    }
+
+    public static class Debito  {
+        private Euro quantita;
+
+        public Debito(Euro quantita){
+
+            this.quantita=Objects.requireNonNull(quantita);
+        }
+
+        public void sommaDebito(Euro importo) throws Euro.OverflowEuroException,NullPointerException {
+
+            this.quantita.aggiungiImporto(importo);
+        }
+
+        public Euro getImporto(){
+            return new Euro(quantita);
+        }
+
+        /**
+         *
+         * @param importo
+         * @return se importo>quantita l'operazione viene abortita e ritorna false, altrimenti true
+         */
+        private boolean sottraiDebito(Euro importo) throws NullPointerException{
+            if (Euro.compare(importo, quantita) > 0) return false;
+            quantita.sottraiImporto(importo);
+            return true;
+
+        }
+
+
+
+        public boolean pagamentoDebito(Personale pers,Euro importo) throws NullPointerException{
+            return sottraiDebito(importo);
+        }
+
+        @Override
+        public String toString() {
+                return quantita.toString();
+        }
+
     }
 }
