@@ -18,7 +18,9 @@ public class PagamentoDebitoCommand implements Command {
     }
 
     @Override
-    public LaTazzaErrno execute() throws Exception {
-      return backEndInvoker.getControllerDebito().registrarePagamentoDebito(importo,nome,cognome);
+    public LaTazzaErrno execute(){
+        LaTazzaErrno lte= backEndInvoker.getControllerDebito().registrarePagamentoDebito(importo,nome,cognome);
+        backEndInvoker.getControllerContabilita().updateCassa();
+        return lte;
     }
 }

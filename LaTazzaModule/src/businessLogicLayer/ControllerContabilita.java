@@ -83,7 +83,13 @@ public  class ControllerContabilita extends Observable {
         return  magazzino.getCopyStato();
     }
 
-
+    /**
+     * Raiggiorna la cassa chiedendo al DB.
+     */
+    public void updateCassa(){
+        cassa= LaTazzaApplication.backEndInvoker.getDao().getAll(Cassa.class).get(0);
+        this.setChanged();this.notifyObservers(CONTABILITALIST);
+    }
     /**GESTIONE CONSISTENZA**/
 
     private void handleMagazzinoConsistency(CialdeEntry tipo,int numeroCialde){

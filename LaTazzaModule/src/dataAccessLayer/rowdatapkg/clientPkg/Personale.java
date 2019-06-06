@@ -27,7 +27,7 @@ public final class Personale extends Cliente  {
 
     public boolean pagamentoDebito(Euro importo) throws NullPointerException{
 
-        return debito.pagamentoDebito(this,importo);
+        return debito.pagamentoDebito(importo);
     }
 
     public Euro getImportoDebito(){
@@ -106,7 +106,7 @@ public final class Personale extends Cliente  {
 
 
 
-        public boolean pagamentoDebito(Personale pers,Euro importo) throws NullPointerException{
+        public boolean pagamentoDebito(Euro importo) throws NullPointerException{
             return sottraiDebito(importo);
         }
 
