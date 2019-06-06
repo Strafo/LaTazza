@@ -67,7 +67,9 @@ public  class ControllerContabilita extends Observable {
         if(!cassa.decrementaSaldo(importo)){
             return FONDIINSUFFICIENTI;
         }
-        magazzino.aggiungiScatole(tipo,numeroScatole);
+        if(!magazzino.aggiungiScatole(tipo,numeroScatole)){
+            return ERROREDATABASE;
+        }
         this.setChanged();this.notifyObservers(CONTABILITALIST);
         return NOERROR;
 
