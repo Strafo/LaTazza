@@ -15,8 +15,6 @@ public final class MovimentoDebito extends Movimento {
         this.importo=Objects.requireNonNull(importo);
     }
 
-    public MovimentoDebito(){}
-
     public Euro getImporto() {
         return importo;
     }

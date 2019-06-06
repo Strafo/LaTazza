@@ -13,9 +13,8 @@ public class LicenziaPersonaleCommand implements  Command{
     }
 
     @Override
-    public boolean execute() throws Exception {
-        boolean result= backEndInvoker.getControllerPersonale().licenziaPersonale(nome,cognome);
-        return result;
+    public LaTazzaErrno execute() throws Exception {
+        return backEndInvoker.getControllerPersonale().licenziaPersonale(nome,cognome);
     }
 }
 

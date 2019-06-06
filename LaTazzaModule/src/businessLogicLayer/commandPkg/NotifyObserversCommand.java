@@ -15,10 +15,10 @@ public class NotifyObserversCommand implements Command {
     }
 
     @Override
-    public boolean execute() throws NullPointerException {
+    public LaTazzaErrno execute() throws NullPointerException {
         for (ObserverSubscriptionType sub:subscriptionTypes) {
             backEndInvoker.getSubscriptions().get(sub).notifyObservers(sub);
         }
-        return true;
+        return LaTazzaErrno.NOERROR;
     }
 }

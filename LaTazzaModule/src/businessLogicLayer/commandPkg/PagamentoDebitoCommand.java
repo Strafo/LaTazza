@@ -18,8 +18,7 @@ public class PagamentoDebitoCommand implements Command {
     }
 
     @Override
-    public boolean execute() throws Exception {
-      boolean result= backEndInvoker.getControllerDebito().registrarePagamentoDebito(importo,nome,cognome);
-      return result;
+    public LaTazzaErrno execute() throws Exception {
+      return backEndInvoker.getControllerDebito().registrarePagamentoDebito(importo,nome,cognome);
     }
 }

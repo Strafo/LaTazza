@@ -33,7 +33,7 @@ public class InitBackEndCommand implements  Command{
 
 
     @Override
-    public boolean execute() throws SQLException, ClassNotFoundException {
+    public LaTazzaErrno execute() throws SQLException, ClassNotFoundException {
 
         backEndInvoker.setDatabaseConnectionHandler(new DatabaseConnectionHandler());
         backEndInvoker.getDatabaseConnectionHandler().initDataBase();
@@ -72,7 +72,7 @@ public class InitBackEndCommand implements  Command{
             }
         }
 
-        return true;
+        return LaTazzaErrno.NOERROR;
     }
 
 

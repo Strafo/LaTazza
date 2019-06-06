@@ -206,12 +206,21 @@ public class RegistraVendite extends AbstractPanel {
                 isPersonale,
                 LaTazzaApplication.backEndInvoker
         );
-        if (!LaTazzaApplication.backEndInvoker.executeCommand(command)) {
-            System.err.println("Impossibile registrare vednita");
-            JOptionPane.showMessageDialog(null,
-                    "Impossibile registare vendita", "alert", JOptionPane.ERROR_MESSAGE);
-        } else{
-            System.err.println("Vendita avvenuta con successo");
+
+        switch (LaTazzaApplication.backEndInvoker.executeCommand(command)){
+            case CIALDEINSUFF:
+                JOptionPane.showMessageDialog(null,
+                        "Impossibile registrare vendita, cialde insufficienti.", "alert", JOptionPane.WARNING_MESSAGE);
+                break;
+            case NOERROR:
+                JOptionPane.showMessageDialog(null,
+                        "Vendita registrata correttamente.", "success", JOptionPane.INFORMATION_MESSAGE);
+                break;
+            default:
+                JOptionPane.showMessageDialog(null,
+                        "Impossibile registrare vendita", "alert", JOptionPane.ERROR_MESSAGE);
+                break;
+
         }
         annulla();//refresha il campo contanti e il campo nomeutente
     }

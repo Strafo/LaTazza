@@ -28,7 +28,6 @@ public class StatoPane extends AbstractPanel {
     private JTextArea debitiPersonaleTextArea;
     private JScrollPane scrollPane, scrollPaneMagazzino;
     private  JTextArea statoMagazzino;
-    private MyJLabel labelCialde;
 
     public StatoPane() {
 
@@ -72,7 +71,7 @@ public class StatoPane extends AbstractPanel {
                             i.getCognome()+
                             " "+
                             i.getImportoDebito().getEuro()+
-                                    ","+
+                                    "."+
                             i.getImportoDebito().getCentesimi()+"\n"
             );
         }

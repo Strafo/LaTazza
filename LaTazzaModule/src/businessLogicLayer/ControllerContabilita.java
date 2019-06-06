@@ -1,5 +1,6 @@
 package businessLogicLayer;
 
+import businessLogicLayer.commandPkg.Command;
 import dataAccessLayer.rowdatapkg.Cassa;
 import dataAccessLayer.rowdatapkg.CialdeEntry;
 import dataAccessLayer.rowdatapkg.clientPkg.Cliente;
@@ -9,8 +10,8 @@ import presentationLayer.LaTazzaApplication;
 import utils.Euro;
 import java.util.Map;
 import java.util.Observable;
-
 import static businessLogicLayer.ObserverSubscriptionType.CONTABILITALIST;
+import static businessLogicLayer.commandPkg.Command.LaTazzaErrno.*;
 
 public  class ControllerContabilita extends Observable {
 
@@ -25,17 +26,17 @@ public  class ControllerContabilita extends Observable {
         this.setChanged();
     }
 
-    public boolean registraVendita(Cliente c, CialdeEntry tipo, int numeroCialde, boolean contanti)
+    public Command.LaTazzaErrno registraVendita(Cliente c, CialdeEntry tipo, int numeroCialde, boolean contanti)
             throws Euro.OverflowEuroException,IllegalArgumentException
     {
         if( c instanceof Visitatore && !contanti){
-            return false;
+            return ERROREVISITATOREDEBITO;
         }
 
         Euro importo= new Euro(tipo.getPrezzo());
         importo.moltiplicaImporto(numeroCialde);// throws Overflow, illegal
         if(!magazzino.rimuoviCialde(tipo,numeroCialde)){
-            return false;
+            return CIALDEINSUFF;
         }
         try {
             if (!contanti) {
@@ -53,20 +54,22 @@ public  class ControllerContabilita extends Observable {
         if(!Vendita.aggiungiMovimentoVendita(c,tipo,numeroCialde,contanti)){//se fallisce,riaggiungo le scatole
             handleMagazzinoConsistency(tipo,numeroCialde);
             handleDebitoCassaConsistency(importo,c,contanti);
-            return false;
+            return ERROREDATABASE;
         }
         this.setChanged();this.notifyObservers(CONTABILITALIST);
-        return true;
+        return NOERROR;
     }
 
-    public boolean registrareRifornimento(CialdeEntry tipo, int numeroScatole){
+    public Command.LaTazzaErrno registrareRifornimento(CialdeEntry tipo, int numeroScatole){
         Euro importo= new Euro(tipo.getPrezzo());
         int numeroCialde=numeroScatole*magazzino.getQtaCialdeScatole();
         importo.moltiplicaImporto(numeroCialde);
-        if(!cassa.decrementaSaldo(importo)) return false;
+        if(!cassa.decrementaSaldo(importo)){
+            return FONDIINSUFFICIENTI;
+        }
         magazzino.aggiungiScatole(tipo,numeroScatole);
         this.setChanged();this.notifyObservers(CONTABILITALIST);
-        return true;
+        return NOERROR;
 
     }
 
@@ -96,14 +99,15 @@ public  class ControllerContabilita extends Observable {
 
     private void handleDebitoCassaConsistency(Euro importo,Cliente c,boolean contanti){
         try {
-            boolean resState;
+            boolean resState=true;
+            Command.LaTazzaErrno lte=NOERROR;
             if (!contanti) {
-                resState = controllerDebito.registrarePagamentoDebito(importo, c.getNome(), c.getCognome());
+                lte = controllerDebito.registrarePagamentoDebito(importo, c.getNome(), c.getCognome());
             } else{
                 resState = cassa.decrementaSaldo(importo);
             }
 
-            if(!resState){
+            if(!resState||lte!=NOERROR){
                 throw new Error(new Throwable("Inconsistenza nell'applicazione."));
             }
         }catch(Exception e){

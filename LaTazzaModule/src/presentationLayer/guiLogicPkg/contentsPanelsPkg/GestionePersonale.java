@@ -3,7 +3,6 @@ package presentationLayer.guiLogicPkg.contentsPanelsPkg;
 import javax.swing.JLabel;
 
 import businessLogicLayer.ControllerPersonale;
-import businessLogicLayer.commandPkg.PersonaleGiaPresenteCommand;
 import dataAccessLayer.rowdatapkg.clientPkg.Personale;
 import presentationLayer.guiConfig.contentsPanelsPropertiesPkg.GestPersonaleProperties;
 import presentationLayer.LaTazzaApplication;
@@ -84,22 +83,23 @@ public class GestionePersonale extends AbstractPanel {
     public void confermaAggiungiPersonale() {
         String[] nomeCognome=textFieldAggiungi.getText().split(" ");
         AggiungiPersonaleCommand aggPersc;
-        PersonaleGiaPresenteCommand persGiaPresC;
 
-        persGiaPresC=new PersonaleGiaPresenteCommand(nomeCognome[0],nomeCognome[1],LaTazzaApplication.backEndInvoker);
         aggPersc= new AggiungiPersonaleCommand(nomeCognome[0],nomeCognome[1], LaTazzaApplication.backEndInvoker);
 
-        if(LaTazzaApplication.backEndInvoker.executeCommand(persGiaPresC)){
-            JOptionPane.showMessageDialog(null,
-                    "Personale già presente.", "alert", JOptionPane.WARNING_MESSAGE);
-        }else {
-            if (!LaTazzaApplication.backEndInvoker.executeCommand(aggPersc)) {
+        switch (LaTazzaApplication.backEndInvoker.executeCommand(aggPersc)){
+            case PERSONALEGIAESISTENTE:
                 JOptionPane.showMessageDialog(null,
-                        "Impossibile aggiungere personale", "alert", JOptionPane.ERROR_MESSAGE);
-            } else {
+                        "Impossibile aggiungere personale già esistente", "alert", JOptionPane.WARNING_MESSAGE);
+                break;
+            case NOERROR:
                 JOptionPane.showMessageDialog(null,
                         "Personale Aggiunto Correttamente.", "success", JOptionPane.INFORMATION_MESSAGE);
-            }
+                break;
+                default:
+                    JOptionPane.showMessageDialog(null,
+                            "Impossibile aggiungere personale", "alert", JOptionPane.ERROR_MESSAGE);
+                    break;
+
         }
     }
 
@@ -114,12 +114,18 @@ public class GestionePersonale extends AbstractPanel {
         }
         nomeCognome= personale.split(" ");
         LicenziaPersonaleCommand command = new LicenziaPersonaleCommand(nomeCognome[0], nomeCognome[1], LaTazzaApplication.backEndInvoker);
-        if (!LaTazzaApplication.backEndInvoker.executeCommand(command)){
-            System.err.println("Errore nel Licenziamento del Personale");
-            JOptionPane.showMessageDialog(null,
-                "Impossibile licenziare personale", "alert", JOptionPane.ERROR_MESSAGE);
-        }else
-        System.out.println("Personale Licenziato");
+
+        switch (LaTazzaApplication.backEndInvoker.executeCommand(command)){
+            case NOERROR:
+                JOptionPane.showMessageDialog(null,
+                        "Personale licenziato correttamente.", "success", JOptionPane.INFORMATION_MESSAGE);
+                break;
+            default:
+                JOptionPane.showMessageDialog(null,
+                        "Impossibile licenziare personale", "alert", JOptionPane.ERROR_MESSAGE);
+                break;
+
+        }
 
     }
 }
