@@ -65,6 +65,8 @@ public class StatoPane extends AbstractPanel {
     public void setDebitiPersonaleTextArea(List<Personale> listaPersonale){
         debitiPersonaleTextArea.setText(null);
         for(Personale i:listaPersonale){
+            int centesimi=i.getImportoDebito().getCentesimi();
+            String cs=centesimi<10?"0"+centesimi: String.valueOf(centesimi);
             debitiPersonaleTextArea.append(
                     i.getNome()+
                             " "+
@@ -72,9 +74,12 @@ public class StatoPane extends AbstractPanel {
                             " "+
                             i.getImportoDebito().getEuro()+
                                     "."+
-                            i.getImportoDebito().getCentesimi()+"\n"
+                            cs+"\n"
+
             );
+
         }
+
     }
 
 
