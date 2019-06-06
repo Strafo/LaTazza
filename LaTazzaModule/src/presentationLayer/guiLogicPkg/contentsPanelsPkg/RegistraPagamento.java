@@ -95,24 +95,29 @@ public class RegistraPagamento extends AbstractPanel {
         }
 
         if( personale==null){
-            System.err.println("Errore :nessun personale");
             JOptionPane.showMessageDialog(null,
                     "Personale selezionato non valido", "warning", JOptionPane.WARNING_MESSAGE);
             return;
         }
         nomeCognome= personale.split(" ");
 
-		if(value.contains(".")){
-			String[] euroCent= value.split("\\.");
-			euro= Long.valueOf(euroCent[0]);
-			strCent=euroCent[1];
-			if(euroCent[1].length()==1) strCent=strCent.concat("0");
-			cent= Integer.valueOf(strCent);
-			importo=new Euro(euro, cent);
-		}
-		else {
-			euro= Long.valueOf(value);
-			importo= new Euro(euro);
+        try {
+			if (value.contains(".")) {
+				String[] euroCent = value.split("\\.");
+				euro = Long.valueOf(euroCent[0]);
+				strCent = euroCent[1];
+				if (euroCent[1].length() == 1) strCent = strCent.concat("0");
+				cent = Integer.valueOf(strCent);
+				importo = new Euro(euro, cent);
+			} else {
+				euro = Long.valueOf(value);
+				importo = new Euro(euro);
+			}
+		}catch (IllegalArgumentException e){
+			JOptionPane.showMessageDialog(null,
+					"Inserire quantità euro positiva.", "error", JOptionPane.ERROR_MESSAGE);
+			annulla();
+			return;
 		}
 		PagamentoDebitoCommand command= new PagamentoDebitoCommand(nomeCognome[0],nomeCognome[1],importo,LaTazzaApplication.backEndInvoker);
 
