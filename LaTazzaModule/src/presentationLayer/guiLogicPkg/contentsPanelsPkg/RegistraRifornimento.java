@@ -59,16 +59,16 @@ public class RegistraRifornimento extends AbstractPanel {
     }
 
     private void conferma(){
-        String quantità= textFieldQuantita.getText().replaceAll("\\'","");
+        String quantita= textFieldQuantita.getText().replaceAll("\\'","");
         String tipocialda=(String)(tipoCialdeMenu.getSelectedItem());
 
-        if(quantità.isEmpty()){
+        if(quantita.isEmpty()){
             JOptionPane.showMessageDialog(null,
-                    "Inserire una quantità per il rifornimento", "warning", JOptionPane.WARNING_MESSAGE);
+                    "Inserire una quantita per il rifornimento", "warning", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        if(quantità.contains(".")){
+        if(quantita.contains(".")){
             JOptionPane.showMessageDialog(null,
                     "Inserire una quantià intera", "alert", JOptionPane.ERROR_MESSAGE);
             textFieldQuantita.setValue(null);
@@ -83,7 +83,7 @@ public class RegistraRifornimento extends AbstractPanel {
         }
         RegistraRifornimentoCommand command=new RegistraRifornimentoCommand(
                 tipocialda,
-                Integer.valueOf(quantità),
+                Integer.valueOf(quantita),
                 LaTazzaApplication.backEndInvoker
         );
 
