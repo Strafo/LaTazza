@@ -40,15 +40,25 @@ Powered by
 Progetto per il corso di Ingegneria del Software 2018/2019.
 
 Autori:
-    Simone Campisi
-    Jacopo Dapueto
-    Gabriele Armanino
-    Andrea Straforini
+    Simone Campisi      S4341240
+    Jacopo Dapueto      S4345255
+    Gabriele Armanino   S4361875
+    Andrea Straforini   S4338710
+
+
+ISTRUZIONI PER L'IMPORT IN ECLIPSE E L'ESECUZIONE (corso I.S.):
+0-unzippare l'archivio
+1-aprire eclipse
+2-
+
+
+
+
 
 GitRepository:
     https://github.com/Strafo/LaTazza
 
-Nella repo ci sono due jar:
+Inoltre nella repo ci sono due jar:
     1-LaTazza.jar  è il software gestionale richiesto dal corso
     2-LaTazzaDbAdmin.jar semplice shell per l'interazione con i db di tipo h2
 

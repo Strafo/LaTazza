@@ -177,6 +177,9 @@ public class ConfigurationDataBase {
             "insert into LATAZZASCHEMA.CIALDE values ('the', 0,50 );" +
             "insert into LATAZZASCHEMA.CIALDE values('caffe',0,50);" +
             "insert into LATAZZASCHEMA.CIALDE values('camomilla',0,50);" +
+            "insert into LATAZZASCHEMA.CIALDE values('caffe arabica',0,50);" +
+            "insert into LATAZZASCHEMA.CIALDE values('cioccolata',0,50);" +
+            "insert into LATAZZASCHEMA.CIALDE values('the limone',0,50);" +
             "insert into LATAZZASCHEMA.VISITATORE values ( 'Andrea', 'Manzi' );" +
             "insert into LATAZZASCHEMA.VISITATORE values ( 'Edoardo', 'Vignola' );" +
             "insert into LATAZZASCHEMA.VISITATORE values ( 'Marco', 'Rigardo' );" +
@@ -187,8 +190,12 @@ public class ConfigurationDataBase {
             "insert into LATAZZASCHEMA.PERSONALE values ( 'Gabriele', 'Armanino', true );" +
             "insert into LATAZZASCHEMA.RIFORNIMENTO values ('2019-01-12 12:00:00', 200,'caffe');" +
             "insert into LATAZZASCHEMA.RIFORNIMENTO values ('2018-05-11 12:00:00', 150,'the');" +
+            "insert into LATAZZASCHEMA.RIFORNIMENTO values ('2019-01-12 12:00:00', 200,'camomilla');" +
+            "insert into LATAZZASCHEMA.RIFORNIMENTO values ('2018-05-11 12:00:00', 100,'caffe arabica');" +
+            "insert into LATAZZASCHEMA.RIFORNIMENTO values ('2019-01-12 12:00:00', 200,'cioccolata');" +
+            "insert into LATAZZASCHEMA.RIFORNIMENTO values ('2018-05-11 12:00:00', 150,'the limone');" +
             "commit;"+
-            "insert into LATAZZASCHEMA.COMPRA_DIPENDENTE values ('Simone','Campisi', 'caffe',13,'2018-06-12 13:00:00',true);" +
+            "insert into LATAZZASCHEMA.COMPRA_DIPENDENTE values ('Simone','Campisi', 'caffe',1,'2018-06-12 13:00:00',true);" +
 
             "insert into LATAZZASCHEMA.COMPRA_DIPENDENTE values ('Gabriele','Armanino', 'the',8,'2018-06-11 14:00:00',false);" +
             "insert into LATAZZASCHEMA.COMPRA_DIPENDENTE values ('Simone','Campisi', 'caffe',13,'2018-06-10 13:00:00',false);" +
