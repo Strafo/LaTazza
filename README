@@ -1,3 +1,28 @@
+
+Skip to content
+Pull requests
+Issues
+Marketplace
+Explore
+@Strafo
+
+1
+1
+
+    0
+
+Strafo/LaTazza
+Code
+Issues 0
+Pull requests 1
+Projects 2
+Wiki
+Security
+Insights
+Settings
+LaTazza/README
+@Strafo Strafo modificato readme 434c01f 7 days ago
+83 lines (65 sloc) 4 KB
                   ,--,                               ,----,
                ,---.'|                             ,/   .`|
                |   | :                           ,`   .'  :
@@ -40,29 +65,18 @@ Powered by
 Progetto per il corso di Ingegneria del Software 2018/2019.
 
 Autori:
-    Simone Campisi      S4341240
-    Jacopo Dapueto      S4345255
-    Gabriele Armanino   S4361875
-    Andrea Straforini   S4338710
-
-
-ISTRUZIONI PER L'IMPORT IN ECLIPSE E L'ESECUZIONE (corso I.S.):
-0-in eclipse selezionere File->Import->General->Existing Projects into Workspace ecc...
-Nota bene:
-    La run configuration per LaTazzaApplication deve riportare:
-    1-come Program arguments la stringa "presentazione"
-    2-come working directory path la cartella "LaTazza"  (altrimenti non vengono caricate correttamente le immagini)
-
-Dopo l'avvio dell'applicazione LaTazza vengono creati 2 file (nella working directory corrente):
-    1- databaseLaTazza.mv.db
-    2- databaseLaTazza.trace.db
-Questi 2 file sono il database.
-
-
----INFO AGGIUNTIVE-----
+    Simone Campisi
+    Jacopo Dapueto
+    Gabriele Armanino
+    Andrea Straforini
 
 GitRepository:
     https://github.com/Strafo/LaTazza
+
+Nella repo ci sono due jar:
+    1-LaTazza.jar  è il software gestionale richiesto dal corso
+    2-LaTazzaDbAdmin.jar semplice shell per l'interazione con i db di tipo h2
+
 
 LaTazza.jar può essere avvita in due modi:
     1-Versione per la presentazione
@@ -74,6 +88,11 @@ Per avviare l'applicazione in modalità presentazione è sufficiente eseguire il
 Per avviare l'applicazione nella versione release è sufficiente eseguire il comando
     java -jar LaTazza.jar
 
+
+Dopo l'avvio dell'applicazione LaTazza vengono creati 2 file (nella working directory corrente):
+    1- databaseLaTazza.mv.db
+    2- databaseLaTazza.trace.db
+Questi 2 file sono il database.
 Se si vuole cambiare modalità(ad esempio da release a presentazione) è quindi necessario eliminare i 2 file *.db
 
 Note:il jar deve essere posizionato nella stessa cartella "parent" di iconeGui per una corretta visualizzazione delle
@@ -86,3 +105,18 @@ Note:il jar deve essere posizionato nella stessa cartella "parent" di iconeGui p
             |
             |
             L_____iconeGui
+
+    © 2019 GitHub, Inc.
+    Terms
+    Privacy
+    Security
+    Status
+    Help
+
+    Contact GitHub
+    Pricing
+    API
+    Training
+    Blog
+    About
+
